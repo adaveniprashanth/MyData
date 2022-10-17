@@ -1,0 +1,148 @@
+Blcokchain technology:
+
+1.Records/Transcations are created in the form of block.
+2. The chain fo blocks are called 'Ledger'.
+3.Ledgers are shared among all the nodes in the network. So it is called as Public Distributed Ledger.
+
+==>
+Blockchain can be discribed as:
+1.collection of records
+2.Linked with each other
+3.stronglt resistant to alteration/tamper
+4.Protected using cryptography
+
+==>Bitcoin transaction between users:
+1.Every user in the bitcoin network will have 2 keys. 1.Public key(ex: username) 2.Private key(ex: password).
+Process of transaction in detail:
+1. sender sends the data along with the sender and receiver's unique address to the Hashing algorithm.
+2. Hashing algorithm will do the encrypt the details along with senders private key.
+3. The encrypted message will distribute into the network along with receiver's public key.
+4. when the receiver receives the message he can decrypt the message only with his privte key.
+
+
+==> Different cryptocurrency uses different hashing algorithms:
+a. Bitcoin uses SHA256
+b. Ethereum uses ETHASH
+
+
+==>
+1.The transactions are validated and added block by block to blockchain and the people who validated are called miners.
+2. The minors have to solve the complex algorithms to validate the transactions.
+3. The process of solving the complex mathematic algorithm is called as "Proof of Work"
+4. The process of adding the block to the blockchain is called "Mining"
+
+==> Need of Blockchain:
+Blockchain will reduces the transcation fee, double spending(digital errors), net frauds and avoids the poor data recovery.
+
+==> Difference between bitcoin and Blockchain:
+-->Bitcoin:
+	It is a digital currency which is used to send/receive the money across world in decentralized manner.
+Featrues of bitcoin:
+1.It does not involve thrid party(ex:Bank)
+2.Fast and cheaper cost for money transfer.
+3.Personal information of user is hidden
+4.Cryptographycally secure
+
+-->Blockchain:
+	Blcokchain is distributed database of immutable record called blocks(record which contains details of transactional data)
+
+-->Block:
+	it contains 4 details: 1.Hash of previous block 2.Transaction data 3.Nonce 4.Hash value of itself.
+--> what is nonce:
+	Nonce is a number which is added to the hashed(encrypted) block in blockchain.
+	Nonce is used by the miners to verify the transactions and other data contained in block.
+
+Genesys block: The first block in the blockchain. And it does have the previous Hash value as 0000.
+
+==>How does Blockchain works:
+1.If sender wants to send the money/asset/data to the receiver, he will send the requested transaction to the peers(nodes) in the network.
+2.The people(miners) will validate the transaction and add as block to the previous blocks in blockchain.
+3.As a result receiver receives the money/asset/data.
+
+==>Featrues of block chain:
+1. SHA256 algorithm 2. Proof of work 3.Public and private key 4.Mining 5.Distributed public ledger.
+
+==> SHA-256 Encryption:
+	1.For a transaction blockchain uses cryptographic keys(public and private ) to secure the identities and Hash function makes the blockchain immutable.
+	2.SHA-256 is a one way algorithm. It means by using the hash algorithm, we cannot decrypt the data.
+
+==> verification process of transaction:
+1.When the transaction started, the transaction details passed to a Has algorithm and it generates a encrypted data. 
+2.The encrypted data passed to a signature algorithm along with the sender's private key and it generates a digitally signed document.
+3.The digitally signed document has been shared through the network along with the sender's public key.
+4. The miners will uses the digitally signed document along with senders public key to validate the transaction. And if the transaction is valid, then they will make it as a blcok and adds gthat block into blockchain.
+
+==>Distributed public ledger:
+	In which the digital data is recorded and verified at each node for preventing tampering of data.
+	Note: only a va;od transaction is propagated through out the network,while an invalid transaction will be discarded at the first node which receives it.
+
+==>Proof of work:
+	It is the process to detrmnine the number(Nonce) along with the cryptogarphic hash algorithm to produce the hash value less than the predefined target.
+
+-->How it works?
+1.Transaction data will be distributed across the (users)nodes in bitcoin network.
+2.Miners will validate the unverified transactions and add them as block in blockchain.
+3.To verify the transaction, miners have to do compete mathematical algorithms based on cryptographic hash function.
+4.The whole process is called Proof of work.
+
+Note:
+1. in blockchain network,the target is adjusted every 2016 blocks.
+2.On ana average, a block is mined for 10 minutes.
+3.The difficulty of the puzzle is maintained in a way such that it never deviates too much from the average time taken to mine a blcok.
+
+==>Mining:
+In blockchain, when the transaction cnfirmed as valid, then the block added to the blockchian and the miner will get a reward.
+The amount of bitcoin which rewarded will be halved after 4 years. It is called halfing concept in bitcoins.
+
+==> Details of block:
+It contains 2 parts. 1.Header 2. Transaction details.
+
+--> Header contains the following attributes.
+a.Block version number.
+b.Hash value of previous block.
+c.Timestamp at what time the block has verified by miners.
+d.Nonce
+e.Target value
+
+--> Transaction details  contains:
+a.sender and receiver's information.
+b.the data which is amount of bitcoins/data.
+
+The transaction details of a block are contained in a header in hex value known as merkle root.
+
+==>Merkle root: 
+	The block contains list of transactions and each transaction hashed through hashing algorithm and then again those hash values passed to hashing algorithm(as pairs) to get finally a single hash value.
+
+The header will pass to a hashing algorithm to get the hash value. Now that hash value will beocome the hash value of the block.
+
+==> Steps involved in creating and authenticating the digital signature are:
+1. the message will passed to hasing algorithm to get the hash value for the message.
+2. The hash value and senders private key will be passed to signature algorithm to create a digital signatuire.
+3. During the transmission, the user message and digital signature and public key transmitted to the network for validation of transaction.
+4. At receiver's end, the user message passed through the hashing algorithm. At the same time, the sender's public key and digital signature are passed through the verification algorithm.
+5. by comparing the 2 hash values we can authenticate the sender.
+
+==>Proof of work:
+	It involves the people aroung the world(miners) competing to be the first one to add the block to blockchain.
+
+The miners has to solve the mathematical puzzle to add the block to the blockchain. Actually there is a target hash value which has fixed in months advance.
+The miners uses the nonce value to generate a hash value which value is less than the target hash value. and the miner will transmits the nonce value which satisfies the condition across the world.
+
+==>Mining:
+	Mining is the process of adding the block to the blockchain. The miner is the first person who found the nocne value which fell within target requirement.
+
+==> Depth into blockchain:
+	Before adding the transactions to blockchain, they are collected in the temporary container called memory pool. And miners select the transaction from the memory pool and put them into the temporary block.
+--> Candidate block:
+		The candidate block is a temporary block which a miner hopes to add to the blockchain.
+
+--> Byzantine falut tolerance:
+		It will helps to avoid the fraud transactions details block to the block chain. we can assume that the block from a particular node is ‘faulty’ if the block is not received within a certain time limit. Furthermore, we can also assign a default response if the majority of nodes respond with a correct value.
+
+--> Adding 2 blocks at a time:
+		when miner1 and miner2 has achieved the target value at a same time, we cannot add 2 blocks same time. when miner3 added a block to the miner1 block,then miner2 block will be discarded and vice-versa will happen.
+
+--> Fork:
+		A fork is said to have taken place when a blockchain diverges into 2 potential paths. A fork happens when the users of network cannot come to an agreement with regards to a.Transaction details b.New  rules to validate transactions.
+
+There are  2 types of forks:
