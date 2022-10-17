@@ -1,0 +1,51 @@
+Jenkins Features:
+1. Easy bug detection
+2. extensible
+3. more plugins
+4. Distributed systems support
+
+
+Jenkins pipeline:
+1.developers commit the changes to source(github, perforce)
+2.jenkins server builds the build file
+3. performes the testing on the build files
+4. after passing the test cases it will release the build in environment
+5. finally it will deploy the build in production environment
+
+Jenkins architecture:
+it has been divided into 2 parts.
+1. developer push the code in to github
+2. then jenkins pulls the code from source repository and performs the tests and send the report to developers
+3. if the testcases passes, then jenkins build the build file using maven server.
+4. and filnally run the testcases using maven or selineum.
+
+Master slave architecture:
+jenkins master server will fetch the code from source repository and then 
+it will distribute its load to all its slaves. master will control the execution of code in its slaves.
+
+Jenkins prerequisites:
+1. java JDK 1.7 or 1.8
+
+Jenkins can be installed using normal application(jenkins.msi) or using jenkins.war file (java -jar  <filename>.war)
+
+jenkins root folder:
+it is a home folder for jenkins. where it will have all the configurations, workspaces and jobs.
+
+Jenkins dashboard parts:
+
+1.Manage jenkins:
+	it will have all the menu option to manage the jenkins application.
+	a. configure system: will helps to handle the home directory to store workspace, configurations 
+		it will helps to handle the no.of threads to run jenkins i.e. how many jobs have to execute at a time.
+		and Email notifications 
+	b. global tool configuration: will helps to set the applications which needs to be used to complete the execution on jenkins
+	
+	c. configure global security: will helps to handle/store the jenkins users details. so it can store these details in its own database or it 
+		can be connected to LDAP server.
+
+2.NewItem:
+	it will hepls to create a jenkins job for CI(continuous Integration). There you can create a freestyle job, pipeline, multipipeline project and maven project and etc.
+	Then selecting any one option you can get the option to control the job i.e. general details, job name,source code management,build triggers,build steps and post build actions etc.
+
+--> We can schedule the build using the option build periodically in build trigger options.
+  
