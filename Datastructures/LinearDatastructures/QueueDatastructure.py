@@ -34,3 +34,12 @@ if 1:
 
     print("After removing an element")
     q.display()
+
+'''
+There are four different types of queues:
+
+1.Simple Queue
+2.Circular Queue
+3.Priority Queue
+4.Double Ended Queue
+'''
