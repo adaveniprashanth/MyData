@@ -131,3 +131,62 @@ if 0:
     obj.dequeue()
     print("After removing an element from the queue")
     obj.printCQueue()
+
+    
+
+'''
+3.Priority Queue:
+'''
+'''
+4.Deque:
+    Deque or Double Ended Queue is a type of queue 
+    in which insertion and removal of elements can either be performed from the front or the rear.
+    Thus, it does not follow FIFO rule (First In First Out).
+    
+    Types of Deque
+    1.Input Restricted Deque:
+        In this deque, input is restricted at a single end but allows deletion at both the ends.
+    2.Output Restricted Deque:
+        In this deque, output is restricted at a single end but allows insertion at both the ends.
+'''
+
+if 1:
+    # Deque implementaion in python
+
+    class Deque:
+        def __init__(self):
+            self.items = []
+
+        def isEmpty(self):
+            return self.items == []
+
+        def addRear(self, item):
+            self.items.append(item)
+
+        def addFront(self, item):
+            self.items.insert(0, item)
+
+        def removeFront(self):
+            return self.items.pop(0)
+
+        def removeRear(self):
+            return self.items.pop()
+
+        def size(self):
+            return len(self.items)
+
+
+    d = Deque()
+    print(d.isEmpty())
+    d.addRear(8)
+    d.addRear(5)
+    d.addFront(7)
+    d.addFront(10)
+    print(d.size())
+    print(d.isEmpty())
+    d.addRear(11)
+    print(d.removeRear())
+    print(d.removeFront())
+    d.addFront(55)
+    d.addRear(45)
+    print(d.items)
