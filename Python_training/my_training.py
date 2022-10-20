@@ -2959,3 +2959,34 @@ if 0: #Creational Design patterns
         print(person1) # output --> Geeks
         print(person2) # output --> Geeks
         print(person3) # output --> Geeks
+
+if 0:
+    '''magic triplets'''
+
+    items = [10, 3, -4, 1, -6, 9]
+    items.sort()
+    length = len(items)
+    l = []
+    # Magic triplet is a group of three numbers whose sum is zero.
+    for i in range(length):
+        print("i",i)
+        firstelement =items[i]
+        # now we have to find the remaining numbers
+        needed_sum = -firstelement
+
+        ptr1 =i+1  #moving from left
+        ptr2 = length-1 #moving from right
+        while(ptr1 < ptr2):
+            total = items[ptr1]+items[ptr2]
+            print(items)
+            print(items[ptr1],items[ptr2],total,firstelement)
+            if(total  == needed_sum):
+                l.append([firstelement,items[ptr1],items[ptr2]])
+                print(l)
+                ptr1+=1 #moving one step forward
+            elif (total > needed_sum):
+                ptr2-=1
+            else:
+                ptr1+=1
+
+    print(l)
