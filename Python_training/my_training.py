@@ -848,6 +848,10 @@ if 0: #reverse the words in a string
     
 
 if 0:
+    print_primes = [x for x in range(2,25) if all(x%y !=0 for y in range(2,x))]
+    print(print_primes)
+
+    #priniting prime numbers:
     # Generator expressions
     a = range(8)
     b = [i+2 for i in a] #list comprehension
