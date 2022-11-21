@@ -1,8 +1,18 @@
+import configparser
 import pandas as pd
 import numpy as np
 from openpyxl import load_workbook,Workbook
 from openpyxl.styles import PatternFill,Alignment
 #https://jira.devtools.intel.com/browse/ADAD-16118
+#config file can be created using the file generate_config.py file. you can refer that file.
+#read file content
+config=configparser.ConfigParser()
+config.read("configurations.ini")
+input_file= config["FILESettings"]["input_filename"]
+consolidated_file=config["FILESettings"]["consolidated_filename"]
+jira_submission_file = config["FILESettings"]["jira_submission_filename"]
+
+print(input_file,consolidated_file,jira_submission_file)
 
 if 0:
     import pandas as pd
