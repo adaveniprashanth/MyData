@@ -1,0 +1,110 @@
+===> Numpy Arrays <===
+1.Arrays:
+	In fact, you can easily convert a Python list to a Numpy array using the np.array function, which takes in a Python list as its required argument. The function also has quite a few keyword arguments, but the main one to know is dtype. The dtype keyword argument takes in a NumPy type and manually casts the array to the specified type.
+
+==> When the elements of a NumPy array are mixed types, then the array's type will be upcast to the highest level type. 
+
+2.Copying:
+	Similar to Python lists, when we make a reference to a NumPy array it doesn't create a different array. Therefore, if we change a value using the reference variable, it changes the original array as well. We get around this by using an array's inherent copy function
+
+3.Casting:
+	We cast NumPy arrays through their inherent astype function. The function's required argument is the new type for the array. It returns the array cast to the new type.
+
+4.NaN:
+	When we don't want a NumPy array to contain a value at a particular index, we can use np.nan to act as a placeholder. A common usage for np.nan is as a filler value for incomplete data.
+
+==>Note that np.nan cannot take on an integer type.
+
+5.Infinity:
+	To represent infinity in NumPy, we use the np.inf special value. We can also represent negative infinity with -np.inf.
+
+==>Note that np.inf cannot take on an integer type.
+
+===> NumPy Basics <===
+
+1.Ranged data: syntax --> np.arange(start,stop,step,dtype)
+	While np.array can be used to create any array,NumPy provides an option to create ranged data arrays using "np.arange"
+
+==> linspacing data: np.linspace(start,stop,num,endpoint,dtype)
+	This function takes in a required first two arguments, for the start and end of the range, respectively. The end of the range is inclusive for np.linspace, unless the keyword argument endpoint is set to False. To specify the number of elements, we set the num keyword argument (its default value is 50).
+
+2.Reshaping data: syntax: np.reshape(array)
+	The new shape must exactly contain all the elements from the input array.
+
+	We are allowed to use the special value of -1 in at most one dimension of the new shape. The dimension with -1 will take on the value necessary to allow the new shape to contain all the elements of the array
+
+3.Transposing data: syntax --> np.transpose(array, axes=(dimension positions))
+	The function takes in a required first argument, which will be the array we want to transpose. It also has a single keyword argument called axes, which represents the new permutation of the dimensions.
+
+4.Zeros and Ones: syntax --> np.zeros((dimensions), dtype) --> np.zeros_like(array,dtype)
+	If we want to create an array of 0's or 1's with the same shape as another array, we can use np.zeros_like and np.ones_like.
+
+==> Math <==
+1.Arithmetic:
+	Using NumPy arrays, we can apply arithmetic to each element with a single operation.
+	Using NumPy arithmetic, we can easily modify large amounts of numeric data with only a few operations.
+
+2.Non-linear functions:syntax--> np.exp(array), np.log(array)  #here log is with  base e
+	The function np.exp performs a base e exponential on an array, while the function np.exp2 performs a base 2 exponential. Likewise, np.log, np.log2, and np.log10 all perform logarithms on an input array, using base e, base 2, and base 10, respectively.
+
+3.Matrix multiplicatoin: syntax --> np.matmul(arr1,arr2)
+	he dimensions of the two input matrices must be valid for a matrix multiplication. Specifically, the second dimension of the first matrix must equal the first dimension of the second matrix, otherwise np.matmul will result in a ValueError.
+	When both inputs are 1-D, the output is the dot product.
+
+==> Random functions <==
+1.Random integers: syntax--> np.random.randint(low,high,size=shape) 
+	The np.random.randint function takes in a single required argument, which actually depends on the high keyword argument.
+	If high=None (which is the default value), then the required argument represents the upper (exclusive) end of the range, with the lower end being 0.
+
+2.Utility functions: syntax-->np.random.seed(val)  -->np.random.shuffle(array)
+	We use the np.random.seed function to set the random seed, which allows us to control the outputs of the pseudo-random functions. The function takes in a single integer as an argument, representing the random seed. It is mainly used to freeze the O/P of the random functions output.
+	The np.random.shuffle function allows us to randomly shuffle an array. Note that the shuffling happens in place (i.e. no return value), and shuffling multi-dimensional arrays only shuffles the first dimension.
+
+3.Distributions: syntax--> np.random.uniform(low,high,size=shape)  -->np.random.normal(loc,scale,size=shape)  
+	Using np.random we can also draw samples from probability distributions. For example, we can use np.random.uniform to draw pseudo-random real numbers from a uniform distribution.
+	Like np.random.uniform, np.random.normal has no required arguments. The loc and scale keyword arguments represent the mean and standard deviation, respectively, of the normal distribution we sample from.
+
+4.Custom sampling: syntax --> np.random.choice(array,size=shape,p=[sum = 1]) 
+	The required argument for np.random.choice is the custom distribution we sample from. The p keyword argument denotes the probabilities given to each element in the input distribution. Note that the list of probabilities for p must sum to 1.
+
+==> Indexing <==
+1.argmin and argmax:  syntax --> np.argmax(array,axis)
+	The np.argmin and np.argmax functions take the same arguments. The required argument is the input array and the axis keyword argument specifies which dimension to apply the operation on.
+	Using axis=0 meant the function found the index of the minimum row element for each column. When we used axis=1, the function found the index of the minimum column element for each row.
+	Setting axis to -1 just means we apply the function across the last dimension.
+
+==> Filtering <==
+1.Filetring the data: --> np.isnan(array) --> array >0
+	Something to note is that np.nan can't be used with any relation operation. Instead, we use np.isnan to filter for the location of np.nan.
+
+2.Filtering in Numpy: syntax --> np.where(condition,positives,negatives)
+	The np.where function takes in a required first argument, which is a boolean array where True represents the locations of the elements we want to filter for. When the function is applied with only the first argument, it returns a tuple of 1-D arrays.
+
+	The tuple will have size equal to the number of dimensions in the data, and each array represents the True indices for the corresponding dimension. Note that the arrays in the tuple will all have the same length, equal to the number of True elements in the input argument.
+
+	The interesting thing about np.where is that it must be applied with exactly 1 or 3 arguments. When we use 3 arguments, the first argument is still the boolean array. However, the next two arguments represent the True replacement values and the False replacement values, respectively. The output of the function now becomes an array with the same shape as the first argument.
+
+3.Axis-wise filtering: --> np.any(condition,axis_value) -->np.all(condition,axis_value)
+	The np.any function is equivalent to performing a logical OR (||), while the np.all function is equivalent to a logical AND (&&) on the first argument. np.any returns true if even one of the elements in the array meets the condition and np.all returns true only if all the elements meet the condition. When only a single argument is passed in, the function is applied across the entire input array, so the returned value is a single boolean.
+	However, if we use a multi-dimensional input and specify the axis keyword argument, the returned value will be an array.
+
+==> Statistics <==
+1.Analysis: -->array.min(axis_value) -->array.max(axis_value)
+	For example, we can obtain minimum and maximum values of a NumPy array using its inherent min and max functions. argmax,argmin values returns the index positions of max and min values.
+
+2.Statistical methods: -->np.mean(array,axis_value) -->np.var(array,axis_value) -->np.median(array,axis_value)
+	Note that np.median applied without axis takes the median of the flattened array.
+
+==>Aggegation <==
+1.Summation: -->np.sum(array,axis_value)
+	To sum the values within a single array, we use the np.sum function.
+	Like np.sum, np.cumsum also takes in a NumPy array as a required argument and uses the axis argument. If the axis keyword argument is not specified, np.cumsum will return the cumulative sums for the flattened array.
+
+2.Concatenation: -->np.concatenate([arr1,arr2,...],axis_value)
+	Like the summation functions, np.concatenate uses the axis keyword argument. However, the default value for axis is 0 (i.e. dimension 0).Furthermore, the required argument for np.concatenate is a list of arrays, which the function combines into a single array.
+	For 2-D arrays, not setting the axis argument (defaults to axis=0) concatenates the arrays vertically. When we set axis=1, the arrays are concatenated horizontally.
+
+
+
+
+
