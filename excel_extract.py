@@ -1,54 +1,41 @@
 import configparser
 import pandas as pd
 import numpy as np
+import xlsxwriter
+import xlrd
 from openpyxl import load_workbook,Workbook
 from openpyxl.styles import PatternFill,Alignment
-#https://jira.devtools.intel.com/browse/ADAD-16118
-#config file can be created using the file generate_config.py file. you can refer that file.
-#read file content
+from openpyxl.utils import get_column_letter
+import sys
+from datetime import date
+
+print("you have to install the below packages to run")
+print("pandas,numpy,openpyxl and xlrd")
+print("pip install pandas\npip install numpy\npip install openpyxl\npip install xlrd")
+print("python script and input file should be in same folder")
+
+#importing from the config gile
 config=configparser.ConfigParser()
-config.read("configurations.ini")
+config.read("configurations.ini") #reading the config file
 input_file= config["FILESettings"]["input_filename"]
 consolidated_file=config["FILESettings"]["consolidated_filename"]
 jira_submission_file = config["FILESettings"]["jira_submission_filename"]
+workweek=config["FILESettings"]["work_week"]
+PONumber=config["FILESettings"]["PONumber"]
+Vendor=config["FILESettings"]["Vendor"]
+Team = config["FILESettings"]["Team"]
+Platform = config["FILESettings"]["Platform"]
+SKU = config["FILESettings"]["SKU"]
+BillableHeader =config["FILESettings"]["BillableHeader"]
+Location = config["FILESettings"]["Location"]
+L1Approver =config["FILESettings"]["L1Approver"]
+L2Approver = config["FILESettings"]["L2Approver"]
 
-print(input_file,consolidated_file,jira_submission_file)
-
-if 0:
-    import pandas as pd
-    ass="abc"
-    #df = pd.DataFrame({'link':['=HYPERLINK("http://www.someurl.com", "some website")']})
-    df = pd.DataFrame({'link':['=HYPERLINK("{}", "{}")'.format("https://www.google.com", "Check Google")]})
-    print(df.loc[0,"link"])
-    print(type(df.loc[0,"link"]))
-    df.to_excel('test.xlsx')
-if 0:
-    from openpyxl import Workbook
-
-    wb = Workbook()
-    sheet = wb.active
-
-    # Add a hyperlink
-    sheet.cell(row=1, column=1).value = '=HYPERLINK("{}", "{}")'.format("https://www.google.com", "Check Google")
-
-    wb.save("hyperlink_example.xlsx")
-if 0:
-    labels = np.random.randint(low=0,high=3,size=(10,1))
-    df = pd.DataFrame(labels)
-    #book = load_workbook('Logistic.xlsx')
-    book = load_workbook('test.xlsx')
-    writer = pd.ExcelWriter('Logistic1.xlsx',engine='openpyxl')
-    writer.book = book
-    writer.sheets = dict((ws.title,ws) for ws in book.worksheets)
-    df.to_excel(writer,"multi_labels")
-    writer.save()
-
-if 0:
-    #Excel file access
-    input_filename='WW_40_43_1.xlsx'
-    result_filename='consollidated_bill.xlsx'
+if 1:
+    input_filename=input_file#'WW_40_43_1.xlsx'
+    result_filename=consolidated_file#'consollidated_bill.xlsx'
     xL = pd.ExcelFile(input_filename)
-    print(xL.sheet_names)
+    print("sheets in excel file are\n",xL.sheet_names)
     list_of_sheets =xL.sheet_names
     print("total no.of sheets are ",len(list_of_sheets)) 
     df = pd.read_excel(input_filename,sheet_name=xL.sheet_names)#accessing sheets by name
@@ -86,38 +73,58 @@ if 0:
     jira_sumit_df[["Complexity"]]    
     ],axis=1)
     consolidated_df.to_excel(result_filename,sheet_name='data_set',index=False)
-    #https://jira.devtools.intel.com/browse/ADAD-16118
+    consolidated_df.to_clipboard(index=False)
+    
+    #convert column numbers to column names
+    def colToExcel(col): # col is 1 based
+        excelCol = str()
+        div = col
+        while div:
+            (div, mod) = divmod(div-1, 26) # will return (x, 0 .. 25)
+            excelCol = chr(mod + 65) + excelCol
+
+        return excelCol
+    
     wb = load_workbook(result_filename) 
-    ws = wb.get_sheet_by_name("data_set")
+    ws = wb["data_set"]
+    #ws.column_dimensions['A'].width = 25
     
-    
-    #Align the cells to center
-    for i in range(1,len(consolidated_df.iloc[:])+2):
-        for j in range(1,len(consolidated_df.iloc[0,:])+1):
-            ws.cell(row=i,column=j).alignment = Alignment(horizontal='center', vertical='center')
-    
-    #applying the colour to the column headings
+    #applying the colour to the column headings and adjusting the columns width 
     fill_cell = PatternFill(patternType='solid', fgColor='ffff00')
     for i in range(1,len(consolidated_df.iloc[0,:])+1):
         ws.cell(row=1,column=i).fill =fill_cell
+        ws.column_dimensions[colToExcel(i)].width = 25
     
+    #adding hyperlink
     for i in range(2,len(consolidated_df.iloc[:])+2):
         ws.cell(row=i, column=6).hyperlink = "https://jira.devtools.intel.com/browse/"+ws.cell(row=i, column=6).value
         ws.cell(row=i, column=6).value = ws.cell(row=i, column=6).value
         ws.cell(row=i, column=6).style = "Hyperlink"
     
+    #Align the cells to center
+    for i in range(1,len(consolidated_df.iloc[:])+2):
+        for j in range(1,len(consolidated_df.iloc[0,:])+1):
+            ws.cell(row=i,column=j).alignment = Alignment(horizontal='center', vertical='center',wrapText=True)
+            
+    
+    
+    
+    print("rows are",ws.rows)
     wb.save(result_filename)
+    #checking
+    
+    
     print("total rows in ",result_filename," are ",len(consolidated_df.iloc[:])+1)#1 includes column names
     print("output file name is ",result_filename)
-
+    
 
 if 1:
-    work_week=33
-    year=2022
-    input_filename='WW_40_43_1.xlsx'
-    result_file='jira_submission.xlsx'
+    
+    year=date.today().year
+    input_filename=input_file#'WW_40_43_1.xlsx'
+    result_file=jira_submission_file#'jira_submission.xlsx'
     xL = pd.ExcelFile(input_filename)
-    print(xL.sheet_names)
+    print("sheets in excel file are\n",xL.sheet_names)
     list_of_sheets =xL.sheet_names
     print("total no.of sheets are ",len(list_of_sheets)) 
     df = pd.read_excel(input_filename,sheet_name=xL.sheet_names)#accessing sheets by name
@@ -130,18 +137,18 @@ if 1:
         for j in range(l):
             if pd.notna(df[i].loc[j,"Assignee"]) and pd.notna(df[i].loc[j,"Intel Leads Approval"]) and df[i].loc[j,"Intel Leads Approval"].strip().lower() == "approved":
                 print("approved jira is ",df[i].loc[j,"Key"])
-                d = { "PONumber":int(3002139874),
-                      "Vendor":"Cerium",
-                      "Team":"E2E - Automation",
-                      "Platform":"RAILS",
-                      "SKU":"NA",
-                      "WW":work_week,
+                d = { "PONumber":int(PONumber),
+                      "Vendor":Vendor,
+                      "Team":Team,
+                      "Platform":Platform,
+                      "SKU":SKU,
+                      "WW":int(workweek),
                       "Year":year,
                       "JiraID":df[i].loc[j,"Key"],
-                      "BillableHeader":"StoryPointSlab",
-                      "Location":"SRR Bangalore",
-                      "L1Approver":"Kh, Brinda",
-                      "L2Approver":"Jain, Nalina"
+                      "BillableHeader":BillableHeader,
+                      "Location":Location,
+                      "L1Approver":L1Approver,
+                      "L2Approver":L2Approver
                     }
                 ser=pd.Series(d)
                 df1=df1.append(ser,ignore_index=True)
@@ -165,21 +172,35 @@ if 1:
     ws = wb.get_sheet_by_name("data_set")
     print("total rows are {} and total columns are {}".format(len(jira_submission.iloc[:]),len(jira_submission.iloc[0,:])))
 
-    #Align the cells to center
-    for i in range(1,len(jira_submission.iloc[:])+2):
-        for j in range(1,len(jira_submission.iloc[0,:])+1):
-            ws.cell(row=i,column=j).alignment = Alignment(horizontal='center', vertical='center')
-            
-    #applying the colour to the column headings
+    #convert column numbers to column names
+    def colToExcel(col): # col is 1 based
+        excelCol = str()
+        div = col
+        while div:
+            (div, mod) = divmod(div-1, 26) # will return (x, 0 .. 25)
+            excelCol = chr(mod + 65) + excelCol
+
+        return excelCol
+
+    #applying the colour to the column headings and adjusting the column size to 25 characters
     fill_cell = PatternFill(patternType='solid', fgColor='ffff00')
     for i in range(1,len(jira_submission.iloc[0,:])+1):
         ws.cell(row=1,column=i).fill =fill_cell
-    
+        ws.column_dimensions[colToExcel(i)].width = 25
+        
+        
     #adding the hyperlink to the cell for JIRA
     for i in range(2,len(jira_submission.iloc[:])+2):
         ws.cell(row=i, column=8).hyperlink = "https://jira.devtools.intel.com/browse/"+ws.cell(row=i, column=8).value
         ws.cell(row=i, column=8).value = ws.cell(row=i, column=8).value
         ws.cell(row=i, column=8).style = "Hyperlink"
+
+    
+    #Align the cells to center
+    for i in range(1,len(jira_submission.iloc[:])+2):
+        for j in range(1,len(jira_submission.iloc[0,:])+1):
+            ws.cell(row=i,column=j).alignment = Alignment(horizontal='center', vertical='center')
+            
     
     #save the excel file
     wb.save(result_file)
