@@ -1,0 +1,62 @@
+==>Introduction <==
+1.ML vs. Data SCience:
+	The main task for machine learning engineers is to first analyze the data for viable trends, then create an efficient input pipeline for training a model. This process involves using libraries like NumPy and pandas for handling data, along with machine learning frameworks like TensorFlow for creating the model and input pipeline.
+	While the NumPy and pandas libraries are also used in data science, the Data Preprocessing section will cover one of the core libraries that is specific to industry-level data science: scikit-learn. Data scientists tend to work on smaller datasets than machine learning engineers, and their main goal is to analyze the data and quickly extract usable results. Therefore, they focus more on traditional data inference models (found in scikit-learn), rather than deep neural networks.
+	
+==> Standardising data <== -->from sklearn.preprocessing import scale
+1.Standard data format:
+	When data can take on any range of values, it makes it difficult to interpret. Therefore, data scientists will convert the data into a standard format to make it easier to understand. The standard format refers to data that has 0 mean and unit variance (i.e. standard deviation = 1), and the process of converting data into this format is called data standardization.
+	Data standardization is a relatively simple process. For each data value, x, we subtract the overall mean of the data, μ, then divide by the overall standard deviation, σ. The new value, z, represents the standardized data value. Thus, the formula for data standardization is: z= (x-μ)/σ .
+	
+2.NumPy and and scikit-learn: -->standard = scale(ndarray), --> mean =standard.mean(axis_value)
+	Note: The array’s rows represent individual data observations, while each column represents a particular feature of the data, i.e. the same format as a spreadsheet data table.
+	The scikit-learn data preprocessing module is called sklearn.preprocessing. One of the functions in this module, scale, applies data standardization to a given axis of a NumPy array.
+	
+==> Data Range <==
+1.Range scaling:
+	Apart from standardizing data, we can also scale data by compressing it into a fixed range. One of the biggest use cases for this is compressing data into the range [0, 1]. This allows us to view the data in terms of proportions, or percentages, based on the minimum and maximum values in the data.
+	The formula for scaling based on a range is a two-step process. For a given data value, x, we first compute the proportion of the value with respect to the min and max of the data dmin and dmax, respectively).	
+	x_{prop} = (x - d_{min})/(d_{max} - d_{min})
+	The formula above computes the proportion of the data value, xprop. Note that this only works if not all the data values are the same. i.e. dmax != dminimum
+	We then use the proportion of the value to scale to the specified range, [rmin, rmax]. The formula below calculates the new scaled value, xscale"x_{scale}".
+	x_{scale} = x_{prop} .{(r_{max} - r_{min})} + r_{min}
+​​
+2.Range Complression with scikit-learn: -->from sklearn.preprocessing import MinMaxScaler
+	The MinMaxScaler transformer performs the range compression using the previous formula. Specifically, it scales each feature (column) of the data to a given range (where the default range is [0, 1]).
+	The MinMaxScaler object contains a function called fit_transform, which allows it to take in the input data array and then output the scaled data. The function is a combination of the object's fit and transform functions, where the former takes in an input data array and the latter transforms a (possibly different) array based on the data from the input to the fit function.
+	
+==>Robust scaling <==
+1.Data Outliers:
+	An important aspect of data that we have to deal with is outliers. In general terms, an outlier is a data point that is significantly further away from the other data points. For example, if we had watermelons of weights 5, 4, 6, 7, and 20 pounds, the 20 pound watermelon is an outlier.
+	The data scaling methods from the previous two chapters are both affected by outliers. Data standardization uses each feature's mean and standard deviation, while ranged scaling uses the maximum and minimum feature values, meaning that they're both susceptible to being skewed by outlier values.
+	We can robustly scale the data, i.e. avoid being affected by outliers, by using use the data's median and Interquartile Range (IQR). Since the median and IQR are percentile measurements of the data (50% for median, 25% to 75% for the IQR), they are not affected by outliers. For the scaling method, we just subtract the median from each data value then scale to the IQR.
+	
+==> NOrmalizing Data <==
+1.L2 Normalization:
+	So far, each of the scaling techniques we've used has been applied to the data features (i.e. columns). However, in certain cases we want to scale the individual data observations (i.e. rows). For instance, when clustering data we need to apply L2 normalization to each row.
+	L2 normalization applied to a particular row of a data array will divide each value in that row by the row's L2 norm. In general terms, the L2 norm of a row is just the square root of the sum of squared values for the row.
+	
+==> Data Imputations <==
+1.Data Imputaion methods: mean/median/most_frequent/constant
+	In real life, we often have to deal with data that contains missing values. Sometimes, if the dataset is missing too many values, we just don't use it. However, if only a few of the values are missing, we can perform data imputation to substitute the missing data with some other value(s).
+	There are many different methods for data imputation. In scikit-learn, the SimpleImputer transformer performs four different data imputation methods.
+	Note that the imputation will be done using any of method from each column.
+	
+2.Other Imputation methods:
+	There are also more advanced imputation methods such as k-Nearest Neighbors (filling in missing values based on similarity scores from the kNN algorithm) and MICE (applying multiple chained imputations, assuming the missing values are randomly distributed across observations).
+	
+==> Principal Component Analysis(PCA) <==
+1.Dimensionality Reduction:
+	Most datasets contain a large number of features, some of which are redundant or not informative. For example, in a dataset of basketball statistics, the total points and points per game for a player will (most of the time) tell the same story about the player's scoring prowess.
+	When a dataset contains these types of correlated numeric features, we can perform principal component analysis (PCA) for dimensionality reduction (i.e. reducing the number of columns in the data array).
+	PCA extracts the principal components of the dataset, which are an uncorrelated set of latent variables that encompass most of the information from the original dataset. 
+	
+2.PCA IN scikit-learn --> from sklearn.decomposition import PCA -->PCA(n_components)
+	When initializing the PCA module, we can use the n_components keyword to specify the number of principal components. The default setting is to extract m - 1 principal components, where m is the number of features in the dataset.
+	
+==> Labeled Data <==
+1.Class labels: -->from sklearn.datasets import load_breast_cancer
+	A big part of data science is classifying observations in a dataset into separate categories, or classes. A popular use case of data classification is in separating a dataset into "good" and "bad" categories. For example, we can classify a dataset of breast tumors as either malignant or benign.
+	The load_breast_cancer function is part of the scikit-learn library, and its data comes from the Breast Cancer Wisconsin dataset.
+	From the load_breast_cancer function,the "data" array contains all the dataset values, while the "target" array contains the class ID labels for each row in "data". A class ID of 0 corresponds to a malignant tumor, while a class ID of 1 corresponds to a benign tumor.
+	Using the "target" class IDs, we separated the dataset into malignant and benign data arrays. In other words, the malignant array contains the rows of "data" corresponding to the indexes in "target" containing 0, while the benign array contains the rows of "data" corresponding to the indexes in "target" containing 1. There are 212 malignant data observations and 357 benign observations.

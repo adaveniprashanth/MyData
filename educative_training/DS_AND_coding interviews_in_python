@@ -1,0 +1,52 @@
+General Tips #
+1.Every time a list or array gets iterated over c \times lengthc×length times, it is most likely  in O(n)O(n) time.
+2.When you see a problem where the number of elements in the problem space gets halved each time,  that will most probably be in O(log n)O(logn) runtime.
+3.Whenever you have a singly nested loop, the problem is most likely in quadratic time.
+
+List: In Python, an array is just an ordered sequence of heterogeneous elements.
+Lists operations:
+
+a_list = [2, 'Educative', 'A']
+
+
+def foo():
+    print('Hello from foo()!')
+
+
+another_list = [a_list, 'Python', foo, ['yet another list']]
+
+print(another_list[0][1])  # Second element of 'aList'
+# You can also invoke the functions inside a list!
+another_list[2]()  # 'Hello from foo()!'
+
+List Functions		Time complexity
+
+1.append(value)            O(1)
+2.insert(index,value)      O(n)
+3.remove(element)          O(n)
+4.pop()			   O(1)
+5.pop(index)               O(index)
+6.reverse()		   O(n)
+7.sort()                   O(nlogn)
+
+Slice_operations:
+====
+x = list(range(5))
+print(x)  # 0, 1, 2, 3, 4
+x[1:4] = [45, 21, 83]
+print(x)  # 0, 45, 21, 83, 4
+=======
+Arrays: In Python, an array is just an ordered sequence of homogeneous elements.
+Initialization of arrays:
+======
+import array
+new_array = array.array('type', [list])
+Example: new_array = array.array('d', [1, 2, 3])
+=====
+Array vs. List:
+==> Each list contains pointers to a block of pointers, each of which in turn points to a full Python object.
+
+==>Arrays in Python are implemented just like C arrays, with a pointer pointing to the first element of the array with the rest existing contiguously in the memory.
+
+
+

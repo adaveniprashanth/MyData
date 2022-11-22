@@ -1,0 +1,62 @@
+==> Introduction <==
+1.Creating models for data:
+	The main job of a data scientist is analyzing data and creating models for obtaining results from the data.The scikit-learn library provides many statistical models for linear regression. It also provides a few good models for classifying data.
+	When creating these models, data scientists need to figure out the optimal hyperparameters to use. Hyperparameters are values that we set when creating a model, e.g. certain constant coefficients used in the model's calculations.
+	
+==> Linear Regression <==
+1.What is Linear regression?
+	One of the main objectives in both machine learning and data science is finding an equation or distribution that best fits a given dataset. This is known as data modeling, where we create a model that uses the dataset's features as independent variables to predict output values for some dependent variable (with minimal error).
+	Since finding an optimal model for a dataset is difficult, we instead try to find a good approximating distribution. In many cases, a linear model (a linear combination of the dataset's features) can approximate the data well. The term linear regression refers to using a linear model to represent the relationship between a set of independent variables and a dependent variable. : Y = ax1+bx2+cx3+d
+	The above formula is example linear model which produces output y (dependent variable) based on the linear combination of independent variables x_1, x_2, x_3. The coefficients a, b, c and intercept d determine the model's fit.
+
+2.Basic Linear Regression:-->least squares regression
+	The simplest form of linear regression is called least squares regression. This strategy produces a regression model, which is a linear combination of the independent variables, that minimizes the sum of squared residuals between the model's predictions and actual values for the dependent variable.
+	In scikit-learn, the least squares regression model is implemented with the LinearRegression object, which is a part of the linear_model module in sklearn. The object contains a fit function, which takes in an input dataset of features (independent variables) and an array of labels (dependent variables) for each data observation (rows of the dataset).
+	After calling the fit function, the model is ready to use. The predict function allows us to make predictions on new data.
+	Finally, we can retrieve the coefficient of determination (or R2 value) using the score function applied to the dataset and labels. The R2 value tells us how close of a fit the linear model is to the data, or in other words, how good of a fit the model is for the data.
+	
+==> Ridge Regression <==
+1.Goals of chapter:
+i. Learn about regularization in linear regression
+ii. Learn about hyperparameter tuning using cross-validation
+iii. Implement a cross-validated ridge regression model in scikit-learn
+
+	When many of the dataset features are linearly correlated, e.g. if a dataset has multiple features depicting the same price in different currencies, it makes the least squares regression model highly sensitive to noise in the data.
+	Because real life data tends to have noise, and will often have some linearly correlated features in the dataset, we combat this by performing regularization. For ordinary least squares regression, the goal is to find the weights (coefficients) for the linear model that minimize the sum of squared residuals:
+	For regularization, the goal is to not only minimize the sum of squared residuals, but to do this with coefficients as small as possible. The smaller the coefficients, the less susceptible they are to random noise in the data. The most commonly used form of regularization is ridge regularization.
+	With ridge regularization, the goal is now to find the weights that minimize the following quantity:
+	penalty_term + sum of squared residuals
+
+	penalty term is α.(w2)**2   --> w2 is L2 norm of weights --> α hyperparameter
+	sum of squared residuals = sum of [(X_i.w -Y_i)2] -->  X_i represents the data observation and Y_i is the corresponding label
+
+2.Choosing the best hyparameter value(α):
+	In scikit-learn, we implement ridge regression in essentially the same way we implement ordinary least squares regression. We use the Ridge object (part of the linear_model module) to implement ridge regression.
+	We can specify the value of the α hyperparameter when initializing the Ridge object (the default is 1.0). However, rather than manually choosing a value, we can use cross-validation to help us choose the optimal α from a list of values.
+	
+==> LASSO Regression <==
+1.Sparse Regularization:
+	While ridge regularization uses an L2 norm penalty term, another regularization method called LASSO uses an L1 norm for the weights penalty term. Specifically, LASSO regularization will find the optimal weights to minimize the following quantity:
+	penalty_term + sum of squared residuals
+
+	penalty term is α.(w1)   --> w1 is L1 norm of weights --> α hyperparameter
+	sum of squared residuals = sum of [(X_i.w -Y_i)2] -->  X_i represents the data observation and Y_i is the corresponding label.
+	LASSO regularization tends to prefer linear models with fewer parameter values. This means that it will likely zero-out some of the weight coefficients.
+	
+==> Bayessian Regression <==
+1.Bayesian Techniques:
+	So far, we've discussed hyperparameter optimization through cross-validation. Another way to optimize the hyperparameters of a regularized regression model is with Bayesian techniques.
+	In Bayesian statistics, the main idea is to make certain assumptions about the probability distributions of a model's parameters before being fitted on data. These initial distribution assumptions are called priors for the model's parameters.
+	In a Bayesian ridge regression model, there are two hyperparameters to optimize: α and λ. The α hyperparameter serves the same exact purpose as it does for regular ridge regression; namely, it acts as a scaling factor for the penalty term.
+	The λ hyperparameter acts as the precision of the model's weights. Basically, the smaller the λ value, the greater the variance between the individual weight values.
+	
+2.Hyperparameter priors:
+	Both the α and λ hyperparameters have gamma distribution priors, meaning we assume both values come from a gamma probability distribution.
+	There's no need to know the specifics of a gamma distribution, other than the fact that it's a probability distribution defined by a shape parameter and scale parameter.
+	Specifically, the α hyperparameter has prior:Γ(α1,α​2​​)
+		and the λ hyperparameter has prior:Γ(λ1,λ2​​)
+	
+	where Γ(k, θ) represents a gamma distribution with shape parameter k and scale parameter θ.
+	
+3.Tuning the model:
+	When finding the optimal weight settings of a Bayesian ridge regression model for an input dataset, we also concurrently optimize the α and λ hyperparameters based on their prior distributions and the input data.

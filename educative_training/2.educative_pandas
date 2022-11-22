@@ -1,0 +1,199 @@
+==> Introduction <==
+	In the Data Processing section, you will be using pandas to analyze Major League Baseball (MLB) data. The data comes courtesy of Sean Lahman, and contains statistics for every player, manager, and team in MLB history. The full database can be found and downloaded from the below link http://www.seanlahman.com/baseball-archive/statistics/.
+
+A. Data analysis:
+	Before doing any task with a dataset, it is a good idea to perform preliminary data analysis. Data analysis allows us to understand the dataset, find potential outlier values, and figure out which features of the dataset are most important to our application.
+
+B. pandas
+Since most machine learning frameworks (e.g. TensorFlow) are built on Python, it is beneficial to use a Python-based data analysis toolkit like pandas. pandas (all lowercase) is an excellent tool for processing and analyzing real world data, with utilities ranging from parsing multiple file formats to converting an entire data table into a NumPy matrix array.
+
+In the following chapters we'll dive into the main data analysis functionalities of pandas. For a complete overview of the pandas toolkit, you can visit the official pandas website.
+
+pandas website ==> https://pandas.pydata.org/pandas-docs/stable/
+
+C. Matplotlib and pyplot:
+	An essential part of data analysis is creating charts and plots to visualize the data. Similar to the saying, "a picture is worth a thousand words", data visualization can convey key data trends and correlations through a single figure.
+
+	The library we will use for data visualization in Python is Matplotlib. Specifically, we'll be using the pyplot API of Matplotlib, which provides a variety of plotting tools from simple line plots to advanced visuals like heatmaps and 3-D plots. While we will only touch on the basic necessities for our data analysis (e.g. line plots, boxplots, etc.), a full overview of Matplotlib can be found at the official website https://matplotlib.org/index.html.
+
+==> Series <==
+1.1-D data: --> pd.Series(data,dtype)
+	Similar to NumPy, pandas frequently deals with 1-D and 2-D data. However, we use two separate objects to deal with 1-D and 2-D data in pandas. For 1-D data, we use the pandas.Series objects, which we'll refer to simply as a Series.
+
+	A Series is created through the pd.Series constructor, which takes in no required arguments but does have a variety of keyword arguments.
+	Note that pd.Series upcasts values in the same way as np.array. Furthermore, since Series objects are 1-D, the ser variable represents a Series with lists as elements, rather than a 2-D matrix.
+
+2.Index: --> pd.Series(data,index)
+	 These integers are collectively referred to as the index of a Series, and each individual index element is referred to as a label.
+
+	However, we can specify a custom index via the index keyword argument of pd.Series.The index keyword argument needs to be a list or array with the same length as the data argument for pd.Series. The values in the index list can be any hashable type.
+
+3.Dictionary type:
+	Another way to set the index of a Series is by using a Python dictionary for the data argument. The keys of the dictionary represent the index of the Series, while each individual key is the label for its corresponding value.
+
+==> DataFrame <==
+1.2-D data: --> pd.DataFrame(data,index,columns)
+	For working with 2-D data, we use the pandas.DataFrame object, which we'll refer to simply as a DataFrame.
+
+	A DataFrame is created through the pd.DataFrame constructor, which takes in essentially the same arguments as pd.Series. However, while a Series could be constructed from a scalar (representing a single value Series), a DataFrame cannot.
+
+	Furthermore, pd.DataFrame takes in an additional columns keyword argument, which represents the labels for the columns (similar to how index represents the row labels).
+	
+	Note that when we use a Python dictionary for initialization, the DataFrame takes the dictionary's keys as its column labels.
+
+2.Upcasting: --> print(df.dtypes)
+	When we initialize a DataFrame of mixed types, upcasting occurs on a per-column basis. The dtypes property returns the types in each column as a Series of types.
+
+3.Appending rows: --> df.append(ser/df,ignore_index)
+	We can append additional rows to a given DataFrame through the append function. The required argument for the function is either a Series or DataFrame, representing the row(s) we append.
+	
+	Note that the append function returns the modified DataFrame but doesn't actually change the original. Furthermore, when we append a Series to the DataFrame, we either need to specify the name for the series or use the ignore_index keyword argument. Setting ignore_index=True will change the row labels to integer indexes.
+
+	Note that while appending with series, all columns will be upcasted,but while appending with dataFrame, only per-columns will be upcasted.
+
+4.Dropping data: -->df.drop(labels,axis)  or df.drop(index,columns) index/columns are in collection
+	The first way is using the labels keyword argument to specify the labels of the rows/columns we want to drop. We use this alongside the axis keyword argument (which has default value of 0) to drop from the rows or columns axis.
+
+	The second method is to directly use the index or columns keyword arguments to specify the labels of the rows or columns directly, without needing to use axis.
+
+	Note that when using labels and axis, we can't drop both rows and columns from the DataFrame.
+
+==> Combining <==
+1.Concatinating: --> pd.concat([df1,df2,...],axis_value)
+	The append function for concatenating DataFrame rows. To concatenate multiple DataFrames along either rows or columns, we use the pd.concat function.
+
+	The pd.concat function takes in a list of pandas objects (normally a list of DataFrames) to concatenate. The function also takes in numerous keyword arguments, with axis being one of the more important ones. The axis argument specifies whether we concatenate the rows (axis=0, the default), or concatenate the columns (axis=1).
+
+	Note that If the row/column labels did not match, so result was padded with NaN in locations where values did not exist.
+
+2.Merging: -->pd.merge(df1,df2)
+	Apart from combining DataFrames through concatenation, we can also merge multiple DataFrames. The function we use is pd.merge, which takes in two DataFrames for its two required arguments.
+
+	Without using any keyword arguments, pd.merge joins two DataFrames using all their common column labels.
+	
+	The rows that contain the exact same values for the common column labels will be merged.
+
+==> Indexing <==
+1.Direct indexing:
+	When indexing into a DataFrame, we can treat the DataFrame as a dictionary of Series objects, where each column represents a Series. Each column label then becomes a key, allowing us to directly retrieve columns using dictionary-like bracket notation.
+
+	Note that when we use a single column label inside the bracket (as was the case for col1 in the code example), the output is a Series representing the corresponding column. ex: df['c1']
+
+	When we use a list of column labels (as was the case for col1_df and col23), the output is a DataFrame that contains the corresponding columns. ex:df[['c1']] or df[['c1','c2']]
+
+	We can also use direct indexing to retrieve a subset of the rows (as a DataFrame). However, we can only retrieve rows based on slices, rather than specifying particular rows. 
+	ex:df[0:2] or df['r1':'r3']
+
+	Furthermore, when we tried to retrieve a single row based on its label, we received a KeyError. This is because the DataFrame treated 'r1' as a column label. ex: df['r1']
+
+2.Other Indexing: --> df.iloc[0],df.iloc[[0,1,2,..]] or df.iloc[[True,False,True]]
+	We use iloc to access rows based on their integer index. Using iloc we can access a single row as a Series, and specify particular rows to access through a list of integers or a boolean array.
+
+3.Other indexing:df.loc['r1'],df.loc[['r1','r3']] or df.loc[[True,False,True]] of df.loc['r1','c1']
+	The loc property provides the same row indexing functionality as iloc, but uses row labels rather than integer indexes. Furthermore, with loc we can perform column indexing along with row indexing, and set new values in a DataFrame for specific rows and columns.
+
+	Note that the way we access rows and columns together with loc is similar to how we access 2-D NumPy arrays.
+
+	Since we can't access columns on their own with loc or iloc, we still use bracket indexing when retrieving columns of a DataFrame.
+	
+==> File I/O Operations <==
+1.Reading Data: --> pd.read_csv(filename,index_col) -->pd.read_excel(file_name,index_col,sheet_name) -->pd.read_json(filename,orient)
+	One of the most important features in pandas is the ability to read from data files. pandas accepts a variety of file formats, ranging from CSV and Excel spreadsheets to SQL and even HTML.For reading data from a file, we use either the read_csv, read_excel, or read_json function, depending on the file type.
+
+	However, when we set the index_col keyword argument, we specify which column we want to use as the row labels.
+	When we don't use any keyword arguments, the returned DataFrame from pd.read_excel contains the first sheet of the Excel workbook.
+	sheet_name='Sheet1'  <-- returns content from 'sheet1'
+	sheet_name=[0,1]     <-- returns content from first sheet and second sheet
+	sheet_name=None      <-- returns content from ALL SHEETS
+	
+	When we don't use any keyword arguments, pd.read_json treats each outer key of the JSON data as a column label and each inner key as a row label.However, when we set orient='index', the outer keys are treated as row labels and the inner keys are treated as column labels.
+	
+2.Writing into files: --> df.to_csv(filename,index=False) ->df.to_excel(filename,index=False,sheet_name)  -->df.to_json(filename,orient)
+
+	Note that when we don't use any keyword arguments, to_csv will write the row labels as the first column in the CSV file.when we set index=False, to specify that we don't write the row labels into the CSV file.
+	
+	The basic to_excel function will only write a single DataFrame to a spreadsheet. However, if we want to write multiple spreadsheets in an Excel workbook, we first load the Excel file into a pd.ExcelWriter then use the ExcelWriter as the first argument to to_excel.
+
+	When we don't specify the sheet_name keyword argument, the Excel spreadsheet we write to is named 'Sheet1'. We can pass in custom names into sheet_name to avoid constantly writing to 'Sheet1'.
+	
+	The to_json function also uses the orient keyword argument that was part of pd.read_json. Like in pd.read_json, setting orient='index' will set the outer keys of the JSON data to the row labels and the inner keys to the column labels.
+	
+==> Grouping <==
+1.Grouping by column: -->pd.groupby(column_label) -->group_1 = df_group.get_group(group_name)
+	With pandas DataFrames, we can perform dataset grouping with the groupby function. A common usage of the function is to group a DataFrame by values from a particular column, e.g. a column representing years.
+
+2.Grouping by Multiple columns: -->df.groupby([column_label1,column_label2,..])\
+	DataFrame grouping is not just limited to a single column. Rather than passing a single column label into groupby, we can use a list of column labels to specify grouping by multiple columns.
+	
+==> Features <==
+1.Quantitative vs. categorical
+	We often refer to the columns of a DataFrame as the features of the dataset that it represents. These features can be quantitative or categorical.
+
+	A quantitative feature, e.g. height or weight, is a feature that can be measured numerically. These are features we could calculate the sum, mean, or other numerical metrics for.
+
+	A categorical feature, e.g. gender or birthplace, is one where the values are categories that could be used to group the dataset. These are the features we would use with the groupby function from the previous chapter.
+	
+2.Quantitative features: --> df.sum(axis_value), -->df.mean()
+	Two of the most important functions to use with quantitative features are sum and mean. In the previous chapter we also introduced sum and mean functions, which were used to aggregate quantitative features for each a group.
+	
+3.Weighted features: -->df.multiply([weights],axis)
+	Along with aggregating quantitative features, we can also apply weights to them. We do this through the multiply function.
+
+	The multiply function takes in a list of weights or a constant as its required argument. If a constant is used, the constant is multiplied across all the rows or columns (depending on the value of axis). If a list is used, then the position of each weight in the list corresponds to which row/column it is multiplied to.
+	
+	In contrast with sum and mean, the default axis for multiply is the columns axis. Therefore, to multiply weights along the rows of a DataFrame, we need to explicitly set axis=0.
+
+==> Filtering <==
+1.Filter conditions: --> df[column_label] > 40/data
+	In the Data Manipulation section, we used relation operations on NumPy arrays to create filter conditions. These filter conditions returned boolean arrays, which represented the locations of the elements that pass the filter.
+	In pandas, we can also create filter conditions for DataFrames. Specifically, we can use relation operations on a DataFrame's column features, which will return a boolean Series representing the DataFrame rows that pass the filter.
+
+2.Filters from functions: --> df[column_label].str.isalpha()
+	Apart from relation operations, pandas provides various functions for creating specific filter conditions. For columns with string values, we can use str.startswith, str.endswith, and str.contains to filter for specific strings. These functions work the exact same as their namesakes from the Python standard library.
+	We can also create filter conditions that check for values in a specific set, by using the isin function. The function only takes in one argument, which is a list of values that we want to filter for.	
+	In pandas, when a Series or DataFrame has a missing value at a location, it is represented by NaN. The NaN value in pandas is equivalent to np.nan in NumPy.
+	Similar to Numpy, we cannot use a relation operation to create a filter condition for NaN values. Instead, we use the isna and notna functions.
+	
+3.Feature filtering --> df[filter_function]
+	It is really easy to filter a DataFrame's rows based on filter conditions. Similar to direct indexing of a DataFrame, we use square brackets. However, the inside of the square brackets will now contain a filter condition.
+	
+==> Sorting <==
+1.Sorting by feature: df.sort_values(list_of_features,ascending_value)
+	In pandas, the sort_values function allows us to sort a DataFrame by one or more of its columns. The first argument is either a column label or a list of column labels to sort by.
+	The ascending keyword argument allows us to specify whether to sort in ascending or descending order (default is ascending order, i.e. ascending=True).
+	When sorting with a list of column labels, each additional label is used to break ties. Specifically, label i in the list acts as a tiebreaker for label i-1.
+	
+==> Metrics <==
+1.Numeric metrics: --> df.describe(percentiles=[percent values to be execute])
+	Rather than calculating several different metrics separately, pandas provides the describe function to obtain a summary of a DataFrame's numeric data.The percentiles argument takes in a list of decimal percentages, representing the percentiles we want returned in the summary.
+
+2.Categorical features: -->df.value_counts(normalize,ascending)
+	The frequency count for a specific category of a feature refers to how many times that category appears in the dataset. In pandas, we use the value_counts function to obtain the frequency counts for each category in a column feature.
+	Setting normalize=True returns the frequency proportions, rather than counts, for each category (note that the sum of all the proportions is 1). We can also set ascending=True to get the frequencies sorted in ascending order.
+
+3.Getting unique categories of feature: -->df[feature_name].unique()
+	If we just want the names of each unique category in a column, rather than the frequencies, we use the unique function.
+	
+==> Plotting <==
+1.Basics: -->df.plot() ,plt.show(), df.plot(x,y values)
+	After calling df.plot, which creates our line plot, we then use plt.show to open a separate window containing the visualization of the plot. You can also use plt.savefig to save the plot to a PNG or PDF file.
+	In addition to basic line plots, we can create other plots like histograms or boxplots by setting the kind keyword argument in plot.
+	We can also plot multiple features on the same graph. This can be extremely useful when we want visualizations to compare different features.
+
+==>To NumPy <==
+1.Machine Learning:
+	The DataFrame object is great for storing a dataset and performing data analysis in Python. However, most machine learning frameworks (e.g. TensorFlow), work directly with NumPy data. Furthermore, the NumPy data used as input to machine learning models must solely contain quantitative values.
+	Therefore, to use a DataFrame's data with a machine learning model, we need to convert the DataFrame to a NumPy matrix of quantitative data. So even the categorical features of a DataFrame, such as gender and birthplace, must be converted to quantitative values.
+	
+2.Indicator Features:
+	When converting a DataFrame to a NumPy matrix of quantitative data, we need to find a way to modify the categorical features in the DataFrame.
+	The easiest way to do this is to convert each categorical feature into a set of indicator features for each of its categories. The indicator feature for a specific category represents whether or not a given data sample belongs to that category.
+	Note that an indicator feature contains 1 when the row has that particular category, and 0 if the row does not.
+	
+3.Converting to Indicators: --> pd.get_dummies(df)
+	We convert each categorical feature of a DataFrame to indicator features with the get_dummies function. The function takes in a DataFrame as its required argument, and returns the DataFrame with each of its categorical features converted to indicator features.
+	Note that the indicator features have the original categorical feature's label as a prefix. This makes it easy to see where each indicator feature originally came from.
+	
+4.Converting to NumPy:--> converted_df.values
+	After converting all the categorical features to indicator features, the DataFrame should have all quantitative data. We can then convert to a NumPy matrix using the values function.
+	The rows and columns of the output matrix correspond to the rows and columns of the same position in the DataFrame.
