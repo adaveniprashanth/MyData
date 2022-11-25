@@ -1050,7 +1050,26 @@ if 0:
     print(c._Child__randomVariable)
     # This one prints Test2, so in fact what happened is that a new
     # private attribute was created in the subclass.
-    
+    #accessing the parent method in child using super keyword.
+    class P:
+    '''Parent'''
+    def my_method(self):
+        print('parent')
+
+class C(P):
+    '''Child'''
+    def my_method(self):
+        print('child')
+
+
+    def call_parent_method(self):
+        super().my_method()
+
+        
+child = C()
+child.call_parent_method()
+
+# parent
 # OOPS concepts
 # classews and objects
 # types of variables in class
