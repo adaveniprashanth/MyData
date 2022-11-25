@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-
-
-
 import array as arr
 a = arr.array('i',[1,2,3,4,5])
 # print(len(a))
@@ -846,7 +843,20 @@ if 0: #reverse the words in a string
     # d = " ".join(["".join(list(reversed(i))) for i in s.split()])
     print(d)
     
-
+# try/except/else/finally
+if 0:
+    b=4
+    c=2
+    try:
+        a = b/c
+    except ZeroDivisionError:
+        print("number cannot divide with zero")
+    except:
+        print("error is there")
+    else:
+        print("code executed with out any errors")
+    finally:
+        print("The execution code has completed")
 if 0:
     print_primes = [x for x in range(2,25) if all(x%y !=0 for y in range(2,x))]
     print(print_primes)
