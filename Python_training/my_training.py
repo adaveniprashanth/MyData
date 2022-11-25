@@ -57,6 +57,17 @@ del my_dict1['chris']
 # import pandas as pd
 # df = pd.DataFrame(my_dict['emp_details'])
 # print(df)
+#iterating over nested dictionary
+d = {'a':{'b':{'c':100}},'d':{'e':10}}
+
+def myprint(d):
+    for k, v in d.items():
+        if isinstance(v, dict):
+            myprint(v)
+        else:
+            print("{0} : {1}".format(k, v))
+myprint(d)
+
 import random as rd
 # print(int(20*rd.random()))
 # print(rd.random()+1)
