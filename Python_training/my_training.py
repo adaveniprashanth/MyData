@@ -2551,7 +2551,7 @@ if 0:
         print('no match')
 if 0:
     abc = 'guru99@google.com, careerguru99@hotmail.com, users@yahoomail.com'
-    emails = re.findall(r'[\w\.-]+@[\w\.-]+', abc)
+    emails = re.findall(r'[\w.]+@[\w.]+', abc)
     for email in emails:
         print(email)
 
