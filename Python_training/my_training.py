@@ -1378,7 +1378,7 @@ if 0:
         @abstractmethod
         def price(self,cost):
             pass
-    
+   
     
     '''Important thing is– you cannot create an object 
     for the abstract class with the abstract method.'''
@@ -1395,7 +1395,26 @@ if 0:
     house1 = first_house('my_house1')
     print(house1.description())
     print(house1.price(20))
+if 0:
+    from abc import ABC, abstractmethod
 
+
+    class AbstractClassExample(ABC):
+
+        @abstractmethod
+        def do_something(self):
+            print("Some implementation!")
+
+
+    class AnotherSubclass(AbstractClassExample):
+
+        def do_something(self):
+            super().do_something()  # still we can use the abstract method before overriding. But finally we have to override the method
+            print("The enrichment from AnotherSubclass")
+
+
+    x = AnotherSubclass()
+    x.do_something()
 
 # created at 16 feb 2021 in personal laptop
 
