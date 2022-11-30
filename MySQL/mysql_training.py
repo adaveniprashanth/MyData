@@ -1,5 +1,13 @@
 print("welcome to sql training")
 import sqlite3
+# For reference--> https://www.w3resource.com/sqlite/core-functions-replace.php for string methods
+# python code for running the commands:
+# sql='SELECT x FROM myTable WHERE x LIKE %s'
+# args=[beginningOfString+'%']
+# cursor.execute(sql,args)
+
+# beginningOfString += '%'
+# cursor.execute("SELECT x FROM myTable WHERE x LIKE ?", (beginningOfString,) )
 
 #******The below commands we cannot run using sqlite3 module
 '''
@@ -12,6 +20,7 @@ USE <DB Name> <-- to use that databse to create tables and run queries
 SELECT database(); <-- to display which database is currently using
 select @@hostname; <-- to check the hostname
 SHOW WARNINGS; <-- to dislpay the warnings
+source <sql file name>  <-- it will work only in mysql CLI environment only
 '''
 
 '''
@@ -43,7 +52,7 @@ cursor.execute("DROP TABLE IF EXISTS employees;")
 cursor.execute("DROP TABLE IF EXISTS hostels;")
 cursor.execute("DROP TABLE IF EXISTS shirts;")
 
-#CRUD OPERATIONS
+#CRUD OPERATION
 ###################################################################
 #CREATE operations:
 
@@ -130,12 +139,13 @@ if 0:
         print(i)
 
 ########################################
-#READ operations:
+# Create Table
 cursor.executescript('''CREATE TABLE IF NOT EXISTS hostels(
                     id INTEGER NOT NULL PRIMARY KEY,
                     name VARCHAR(20) NOT NULL,
                     location VARCHAR(50) NOT NULL,
                     cost INT NOT NULL);''')
+
 #CREATE operations:
 cursor.executescript('''
 INSERT OR IGNORE INTO hostels 
@@ -150,6 +160,10 @@ INSERT OR IGNORE INTO hostels
 ('satya','kalamandir',5000);
 ''')
 cursor.execute("INSERT OR IGNORE INTO hostels (cost,name,location) VALUES(5500,'ramya','belandur');")
+# Getting column names of table
+# To use cursor.description, you have to fetch at least one row from table.
+# names = [description[0] for description in cursor.description]
+# print(names)
 
 #READ operation
 if 0:
@@ -159,6 +173,9 @@ if 0:
         cursor.execute("SELECT * FROM hostels;")
         for i in cursor:
             print(i)
+        # Getting column names of table
+        names = [description[0] for description in cursor.description]
+        print(names)
     if 0:
         print("specific column from table")
         cursor.execute("SELECT name FROM hostels;")
@@ -355,6 +372,384 @@ if 0:
         cursor.execute("SELECT * FROM shirts;")
         for i in cursor:
             print(i)
+
+
+# loading the commands from file
+if 0:
+    # cursor.execute("source create_table.sql;")
+    #cursor.execute("source <sql file name>") #this method will be done in other way.
+    def split_commands(filename):
+        f=open(filename,'r')
+        commands = f.readlines()# we have to use readlines only. other wise use split with \n only
+        f.close()
+        return commands
+    def execute_commands(commands):
+        for i in commands:
+            cursor.execute(i)
+
+    file = 'create_table.sql'  # commands in the file should be in single line only
+    commands = split_commands(file)
+    execute_commands(commands)
+    print("printing the values")
+    for i in cursor:
+        print(i)
+
+# SQL string functions
+if 0:
+    def split_commands(filename):
+        f=open(filename,'r')
+        commands = f.readlines()# we have to use readlines only. other wise use split with \n only
+        f.close()
+        return commands
+    def execute_commands(commands):
+        for i in commands:
+            cursor.execute(i)
+
+    file = 'organisation_table.sql'  # commands in the file should be in single line only
+    # it contains id,first_name,last_name,profession,joining_year,salary as columns
+    commands = split_commands(file)
+    execute_commands(commands)
+    cursor.executescript('''INSERT OR IGNORE INTO organisation (first_name, last_name, profession, joining_year, salary,switched_companies)
+                                                            VALUES ('rajesh','kumar','ENGINEER',2006,30000,3),
+                                                                   ('kalyan','kumar','ANALYST',2003,23000,2),
+                                                                   ('pawan','kalyan','MANAGER',1997,45000,3);''')
+    print("printing the values")
+    for i in cursor:
+        print(i)
+
+    if 0:
+        # CONCAT method and using Alias concept also.Note: CONCAT is not supporting
+        # cursor.execute("SELECT CONCAT(first_name,' ',last_name) FROM organisation;")
+        # cursor.execute("SELECT CONACT_WS(' ',first_name,last_name) FROM organisation;")
+        cursor.execute("SELECT first_name||' '||last_name AS 'employee_details' FROM organisation;")
+        for i in cursor:
+            print(i)
+        print("priniting the column names")
+        names = [description[0] for description in cursor.description]
+        print(names)
+        print("without alias")
+        cursor.execute("SELECT first_name||' '||last_name FROM organisation;")
+        for i in cursor:
+            print(i)
+    if 0:
+#         SUBSTRING Method--> substr('string',start,end) or substr('string',start)
+        print("with starting and end positions")
+        cursor.execute("SELECT substr(first_name,1,4) FROM organisation;")
+        for i in cursor:
+            print(i)
+        print("with starting position only")
+        cursor.execute("SELECT substr(first_name,1) FROM organisation;")
+        for i in cursor:
+            print(i)
+
+        print("with negative indexing")
+        cursor.execute("SELECT SUBSTR(first_name,-5) FROM organisation;")
+        for i in cursor:
+            print(i)
+
+        print("using SUBSTR and concat methods together")
+        cursor.execute("SELECT SUBSTR(first_name,1,10)||'...' AS 'short_name' FROM organisation;")
+        for i in cursor:
+            print(i)
+    if 0: #RELPACE Method --> RELPACE(string, sub_string,replace_with)
+        print("using REPLACE method")
+        cursor.execute("SELECT REPLACE(first_name,'A','a') 'short_name' FROM organisation;")
+        for i in cursor:
+            print(i)
+        print("using REPLACE and SUBSTR methods together")
+        cursor.execute("SELECT REPLACE(SUBSTR(first_name,1,5),'A','a') AS 'short_name' FROM organisation;")
+        for i in cursor:
+            print(i)
+        print("using REPLACE and SUBSTR and concat methods together")
+        cursor.execute("SELECT REPLACE(SUBSTR(first_name,1,5),'A','a')||'...' AS 'short_name' FROM organisation;")
+        for i in cursor:
+            print(i)
+    if 0: #REVERSE Method --> strrev(string)
+        # <databasehandle>.create_function(<function name>,no.of arguments,operation)
+        database.create_function("strrev", 1, lambda s: s[::-1])
+        cursor.execute("SELECT strrev(first_name) AS 'short_name' FROM organisation;")
+        for i in cursor:
+            print(i)
+    if 0:#CHAR_LENGTH Method --> length(string)
+        cursor.execute("SELECT last_name,length(last_name) AS 'length' FROM organisation;")
+        for i in cursor:
+            print(i)
+        print("using CHAR_LENGTH and concat methods together")
+        cursor.execute("SELECT last_name||' is '||length(last_name)||' characters long ' AS 'length' FROM organisation;")
+        for i in cursor:
+            print(i)
+    if 0: #UPPER nad LOWER methods --> upper(string),LOWER(string)
+        cursor.execute("SELECT UPPER(first_name) FROM organisation;")
+        for i in cursor:
+            print(i)
+        cursor.execute("SELECT LOWER(first_name) FROM organisation;")
+        for i in cursor:
+            print(i)
+        print("using lower and concat methods together")
+        cursor.execute("SELECT 'My favourite name is '||LOWER(last_name) FROM organisation;")
+        for i in cursor:
+            print(i)
+    if 0:#practice
+        database.create_function("strrev", 1, lambda s: s[::-1])
+        cursor.execute("SELECT UPPER(strrev('why does my cat looks so weird'))")
+        for i in cursor:
+            print(i)
+        cursor.execute("SELECT REPLACE('I'||' '||'like'||' '||'cats',' ','-');")
+        for i in cursor:
+            print(i)
+        cursor.execute("SELECT REPLACE(first_name||' '||last_name,' ','-->') AS 'full name' FROM organisation;")
+        for i in cursor:
+            print(i)
+        cursor.execute("SELECT first_name AS 'forward',strrev(first_name) AS 'backward' FROM organisation;")
+        for i in cursor:
+            print(i)
+        cursor.execute("SELECT LOWER(first_name||' '||last_name) AS 'full name in lower case' FROM organisation;")
+        for i in cursor:
+            print(i)
+        cursor.execute("SELECT first_name||' '||last_name||' was joined in '||joining_year AS 'blurb' FROM organisation;")
+        for i in cursor:
+            print(i)
+        cursor.execute(
+            "SELECT first_name||' '||last_name AS 'full name',length(first_name||' '||last_name) AS 'char. count' FROM organisation;")
+        for i in cursor:
+            print(i)
+        print("full name,profession and salary")
+        cursor.execute(
+            "SELECT SUBSTR(first_name||' '||last_name,1,10)||'...' AS 'short name',profession AS 'Job','salary is '|| salary AS salary FROM organisation;")
+        for i in cursor:
+            print(i)
+        print("priniting the column names")
+        cursor.execute("SELECT * FROM organisation;")
+        names = [description[0] for description in cursor.description]
+        print(names)
+
+# Refining selections like getting particular rows and particular order
+if 0:
+    def split_commands(filename):
+        f=open(filename,'r')
+        commands = f.readlines()# we have to use readlines only. other wise use split with \n only
+        f.close()
+        return commands
+    def execute_commands(commands):
+        for i in commands:
+            cursor.execute(i)
+
+    file = 'organisation_table.sql'  # commands in the file should be in single line only
+    # it contains id,first_name,last_name,profession,joining_year,salary as columns
+    commands = split_commands(file)
+    execute_commands(commands)
+    cursor.executescript('''INSERT OR IGNORE INTO organisation (first_name, last_name, profession, joining_year, salary,switched_companies)
+                                                            VALUES ('rajesh','kumar','ENGINEER',2006,30000,3),
+                                                                   ('kalyan','kumar','ANALYST',2003,23000,2),
+                                                                   ('pawan','kalyan','MANAGER',1997,45000,3);''')
+    print("printing the values")
+    for i in cursor:
+        print(i)
+
+    if 0:#DISTINCT i.e getting unique values. like set in python
+        cursor.execute("SELECT DISTINCT last_name FROM organisation;")
+        for i in cursor:
+            print(i)
+        cursor.execute("SELECT DISTINCT joining_year FROM organisation;")
+        for i in cursor:
+            print(i)
+        print("using concat with DISTINCT")
+        cursor.execute("SELECT DISTINCT first_name||' '||last_name AS 'full name' FROM organisation;")
+        for i in cursor:
+            print(i)
+        #The below is also same as the above. DISTINCt will work on whole items
+        cursor.execute("SELECT DISTINCT first_name,last_name FROM organisation;")
+        for i in cursor:
+            print(i)
+    if 0:#ORDER BY --> By default, it is ordered in ascending order
+        print("ordered items in ascending order")
+        cursor.execute("SELECT * FROM organisation ORDER BY joining_year;")
+        for i in cursor:
+            print(i)
+
+        print("ordered items in descending order")
+        cursor.execute("SELECT * FROM organisation ORDER BY joining_year DESC;")
+        for i in cursor:
+            print(i)
+
+        print("ordered items based on positional of argument")
+        cursor.execute(
+            "SELECT first_name,last_name,salary FROM organisation ORDER BY 3;")#it will order based on salary
+        for i in cursor:
+            print(i)
+
+        cursor.execute(
+            "SELECT first_name,last_name,salary FROM organisation ORDER BY 1 DESC;")#it will order in descending based on first name
+        for i in cursor:
+            print(i)
+
+        # first it will order based on joining year and then that list will order again based on their salary
+        cursor.execute(
+            "SELECT first_name,last_name,joining_year,salary FROM organisation ORDER BY joining_year,salary;")
+        for i in cursor:
+            print(i)
+    if 0:#LIMIT --> gives fixed no.of result instead of all matches we have to use it at the end of the query.
+        # --> LIMIT starting row i.e from which row it has to start(optional), how many rows
+        print("printing only 3 rows from table")
+        cursor.execute("SELECT * FROM organisation LIMIT 3;")
+        for i in cursor:
+            print(i)
+        print("printing the rows which are having low salaries and early joined")
+        cursor.execute("SELECT first_name,last_name,salary,joining_year FROM organisation ORDER BY salary, joining_year LIMIT 5;")
+        for i in cursor:
+            print(i)
+        print("printing the rows which are having high salaries and late joined")
+        cursor.execute(
+            "SELECT first_name,last_name,salary,joining_year FROM organisation ORDER BY salary DESC,joining_year DESC;")
+        for i in cursor:
+            print(i)
+        print("printing the rows which are having high salaries and late joined 5 rows")
+        cursor.execute(
+            "SELECT first_name,last_name,salary,joining_year FROM organisation ORDER BY salary DESC,joining_year DESC LIMIT 5;")
+        for i in cursor:
+            print(i)
+        print("printing the rows which are having high salaries and late joined 5 rows from start of the table")
+        cursor.execute(
+            "SELECT first_name,last_name,salary,joining_year FROM organisation ORDER BY salary DESC,joining_year DESC LIMIT 0,5;")
+        for i in cursor:
+            print(i)
+        print("printing the rows which are having high salaries and late joined 5 rows from 2nd row of the table")
+        cursor.execute(
+            "SELECT first_name,last_name,salary,joining_year FROM organisation ORDER BY salary DESC,joining_year DESC LIMIT 1,5;")
+        for i in cursor:
+            print(i)
+        print("printing the rows which are having high salaries and late joined from 11th row of the table to end of table")
+        print("LIMIT 1,<very large number> to go to end of the list" )
+        cursor.execute(
+            "SELECT first_name,last_name,salary,joining_year FROM organisation ORDER BY salary DESC,joining_year DESC LIMIT 10 ,3214242354325436;")
+        for i in cursor:
+            print(i)
+    if 1:#LIKE   --> pattern matching--> LIKE %<pattern>% -->% is wild card. it can support 0 or more characters
+        # like '____'--> _ represents a single digit/character.
+        # we can use \(escape char) to remove the properties of % and _ while searching for % and _ like. regular expression
+        cursor.executescript('''INSERT OR IGNORE INTO organisation (first_name, last_name, profession, joining_year, salary,switched_companies)
+                                                                    VALUES ('rajesh_ayyer','kumar','ENGINEER',2006,30000,3),
+                                                                           ('pawan%kalyan','kumar','ANALYST',2003,23000,2);''')
+        print("searching which are having ST in their profession")
+        cursor.execute("SELECT first_name,last_name,profession FROM organisation WHERE profession LIKE '%ST%';")
+        for i in cursor:
+            print(i)
+        print("searching which are starting with S in their profession")
+        cursor.execute("SELECT first_name,last_name,profession FROM organisation WHERE profession LIKE 'S%';")
+        for i in cursor:
+            print(i)
+        print("searching which are ending with ER in their profession")
+        cursor.execute("SELECT first_name,last_name,profession FROM organisation WHERE profession LIKE '%ER';")
+        for i in cursor:
+            print(i)
+        if 0:#not performing well
+            print("searching which are having % in their first_name")
+            cursor.execute("SELECT first_name,last_name,profession FROM organisation WHERE first_name LIKE '%\%%';")
+            for i in cursor:
+                print(i)
+            print("searching which are having _ in their first_name")
+            cursor.execute("SELECT first_name,last_name,profession FROM organisation WHERE first_name LIKE '%\_%';")
+            for i in cursor:
+                print(i)
+
+        print("searching which are having salary starts with 3")
+        cursor.execute("SELECT first_name,last_name,profession,salary FROM organisation WHERE salary LIKE '3____';")
+        for i in cursor:
+            print(i)
+
+if 0:#Exercise for refining functions
+    def split_commands(filename):
+        f=open(filename,'r')
+        commands = f.readlines()# we have to use readlines only. other wise use split with \n only
+        f.close()
+        return commands
+    def execute_commands(commands):
+        for i in commands:
+            cursor.execute(i)
+
+    file = 'organisation_table.sql'  # commands in the file should be in single line only
+    # it contains id,first_name,last_name,profession,joining_year,salary as columns
+    commands = split_commands(file)
+    execute_commands(commands)
+    cursor.executescript('''INSERT OR IGNORE INTO organisation (first_name, last_name, profession, joining_year, salary,switched_companies)
+                                                            VALUES ('rajesh','kumar','ENGINEER',2006,30000,3),
+                                                                   ('kalyan','kumar','ANALYST',2003,23000,2),
+                                                                   ('pawan','kalyan','MANAGER',1997,45000,3);''')
+    print("printing the values")
+    for i in cursor:
+        print(i)
+
+    print("selecting all first names which are having 'A' in their first_name")
+    cursor.execute("SELECT first_name,last_name FROM organisation WHERE first_name LIKE '%A%';")
+    for i in cursor:
+        print(i)
+    print("finding the high salary paid person in organisation")
+    cursor.execute("SELECT first_name,last_name,salary FROM organisation ORDER BY salary DESC LIMIT 1;")
+    for i in cursor:
+        print(i)
+    print("printing the details of recent joined employees ")
+    cursor.execute("SELECT first_name||' '||last_name||'-'||joining_year AS 'summary'FROM organisation ORDER BY joining_year DESC LIMIT 3;")
+    for i in cursor:
+        print(i)
+    print("finding the lowest salary paid persons in organisation")
+    cursor.execute("SELECT first_name,last_name,salary FROM organisation ORDER BY salary LIMIT 3;")
+    for i in cursor:
+        print(i)
+    print("finding the persons in organisation which are having low salary and early joined")
+    cursor.execute("SELECT first_name,last_name,salary,joining_year FROM organisation ORDER BY salary,joining_year;")
+    for i in cursor:
+        print(i)
+
+    print("printing full name in lastname alphabetical order")
+    cursor.execute("SELECT 'My full name is '||first_name||' '||last_name AS 'yell' FROM organisation ORDER BY last_name;")
+    for i in cursor:
+        print(i)
+
+# Aggregate Functions like count,sum, average etc.
+if 1:
+    def split_commands(filename):
+        f=open(filename,'r')
+        commands = f.readlines()# we have to use readlines only. other wise use split with \n only
+        f.close()
+        return commands
+    def execute_commands(commands):
+        for i in commands:
+            cursor.execute(i)
+
+    file = 'organisation_table.sql'  # commands in the file should be in single line only
+    # it contains id,first_name,last_name,profession,joining_year,salary as columns
+    commands = split_commands(file)
+    execute_commands(commands)
+    cursor.executescript('''INSERT OR IGNORE INTO organisation (first_name, last_name, profession, joining_year, salary,switched_companies)
+                                                            VALUES ('rajesh','kumar','ENGINEER',2006,30000,3),
+                                                                   ('kalyan','kumar','ANALYST',2003,23000,2),
+                                                                   ('kalyan','rajesh','ANALYST',2003,23000,2),
+                                                                   ('kalyan','kumar','ENGINEER',2003,23000,2),
+                                                                   ('pawan','kalyan','MANAGER',1997,45000,3);''')
+    print("printing the values")
+    for i in cursor:
+        print(i)
+
+    if 0:#COUNT--> COUNT(params)
+        print("counting how many rows in table")
+        cursor.execute("SELECT COUNT(*) FROM organisation;")
+        for i in cursor:
+            print(i)
+        print("printing how many unique first names in table")
+        cursor.execute("SELECT COUNT(DISTINCT first_name) FROM organisation;")
+        for i in cursor:
+            print(i)
+        print("printing how many unique full names in table")#DISTINCT(first_name,last_name ) will not work.
+        cursor.execute("SELECT COUNT(DISTINCT first_name||' '||last_name) FROM organisation;")
+        for i in cursor:
+            print(i)
+        print("printing how many first names contains A in table")  # DISTINCT(first_name,last_name ) will not work.
+        cursor.execute("SELECT COUNT(first_name) FROM organisation WHERE first_name LIKE '%A%';")
+        for i in cursor:
+            print(i)
+    if 1:#GROUP BY
+        pass
+
 
 
 
