@@ -3053,3 +3053,13 @@ if 0:
                 ptr1+=1
 
     print(l)
+
+#printing the 2 biggest values from the list
+import heapq
+integers = [1, 16, 3, 39, 26, 4, 8, 16]
+
+# get 2 largest values
+largest_integers = heapq.nlargest(2, integers)  # [39, 26]
+
+largest_integer = largest_integers[0]  # 39
+second_largest_integer = largest_integers[1]  # 26
