@@ -42,7 +42,8 @@ c.date types:
 
 # Connect to DB if exists or else create new database
 database = sqlite3.connect('database.db')
-
+# <databasehandle>.create_function(<function name>,no.of arguments,operation)
+database.create_function("strrev", 1, lambda s: s[::-1])
 print("Opened database successfully")
 
 #create a handle for database
