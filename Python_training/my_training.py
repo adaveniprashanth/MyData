@@ -3063,3 +3063,21 @@ largest_integers = heapq.nlargest(2, integers)  # [39, 26]
 
 largest_integer = largest_integers[0]  # 39
 second_largest_integer = largest_integers[1]  # 26
+if 0:
+    def fun1(a=10,b,c):
+        pass
+
+    a=20
+    b=10
+    c=5
+
+    fun1(b,c) #it will not work because default assigned values are present at the first in function definition
+if 0:
+    def fun1(b,c,a=10):
+        pass
+
+    a=20
+    b=10
+    c=5
+
+    fun1(b,c) #it will work because default assigned values are present at the last in function definition
