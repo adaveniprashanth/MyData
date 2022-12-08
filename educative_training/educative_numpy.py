@@ -5,6 +5,7 @@ Created on Wed Sep  2 07:11:31 2020
 
 @author: pj
 """
+#For reference--> https://numpy.org/doc/stable/reference/index.html
 import numpy as np
 if 1:  #Numpy arrays
     if 1: #array initialization
