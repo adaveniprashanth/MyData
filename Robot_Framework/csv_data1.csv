@@ -1,0 +1,4 @@
+${expression};${expected};
+abcd;dcba;
+12345;54321;
+qwerty;ytrewq;
