@@ -6,7 +6,7 @@ import sys
 class StringLibrary(object):
     def __init__(self):
         self._string = StringMethods()
-        self._sut_path = os.path.join(os.path.dirname(__file__),'stringmethods.py')#need for run_command used in pipe logic
+        self._sut_path = os.path.join(os.path.dirname(__file__),'stringmethods.py')#need for run_command
         self._result = ''
     
     def adding_strings(self, *args):
