@@ -337,7 +337,7 @@ if 1:
         fill_cell = PatternFill(patternType='solid', fgColor='366092',bgColor='FFFFFF')
         for i in range(1,total_columns+1):
             ws.cell(row=1,column=i).fill =fill_cell
-            ws.cell(row=1,column=i).font=Font(color='FFFFFF',bold=True,name='Intel Clear')
+            ws.cell(row=1,column=i).font=Font(color='FFFFFF',bold=True,name='Intel Clear',size=9)
             ws.column_dimensions[colToExcel(i)].width = column_width
                     
         #adding the hyperlink to the cell for JIRA
