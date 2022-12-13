@@ -493,12 +493,6 @@ if 1:#MANY-MANY Relationship
         for i in cursor:
             print(i)
 
-
-
-
-
-
-
 #handler close
 cursor.close()
 
