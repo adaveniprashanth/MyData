@@ -7,8 +7,5 @@ print("new from local again and again")
 subprocess.run("pip install selenium")
 os.system("pip uninstall selenium")
 print("hello world")
-print("hello world")
-print("hello world")
-print("hello world")
-print("hello world")
+
 
