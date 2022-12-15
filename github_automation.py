@@ -22,7 +22,7 @@ except ModuleNotFoundError:
 print(os.getcwd())#printing the currrent working diectory
 
 if 0:
-    # creating the folder if not exists
+    # creating the folder if not exists for github
     if not os.path.isdir(os.path.join(os.path.dirname(__file__),'github_practice')):
         print("creating the folder for storing the github repo")
         os.mkdir('github_practice')
@@ -52,15 +52,12 @@ clone = int(config["GITHUBSettings"]["clone"])
 pull = int(config["GITHUBSettings"]["pull"])
 push = int(config["GITHUBSettings"]["push"])
 
-
-
 # initializing the repository
 # making one folder in local machine as github repo
 if init:
     print("initialising the local folder as local git repository")
     repository = Repo.init(local_github)
     print("created local repository")
-
 
 if clone:
     print("cloning is started")
@@ -90,27 +87,27 @@ if 1:
 # and push changes from the branch
 
 if push:
-    print("push request running")
-    repo.git.add('--all')
-    repo.git.commit('-m', 'commit message from python script1')
-    origin = repo.remote('origin')
-    origin.push()
-    print("push request completed")
+    if 1:#one logic
+        print("push request running")
+        repo.git.add('--all')
+        repo.git.commit('-m', 'commit message from python script1')
+        origin = repo.remote('origin')
+        origin.push()
+        print("push request completed")
 
-#############Another method ############
-if 0:
-    # we can use the below logic also to push the code
-    repo.git.add('--all')
-    repo.index.add(['bla.txt'])#for sing file addition
-    repo.index.commit('my commit description')
-    origin = repo.remote('origin')
-    origin.push()
+    if 0:#Another logic
+        print("push request running")
+        repo.git.add('--all')
+        repo.index.add(['bla.txt'])#for sing file addition
+        repo.index.commit('my commit description')
+        origin = repo.remote('origin')
+        origin.push()
+        print("push request completed")
 
 if 0:#printing the commits from specific branch
     print("printing the commits from branch")
     for i in list(repo.iter_commits('master', max_count=10)):
         print(i)
-
 
 if 0:
     commits_list = list(repo.iter_commits())
@@ -141,6 +138,7 @@ if 0:#printing the files changed between specified commits
         print("getting all commits")
         commits_list = list(repo.iter_commits())
 
+        print("printing the files changed between specified commits")
         changed_files = []
         for x in commits_list[0].diff(commits_list[25]):
             if x.a_blob.path not in changed_files:
@@ -149,9 +147,7 @@ if 0:#printing the files changed between specified commits
             if x.b_blob is not None and x.b_blob.path not in changed_files:
                 changed_files.append(x.b_blob.path)
 
-        print("printing the files changed between specified commits")
         for i in changed_files:
-
             print(i)
 
     if 0:#Another method
@@ -160,7 +156,7 @@ if 0:#printing the files changed between specified commits
         print(diff)
 
     if 0:#Other logic
-        print("showing the differenced files")
+        print("printing the files changed between specified commit and last commit")
         for item in repo.index.diff("HEAD~25"):
             print(item.a_path)
 
