@@ -96,7 +96,7 @@ find(\&findfiles, $dir);
 #https://www.educba.com/perl-copy-file/
 
 use File::Copy;
-sub findfile
+sub copyfile
 {
 print "print all params passed to routine @_\n";
 my $source = "$_[0]";
@@ -109,13 +109,13 @@ if(-f "$source/$vars4" ) {
 	copy "$source/$vars4", "$destination";
 }elsif($vars4 eq "." || $vars4 eq ".."){ next;}
 elsif (-d "$source/$vars4" ) {
-	findfile("$source/$vars4","$destination")
+	copyfile("$source/$vars4","$destination")
 }
 }
 closedir($vars2);
 }
 
-#findfile(("$dir/dummy",$dir));
+#copyfile(("$dir/dummy",$dir));
 
 
 my $source = $dir;
@@ -129,7 +129,7 @@ if (-f "$vars4") {
 elsif($vars4 eq "." || $vars4 eq ".."){ next;}#skips the current and parent directories while copying
 elsif (-d "$vars4") {
 	print "folder $vars4\n";
-	findfile(("$vars4",$dir))
+	copyfile(("$vars4",$dir))
 }
 }
 closedir($vars2);
