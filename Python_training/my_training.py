@@ -1,7 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
-import array as arr
+try:
+    import sys
+    import numpy as np
+    import array as arr
+    import string
+    import random
+except ModuleNotFoundError:
+    print("you have to install the below packages to run")
+    sys.exit("install all modules")
 a = arr.array('i',[1,2,3,4,5])
 # print(len(a))
 
@@ -1052,22 +1059,21 @@ if 0:
     # private attribute was created in the subclass.
     #accessing the parent method in child using super keyword.
     class P:
-    '''Parent'''
-    def my_method(self):
-        print('parent')
+        def my_method(self):
+            print('parent')
 
-class C(P):
-    '''Child'''
-    def my_method(self):
-        print('child')
+    class C(P):
+        '''Child'''
+        def my_method(self):
+            print('child')
 
 
-    def call_parent_method(self):
-        super().my_method()
+        def call_parent_method(self):
+            super().my_method()
 
         
-child = C()
-child.call_parent_method()
+    child = C()
+    child.call_parent_method()
 
 # parent
 # OOPS concepts
@@ -1447,7 +1453,7 @@ print(type(b3))
 
 # Numpy
 
-import numpy as np
+
 
 a = np.array([(1,2,3),(4,5,6)])
 # print(a)
@@ -1823,7 +1829,7 @@ mixer.music.stop()
 
 # created at 21 feb at personal laptop
 # openCV Tutorial
-import cv2
+# import cv2
 
 '''
 color_img = cv2.imread('./face_mask/image1.jpeg',1)
@@ -3063,6 +3069,7 @@ largest_integers = heapq.nlargest(2, integers)  # [39, 26]
 
 largest_integer = largest_integers[0]  # 39
 second_largest_integer = largest_integers[1]  # 26
+'''
 if 0:
     def fun1(a=10,b,c):
         pass
@@ -3072,6 +3079,7 @@ if 0:
     c=5
 
     fun1(b,c) #it will not work because default assigned values are present at the first in function definition
+'''
 if 0:
     def fun1(b,c,a=10):
         pass
@@ -3081,3 +3089,6 @@ if 0:
     c=5
 
     fun1(b,c) #it will work because default assigned values are present at the last in function definition
+
+if 1:#generate randome number
+    print("generate random number")

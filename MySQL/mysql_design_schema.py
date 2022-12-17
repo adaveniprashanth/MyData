@@ -31,31 +31,22 @@ if 0: #REVERSE Method --> strrev(string)
     for i in cursor:
         print(i)
 
+
 def run_queries_from_file(filename):
+    l = []
     with open(filename,'r') as file:
         for line in file:
-            cursor.execute(line.strip())
+            l.append(line.strip())
+            # print(line)
+    all_commans = "".join(l)
+    cursor.executescript(all_commans)
 
 
 if 1:
     if 1:#creating the tables
         run_queries_from_file('instagram_design_schema.sql')
-    if 1:#adding data into tables
-        cursor.execute('''INSERT OR IGNORE INTO users
-        (username) VALUES
-        ('Aadrik'),('Adhesht'),('Baalaaji'),('Bhakthavat'),('Charudutta'),('Daksh'),('Dhevaneyan'),('Erran'),('Ezhumalai'),('Fatik'),('Farishta'),
-        ('Aarv'),('Adhiraj'),('Balamurli'),('Bhanukiran'),('Charuvrat'),('Dakshit'),('Dhirendra'),('Eelamyntha'),('Fanibhusha'),('Fateh'),('Geethik'),
-        ('Aatreya'),('Adikavi'),('Balagovind'),('Bhartesh'),('Cheliyan'),('Daivit'),('Dhruddavra'),('Ekambaram'),('Eniyan'),('Fhazaar'),('Gaalav'),
-        ('Aarksh'),('Adisesh'),('Balamani'),('Bhautik'),('Chevatkodi'),('Deekshith'),('Digvijay'),('Ekaraj'),('Elakkiyan'),('Fanish'),('Ganak'),
-        ('Aadish'),('Aditeya'),('Banbhatt'),('Chaitan'),('Chayank'),('Deepankar'),('Divinantha'),('Eklavya'),(' Boys from'),('Fanindra'),('Gambhir'),
-        ('Aabheer'),('Advaya'),('Banuteja'),('Chinmay'),('Chidambar'),('Denadayal'),('Duranjaya'),('Elamurugu'),('abet'),('Faisal'),('Gabith'),
-        ('Aadarsh'),('Agasti'),('Bargav'),('Ceyone'),('Chiranjeev'),('Devadatta'),('Durgadas'),('Elangovan'),('Farhat'),('Fani'),('Giaan'),
-        ('Aagam'),('Agendra'),('Basavaraj'),('Charish'),('Chittranja'),('Devendrana'),('Dushyant'),('Elilaendhi'),('Fanishwar'),('Fenil'),('Govardhan'),
-        ('Abhyudh'),('Baladitya'),('Bhaagavat'),('Charvik'),('Chyavan'),('Deveshwar'),('Ehan'),('Emmanuel'),('Fravash'),('Falish'),('Gowshik'),
-        ('Achyuta'),('Bharat'),('Bhadraksh'),('Chezian'),('Chittesh'),('Dhanaditya'),('Esh/Eshwar'),('Eruyarthth'),('Frany'),('Firoz'),('Greeshkand'),
-        ('Adeep'),('Bhavish'),('Bhagesh'),('Chandragup'),('Chitrasen'),('Dhanakoti'),('Eashan'),('Erisudar'),('Falgu'),('Fajyaz'),('Grishmith'),
-        ('Adharva'),('Bhargava'),('Bhaidyanat'),('Chanyana'),('Chithayu'),('Dharmanand'),('Easwaran'),('Eshwinraj'),('Faneemdra'),('Faiz'),('Govindaraj')   
-            ''')
+
+    if 1:#printing the data from the table
         cursor.execute('SELECT * FROM users;')
         for i in cursor:
             print(i)
