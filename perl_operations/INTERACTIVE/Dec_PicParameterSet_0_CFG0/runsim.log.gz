@@ -1,0 +1,5 @@
+this is for my testing
+
+
+BLD_TST: (new for 3.2.2) generating param.in by running --> /nfs/site/disks/feda_datools/tools/pkgs/RunScript/9.0.53/bin/gen_param.pl 1
+COMPILE:  /nfs/site/disks/feda_datools/tools/pkgs/RunScript/9.0.53/bin/gen_param.pl 1
