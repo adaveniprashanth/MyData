@@ -47,33 +47,34 @@ while temp <a[4]:
     temp+=1'''
 # Hash tables and Hash maps
 #nested dictionary
-my_dict = {'emp_details':{'Dev':{'ID':'001','salary':'2000','post':'Lead'},
-                          'ava':{'ID':'002','salary':'1000','post':'HR'}}}
-# print(my_dict)
-# print(my_dict.keys())
-# print(my_dict.values())
-# print(my_dict.items())
-my_dict1 = {'Dev':'001','chris':'002','joe':'003'}
-my_dict1.pop('Dev')
-# print(my_dict1)
-my_dict1.popitem()
-# print(my_dict1)
-del my_dict1['chris']
-# print(my_dict1)
-# converting dictionary to dataframe
-# import pandas as pd
-# df = pd.DataFrame(my_dict['emp_details'])
-# print(df)
-#iterating over nested dictionary
-d = {'a':{'b':{'c':100}},'d':{'e':10}}
+if 0:
+    my_dict = {'emp_details':{'Dev':{'ID':'001','salary':'2000','post':'Lead'},
+                              'ava':{'ID':'002','salary':'1000','post':'HR'}}}
+    # print(my_dict)
+    # print(my_dict.keys())
+    # print(my_dict.values())
+    # print(my_dict.items())
+    my_dict1 = {'Dev':'001','chris':'002','joe':'003'}
+    my_dict1.pop('Dev')
+    # print(my_dict1)
+    my_dict1.popitem()
+    # print(my_dict1)
+    del my_dict1['chris']
+    # print(my_dict1)
+    # converting dictionary to dataframe
+    # import pandas as pd
+    # df = pd.DataFrame(my_dict['emp_details'])
+    # print(df)
+    #iterating over nested dictionary
+    d = {'a':{'b':{'c':100}},'d':{'e':10}}
 
-def myprint(d):
-    for k, v in d.items():
-        if isinstance(v, dict):
-            myprint(v)
-        else:
-            print("{0} : {1}".format(k, v))
-myprint(d)
+    def myprint(d):
+        for k, v in d.items():
+            if isinstance(v, dict):
+                myprint(v)
+            else:
+                print("{0} : {1}".format(k, v))
+    myprint(d)
 
 import random as rd
 # print(int(20*rd.random()))
@@ -3090,5 +3091,32 @@ if 0:
 
     fun1(b,c) #it will work because default assigned values are present at the last in function definition
 
-if 1:#generate randome number
+if 0:#generate randome number
     print("generate random number")
+    import string,random
+    # initializing size of string
+    N = 20
+    f = open('random_string.txt', 'w')
+    for i in range(200):
+        res = ''.join(random.choices(string.ascii_letters + string.digits, k=N))
+        print("The generated random string : " + str(res))
+        number = random.randint(1, 132)
+        print("The generated random number : " + str(number))
+        f.writelines(['(',"'"'http://'+res,"'",",",str(number),')',','])
+        if i%4 == 0:
+            f.write("\n")
+    f.close()
+if 1:
+    txt = "apple, banana, cherry"
+
+    # setting the maxsplit parameter to 1, will return a list with 2 elements!
+    x = txt.rsplit(", ", 1)
+
+    print(x)
+if 1:
+    l = []
+    txt = "apple, banana, cherry"
+    if 'apple' in txt:
+            l.append(txt.replace('apple',''))
+    print(l)
+

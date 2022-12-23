@@ -46,8 +46,29 @@ if 1:
     if 1:#creating the tables
         run_queries_from_file('instagram_design_schema.sql')
 
-    if 1:#printing the data from the table
-        cursor.execute('SELECT * FROM users;')
+    if 0:#printing the usernames(132) from the table
+        data = cursor.execute('SELECT * FROM users;')
+        names = [i[0] for i in data.description]
+        print(names)
+        for i in cursor:
+            print(i)
+    if 0:#printing the photo urls(200) from the table
+        data = cursor.execute('SELECT * FROM photos;')
+        names = [i[0] for i in data.description]
+        print(names)
+        for i in cursor:
+            print(i)
+    if 1:#joining the 2 tables
+        data = cursor.execute('''SELECT image_url,username FROM photos INNER JOIN users ON photos.user_id=users.id;''')
+        names = [i[0] for i in data.description]
+        print(names)
+        for i in cursor:
+            print(i)
+    if 0:#joining the 2 tables
+        #IT WILL EXECUTE BUT WONT PRINT DATA
+        cursor.executescript('''SELECT image_url,username FROM photos INNER JOIN users ON photos.user_id=users.id;''')
+        # names = [i[0] for i in data.description]
+        # print(names)
         for i in cursor:
             print(i)
 
