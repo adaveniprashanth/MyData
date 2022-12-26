@@ -58,7 +58,7 @@ if 1:
         print(names)
         for i in cursor:
             print(i)
-    if 1:#joining the 2 tables
+    if 0:#joining the 2 tables
         data = cursor.execute('''SELECT image_url,username FROM photos INNER JOIN users ON photos.user_id=users.id;''')
         names = [i[0] for i in data.description]
         print(names)
@@ -71,8 +71,39 @@ if 1:
         # print(names)
         for i in cursor:
             print(i)
+    if 0:#printing all the comments(224)
+        data = cursor.execute('SELECT * FROM comments;')
+        names = [i[0] for i in data.description]
+        print(names)
+        for i in cursor:
+            print(i)
+    if 0:#printing all the followers(200) list
+        data = cursor.execute('SELECT * FROM follows;')
+        names = [i[0] for i in data.description]
+        print(names)
+        for i in cursor:
+            print(i)
+    if 0:#printing all the tag names(125)
+        data = cursor.execute('SELECT * FROM tags;')
+        names = [i[0] for i in data.description]
+        print(names)
+        for i in cursor:
+            print(i)
 
+    if 0:#printing all the photo_tags(200)
+        data = cursor.execute('SELECT * FROM photo_tags;')
+        names = [i[0] for i in data.description]
+        print(names)
+        for i in cursor:
+            print(i)
 
+if 1:#exercise on instagram data
+    if 1:#find the persons who have joined early
+        data = cursor.execute("SELECT * FROM users ORDER BY created_at ASC LIMIT 5")
+        names = [i[0] for i in data.description]
+        print(names)
+        for i in cursor:
+            print(i)
 
 
 

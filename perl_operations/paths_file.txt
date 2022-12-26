@@ -1,0 +1,11 @@
+print "hello\n";
+print "hello1\n";
+print "hello2\n";
+print "hello3\n";
+print "hello4\n";
+print "hello5\n";
+print "hello6\n";
+print "hello7\n";
+print "hello8\n";
+print "hello9\n";
+print "hello0\n";

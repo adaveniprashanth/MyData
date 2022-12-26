@@ -1,11 +1,12 @@
 #!/usr/intel/bin/perl
 use strict ; 
 use warnings ;
-print "hello\n";
+#print "hello\n";
 use File::Basename;
 use File::Path qw( make_path );
 use List::Util 1.33 'any';
 use File::Copy;
+use autodie;
 
 use Cwd qw(cwd) ;
 my $dir = cwd;
@@ -13,7 +14,7 @@ my $dir = cwd;
 my $directory = "$dir"."/INTERACTIVE";
 #print "$directory\n";
 my $decpic = "$directory"."/Dec_PicParameterSet_0_CFG0";
-	
+#for unzipping the logic and decpic folder verification:
 =if ( -d $decpic ) 
 {
 	print "decpic folder present\n";
@@ -79,7 +80,7 @@ dircopy($lib,"$val_dir/smedia_top/val/gfxbuild/verif/validation/bin/") or die("$
 #$val_dir/smedia_top/val/gfxbuild/verif/validation/bin/ <-- new files
 
 #/nfs/site/disks/lnl_soc_regress_001/ashish/soc_package/LNL_IPX_UPLOAD/RTL1p0_pre/xe2lpm_media_common-22ww14.4e-package/smedia_top/val/gfxbuild/verif/validation/bin/ <--old files 
-
+#for copying the missed files from older to new folder:
 =my $old_files_path = "$dir"."/dummy";
 opendir(my $vars, $old_files_path) or die "Cannot open directory: $!";
 my @oldfiles = readdir $vars;
@@ -139,3 +140,49 @@ my $var1 = "Python3";
 my $match_found = any { /$var1/ } @newfiles;
 print $match_found ne 0;
 =cut
+
+=my $fileName = "paths_file.txt";
+
+if (-e $fileName) {
+        open my $read, '<', $fileName;
+        local $/; # slurp mode;
+        my $data = <$read>;
+        close $read;
+        print "File exists and has been read\n";
+        eval $data;
+        unlink $fileName;
+}
+else {
+        print "File does not yet exist\n";
+}
+=cut
+#reading the file content ,ine by line
+=my $file = 'paths_file.txt';
+open my $info, $file or die "Could not open $file: $!";
+
+while( my $line = <$info>)  {   
+	print "evaluating the line\n";
+	eval $line;
+    #last if $. == 2;
+}
+
+close $info;
+=cut
+
+my $file = "paths_file.txt";
+open(my $fh, "<", $file) or die "Unable to open < sample.txt: $!";
+my @lines;
+while (<$fh>) {
+chomp $_;
+push (@lines, $_);
+}
+close $fh or die "Unable to open $file: $!";
+#print @lines;
+print $lines[0];
+print $lines[1];
+print $lines[2];
+print $lines[3];
+eval $lines[0];
+eval $lines[1];
+eval $lines[2];
+eval $lines[3];

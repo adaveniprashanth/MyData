@@ -3091,32 +3091,3 @@ if 0:
 
     fun1(b,c) #it will work because default assigned values are present at the last in function definition
 
-if 0:#generate randome number
-    print("generate random number")
-    import string,random
-    # initializing size of string
-    N = 20
-    f = open('random_string.txt', 'w')
-    for i in range(200):
-        res = ''.join(random.choices(string.ascii_letters + string.digits, k=N))
-        print("The generated random string : " + str(res))
-        number = random.randint(1, 132)
-        print("The generated random number : " + str(number))
-        f.writelines(['(',"'"'http://'+res,"'",",",str(number),')',','])
-        if i%4 == 0:
-            f.write("\n")
-    f.close()
-if 1:
-    txt = "apple, banana, cherry"
-
-    # setting the maxsplit parameter to 1, will return a list with 2 elements!
-    x = txt.rsplit(", ", 1)
-
-    print(x)
-if 1:
-    l = []
-    txt = "apple, banana, cherry"
-    if 'apple' in txt:
-            l.append(txt.replace('apple',''))
-    print(l)
-

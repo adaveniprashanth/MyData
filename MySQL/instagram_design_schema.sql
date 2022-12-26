@@ -1,6 +1,10 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS photos;
 DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS likes;
+DROP TABLE IF EXISTS follows;
+DROP TABLE IF EXISTS tags;
+DROP TABLE IF EXISTS photo_tags;
 
 CREATE TABLE IF NOT EXISTS users(
 id INTEGER PRIMARY KEY,
@@ -12,8 +16,7 @@ id INTEGER PRIMARY KEY,
 image_url VARCHAR(255) NOT NULL,
 user_id INTEGER NOT NULL,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-FOREIGN KEY(user_id) REFERENCES users(id)
-ON DELETE CASCADE);
+FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE);
 
 CREATE TABLE IF NOT EXISTS comments(
 id INTEGER PRIMARY KEY,
@@ -21,9 +24,36 @@ commented_text VARCHAR(255) NOT NULL,
 user_id INTEGER NOT NULL,
 photo_id INTEGER NOT NULL,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-FOREIGN KEY(user_id) REFERENCES users(id),
-FOREIGN KEY(photo_id) REFERENCES photos(id)
-ON DELETE CASCADE);
+FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
+FOREIGN KEY(photo_id) REFERENCES photos(id) ON DELETE CASCADE);
+
+CREATE TABLE IF NOT EXISTS likes(
+user_id INTEGER NOT NULL,
+photo_id INTEGER NOT NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
+FOREIGN KEY(photo_id) REFERENCES photos(id) ON DELETE CASCADE,
+PRIMARY KEY (user_id,photo_id));
+
+CREATE TABLE IF NOT EXISTS follows(
+follower_id INTEGER NOT NULL,
+followee_id INTEGER NOT NULL,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+FOREIGN KEY(follower_id) REFERENCES users(id) ON DELETE CASCADE,
+FOREIGN KEY(followee_id) REFERENCES users(id) ON DELETE CASCADE,
+PRIMARY KEY(follower_id,followee_id));
+
+CREATE TABLE IF NOT EXISTS tags(
+id INTEGER PRIMARY KEY,
+tag_name VARCHAR(255) UNIQUE,
+created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+
+CREATE TABLE IF NOT EXISTS photo_tags(
+photo_id INTEGER NOT NULL,
+tag_id INTEGER NOT NULL,
+FOREIGN KEY(photo_id) REFERENCES photos(id) ON DELETE CASCADE,
+FOREIGN KEY(tag_id) REFERENCES tags(id) ON DELETE CASCADE,
+PRIMARY KEY(photo_id,tag_id));
 
 INSERT OR IGNORE INTO users
 (username) VALUES
@@ -94,4 +124,166 @@ INSERT OR IGNORE INTO photos
 ('http://OJGgPw6qCXhusmhJ0dGZ',50),('http://74hQViI6NWVH4bG0a5Hq',108),('http://DNX2r8emmbsm3XoPRcDg',18),('http://Dd3JR91hayyEdvsFZW4M',62),
 ('http://d5T6Iqj4XezDDwtXOElE',9),('http://hfqNjmONa5XUSY3yWv1O',47),('http://O8ADh61LYObvaUgCJKuE',77);
 
+INSERT OR IGNORE INTO comments
+(commented_text,user_id,photo_id) VALUES
+('how do you make a phone selfie look like a professional camera operator took it?',75,162),('excuse me, folks. everyone needs to double-tap on this picture asap.',15,3),('its the most beautiful thing you will ever see.',12,59),('live for the moments you cannot put in words.',38,105),
+('i hope we will be best friends until we die.',98,140),('then, we stay ghost pals to take such beautiful pictures.',62,42),('friends come and go, but true buddies stick like that mark on your skin.',72,160),('i can survive without a girlfriend.',60,119),
+('but i cannot survive without you as my best friend.',49,2),('you are my best buddy, my other half, and my human diary.',1,199),('you mean the world to me. i love you.',5,18),('i feel like i have known your whole life.',76,121),
+('so you have been this cool since day one?',111,193),('i dont know if you mind knowing this, but my buddy is the cutest guy around.',125,56),('you are the superhot thing to have graced this planet since the yucatan meteorite.',84,167),('this picture needs to illustrate the word fun in the dictionary.',81,170),
+('good times plus crazy friends equal great memories in this picture.',110,88),('frankly, i can never imagine not being in the company of someone amazing like you.',47,109),('you will not always be next to me, but be sure that you will have my back always.',97,159),('we will always be friends until we are so old and senile.',8,122),
+('you look like a baby with that smile on your face.',46,52),('god bless you and continue making me smile like this.',18,99),('we will one day be the old ladies causing a lot of trouble in nursing homes.',104,4),('the cuteness of your face and innocence of your eyes is just as incredible as our friendship.',6,121),
+('i dont know what special thing i did to deserve a best friend like you.',83,157),('wow, you are flawless, intelligent, and bright.',70,65),('making you my best friend is the best thing i could have done.',24,99),('i think that standing beside you makes you better looking.',11,185),
+('why wasnt i invited for the snap then?',112,91),('this is a perfect example of a quality portrait of a quality human being.',82,46),('you look awesome.',67,114),('i couldnt help but share my thoughts.',89,198),
+('how do you make a phone selfie look like a professional camera operator took it?',13,84),('excuse me, folks. everyone needs to double-tap on this picture asap.',58,179),('its the most beautiful thing you will ever see.',124,199),('live for the moments you cannot put in words.',85,127),
+('i hope we will be best friends until we die.',14,9),('then, we stay ghost pals to take such beautiful pictures.',62,188),('friends come and go, but true buddies stick like that mark on your skin.',65,12),('i can survive without a girlfriend.',39,44),
+('but i cannot survive without you as my best friend.',34,146),('you are my best buddy, my other half, and my human diary.',111,198),('you mean the world to me. i love you.',28,20),('i feel like i have known your whole life.',22,197),
+('so you have been this cool since day one?',17,141),('i dont know if you mind knowing this, but my buddy is the cutest guy around.',56,24),('you are the superhot thing to have graced this planet since the yucatan meteorite.',129,53),('this picture needs to illustrate the word fun in the dictionary.',90,4),
+('good times plus crazy friends equal great memories in this picture.',4,173),('frankly, i can never imagine not being in the company of someone amazing like you.',85,185),('you will not always be next to me, but be sure that you will have my back always.',29,161),('we will always be friends until we are so old and senile.',33,10),
+('you look like a baby with that smile on your face.',29,69),('god bless you and continue making me smile like this.',114,23),('we will one day be the old ladies causing a lot of trouble in nursing homes.',132,93),('the cuteness of your face and innocence of your eyes is just as incredible as our friendship.',28,196),
+('i dont know what special thing i did to deserve a best friend like you.',55,55),('wow, you are flawless, intelligent, and bright.',4,73),('making you my best friend is the best thing i could have done.',11,33),('i think that standing beside you makes you better looking.',92,15),
+('why wasnt i invited for the snap then?',2,67),('this is a perfect example of a quality portrait of a quality human being.',13,120),('you look awesome.',9,96),('i couldnt help but share my thoughts.',39,179),
+('how do you make a phone selfie look like a professional camera operator took it?',44,89),('excuse me, folks. everyone needs to double-tap on this picture asap.',15,88),('its the most beautiful thing you will ever see.',70,142),('live for the moments you cannot put in words.',16,139),
+('i hope we will be best friends until we die.',67,135),('then, we stay ghost pals to take such beautiful pictures.',3,53),('friends come and go, but true buddies stick like that mark on your skin.',53,47),('i can survive without a girlfriend.',5,64),
+('but i cannot survive without you as my best friend.',16,56),('you are my best buddy, my other half, and my human diary.',4,42),('you mean the world to me. i love you.',103,115),('i feel like i have known your whole life.',59,176),
+('so you have been this cool since day one?',79,193),('i dont know if you mind knowing this, but my buddy is the cutest guy around.',104,101),('you are the superhot thing to have graced this planet since the yucatan meteorite.',31,194),('this picture needs to illustrate the word fun in the dictionary.',91,26),
+('good times plus crazy friends equal great memories in this picture.',32,40),('frankly, i can never imagine not being in the company of someone amazing like you.',130,87),('you will not always be next to me, but be sure that you will have my back always.',21,45),('we will always be friends until we are so old and senile.',84,127),
+('you look like a baby with that smile on your face.',95,61),('god bless you and continue making me smile like this.',6,171),('we will one day be the old ladies causing a lot of trouble in nursing homes.',94,60),('the cuteness of your face and innocence of your eyes is just as incredible as our friendship.',124,109),
+('i dont know what special thing i did to deserve a best friend like you.',99,65),('wow, you are flawless, intelligent, and bright.',87,85),('making you my best friend is the best thing i could have done.',60,108),('i think that standing beside you makes you better looking.',51,8),
+('why wasnt i invited for the snap then?',66,154),('this is a perfect example of a quality portrait of a quality human being.',128,11),('you look awesome.',31,52),('i couldnt help but share my thoughts.',6,111),
+('how do you make a phone selfie look like a professional camera operator took it?',64,142),('excuse me, folks. everyone needs to double-tap on this picture asap.',73,72),('its the most beautiful thing you will ever see.',12,36),('live for the moments you cannot put in words.',38,11),
+('i hope we will be best friends until we die.',94,145),('then, we stay ghost pals to take such beautiful pictures.',33,18),('friends come and go, but true buddies stick like that mark on your skin.',5,55),('i can survive without a girlfriend.',85,194),
+('but i cannot survive without you as my best friend.',65,25),('you are my best buddy, my other half, and my human diary.',126,157),('you mean the world to me. i love you.',121,36),('i feel like i have known your whole life.',121,110),
+('so you have been this cool since day one?',123,116),('i dont know if you mind knowing this, but my buddy is the cutest guy around.',10,23),('you are the superhot thing to have graced this planet since the yucatan meteorite.',57,30),('this picture needs to illustrate the word fun in the dictionary.',120,178),
+('good times plus crazy friends equal great memories in this picture.',24,22),('frankly, i can never imagine not being in the company of someone amazing like you.',107,83),('you will not always be next to me, but be sure that you will have my back always.',67,71),('we will always be friends until we are so old and senile.',109,44),
+('you look like a baby with that smile on your face.',44,60),('god bless you and continue making me smile like this.',89,48),('we will one day be the old ladies causing a lot of trouble in nursing homes.',69,61),('the cuteness of your face and innocence of your eyes is just as incredible as our friendship.',113,130),
+('i dont know what special thing i did to deserve a best friend like you.',19,124),('wow, you are flawless, intelligent, and bright.',11,1),('making you my best friend is the best thing i could have done.',31,17),('i think that standing beside you makes you better looking.',8,63),
+('why wasnt i invited for the snap then?',91,164),('this is a perfect example of a quality portrait of a quality human being.',86,32),('you look awesome.',49,86),('i couldnt help but share my thoughts.',119,122),
+('how do you make a phone selfie look like a professional camera operator took it?',65,37),('excuse me, folks. everyone needs to double-tap on this picture asap.',61,132),('its the most beautiful thing you will ever see.',88,89),('live for the moments you cannot put in words.',30,189),
+('i hope we will be best friends until we die.',93,183),('then, we stay ghost pals to take such beautiful pictures.',8,134),('friends come and go, but true buddies stick like that mark on your skin.',65,116),('i can survive without a girlfriend.',109,198),
+('but i cannot survive without you as my best friend.',57,54),('you are my best buddy, my other half, and my human diary.',24,192),('you mean the world to me. i love you.',37,126),('i feel like i have known your whole life.',10,196),
+('so you have been this cool since day one?',109,15),('i dont know if you mind knowing this, but my buddy is the cutest guy around.',62,54),('you are the superhot thing to have graced this planet since the yucatan meteorite.',124,188),('this picture needs to illustrate the word fun in the dictionary.',53,193),
+('good times plus crazy friends equal great memories in this picture.',78,92),('frankly, i can never imagine not being in the company of someone amazing like you.',58,30),('you will not always be next to me, but be sure that you will have my back always.',77,150),('we will always be friends until we are so old and senile.',111,15),
+('you look like a baby with that smile on your face.',47,197),('god bless you and continue making me smile like this.',73,122),('we will one day be the old ladies causing a lot of trouble in nursing homes.',115,27),('the cuteness of your face and innocence of your eyes is just as incredible as our friendship.',95,187),
+('i dont know what special thing i did to deserve a best friend like you.',73,17),('wow, you are flawless, intelligent, and bright.',88,99),('making you my best friend is the best thing i could have done.',84,88),('i think that standing beside you makes you better looking.',8,40),
+('why wasnt i invited for the snap then?',105,28),('this is a perfect example of a quality portrait of a quality human being.',6,99),('you look awesome.',21,163),('i couldnt help but share my thoughts.',38,22),
+('how do you make a phone selfie look like a professional camera operator took it?',14,53),('excuse me, folks. everyone needs to double-tap on this picture asap.',62,112),('its the most beautiful thing you will ever see.',21,53),('live for the moments you cannot put in words.',91,114),
+('i hope we will be best friends until we die.',6,76),('then, we stay ghost pals to take such beautiful pictures.',110,119),('friends come and go, but true buddies stick like that mark on your skin.',129,168),('i can survive without a girlfriend.',45,75),
+('but i cannot survive without you as my best friend.',100,103),('you are my best buddy, my other half, and my human diary.',99,191),('you mean the world to me. i love you.',14,27),('i feel like i have known your whole life.',102,171),
+('so you have been this cool since day one?',10,186),('i dont know if you mind knowing this, but my buddy is the cutest guy around.',52,106),('you are the superhot thing to have graced this planet since the yucatan meteorite.',118,4),('this picture needs to illustrate the word fun in the dictionary.',112,21),
+('good times plus crazy friends equal great memories in this picture.',4,7),('frankly, i can never imagine not being in the company of someone amazing like you.',117,136),('you will not always be next to me, but be sure that you will have my back always.',105,35),('we will always be friends until we are so old and senile.',67,158),
+('you look like a baby with that smile on your face.',35,193),('god bless you and continue making me smile like this.',129,81),('we will one day be the old ladies causing a lot of trouble in nursing homes.',21,153),('the cuteness of your face and innocence of your eyes is just as incredible as our friendship.',10,177),
+('i dont know what special thing i did to deserve a best friend like you.',59,97),('wow, you are flawless, intelligent, and bright.',40,100),('making you my best friend is the best thing i could have done.',99,167),('i think that standing beside you makes you better looking.',114,175),
+('why wasnt i invited for the snap then?',16,165),('this is a perfect example of a quality portrait of a quality human being.',96,120),('you look awesome.',103,132),('i couldnt help but share my thoughts.',43,26),
+('how do you make a phone selfie look like a professional camera operator took it?',16,181),('excuse me, folks. everyone needs to double-tap on this picture asap.',101,80),('its the most beautiful thing you will ever see.',101,67),('live for the moments you cannot put in words.',99,185),
+('i hope we will be best friends until we die.',101,102),('then, we stay ghost pals to take such beautiful pictures.',105,85),('friends come and go, but true buddies stick like that mark on your skin.',130,26),('i can survive without a girlfriend.',113,145),
+('but i cannot survive without you as my best friend.',79,189),('you are my best buddy, my other half, and my human diary.',99,59),('you mean the world to me. i love you.',37,116),('i feel like i have known your whole life.',33,115),
+('so you have been this cool since day one?',88,131),('i dont know if you mind knowing this, but my buddy is the cutest guy around.',118,2),('you are the superhot thing to have graced this planet since the yucatan meteorite.',80,48),('this picture needs to illustrate the word fun in the dictionary.',11,53),
+('good times plus crazy friends equal great memories in this picture.',76,180),('frankly, i can never imagine not being in the company of someone amazing like you.',61,36),('you will not always be next to me, but be sure that you will have my back always.',122,149),('we will always be friends until we are so old and senile.',105,40),
+('you look like a baby with that smile on your face.',90,148),('god bless you and continue making me smile like this.',81,96),('we will one day be the old ladies causing a lot of trouble in nursing homes.',100,76),('the cuteness of your face and innocence of your eyes is just as incredible as our friendship.',13,182),
+('i dont know what special thing i did to deserve a best friend like you.',111,38),('wow, you are flawless, intelligent, and bright.',71,123),('making you my best friend is the best thing i could have done.',53,94),('i think that standing beside you makes you better looking.',25,103),
+('why wasnt i invited for the snap then?',28,34),('this is a perfect example of a quality portrait of a quality human being.',78,131),('you look awesome.',61,148),('i couldnt help but share my thoughts.',82,131);
+INSERT OR IGNORE INTO likes
+(user_id,photo_id) VALUES
+(72,50),(23,124),(61,187),(59,135),(111,32),(98,6),(25,146),(128,197),(62,33),(35,37),
+(88,50),(114,143),(68,109),(9,106),(13,45),(71,73),(78,23),(76,155),(39,121),(14,149),
+(79,146),(47,64),(114,55),(90,142),(76,156),(92,128),(36,104),(7,45),(9,86),(61,195),
+(21,100),(77,186),(120,21),(101,163),(120,189),(116,87),(104,181),(8,14),(106,89),(124,175),
+(87,23),(56,87),(81,150),(30,55),(16,109),(100,192),(24,151),(13,58),(17,13),(108,24),
+(123,113),(131,40),(128,162),(64,177),(30,12),(101,63),(114,165),(24,157),(130,49),(109,11),
+(87,80),(5,136),(117,139),(53,182),(15,124),(52,107),(11,169),(113,67),(75,140),(49,35),
+(37,123),(2,33),(103,177),(114,176),(130,167),(33,68),(2,133),(4,178),(104,50),(127,4),
+(91,87),(5,46),(66,189),(49,170),(10,176),(67,128),(11,165),(36,132),(4,24),(116,39),
+(42,183),(81,7),(119,47),(1,19),(44,29),(81,132),(79,176),(95,55),(45,25),(129,66);
 
+INSERT OR IGNORE INTO follows
+(follower_id,followee_id) VALUES
+(48,130),(127,131),(87,29),(55,126),(32,43),(38,65),(93,65),
+(85,74),(9,16),(49,10),(68,122),(52,115),(109,49),
+(113,19),(71,128),(26,14),(37,106),(116,59),
+(64,32),(20,31),(96,84),(75,127),(119,7),(32,84),
+(17,47),(22,40),(11,18),(100,116),(103,7),(94,121),
+(116,11),(3,125),(19,83),(126,124),(15,81),(101,65),
+(89,12),(6,20),(98,106),(112,12),(70,9),(32,2),
+(23,25),(25,6),(15,99),(113,4),(51,131),(101,93),
+(76,123),(40,77),(130,109),(113,5),(79,52),(45,53),
+(95,98),(82,53),(80,99),(108,27),(6,67),(127,126),
+(106,26),(84,105),(99,19),(88,127),(17,122),(127,43),
+(52,62),(49,59),(58,61),(121,43),(116,25),(108,12),
+(104,39),(21,3),(49,123),(103,104),(36,69),(110,111),
+(40,1),(77,105),(62,83),(48,23),(125,3),(46,49),
+(84,20),(110,63),(98,58),(128,5),(113,104),(109,69),
+(4,69),(99,68),(45,99),(53,118),(2,8),(35,44),
+(102,125),(40,23),(82,38),(113,62),(59,132),
+(74,32),(111,36),(10,26),(24,77),(126,8),(93,21),
+(26,94),(17,22),(116,58),(57,21),(105,98),(29,125),
+(103,87),(17,90),(126,23),(32,50),(53,114),(70,32),
+(107,101),(5,37),(68,70),(72,64),(129,38),(78,121),
+(38,93),(119,9),(82,112),(69,132),(33,60),(121,62),
+(109,32),(126,63),(121,90),(86,40),(3,58),(95,66),
+(35,26),(38,118),(81,8),(107,73),(2,8),(129,37),
+(32,13),(96,33),(53,128),(18,71),(52,21),(84,15),
+(127,27),(63,109),(43,39),(33,131),(80,64),(6,5),
+(18,44),(33,15),(11,46),(116,4),(19,100),(6,80),
+(34,101),(71,31),(117,39),(127,93),(119,121),
+(130,25),(36,109),(82,47),(60,8),(61,38),(40,30),
+(66,60),(95,118),(125,74),(29,46),(68,23),(68,118),
+(71,39),(114,33),(35,42),(60,19),(56,91),(72,20),
+(7,116),(17,49),(37,87),(102,67),(110,72),
+(93,66),(100,122),(76,93),(5,127),(105,123),(128,51);
+
+INSERT OR IGNORE INTO tags
+(tag_name) VALUES
+('#style'),('#workout'),('#bestoftheday'),('#family'),('#followers'),('#love'),('#k'),
+('#happy'),('#swag'),('#vsco'),('#fitness'),('#smile'),('#instagood'),('#lfl'),
+('#photo'),('#fit'),('#funny'),('#worldcup'),('#likeforlike'),('#instagram'),('#trending'),
+('#life'),('#healthy'),('#dogsofinstagram'),('#tagsforlikes'),('#myself'),('#followforfollowback'),('#likeback'),
+('#nature'),('#yummy'),('#drawing'),('#viralpost'),('#followback'),('#followme'),('#following'),
+('#insta'),('#blackandwhite'),('#artist'),('#nofilter'),('#comment'),('#photooftheday'),('#loveyourself'),
+('#cute'),('#foodie'),('#f4fl'),('#amazing'),('#followforfollow'),('#photography'),('#lifestyle'),
+('#viral'),('#home'),('#flowers'),('#instamood'),('#likesforlikes'),('#bhfyp'),('#tiktok'),
+('#likesforlike'),('#christmas'),('#baby'),('#igers'),('#art'),('#instalike'),('#photoshoot'),
+('#model'),('#black'),('#wedding'),('#makeup'),('#tbt'),('#l'),('#photographer'),
+('#music'),('#winter'),('#instapic'),('#dog'),('#like4like'),('#instadaily'),('#likes'),
+('#travel'),('#pink'),('#pretty'),('#beach'),('#summer'),('#likeforfollow'),('#like'),
+('#memes'),('#sea'),('#instafood'),('#sunset'),('#friends'),('#picoftheday'),('#follow'),
+('#explorepage'),('#landscape'),('#party'),('#foodporn'),('#repost'),('#fashion'),('#likeforlikes'),
+('#liker'),('#blue'),('#inspiration'),('#motivation'),('#trendingnow'),('#beautiful'),('#gym'),
+('#girl'),('#london'),('#lol'),('#sky'),('#fun'),('#me'),('#f4f'),
+('#explore'),('#holiday'),('#cool'),('#design'),('#food'),('#handmade'),('#toofunny'),
+('#selfie'),('#india'),('#beauty'),('#cat'),('#vscocam'),('#hair');
+
+INSERT OR IGNORE INTO photo_tags
+(photo_id,tag_id) VALUES
+(139,95),(116,41),(28,103),(23,5),(9,20),(7,117),(52,105),
+(41,85),(159,95),(17,65),(69,8),(24,113),(87,110),
+(126,77),(124,87),(105,74),(161,43),(148,29),(146,110),
+(168,78),(56,78),(57,52),(11,87),(129,95),(63,106),
+(34,107),(117,38),(182,63),(123,112),(184,43),(158,6),
+(191,37),(38,90),(66,1),(175,33),(154,50),(180,28),
+(200,23),(189,70),(184,4),(141,72),(22,104),(139,112),
+(94,1),(54,121),(85,82),(142,89),(23,9),(32,69),
+(11,42),(108,77),(102,12),(154,63),(38,21),(146,95),
+(47,92),(75,116),(168,82),(185,89),(104,12),(88,37),
+(138,80),(38,108),(50,49),(6,122),(66,20),(71,28),
+(32,122),(54,64),(2,78),(4,6),(109,94),(186,116),
+(86,15),(175,94),(89,37),(60,70),(170,4),(19,38),
+(47,45),(125,23),(144,5),(150,83),(52,113),(9,18),
+(1,54),(13,48),(160,85),(89,19),(3,31),(185,15),
+(86,75),(16,32),(189,108),(191,94),(37,33),(44,11),
+(86,72),(102,77),(102,16),(101,40),(146,4),(182,40),
+(187,88),(135,124),(120,92),(82,103),(17,34),(76,50),
+(93,111),(155,58),(79,38),(63,62),(7,114),(18,85),
+(162,7),(65,79),(128,110),(1,62),(148,104),(46,73),
+(90,121),(89,52),(128,32),(60,12),(117,6),(1,43),
+(43,42),(39,40),(97,61),(172,76),(152,46),(154,103),
+(73,65),(59,56),(196,15),(132,102),(169,26),(117,9),
+(44,99),(130,99),(28,89),(127,19),(166,63),(14,11),
+(25,33),(155,98),(52,26),(135,84),(53,86),(187,78),
+(80,40),(98,48),(162,74),(134,62),(100,30),(8,21),
+(27,75),(146,59),(66,3),(139,108),(191,53),(58,107),
+(103,104),(168,113),(28,82),(17,49),(49,49),(158,84),
+(101,104),(67,123),(132,45),(81,95),(59,113),(168,115),
+(168,32),(79,33),(135,14),(136,24),(126,101),(129,50),
+(127,37),(167,63),(168,10),(110,120),(178,84),(171,96),
+(33,91),(9,74),(187,22),(98,92),(154,116),(31,26),
+(172,4),(200,24),(18,22),(49,12),(139,31),(197,31),(148,38);
