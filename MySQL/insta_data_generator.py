@@ -40,16 +40,24 @@ if 0:#generating data for instagram likes
 if 1:#random date generator
     import random
     import time
+
     def random_date(start, end, time_format,prop):
         stime = time.mktime(time.strptime(start, time_format))
         etime = time.mktime(time.strptime(end, time_format))
         ptime = stime + prop * (etime - stime)
         return time.strftime(time_format, time.localtime(ptime))
 
-    start = "1/1/2008 1:30:22"
-    end= "1/1/2009 4:50:34"
-    time_format = '%m/%d/%Y %I:%M:%S'
-    # print(random_date(start,end,time_format,random.random()))
+    start = "1995-1-1 1:30:22"
+    end= "2020-1-1 4:50:34"
+    time_format = '%Y-%m-%d %I:%M:%S'
+
+if 1:#random dates file
+    f = open('random_dates.txt', 'w')
+    for i in range(300):
+        date =random_date(start,end,time_format,random.random())
+        f.write("'"+date+"'"+"\n")
+        print(random_date(start,end,time_format,random.random()))
+    f.close()
 
 if 0:#generate followers table
     import random
@@ -81,5 +89,25 @@ if 1:#creating teh data for the photo_tags table
         tag_id = random.randint(1,125)
         f.write("("+str(photo_id)+","+str(tag_id)+"),")
         if i%6 ==0:
+            f.write("\n")
+    f.close()
+
+if 0:#dummy file for handling data
+    f= open('dummy_file.txt','r')
+    l = f.readlines()
+    f.close()
+    f = open('dummy_file1.txt', 'w')
+    for i in l:
+        if len(i) > 1:
+            f.write(i)
+    f.close()
+if 1:#dummy file for handling data
+    f= open('dummy_file.txt','r')
+    l = f.readlines()
+    f.close()
+    f = open('dummy_file1.txt', 'w')
+    for c,i in enumerate(l):
+        f.write(i.strip())
+        if c %4 ==0:
             f.write("\n")
     f.close()

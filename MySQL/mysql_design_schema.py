@@ -77,6 +77,13 @@ if 1:
         print(names)
         for i in cursor:
             print(i)
+    if 0:#printing all the likes(100) list
+        data = cursor.execute('SELECT * FROM likes;')
+        names = [i[0] for i in data.description]
+        print(names)
+        for i in cursor:
+            print(i)
+
     if 0:#printing all the followers(200) list
         data = cursor.execute('SELECT * FROM follows;')
         names = [i[0] for i in data.description]
@@ -98,13 +105,84 @@ if 1:
             print(i)
 
 if 1:#exercise on instagram data
-    if 1:#find the persons who have joined early
-        data = cursor.execute("SELECT * FROM users ORDER BY created_at ASC LIMIT 5")
+    if 0:#find the persons who have joined early
+        data = cursor.execute("SELECT * FROM users ORDER BY created_at LIMIT 5;")
+        names = [i[0] for i in data.description]
+        print(names)
+        for i in cursor:
+            print(i)
+    if 0:#finding the day at which the most people are creating the account
+        data = cursor.execute('''SELECT 
+        strftime('%w',created_at) AS day,
+        COUNT(*) AS total FROM users 
+        GROUP BY day
+        ORDER BY total DESC;''')
+        names = [i[0] for i in data.description]
+        print(names)
+        for i in cursor:
+            print(i)
+    if 0:#finding the users who never posted any photo
+        #joining users and photos so left part contains only the user who is not posted in the set
+        data = cursor.execute('''
+        SELECT username,image_url FROM users
+         LEFT JOIN photos ON photos.user_id = users.id 
+         WHERE photos.image_url is NULL;''')
+        names = [i[0] for i in data.description]
+        print(names)
+        for i in cursor:
+            print(i)
+    if 0:#most liked photo in istagram
+        data = cursor.execute('''
+        SELECT photos.id,photos.image_url,COUNT(*) AS total FROM photos
+        INNER JOIN likes ON photos.id = likes.photo_id
+        GROUP BY photos.id ORDER BY total DESC LIMIT 1;
+        ''')
         names = [i[0] for i in data.description]
         print(names)
         for i in cursor:
             print(i)
 
+    if 0:#most liked photo user in istagram
+        data = cursor.execute('''
+        SELECT users.username,photos.id,photos.image_url,COUNT(*) AS total FROM photos
+        INNER JOIN likes ON photos.id = likes.photo_id
+        INNER JOIN users ON photos.user_id = users.id
+        GROUP BY photos.id ORDER BY total DESC LIMIT 5;
+        ''')
+        names = [i[0] for i in data.description]
+        print(names)
+        for i in cursor:
+            print(i)
+
+    if 0:#average posts per user in istagram
+        data = cursor.execute('''
+        SELECT (SELECT COUNT(*) FROM photos) / (SELECT COUNT(*) FROM users) AS avg;''')
+        names = [i[0] for i in data.description]
+        print(names)
+        for i in cursor:
+            print(i)
+    if 0:#most used 5 hashtags
+        data = cursor.execute('''
+        SELECT tags.tag_name, COUNT(*) AS total FROM tags
+        INNER JOIN photo_tags ON tags.id = photo_tags.tag_id
+        GROUP BY tags.tag_name ORDER BY total DESC LIMIT 5;
+        ''')
+        names = [i[0] for i in data.description]
+        print(names)
+        for i in cursor:
+            print(i)
+
+    if 0:#find the user who liked all photos
+        data = cursor.execute('''
+        SELECT users.username,COUNT(users.username) AS total_likes FROM users
+        JOIN likes ON likes.user_id = users.id
+        GROUP BY username
+        HAVING total_likes = (SELECT COUNT(*) FROM photos);
+        ''')
+        names = [i[0] for i in data.description]
+        print(names)
+        for i in cursor:
+            print(i)
 
 
 

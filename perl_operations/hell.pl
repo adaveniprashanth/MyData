@@ -17,6 +17,7 @@ my $dirname = dirname(__FILE__);
 print "$dirname\n";
 =cut
 
+#https://perldoc.perl.org/perlrequick  regular expressions
 #https://perldoc.perl.org/Cwd
 #https://stackoverflow.com/questions/40506465/find-files-in-the-folder-and-subfolder
 #pritnig the files and folders in the directory
