@@ -216,7 +216,7 @@ print "$interactive_paths\n";
 
 #finding the folder  with incomplete name
 #print "$dir\n";
-my $directory = "$dir"."/INTERACTIVE";
+=my $directory = "$dir"."/INTERACTIVE";
 #print "$directory\n";
 my $decpic = "$directory"."/Dec_PicParameterSet_0_CFG0";
 my $incomplete_folder = 'IronChef';
@@ -233,3 +233,56 @@ foreach my $vars4 (@vars3)
 	}
 }
 print "total path is $total_path\n";
+=cut
+
+# Perl program to demonstrate the splitting on character
+=my $snapshot_model="/nfs/site/disks/lnl_soc_regress_001/ashish/soc_package/snapshot_model/LNL/ww43p4_LNL_SOC_RTL1p0_post_rev1_snapshot";
+my @items = split('/', $snapshot_model);
+my $popped_element = pop(@items);
+print "$popped_element\n";
+=cut
+
+
+
+
+#
+#my $iteration = 1;
+#
+#open FILE_IN, "/nfs/site/disks/mtl_pipesm_aravind_av_regress/ashish_reg/SoC_package/LNL_RTL_1p0_refresh/gfxbuild/gfxbuild_cmd.list" or die "Could not open file /nfs/site/disks/mtl_pipesm_aravind_av_regress/ashish_reg/SoC_package/LNL_RTL_1p0_refresh/gfxbuild/gfxbuild_cmd.list";
+#
+#open( "/nfs/site/disks/mtl_pipesm_aravind_av_regress/ashish_reg/SoC_package/LNL_RTL_1p0_refresh/gfxbuild/testlist.list")
+#open(FH, '>', "/nfs/site/disks/mtl_pipesm_aravind_av_regress/ashish_reg/SoC_package/LNL_RTL_1p0_refresh/gfxbuild/testlist.list")
+#while (<FILE_IN>)
+#  {
+#  my $result = -1;
+#  my $line = $_;
+#  chomp ($line);
+#  my $working_dir = system ("pwd");
+#  print "Creating a new test directory\n";
+#  #system ("mkdir test_$iteration");
+#  mkdir ("/nfs/site/disks/mtl_pipesm_aravind_av_regress/ashish_reg/SoC_package/LNL_RTL_1p0_refresh/gfxbuild/LNL_SOC_1p0_refresh_PRECOMP_TESTS_newfulsim/test_$iteration");
+#  #system ("cd test_$iteration");
+#  chdir ("/nfs/site/disks/mtl_pipesm_aravind_av_regress/ashish_reg/SoC_package/LNL_RTL_1p0_refresh/gfxbuild/LNL_SOC_1p0_refresh_PRECOMP_TESTS_newfulsim/test_$iteration");
+#  $working_dir = system ("pwd");
+#  print "Running script on test_$iteration\n";
+#  $result = system ($line);
+#  #sleep(60);
+#  #system ("cd ..");
+#  chdir ("/nfs/site/disks/mtl_pipesm_aravind_av_regress/ashish_reg/SoC_package/LNL_RTL_1p0_refresh/gfxbuild/LNL_SOC_1p0_refresh_PRECOMP_TESTS_newfulsim");
+#  $iteration = $iteration + 1;
+#  }
+  
+  
+
+
+#writing the data into file.
+=my $filename = '/nfs/site/disks/mtl_pipesm_aravind_av_regress/ashish_reg/SoC_package/LNL_RTL_1p0_refresh/gfxbuild/testlist.list';
+open(my $fh, '>', $filename) or die "Could not open file '$filename' $!";
+
+#inside while loop
+print $fh "test_$iteration\n";
+
+
+close $fh;
+print "done\n";
+=cut
