@@ -1,0 +1,153 @@
+cd --> to change the directory
+pwd --> to pring the current path
+ls --> to list all the items in directory
+cp --> to copy the files
+mv  --> to rename and move the files
+rm --> to delete the files
+echo --> it will behaves like print
+cat --> it will pring the file content directly in terminal
+less --> will create a new tab to display the content in the file
+grep -->will be used to find the word pattern in file
+sort --> will be used to sort the file in alphabetical/numarical order
+mkdir --> to create the directory
+touch --> to create multiple files at a time
+chmod  --> will help to change the permissions of a file(user group others)
+chgrp --> will be used to change the group of file
+chown --> will be used to chane the owner of a file
+
+pr --> will be used to print the data from file
+man --help
+
+ | will be used to perform multiple commands in sequentially
+
+su command:
+su --> will be user to jump to root user/main admin user
+su <username> --> to change from one user to other user
+sudo --> will be used to execute that particular command only as root user
+
+
+
+cd command:
+cd --> will take you to root directory
+cd / --> will also take to root directory
+cd ~ --> will also take to root directory
+cd 'xx yy' -->we have to use '' while directory is having space
+
+
+cat command:
+cat -b --> used to add line numbers to non blank lines
+cat -n --> used to add line numbers to all lines
+cat -s --> used to squeeze multiple continuous blank lines to one blank line
+cat -E -->show $ at the end of file
+cat > file.txt -->   > used to send command result to file
+cat >> file.txt -->  >> used to append result to file
+
+grep command:
+grep <word/pattern> <file name>  --> will search exact match string
+grep -i <word> <filename>  --> will search words incase sensitive
+grep -v <word> <filename>  --> will search the lines with not matching 
+				string in the line
+grep -n <word> <filename> --> will search words and returns along with 
+							line numbers
+grep -c <word> <filename> --> returns the count of lines having word
+
+sort command:
+sort <file name>  --> sorts the file lines in alphabetical order
+sort <file1> <file2> --> sorts 2 files
+sort -r <file> --> returns in reverse order
+sort -f <file> --> sorts case insensitive order
+sort -n <file> --> sorts in numaric order
+sort -<number> --> sorts the values by ignoring the fields based on the given number #ex sort +4n <filename> 
+ex: ls -l | sort +4n
+
+
+copy command:
+cp -i <src_file> <dest>  --> will ask for overwrite permission
+					 if file exist with same name
+cp -n <src_file> <dest>  --> will skip the file if file is present on the destination
+cp -u <src_file> <dest>  --> will overwrite if the file names are same and content is different
+cp -R <src_file> <dest>  --> will copy the hidden files also.
+cp -v <src_file> <dest>  --> will provides the information 
+					about copy i.e. which files is copying etc
+
+move command:
+mv -i <src_file> <dest>  --> will ask for overwrite permission while moving
+mv -u <src_file> <dest>  --> will overwrite if the file names are same and content is different
+mv -v <src_file> <dest>  --> will provides the information 
+					about moving file i.e. which files is moving etc
+
+mkdir command:
+mkdir -p <parent_foldername/child_folder/sub_child>  --> will be used to 
+					create parent and child directories at a time
+mkdir --parents <parent_foldername/child_folder/sub_child>  --> will be used to 
+					create parent and child directories at a time
+
+mkdir -p <parent/{child1,child2,child3}> --> will be used to create the parent and child directories
+
+chmod command:
+drwxrwxrwx  -->directory(d)|owner/user(rwx)|group(rwx)|other(rwx)
+changing owner/user permissions 
+chmod u+rwx <filename> #adding the user permissions to the file
+chmod o-rwx <filename> #removing the others permissions of a file
+chmod g=rwx <filename> #set the permissions for a file like adding only
+
+chmod 777 <filename>  #adding all permissions to all people
+chmod 000 <filename>  #removing all permissions to all people
+
+chown command: to change the owner of a file
+chown <new owner name> <filename>
+
+chgrp command: to change the group name of a file
+chgrp <new group name> <filename>
+
+rmdir command:
+rmdir <foldername> --> will be deleted only when the folder is empty
+rmdir -p <foldername/childname> --> will be deleted itself and its child directories only when having directories 
+rm -r <foldername> --> will be deleted itself and its child even contains files.
+
+tar command:
+tar -cvf <tar file name> <file/folder to be compressed>  --> will compress the file and gives details while compress
+tar -xvf <tar file name>  --> will untar the file
+
+Environmental variables:
+printenv --> will print all the environmental variables
+echo $HOME --> print the home directory of user
+echo $PATH --> will prints the path where shell looks for the command 
+echo $HOSTNAME --> will prints the hostname
+echo $USERNAME --> will prints the username
+echo $LANG --> will prints the language used in computer ex: en-US,en-IN etc.
+echo $BASF_VERSION --> will prints the bash version
+
+using regular expressions:
+. --> it will replace any character.
+* --> it will check for zero or more times
+? --> it will check for one or more times
+^ --> check a string staring with
+$ --> check a string ending with
+() --> groups the regular expressions
+\ --> replaces any special character
+
+echo {a..z} --> prints from a to Z
+echo {a...z} --> prints {a...z}
+echo {1..99} --> prints from 1 to 99
+
+ps ux --> will be same as top command
+ps -pid --> will be same as top command
+
+## will not work in gitbash
+top--> will helps to prints the processes runnning in foreground
+notepad --> will open notepad
+
+fg notepad --> will put the notepad in foreground
+bg notepad --> will put the notepad in background
+pidof <process name> --> gives the process id of that process
+
+sudo useradd <username> --> it will add the username
+sudo passwd <username> --> it will add the password to that username
+sudo userdel <username> --> it will delete the particular username
+
+sudo groupadd <groupname> --> it will create the group name
+sudo groupdel <groupname> --> it will delete the group name
+
+date --> will be used to print the date
+date +%A --> will be used to print the current day

@@ -3091,3 +3091,38 @@ if 0:
 
     fun1(b,c) #it will work because default assigned values are present at the last in function definition
 
+if 0:
+    new_list = [2,3,2,1,4,3,1,2,4]
+    test={}
+    for i in new_list:
+        k = 0
+        for j in new_list:
+            if i == j:
+                k += 1
+        test[i] = k    
+    print(test)
+if 0:
+    l = [2,32,23,3,4,53,233,242,532,5,325,223]
+    maximum = None
+    for i in l:
+        if maximum is None or maximum < i:
+            maximum = i
+    print(maximum)
+if 0:
+    # Program to generate a random number between 0 and 9
+
+    # importing the random module
+    import random
+
+    print(random.randint(0,9))
+if 0:
+    pass
+    #ssh keys
+    '''SHA256:B+biL17G5f2TD9EffwJeEOnRGEm/OfH/yyHe0ITLOWc adaveniprashanth@gmail.com  for adaveniprashanth@gmail.com
+    SHA256:WI+2OY8aP+gCTTwWYPAUa3bSJPmuTkETXyZlv1o5GWk prashanthx.adaveni@intel.com  for  prashanthx.adaveni@intel.com
+    f328e45a48c643e802e1b5cb68fdfbe441688b02		branch 'master' of https://github.com/adaveniprashanth/MyData'''
+
+if 0:#need to check
+    import pywhatkit as kit
+    number = '9113890660'
+    kit.sendwhatmsg(number,'hello',16,45)

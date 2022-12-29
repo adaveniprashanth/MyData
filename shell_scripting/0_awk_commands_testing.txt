@@ -1,0 +1,68 @@
+
+  121  cat shell_script1.sh shell_script2.sh > test.txt
+  122  ls
+  123  cat test.txt 
+  124  ls
+  125  cat ` find . -name shell*.sh` 
+  126  cat ` find . -name 'shell*.sh' ` 
+  127  cat ` find . -name 'shell*.sh' ` > test2.txt
+  128  cat test2.txt 
+  129  cat ` find . -name 'shell*.sh' `|grep 'echo' > test3.txt
+  130  cat test3.txt 
+  131  cat ` find . -name 'shell*.sh' `|grep 'echo'|wc -l >> test3.txt
+  132  cat test3.txt 
+  133  cat ` find . -name 'shell*.sh' `|grep 'echo'|wc -l > test3.txt
+  134  cat test3.txt 
+  135  awk '{print}' test3.txt
+  136  cat ` find . -name 'shell*.sh' `|grep 'echo' > test3.txt
+  137  awk '{print}' test3.txt
+  138  awk '{print $1}' test3.txt
+  139  awk '{print $2}' test3.txt
+  140  awk '{print $1$2}' test3.txt
+  141  awk '{print $1 $2}' test3.txt
+  142  awk '{print $1' '$2}' test3.txt
+  143  awk '{print $1-$2}' test3.txt
+  144  awk '{print $1-$3}' test3.txt
+  145  awk '{print $1}' test3.txt
+  146  awk '{print $1" "$2}' test3.txt
+  147  man awk
+  148  awk --help
+  149  wheris awk
+  150  whereis awk
+  151  where is awk
+  152  where awk
+  153  awk '{print NR=5}' test3.txt
+  154  awk '{print NR=5 $0}' test3.txt
+  155  awk '{print $NR=5}' test3.txt
+  156  awk '{print $NR==5}' test3.txt
+  157  awk '{print NR==5}' test3.txt
+  158  awk 'NR==5{print NR,$0}' test3.txt
+  159  awk 'NR==5{print NR,$1}' test3.txt
+  160  awk 'NR==5 NR==4{print NR,$1}' test3.txt
+  161  awk 'NR==4,NR==5{print NR,$0}' test3.txt
+  162  awk 'NR==4,NR==8{print NR,$0}' test3.txt
+  163  awk 'NR==4 && NR==8{print NR,$0}' test3.txt
+  164  awk 'NR==4 || NR==8{print NR,$0}' test3.txt
+  165  awk test3.txt
+  166  awk {print} test3.txt
+  167  awk 'AB==4,AB==5{print AB,$0}' test3.txt
+  168  awk 'NR==4,NR==8{print NR,$0}' test3.txt
+  169  awk 'AB==4 || NR==8{print NR,$0}' test3.txt
+  170  awk 'NR==4 || NR==8{print NR,$0}' test3.txt
+  171  awk 'NR==4 || NR==8{print NR,$0}' test3.txt >> test4.txt
+  172  cat test4.txt 
+  173  awk 'NR==4 || NR==8{print NR,$0" "\n}' test3.txt >> test4.txt
+  174  awk 'NR==4 || NR==8{print NR,$0"\n"}' test3.txt >> test4.txt
+  175  cat test4.txt 
+  176  awk 'NR==4 || NR==8{print NR,$0"\r"}' test3.txt > test4.txt
+  177  cat test4.txt 
+  178  awk 'NR==4 || NR==8{print NR,$0"\r\r"}' test3.txt > test4.txt
+  179  cat test4.txt 
+  180  awk 'BEGIN {OFS=" ",ORS="\n\n"} NR==4 || NR==8{print NR,$0}' test3.txt > test4.txt
+  181  awk 'BEGIN {OFS=" ";ORS="\n\n"} NR==4 || NR==8{print NR,$0}' test3.txt > test4.txt
+  182  cat test4.txt 
+  183  awk 'BEGIN {OFS=" ";ORS=""} NR==4 || NR==8{print NR,$0}' test3.txt > test4.txt
+  184  cat test4.txt 
+  185  hist
+  186  history
+  187  history > test5.txt
