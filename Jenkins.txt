@@ -1,3 +1,35 @@
+Agile methodology:
+the whole process of building a software is broken into small blocks called sprints.
+
+workflow of Agile methodology:
+1.product bcaklog --> will find the what are the features are going to be needed.
+2.sprint planning --> finding which tasks has to perform on which sprint
+3.sprint backlog --> creating the time division to create the code
+4.sprint time --> in this time we can create the code and go for internal review and performs the DSM
+5.deliver producrt --> delivering the code into deployment
+6.product review --> now we have to test the code for any bugs or other issues	
+
+DevOps: devops is an evolution from agile of software development
+--> In devops, developers submit their code to operations team for implementation
+--> then the operations team implement the application in production like environment for testing
+--> then they will return the feedback to the development team for any fixes or bugs.
+
+
+DevOps Phases:
+1.plan --> in this, developers and clients discuss about the features and prepare a plan
+2.code --> In this,programmers design the code and save them into any storage like github,perforce,SVN etc.
+3.build --> in this, we will use the build tools like maven or gradle then combine code from github/SVN repositories and build complete application
+4.testing --> in this, we have to test the application using selenium/cucumber/JUnit for quality
+5.integrate --> in this, when test completes and code is working fine then we have to integrate the new code to already existed codebase by jenkins/bamboo/buildbot/apache gump/travis CI
+6.deploy --> in this, the whole integrated code will be deployed from development servers to production servers using bmc/xebialabs/docker
+7.operate --> in this, operations team configures the servers and provisioning them with required resources using ansible/CHEF etc.
+8.monitor --> in this, we have to check the perofrmance of the code at end users using nagios/splunk
+
+CI(continuous Integration): in this, we have to plan the code --> develop code --> build application --
+													-->test application --> send app to build environment and if any issue present go to plan again
+CD(continuous Deployment): inthis, when the code is successfully passed, then we can deploy the code into production servers and provide resources and monitor the report
+					
+
 Jenkins Features:
 1. Easy bug detection
 2. extensible
@@ -8,20 +40,20 @@ Jenkins Features:
 Jenkins pipeline:
 1.developers commit the changes to source(github, perforce)
 2.jenkins server builds the build file
-3. performes the testing on the build files
+3. performes the testing on the build file
 4. after passing the test cases it will release the build in environment
 5. finally it will deploy the build in production environment
 
 Jenkins architecture:
 it has been divided into 2 parts.
-1. developer push the code in to github
-2. then jenkins pulls the code from source repository and performs the tests and send the report to developers
-3. if the testcases passes, then jenkins build the build file using maven server.
-4. and filnally run the testcases using maven or selineum.
+1. developer push the code in to github then jenkins pulls the code from github
+											and performs tests and send report to developers if any failures present
+2. if the testcases passes, then jenkins build the build file using maven server.
+								and filnally run the testcases using maven/selineum and send that build into production server.
 
 Master slave architecture:
 jenkins master server will fetch the code from source repository and then 
-it will distribute its load to all its slaves. master will control the execution of code in its slaves.
+	it will distribute its load to all its slaves. master will control the execution of code in its slaves.
 
 Jenkins prerequisites:
 1. java JDK 1.7 or 1.8
@@ -35,7 +67,7 @@ Jenkins dashboard parts:
 
 1.Manage jenkins:
 	it will have all the menu option to manage the jenkins application.
-	a. configure system: will helps to handle the home directory to store workspace, configurations 
+	a. configure system: will helps to handle the home directory to store workspace, configurations
 		it will helps to handle the no.of threads to run jenkins i.e. how many jobs have to execute at a time.
 		and Email notifications 
 	b. global tool configuration: will helps to set the applications which needs to be used to complete the execution on jenkins
@@ -47,5 +79,24 @@ Jenkins dashboard parts:
 	it will hepls to create a jenkins job for CI(continuous Integration). There you can create a freestyle job, pipeline, multipipeline project and maven project and etc.
 	Then selecting any one option you can get the option to control the job i.e. general details, job name,source code management,build triggers,build steps and post build actions etc.
 
---> We can schedule the build using the option build periodically in build trigger options.
-  
+--> we can start the buuild using build now button and we can see the output in console output.
+
+--> We can schedule the build using the option build periodically and other options in build trigger options.
+
+Authorization permissions comes under configure global secutory.
+	we have to provide the access to users based on their roles. which can be global roles/project based roles.
+	we can assign and create roles under manage and assign roles. Roles can be developer/tester etc. and we have to provide the permissions to that roles.
+
+	we can create users under create users section. then we can asssign some roles to that user under manage and assign roles section.
+
+when we wanna connect github account to jenkins we have to change the options in source code management(SCM) 
+				and we have to provide the github repository URL and user credentials.
+
+when if we want to run the maven project, pull the code from github/SVN and create a package and run that one in tomcat server.
+	If we want to put into tomcat server we have to create user for tomcat server and provide the URL and credentials of tomcat server to jenkins.
+Master-Slave architecture:
+--> Master and slave can connect in so many ways. in that one we can use JNLP(java network lanunch protocol). so for that we have to enable that protocol. we can find that protocol in configure system/congigure global security section.
+
+--> next we have to create master and slave nodes. while cvreating slave we have to give a label for that. By that name only we will identofy that slave
+
+
