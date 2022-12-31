@@ -1,0 +1,8 @@
+,animal,age,visit
+a,dog,9.0,no
+b,cat,2.0,yes
+c,horse,0.0,yes
+d,donkey,12.0,no
+e,lion,23.0,no
+f,elephant,,yes
+g,mouse,1.0,no
