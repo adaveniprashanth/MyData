@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 try:
-    import sys
+    import sys,os
     import numpy as np
     import array as arr
     import string
     import random
+    import shutil
+    from shutil import copyfile
+    import zipfile
 except ModuleNotFoundError:
     print("you have to install the below packages to run")
     sys.exit("install all modules")
@@ -3126,3 +3129,103 @@ if 0:#need to check
     import pywhatkit as kit
     number = '9113890660'
     kit.sendwhatmsg(number,'hello',16,45)
+
+if 1:
+    #zip the folder after create folder structure
+    with open("abc.txt",'w') as f1:
+        for i in range(100):
+            f1.write("diff -r the new file\n")
+            f1.write("Only in the new file\n")
+            f1.write("abc  is the new file again\n")
+
+    f0 = open('abc_copy.txt','w')
+    with open("abc.txt",'r') as f1:
+        read_content = f1.readline()
+    if read_content.startswith('diff -r'):
+        f0.write(read_content)
+    f0.close()
+    if not os.path.isdir(os.path.join(os.getcwd(),'smedia_top/source/includes')):
+        os.makedirs('smedia_top/source/includes')
+    if not os.path.isdir(os.path.join(os.getcwd(),'smedia_top/source/rtl/src')):
+        os.makedirs('smedia_top/source/rtl/src')
+
+    copyfile('abc.txt','smedia_top/source/includes/abc.txt')
+
+
+
+    def zipdir(path, ziph):
+        # ziph is zipfile handle
+        for root, dirs, files in os.walk(path):
+            for file in files:
+                ziph.write(os.path.join(root, file),os.path.relpath(os.path.join(root, file),os.path.join(path, '..')))
+
+
+    with zipfile.ZipFile('Python.zip', 'w', zipfile.ZIP_DEFLATED) as zipf:
+        zipdir('smedia_top/', zipf)
+
+
+
+# 7550006035
+
+if 0:
+    last_drop = '/nfs/site/disks/lnl_soc_regress_001/ashish/soc_package/LNL_IPX_UPLOAD/RTL1p0_refresh/xe2lpm_media_common-22ww44e-package'
+    current_drop = '/nfs/site/disks/lnl_soc_disk_001/ashish/soc_package/lnl/WW51_SOC_LNL_A0_PROD/IPX_UPLOAD/xe2lpm_media_common-22ww53e-package'
+    log_file = 'log.txt'
+    if os.path.isfile(os.path.join(os.getcwd(), log_file)):
+        os.remove(os.path.join(os.getcwd(), log_file))
+    reference_include = os.path.join(last_drop, 'smedia_top/source/includes')
+    source_include = os.path.join(current_drop, 'smedia_top/source/includes')
+    if os.path.isfile(os.path.join(os.getcwd(), log_file)):
+        os.system("diff -r " + source_include + " " + reference_include + " >> log.txt")
+    else:
+        os.system("diff -r " + source_include + " " + reference_include + " > log.txt")
+    reference_rtl = os.path.join(last_drop, 'smedia_top/source/rtl/src')
+    source_rtl = os.path.join(current_drop, 'smedia_top/source/rtl/src')
+
+    if os.path.isfile(os.path.join(os.getcwd(), log_file)):
+        os.system("diff -r " + source_rtl + " " + reference_rtl + " >> log.txt")
+    else:
+        os.system("diff -r " + source_rtl + " " + reference_rtl + " > log.txt")
+
+    includes_folder = 'smedia_top/source/includes'
+    if not os.path.isdir(os.path.join(os.getcwd(), includes_folder)):
+        os.makedirs(includes_folder)
+    rtl_folder = 'smedia_top/source/rtl/src'
+    if not os.path.isdir(os.path.join(os.getcwd(), rtl_folder)):
+        os.makedirs(rtl_folder)
+
+    new_file = open('updated_log.txt', 'w')
+    with open(log_file, 'r') as f1:
+        content = f1.readlines()
+    for i in content:
+        if i.startswith('diff -r'):
+            new_file.write(i.split(" ")[2].split("/")[-1] + " present in both drops\n")
+            if rtl_folder in i.split(" ")[2]:
+                copyfile(i.split(" ")[2], rtl_folder + "/" + i.split(" ")[2].split("/")[-1])
+            if includes_folder in i.split(" ")[2]:
+                copyfile(i.split(" ")[2], includes_folder + "/" + i.split(" ")[2].split("/")[-1])
+        elif i.startswith('Only in'):
+            if current_drop in i:
+                new_file.write(i.strip().replace(": ", "/").split("/")[-1] + " present in current drop\n")
+                if rtl_folder in i:
+                    copyfile(i.strip().replace(": ", "/").split(" ")[2],
+                             rtl_folder + "/" + i.strip().replace(": ", "/").split("/")[-1])
+                elif includes_folder in i:
+                    print(i)
+                    copyfile(i.strip().replace(": ", "/").split(" ")[2],
+                     includes_folder + "/" + i.strip().replace(": ", "/").split("/")[-1])
+            elif last_drop in i:
+                new_file.write(i.strip().replace(": ", "/").split("/")[-1] + " present in last drop\n")
+
+    new_file.close()
+
+'''python test.py 
+-f 'ww53_prashanth' 
+-p '/nfs/site/disks/lnl_soc_disk_001/krenangi/WW51_SOC_LNL_A0_PROD_snapshot_plusbios' 
+-r '/nfs/site/disks/lnl_soc_disk_001/ashish/soc_package/lnl/WW51_SOC_LNL_A0_PROD/IPX_UPLOAD/xe2lpm_media_common-22ww53e-package'''
+
+if 0:
+    from datetime import date
+    today = date.today()
+    d1 = today.strftime("%Y%m%d")
+    print("d1 =", d1)

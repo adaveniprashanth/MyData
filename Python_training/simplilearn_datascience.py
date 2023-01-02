@@ -1,6 +1,10 @@
+
 import numpy as np
 import pandas as pd
 import sys,time
+import matplotlib.pyplot as plt
+
+
 if 0:
     #checking the size comparision of numpy array and list
     if 1:
@@ -165,7 +169,7 @@ if 0:#DataFrame creation
 
     #sorting the data
     # print(df2.sort_values(by=['age','animal']))
-if 1:#operations
+if 0:#operations
     d = {'animal': ['dog', 'cat', 'horse', 'donkey', 'lion', 'elephant', 'mouse'],
          'age': [3, 2, 0, 12, 23, np.nan, 1],
          'visit': ['no', 'yes', 'yes', 'no', 'no', 'yes', 'no']}
@@ -207,7 +211,14 @@ if 0:
     df4 = pd.read_excel('animal.xlsx',sheet_name='Sheet1',index_col=None,na_values=['NA'])
     print(df4)
 
-if 1:#plotting
+if 0:#plotting
     s1 = pd.Series(np.random.randn(6),index=pd.date_range('today',periods=6))
     print(s1)
     s1.plot()
+    plt.show()
+
+if 0:
+    df = pd.DataFrame(np.random.randn(50,4),columns=['a','b','c','d'],index=pd.date_range('today',periods=50))
+    df.plot()
+    plt.show()
+
