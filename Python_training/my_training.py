@@ -3130,7 +3130,7 @@ if 0:#need to check
     number = '9113890660'
     kit.sendwhatmsg(number,'hello',16,45)
 
-if 1:
+if 0:
     #zip the folder after create folder structure
     with open("abc.txt",'w') as f1:
         for i in range(100):
@@ -3229,3 +3229,121 @@ if 0:
     today = date.today()
     d1 = today.strftime("%Y%m%d")
     print("d1 =", d1)
+
+if 0:
+    from email import encoders
+    from email.mime.base import MIMEBase
+    from email.mime.multipart import MIMEMultipart
+    from email.mime.text import MIMEText
+    import base64
+
+    """Create a message for an email.
+    Args:
+        sender: Email address of the sender.
+        to: Email address of the receiver.
+        subject: The subject of the email message.
+        message_text: The text of the email message.
+    Returns:
+        An object containing a base64url encoded email object.
+      """
+    def create_message(sender, to, subject, message_text):
+        message = MIMEText(message_text)
+        message['to'] = to
+        message['from'] = sender
+        message['subject'] = subject
+        return {'raw': base64.urlsafe_b64encode(message.as_string().encode()).decode()}
+
+    """Send an email message.
+    Args:
+        service: Authorized Gmail API service instance.
+        user_id: User's email address. The special value "me"
+        can be used to indicate the authenticated user.
+        message: Message to be sent.
+    Returns:
+        Sent Message.
+      """
+    def send_message(service, user_id, message):
+        try:
+            message = (service.users().messages().send(userId=user_id, body=message)
+                       .execute())
+            print('Message Id: {}'.format(message['id']))
+            return message
+        except:
+            print ('An error occurred')
+
+    #Sender is the sender email, to is the receiver email, subject is the email subject, and notification is the email body message. All the text is str object.
+    def notification(sender, to, subject, notification):
+        SCOPES = 'https://mail.google.com/'
+        message = create_message(sender, to, subject, notification)
+        creds = None
+        if os.path.exists('token.pickle'):
+                with open('token.pickle', 'rb') as token:
+                    creds = pickle.load(token)
+                #We use login if no valid credentials
+        if not creds or not creds.valid:
+            if creds and creds.expired and creds.refresh_token:
+                creds.refresh(Request())
+            else:
+                flow =   InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
+                creds = flow.run_local_server(port=0)
+                # Save the credentials for the next run
+        with open('token.pickle', 'wb') as token:
+            pickle.dump(creds, token)
+        service = build('gmail', 'v1', credentials=creds)
+        send_message(service, sender, message)
+
+if 0:
+    import email, smtplib, ssl
+
+    from email import encoders
+    from email.mime.base import MIMEBase
+    from email.mime.multipart import MIMEMultipart
+    from email.mime.text import MIMEText
+
+    subject = "An email with attachment from Python"
+    body = "This is an email with attachment sent   from Python"
+    sender_email = "mydata232@gmail.com"
+    receiver_email = "mydata232@gmail.com"
+    password = input("Type your password and press enter:")
+
+    # Create a multipart message and set headers
+    message = MIMEMultipart()
+    message["From"] = sender_email
+    message["To"] = receiver_email
+    message["Subject"] = subject
+    message["Bcc"] = receiver_email  # Recommended for mass emails
+
+    # Add body to email
+    message.attach(MIMEText(body, "plain"))
+    '''
+    filename = "document.pdf"  # In same directory as script
+    
+    # Open PDF file in binary mode
+    with open(filename, "rb") as attachment:
+        # Add file as application/octet-stream
+        # Email client can usually download this automatically as attachment
+        part = MIMEBase("application", "octet-stream")
+        part.set_payload(attachment.read())
+    
+    # Encode file in ASCII characters to send by email    
+    encoders.encode_base64(part)
+    
+    # Add header as key/value pair to attachment part
+    part.add_header(
+        "Content-Disposition",
+        f"attachment; filename= {filename}",
+    )
+    
+    # Add attachment to message and convert message to string
+    message.attach(part)
+    '''
+    text = message.as_string()
+
+
+    # Log in to server using secure context and send email
+    context = ssl.create_default_context()
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_email, text)
+
+

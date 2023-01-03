@@ -1,0 +1,22 @@
+
+LTCG (Long Termm Capital Gain)--> if person holds shares more than one year, and earns profit it is known as LTCG.
+
+Dividend:--> return on investment in shares. It is depends on company decision.
+Promoter is the person who starts the company(investors).
+
+Face value: price of share value at the time of company establishment. it is decided by promoters at that time itself.
+Issue price: price of share when the promotors try to sell to the public at first time.i.e IPO price
+List price: price of share on share market(NSE/BSE)
+
+Top line value: Turnover of the company for the year.
+profits will be the amount which is available after removing the expenses.
+Bottom line value: profit after tax
+
+Stocks split: To make more transfer of shares, we can do stock split.
+	When we perform stock split,Face value will be halved,and shares purchased will be doubled and market price of share value will be halved/might be decreased based on the requiremnt for more transfer of shares.
+	
+							before stock split 			After stock split
+	Face Value 						2							1
+  holding shares					500							1000
+  share value in market				100							50
+  Total invested money				500x100						1000x50
