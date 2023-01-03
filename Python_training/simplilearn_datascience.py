@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import sys,time
 import matplotlib.pyplot as plt
-
+from matplotlib import pylab
 
 if 0:
     #checking the size comparision of numpy array and list
@@ -221,4 +221,178 @@ if 0:
     df = pd.DataFrame(np.random.randn(50,4),columns=['a','b','c','d'],index=pd.date_range('today',periods=50))
     df.plot()
     plt.show()
+
+if 0:
+    df = pd.DataFrame({'a':[1,2,0,3,9,4,3,2,3,2,8,4,8,5,5,5,6,4,4,6,6]})
+    # print(df)
+    # print(df.loc[df['a'].shift() != df['a']])#shift will delete consecutive repeated numbers
+
+    df1 = pd.DataFrame({'a': [1, 2, 0, 3, 9, 9, 2, 2, 2, 2, 8, 8, 8, 5, 5, 5, 4, 4, 4, 6, 6]})
+    print(df1)
+    print(df1.loc[df1['a'].shift() != df1['a']])
+
+if 0:
+    x = np.linspace(0, 10, 25)
+    y = x * x + 2
+    if 0:#creating a graph
+        # print(x)
+        # print(y)
+        # print(np.array([x,y]).reshape(25,2).reshape(2,25))
+        pylab.plot(x,y,'b')
+        plt.show()
+    if 0:#creating the sub graph by splitting the plot area into parts
+        pylab.subplot(1,2,1)#splitting the area in to 1 row and 2 columns and plotting at 1st column
+        pylab.plot(x, y, 'b')
+        plt.show()
+    if 0:
+        pylab.subplot(1, 2, 2)  # splitting the area in to 1 row and 2 columns and plotting at 2nd column
+        pylab.plot(x, y, 'b')
+        plt.show()
+    if 0:# splitting the area in to 2 row and 2 columns and plotting at 1st row and 2nd column
+        pylab.subplot(2, 2, 2)
+        pylab.plot(x, y, 'g')
+        plt.show()
+    if 0:# splitting the area in to 2 row and 2 columns and plotting at 1st row and 2nd column
+        pylab.subplot(2, 2, 3)
+        pylab.plot(x, y, 'g--')
+        plt.show()
+    if 0:#plotting sub graphs at a time
+        pylab.subplot(2, 2, 3)
+        pylab.plot(x, y, 'g--')
+        pylab.subplot(2, 2, 2)
+        pylab.plot(x, y, 'b')
+        plt.show()
+    if 0:#plotting sub graphs in single graph
+        pylab.subplot(2, 2, 2)
+        pylab.plot(x, y, 'g--')
+        pylab.subplot(2, 2, 2)
+        pylab.plot(y, x, 'b*')
+        plt.show()
+if 1:
+    x = np.linspace(0, 10, 25)
+    y = x * x + 2
+    if 0:#adjusting the sides of a graph
+        fig = plt.figure()
+        axis =fig.add_axes([0.1,0.1,0.5,0.5])#left,bottom,width,height
+        axis.plot(x,y,'r')
+        plt.show()
+    if 0:#plotting 2 subgraphs
+        fig,axis = plt.subplots(nrows=1,ncols=2)
+        axis[0].plot(x,y,'r')
+        axis[1].plot(x, y, 'b')
+        plt.show()
+    if 0:
+        fig = plt.figure()
+        #adjusting the graph size
+        axis1 = fig.add_axes([0.1,0.1,0.8,0.8])
+        axis2 = fig.add_axes([0.2,0.5,0.5,0.5])
+        #providing the data to the graph
+        axis1.plot(x,y,'r')
+        axis2.plot(x, y, 'g*')
+        plt.show()
+    if 0:#this one looks same as below one also
+        fig = plt.figure(figsize=(16,9))
+        fig.add_subplot()
+        plt.plot(x,y,'r')
+        plt.show()
+    if 0:
+        fig = plt.figure(figsize=(16, 9))
+        # fig.add_subplot()
+        plt.plot(x, y, 'r')
+        plt.show()
+    if 0:
+        fig,axis = plt.subplots(nrows=1,ncols=2)
+        axis[0].set_title('title')
+        axis[0].set_xlabel('x value')
+        axis[0].set_ylabel('y value')
+        axis[0].plot(x, y, 'r')
+        axis[0].legend(['numpy data'])
+
+        axis[1].set_title('graph')
+        axis[1].set_xlabel('x data')
+        axis[1].set_ylabel('y data')
+        axis[1].plot(x, y, 'g*')
+        axis[1].legend(['pandas data'])
+
+        plt.show()
+    if 0:
+        fig,axis = plt.subplots()
+        #adding the x axis,y axis and name of graph
+        axis.set_xlabel('x value')
+        axis.set_ylabel('y value')
+        axis.set_title('data')
+        axis.plot(x,x**2,'b')
+        axis.plot(x, x ** 3, 'r')
+        #adding the legends
+        axis.legend(['y = x**2','y=x**3'],loc=2)
+        plt.show()
+
+if 0:
+    x =np.arange(10)
+    fig,axis = plt.subplots()
+    if 0:#setting the lables and title for the graph
+        axis.set_xlabel('x value')
+        axis.set_ylabel('y value')
+        axis.set_title('x operations')
+        axis.plot(x,x+1)
+        axis.plot(x, x + 2)
+        axis.plot(x, x + 3)
+        plt.show()
+    if 0:#adding the legend to the graph
+        axis.plot(x, x + 1)
+        axis.plot(x, x + 2)
+        axis.plot(x, x + 3)
+        axis.legend(['y=x+1', 'y=x+2', 'y=x+3'], loc=2)#location of legends corners/sides i.e. loc
+        plt.show()
+    if 0:#adding colors to the lines
+        axis.plot(x,x+1,color='red')
+        axis.plot(x,x + 2,color='#112233')
+        axis.plot(x, x + 3,color='#FFaa00')
+        plt.show()
+    if 0:#applying the transparency for the lines
+        axis.plot(x, x + 1,alpha=0.5)
+        axis.plot(x, x + 2,alpha=0.3)
+        axis.plot(x, x + 3, alpha=0.8)
+        plt.show()
+    if 0:#applying the thickness
+        axis.plot(x, x + 1,color='blue', linewidth=0.25)
+        axis.plot(x, x + 2,color='blue',linewidth=0.5)
+        axis.plot(x, x + 3,color='blue',lw=0.9)
+        plt.show()
+    if 0:#applying the line style
+        axis.plot(x, x + 1,linestyle='--')
+        axis.plot(x, x + 2, linestyle='dotted')
+        axis.plot(x, x + 3, linestyle='-.')
+        line, = axis.plot(x, x + 4, linestyle='-.')
+        line.set_dashes([5,10,15,3])
+        line1, = axis.plot(x, x + 5, linestyle='-.')
+        line1.set_dashes([5, 8, 13, 18])
+        plt.show()
+    if 0:#applying the marker for lines
+        axis.plot(x,x+1,marker='o')
+        axis.plot(x, x + 2, marker='+')
+        axis.plot(x, x + 3, marker='s')
+        axis.plot(x, x + 4, marker='1')
+        axis.plot(x, x + 5, marker='2')
+        axis.plot(x, x + 6, marker='3')
+        axis.plot(x, x + 7, marker='4')
+        axis.plot(x, x + 8, marker='o',markersize=10)
+        axis.plot(x, x + 9, marker='s', markerfacecolor='red')
+        plt.show()
+if 0:
+    x = np.arange(10)
+    fig,axis = plt.subplots(1,2,figsize=(10,5))
+    if 1:#applying the grids and limits
+        axis[0].plot(x,x**2)
+        axis[0].plot(x, x ** 3)
+        axis[0].grid(True)
+        axis[1].plot(x,x**2,x,x**3,marker='o')
+        axis[1].set_xlim([1,5])
+        axis[1].set_ylim([1, 40])
+        plt.show()
+
+# if 1:#other 2-D graphs
+    # df = pd.DataFrame('a':)
+
+
 

@@ -20,3 +20,10 @@ Stocks split: To make more transfer of shares, we can do stock split.
   holding shares					500							1000
   share value in market				100							50
   Total invested money				500x100						1000x50
+ 
+ 
+LTP(Latest Tradedc Price): it is the price of share sold/purchsed at the market time.
+
+Pre opening market session: it is a 15 mins session starts from 9AM to 9:15 AM to absorb the fluctuations when the market opens. 
+
+After Market Hours(AMO):

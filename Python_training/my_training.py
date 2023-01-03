@@ -7,6 +7,7 @@ try:
     import string
     import random
     import shutil
+    from datetime import date
     from shutil import copyfile
     import zipfile
 except ModuleNotFoundError:
@@ -3144,6 +3145,8 @@ if 0:
     if read_content.startswith('diff -r'):
         f0.write(read_content)
     f0.close()
+    today = date.today()
+    d1 = today.strftime('%Y%m%d')
     if not os.path.isdir(os.path.join(os.getcwd(),'smedia_top/source/includes')):
         os.makedirs('smedia_top/source/includes')
     if not os.path.isdir(os.path.join(os.getcwd(),'smedia_top/source/rtl/src')):
@@ -3160,8 +3163,10 @@ if 0:
                 ziph.write(os.path.join(root, file),os.path.relpath(os.path.join(root, file),os.path.join(path, '..')))
 
 
-    with zipfile.ZipFile('Python.zip', 'w', zipfile.ZIP_DEFLATED) as zipf:
+    with zipfile.ZipFile('hotpatch_'+d1+'.zip', 'w', zipfile.ZIP_DEFLATED) as zipf:
         zipdir('smedia_top/', zipf)
+if 0:#unzipping the zipped folder
+    os.system("unzip "+'hotpatch_'+d1+'.zip')
 
 
 
