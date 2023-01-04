@@ -9,7 +9,9 @@ Issue price: price of share when the promotors try to sell to the public at firs
 List price: price of share on share market(NSE/BSE)
 
 Top line value: Turnover of the company for the year.
+
 profits will be the amount which is available after removing the expenses.
+
 Bottom line value: profit after tax
 
 Stocks split: To make more transfer of shares, we can do stock split.
@@ -21,9 +23,38 @@ Stocks split: To make more transfer of shares, we can do stock split.
   share value in market				100							50
   Total invested money				500x100						1000x50
  
- 
+Day-2 :
 LTP(Latest Tradedc Price): it is the price of share sold/purchsed at the market time.
 
 Pre opening market session: it is a 15 mins session starts from 9AM to 9:15 AM to absorb the fluctuations when the market opens. 
 
-After Market Hours(AMO):
+After Market Orders(AMO): we can place orders but they will execute when market opens.
+
+Gap up opening:if share price opens at a price higher than the previous day close market,it is called gap up opening
+
+Gap down opening:if share price opens at a price lower than the previous day close market,it is called gap down opening
+volume:no.shares traded on a specific day
+
+Bonus: if the bonus ratio is 1:2 means we get 1 bonus/free share if we holding 2 shares.
+
+Announcement date: the date on which company announces the bonus/split etc.
+
+Record date: the date on which we must have shares on out demat account.
+
+Ex-bonus date: The date on which shares start trading with revised prices. **So we must purchase shares before this date.
+
+Stock exchange: it is a platform where investors can buy/sell their shares.(NSE/BSE)
+
+Members: we cannot sell the shares directly in the stock market. we have to sell/buy them through members.(Angel broking/zerodha)
+
+Investors:the people who are selling/buying the shares. there are types:
+	1.	RII: Retail Individual Investors like common public. investment should be <= 2lakh
+	2.  HNI: High Networth Individuals  investment should be > 2lakh
+	3.  DII: Domestic institutional investors
+	4.  FII/FPI: Foreign institutional investors/Foreign portfolio investors
+
+Issuers: the people who issues shares like companies(patanjali,britania,L&T)
+
+Depositories: they will convert the physical shares to de-materialized share(electronic share).(NSDL and CDSL)
+
+Depository participant: we will open account through this persons in depositoriess
