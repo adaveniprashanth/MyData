@@ -3126,10 +3126,10 @@ if 0:
     SHA256:WI+2OY8aP+gCTTwWYPAUa3bSJPmuTkETXyZlv1o5GWk prashanthx.adaveni@intel.com  for  prashanthx.adaveni@intel.com
     f328e45a48c643e802e1b5cb68fdfbe441688b02		branch 'master' of https://github.com/adaveniprashanth/MyData'''
 
-if 0:#need to check
+if 0:#working
     import pywhatkit as kit
-    number = '9113890660'
-    kit.sendwhatmsg(number,'hello',16,45)
+    number = '+919113890660'
+    kit.sendwhatmsg(number,'hello',11,31)
 
 if 0:
     #zip the folder after create folder structure
@@ -3234,6 +3234,98 @@ if 0:
     today = date.today()
     d1 = today.strftime("%Y%m%d")
     print("d1 =", d1)
+
+
+
+if 0:#working
+    import smtplib
+
+    # creates SMTP session
+    s = smtplib.SMTP('smtp.gmail.com', 587)
+
+    # start TLS for security
+    s.starttls()
+
+    # Authentication
+    s.login("adaveniprashanth@gmail.com", "fmvlojxwjtbnicpx")
+
+    # fmvlojxwjtbnicpx <-- app password
+
+    # message to be sent
+    message = "Message_you_need_to_send"
+
+    # sending the mail
+    s.sendmail("adaveniprashanth@gmail.com", "adaveniprashanth@gmail.com", message)
+
+    # terminating the session
+    s.quit()
+
+if 0:#need to test
+    # Python code to illustrate Sending mail with attachments from your Gmail account
+    # libraries to be imported
+    import smtplib
+    from email.mime.multipart import MIMEMultipart
+    from email.mime.text import MIMEText
+    from email.mime.base import MIMEBase
+    from email import encoders
+
+    fromaddr = "EMAIL address of the sender"
+    toaddr = "EMAIL address of the receiver"
+
+    # instance of MIMEMultipart
+    msg = MIMEMultipart()
+
+    # storing the senders email address
+    msg['From'] = fromaddr
+
+    # storing the receivers email address
+    msg['To'] = toaddr
+
+    # storing the subject
+    msg['Subject'] = "Subject of the Mail"
+
+    # string to store the body of the mail
+    body = "Body_of_the_mail"
+
+    # attach the body with the msg instance
+    msg.attach(MIMEText(body, 'plain'))
+
+    # open the file to be sent
+    #file should be in same folder
+    filename = "File_name_with_extension"
+    attachment = open("Path of the file", "rb")
+
+    # instance of MIMEBase and named as p
+    p = MIMEBase('application', 'octet-stream')
+
+    # To change the payload into encoded form
+    p.set_payload((attachment).read())
+
+    # encode into base64
+    encoders.encode_base64(p)
+
+    p.add_header('Content-Disposition', "attachment; filename= %s" % filename)
+
+    # attach the instance 'p' to instance 'msg'
+    msg.attach(p)
+
+    # creates SMTP session
+    s = smtplib.SMTP('smtp.gmail.com', 587)
+
+    # start TLS for security
+    s.starttls()
+
+    # Authentication
+    s.login(fromaddr, "Password_of_the_sender")
+
+    # Converts the Multipart msg into a string
+    text = msg.as_string()
+
+    # sending the mail
+    s.sendmail(fromaddr, toaddr, text)
+
+    # terminating the session
+    s.quit()
 
 if 0:
     from email import encoders
@@ -3352,3 +3444,61 @@ if 0:
         server.sendmail(sender_email, receiver_email, text)
 
 
+# 7550006035
+# 04440146969
+# kani.
+
+if 0:
+    l = [1,2,3,4,5,6,7,8,9,10,11]#gives False
+    m = [1,2,3,4,5,7,8,9,10]#gives False
+    n = [1,2,3,4,5,6,7,8,9,10]#gives True
+
+    k = 10
+
+    check = True
+    for i in range(1,k+1):
+        if i not in l:
+            check = False
+    for i in l:
+        if i > k:
+            check = False
+
+    print(check)
+
+# finding the word in list
+if 0:
+    l = ['sa2e','ab1c','as2d','as11e','b1ca','ads11','a2cb']
+    digits1 = []; digits2 = []; res = []
+    import re
+    for i in l:
+        count = len(re.findall('[0-9]',i))
+        if count == 1:  digits1.append(i)
+        elif count == 2:  digits2.append(i)
+    print(digits1,digits2)
+    for i in digits1:
+        m=[]
+        a = re.findall('[0-9]',i)
+        for i in digits1:
+            if a[0] in i:
+                m.append(i); digits1.remove(i)
+        if len(digits1) ==1: m.extend(digits1)
+        res.append(m)
+    res.append(digits2)
+
+    print(res)
+
+
+if 0:
+    def left_start_pattern(n):
+        k = 2*n
+        for i in range(0,n):
+            m = 1
+            for j in range(0,k-i-2):
+                print(" ",end="")
+            k-=1
+            for j in range(0,i+1):
+                print(str(m)+" ",end="")
+                m+=2
+            print("\r")
+
+    left_start_pattern(4)

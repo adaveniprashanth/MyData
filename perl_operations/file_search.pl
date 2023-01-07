@@ -250,7 +250,6 @@ print "$popped_element\n";
 #
 #open FILE_IN, "/nfs/site/disks/mtl_pipesm_aravind_av_regress/ashish_reg/SoC_package/LNL_RTL_1p0_refresh/gfxbuild/gfxbuild_cmd.list" or die "Could not open file /nfs/site/disks/mtl_pipesm_aravind_av_regress/ashish_reg/SoC_package/LNL_RTL_1p0_refresh/gfxbuild/gfxbuild_cmd.list";
 #
-#open( "/nfs/site/disks/mtl_pipesm_aravind_av_regress/ashish_reg/SoC_package/LNL_RTL_1p0_refresh/gfxbuild/testlist.list")
 #open(FH, '>', "/nfs/site/disks/mtl_pipesm_aravind_av_regress/ashish_reg/SoC_package/LNL_RTL_1p0_refresh/gfxbuild/testlist.list")
 #while (<FILE_IN>)
 #  {
@@ -279,10 +278,208 @@ print "$popped_element\n";
 =my $filename = '/nfs/site/disks/mtl_pipesm_aravind_av_regress/ashish_reg/SoC_package/LNL_RTL_1p0_refresh/gfxbuild/testlist.list';
 open(my $fh, '>', $filename) or die "Could not open file '$filename' $!";
 
-#inside while loop
 print $fh "test_$iteration\n";
 
 
 close $fh;
 print "done\n";
+=cut
+
+
+
+=my $filename = "input_file_for_command_generation.txt";
+open(FH, '<', $filename) or die "Sorry!! couldn't open";
+	my @word = ();
+	while(<FH>){
+	   if($_ =~ /(RunScript)/)
+			{
+				if ($_ =~ /> /)
+				{
+					@word = split /> /, $_;
+					print "$word[1]\n";
+					@word = split /gen/,$word[1];
+					print "$word[0]\n";
+				
+				}
+				
+			}
+	}
+	
+	close(FH);
+=cut
+
+
+#finding the string from the sentence from the file and writing into new file with the new chnages
+my $filename1 = 'output_file_for_command_generation.txt';
+open(my $fh1, '>', $filename1) or die "Could not open file '$filename1' $!";
+
+my $filename = "input_file_for_command_generation.txt";
+open(my $fh, "<", $filename) or die "Unable to open $!";
+
+
+while (<$fh>) {
+	chomp $_;
+	if($_ =~ /(--)/){ next;}
+	elsif ($_ eq ""){ next;}
+	else {
+		my $old = $_;
+		print "input string\n";
+		print "$old\n";
+		$old =~ s/ +/ /;
+		$old =~ s/\t+//;
+		print "$old\n";
+		$old =~ s/-repo_ver[ a-z _0-9a-z]* -/-/;
+		my($first,$middle,$middle_a, $rest) = split(' ', $old, 4);
+		my $val = $first;
+
+		$rest =~ s/-fulsim_opt "/-fulsim_opt -qq /;
+		$rest =~ s/-grits_opt "/-grits_opt -qq /;
+		$rest =~ s/-testlib_opt "/-testlib_opt -qq /;
+		$rest =~ s/(?<!%)\"/ qq-/g;
+		my $start = 'GT_ROOT/source/rtl/cfg_env/dut/sm/gk_tests/';
+		my $middle1 = '.gsf -dut sm -soc_model soc --context MEDIA_LPM_SD -T o3c.vpi.sipdfx.gtsynth.default64 -testlib';
+		my $end = ' -testlib- -noclean -seed 0x1 | tee log.txt';
+
+
+		if($val =~ /(CFG)/){
+			my($model,$model_extra)= split('_',$val);
+			print "model $model\n";
+			print "model extra $model_extra\n";
+			
+			print "output result\n";
+			my $total =  $start.$model."_".$model_extra."/".$model.$middle1." ".$rest.$end."\n";
+			print "$total\n";
+			print $fh1 "$total";
+		}
+		elsif($val =~ /(#)/){
+			my($model,$model_extra)= split('#',$val);
+			print "model $model\n";
+			print "model extra $model_extra\n";
+			
+			print "output result\n";
+			my $total = $start.$model."_CFG".$model_extra."/".$model.$middle1." ".$rest.$end."\n";
+			print "$total\n";
+			print $fh1 "$total";
+		}
+		else{
+			my $model = $val;
+			my $model_extra = "0";
+			print "model $model\n";
+			print "model extra $model_extra\n";
+			
+			print "output result\n";
+			my $total = $start.$model."_CFG".$model_extra."/".$model.$middle1." ".$rest.$end."\n";
+			print "$total\n";
+			print $fh1 "$total";
+		}
+	}
+}
+close $fh or die "Unable to close $filename: $!";
+close $fh1;
+print "done\n";
+
+
+
+
+
+
+
+
+
+
+#replacing the multiple white spaces with single space
+=my $data = "What    is the STA++TUS of your mind right now?";
+
+$data =~ s/ +/ /;		
+
+print $data;
+=cut
+
+
+=my $res = "GT_ROOT/source/rtl/cfg_env/dut/sm/gk_tests/Dec_PicParameterSet_0_CFG0/Dec_PicParameterSet_0.gsf -dut sm -soc_model soc -context MEDIA_LPM_1VD1VE_SD -target o3c.vpi.sipdfx.gtsynth.goldenrpt.default64/ -testlib -fulsim_opt -qq -pavpcPavpEnable false -enableFeature :xefiSupport qq- -grits_opt -qq -DpavpEnable=false -DvalidationMode=gold qq- -testlib_opt -qq -chkpass -disable_unit_clkgt qq- -testlib- -noclean -seed 0x1 | tee log.txt";
+print "required res\n";
+print "$res\n";
+print "\n";
+=cut
+
+#reaplcing the input string with the required changes
+
+=my $old = 'MocsPat_CFG41 -cid GLOBALS/Caches -repo_ver 254606 -grits_opt "-DpavpEnable=false" -fulsim_opt "-pavpcPavpEnable false -enableFeature :xefiSupport" -testlib_opt "-enable_dop_clkgt -enable_unit_clkgt -gsc_disable -gsc_fuseoff" -seed 2215237305';
+#my $old = 'gam_single_walker#10     -repo_ver head      -cid GLOBALS/UnifiedMemory    -fulsim_opt "-pavpcPavpEnable false -enableFeature :xefiSupport" -grits_opt "-DpavpEnable=false -DsriovEnable=true"    -testlib_opt "-enable_unit_clkgt -gsc_disable -gsc_fuseoff"';
+#my $old = 'gsc_boot_fw_load  -repo_ver head  -fid GSC  -fulsim_opt "-PAVPFuseCsmeModeEnable false  -PAVPFuseKcrSlaveDisable false -PAVPFuseBusValue 7" -grits_opt "-DpavpEnable=true -DgscEnable=true -DgscFwPagingEnable=true"  -testlib_opt "-gsc_enable -enable_pavp_production_mode -fuse_gtdis_en" -enable_pavp';
+print "input string\n";
+print "$old\n";
+$old =~ s/ +/ /;
+$old =~ s/-repo_ver[ _0-9]+ -/-/;
+
+my($first,$middle,$middle_a, $rest) = split(' ', $old, 4);
+my $val = $first;
+
+$rest =~ s/-fulsim_opt "/-fulsim_opt -qq /;
+$rest =~ s/-grits_opt "/-grits_opt -qq /;
+$rest =~ s/-testlib_opt "/-testlib_opt -qq /;
+$rest =~ s/(?<!%)\"/ qq-/g;
+my $start = 'GT_ROOT/source/rtl/cfg_env/dut/sm/gk_tests/';
+my $middle1 = '.gsf -dut sm -soc_model soc --context MEDIA_LPM_SD -T o3c.vpi.sipdfx.gtsynth.default64 -testlib';
+my $end = ' -testlib- -noclean -seed 0x1 | tee log.txt';
+
+
+print "val $val\n";
+if($val =~ /(CFG)/){
+	my($model,$model_extra)= split('_',$val);
+	print "***************\n";
+	print "model $model\n";
+	print "model extra $model_extra\n";
+
+
+	#print "$old\n";
+	print "\n";
+	print "output result\n";
+	print $start.$model."_".$model_extra."/".$model.$middle1." ".$rest.$end;
+}
+elsif($val =~ /(#)/){
+	my($model,$model_extra)= split('#',$val);
+	print "#################";
+	print "model $model\n";
+	print "model extra $model_extra\n";
+	
+	print "\n";
+	print "output result\n";
+	print $start.$model."_CFG".$model_extra."/".$model.$middle1." ".$rest.$end;
+}
+else{
+	#my($model,$model_extra)= split('#',$val);
+	my $model = $val;
+	my $model_extra = "0";
+	print "model $model\n";
+	print "model extra $model_extra\n";
+
+
+	
+	print "\n";
+	print "output result\n";
+	my $total = $start.$model."_CFG".$model_extra."/".$model.$middle1." ".$rest.$end;
+	print "$total\n";
+}
+=cut
+
+#replacing the all occurances of character
+=my $s = 'bla""bla';
+$s =~ s/(?<!%)\"/./g;
+print $s;
+=cut
+
+#splitting the string to particular count
+=my $old = 'Dec_PicParameterSet_0#0              -grits_opt "-DpavpEnable=false -DvalidationMode=gold"  -testlib_opt "-chkpass  -disable_unit_clkgt"';
+my($first,$middle,$middle_a, $rest) = split(' ', $old, 4);
+=cut
+
+=my $val = 'MocsPat_CFG19 -cid GLOBALS/Caches -repo_ver 254606 -grits_opt "-DpavpEnable=false" -fulsim_opt "-pavpcPavpEnable false -enableFeature :xefiSupport" -testlib_opt "-enable_dop_clkgt -enable_unit_clkgt -gsc_disable -gsc_fuseoff" -seed 1';
+$val = ~ s/-fulsim_opt "/-fulsim_opt -qq /;
+=cut
+
+#replacing the particular string 
+=my $x = 'Time to -repo_ver 254606 -cat!';
+$x =~ s/-repo_ver[ _0-9]+ -/-/; 
+print "$x\n";
 =cut

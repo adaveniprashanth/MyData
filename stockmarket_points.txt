@@ -1,4 +1,15 @@
+For reference -->
 
+https://www.youtube.com/watch?v=PQqfeyUQbyE&list=PL8uhW8cclMiOFY9hUCP7uROKCLkIMQ1tI
+https://www.youtube.com/watch?v=hBKqk5oYexw
+
+
+
+
+
+
+
+DAY-1:
 LTCG (Long Termm Capital Gain)--> if person holds shares more than one year, and earns profit it is known as LTCG.
 
 Dividend:--> return on investment in shares. It is depends on company decision.
@@ -24,7 +35,32 @@ Stocks split: To make more transfer of shares, we can do stock split.
   Total invested money				500x100						1000x50
  
 Day-2 :
-LTP(Latest Tradedc Price): it is the price of share sold/purchsed at the market time.
+Bonus: it is the share given by the company for free to share holders who are holding their shares before giving publicity of bonus
+		bonus 1:1	  	before bonus(cum dividend)		After bonus(Ex dividend)
+	Face value						2							2
+	share value in market			100							50
+	holding shares					500							1000	
+	Total invested money			100x500						50x1000
+
+:..If a company is a pvt ltd company, then the partners count will be <200, and if partners count > 200 , then it will become public ltd company.
+And whenever the company is listed in stock exchange, then it will become listed company.
+
+IPO: Initial Public Offer
+
+Types of secuirty markets:
+primary market(new issue market):it is the market where the company first time sell/issues their shares
+company first time comes with IPO through primary market. in this market transaction will happen between investor and issuer company.
+
+secondary market:Here the transaction will happen between investor and other investor
+
+Demat and Trading account: In demat account, we can stire our shares and through trading account, we can trade(buy/sell) the share
+
+Contract note:- it is like receipt issued by broker(zerodha) to investor which gives various details.
+
+STT in contract Note:- Security transaction tax 
+
+Day-3:
+LTP(Latest Traded Price): it is the price of share sold/purchsed at the market time.
 
 Pre opening market session: it is a 15 mins session starts from 9AM to 9:15 AM to absorb the fluctuations when the market opens. 
 
@@ -58,3 +94,25 @@ Issuers: the people who issues shares like companies(patanjali,britania,L&T)
 Depositories: they will convert the physical shares to de-materialized share(electronic share).(NSDL and CDSL)
 
 Depository participant: we will open account through this persons in depositoriess
+
+
+
+https://kite.learnapp.com/courses/intro-to-trading-terminal/topics/adding-stocks-to-watchlist/?locale=en-us&ref=KITE_FREE%2F1
+Terms used in Zerodha(or any other broker) app:
+while placing an order:-
+--> Type of order:
+1.Market order:- by using this order you can enter and exit immediately.
+2.Limit order:- by using this you can sell/buy order for the limit value you set for the share.
+3.Stop Loss order:- it will be used to avoid any losses for an existing share at your account.
+4. SL-M :-
+
+--> Product type:
+1. Intraday/MIS(Margin Intraday Squareoff): we have sell the order in that day itself.
+2.Longterm/CNC(CashNcarry): we have to hold them more than one day.
+
+The above things display in regular order.
+Other than that we have other advanced orders also.
+
+--> we have a method called shorting. There we can sell the share first and buy the share at the lower price tahn the seller price, then we can get the profit.
+For examlpe, we have sold a itc share at 100 and buy at 90 then we get the profit of 10. it is called shorting. we can do shorting only for intraday.
+and the normal method is called bullish like we can get profit whenever share price goes higher.
