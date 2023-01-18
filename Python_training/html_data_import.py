@@ -1,12 +1,281 @@
-# creating nd viewing the html files in python
 
-# import webbrowser
-# import os
+from datetime import datetime
+import time
+import webbrowser
+import os
+now = datetime.now()
+dt_string = now.strftime("%B %d, %Y %H:%M:%S")
+print("date", dt_string)
+
+# get the current time in seconds since the epoch
+seconds = time.time()
+# convert the time in seconds since the epoch to a readable format
+local_time = time.ctime(seconds)
+print(local_time)
+
+
+# getting the data from the axeweb page
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support.ui import Select
+
+#set chromodriver.exe path
+driver = webdriver.Chrome(executable_path="chromedriver.exe")
+# driver = webdriver.Chrome()
+#launch URL and kept idle for 5 seconds
+driver.get("https://axeweb.intel.com/axe/tests/testlists/306/latestresults/combined/executions")
+time.sleep(5)
+'''
+# opening the dropdown list at execution stage
+l = driver.find_element(By.XPATH,"//table[@class='axe-data-table pageResize table table-striped table-bordered table-hover table-condensed axe-table-word-break-all ng-isolate-scope dataTable no-footer']/thead/tr[3]/th[1]/span")
+l.click()
+
+#selecting compare
+l = driver.find_element(By.XPATH,"//select/optgroup[@label='render Fulsim']/option[@label='Compare']")
+l.click()
+
+#selecting Lockup
+l = driver.find_element(By.XPATH,"//select/optgroup[@label='render']/option[@label='Lockup']")
+l.click()
+# making to sleep the driver for reloading with selected options
+time.sleep(5)
+# total count
+total_count= driver.find_element(By.XPATH,'//div[@class="dataTables_info"]').text
+
+#completed the execution stage selection
+
+# selecting the result value from dropdown
+l = driver.find_element(By.XPATH,"//table[@class='axe-data-table pageResize table table-striped table-bordered table-hover table-condensed axe-table-word-break-all ng-isolate-scope dataTable no-footer']/thead/tr[3]/th[6]/span/select")
+print(l)
+drop = Select(l)
+
 #
-# # to open/create a new html file in the write mode
-# f = open('GFG.html', 'w')
+# # working code for reference
+# #selecting the warn option and getting the count
+# drop.select_by_value("Warn")
+# time.sleep(5)
+# warn_count= driver.find_element(By.XPATH,'//div[@class="dataTables_info"]').text
+# #removing all the options
+# drop.deselect_all()
+#
+
+
+# filling the text box
+# l = driver.find_element(By.XPATH,"//table[@class='axe-data-table pageResize table table-striped table-bordered table-hover table-condensed axe-table-word-break-all ng-isolate-scope dataTable no-footer']/thead/tr[3]/th[2]/input")
+
+
+def get_actual_count(a):
+	a = a.strip()
+	if a == 'No records found':
+		a = 0
+	else:
+		a = int(a.split(" ")[5])
+	return a
+
+overall_count = [get_actual_count(total_count)]
+overall_list=['Error','Fail','NotRun','Pass','Warn']
+
+for result in overall_list:
+	drop.select_by_value(result)
+	time.sleep(8)
+	total = driver.find_element(By.XPATH,'//div[@class="dataTables_info"]').text
+	overall_count.append(get_actual_count(total))
+	drop.deselect_all()
+
+
+test_area_names = ['GLOBALS/UnifiedMemory','HWFE/MemoryInterface','HWFE/Interrupt',
+'HWFE/MicroController','GLOBALS/Flush','GLOBALS/Virtualization','GLOBALS/Caches',
+'GLOBALS/HostGTAccesses','GLOBALS/Registers','HWFE/BatchBuffer','HWFE/Execlist','HWFE/RenderCompute',
+'HWFE/RegisterAccess','HWFE/Semaphores','HWFE/Preemption','GLOBALS/PatMocs','Concurrency/AllEngine',
+'Concurrency/ProducerConsumer']
+
+result_values = ['Error','Fail','NotRun','Pass','Warn']
+
+total_attributes = {}
+# filling the test area text box
+l = driver.find_element(By.XPATH,"//table[@class='axe-data-table pageResize table table-striped table-bordered table-hover table-condensed axe-table-word-break-all ng-isolate-scope dataTable no-footer']/thead/tr[3]/th[2]/input")
+
+for test_area in test_area_names:
+	print("test area ",test_area)
+	result_count = []
+	# sending the value to fill the text box
+	l.send_keys(test_area)
+	time.sleep(5)
+	total = driver.find_element(By.XPATH, '//div[@class="dataTables_info"]').text
+	result_count.append(get_actual_count(total))
+	for result in result_values:
+		drop.select_by_value(result)
+		time.sleep(5)
+		count = driver.find_element(By.XPATH, '//div[@class="dataTables_info"]').text
+		result_count.append(get_actual_count(count))
+		drop.deselect_all()
+		time.sleep(5)
+	# clear the text box
+	l.clear()
+	time.sleep(5)
+	total_attributes[test_area]=result_count
+
+
+driver.quit()
+print(total_attributes)
+print(overall_count)
+'''
+
+
+total_attributes = {'GLOBALS/UnifiedMemory': [399, 0, 0, 111, 288, 0], 'HWFE/MemoryInterface': [84, 0, 6, 12, 66, 0], 'HWFE/Interrupt': [23, 0, 2, 3, 18, 0], 'HWFE/MicroController': [74, 0, 25, 49, 0, 0], 'GLOBALS/Flush': [18, 0, 0, 16, 2, 0], 'GLOBALS/Virtualization': [19, 0, 4, 0, 15, 0], 'GLOBALS/Caches': [63, 0, 47, 0, 16, 0], 'GLOBALS/HostGTAccesses': [17, 0, 10, 3, 4, 0], 'GLOBALS/Registers': [4, 0, 1, 1, 2, 0], 'HWFE/BatchBuffer': [20, 0, 0, 10, 10, 0], 'HWFE/Execlist': [37, 0, 37, 2, 32, 0], 'HWFE/RenderCompute': [1, 0, 0, 0, 1, 0], 'HWFE/RegisterAccess': [2, 0, 0, 0, 2, 0], 'HWFE/Semaphores': [11, 0, 0, 1, 10, 0], 'HWFE/Preemption': [2, 0, 0, 0, 2, 0], 'GLOBALS/PatMocs': [2, 0, 0, 2, 0, 0], 'Concurrency/AllEngine': [100, 0, 0, 100, 0, 0], 'Concurrency/ProducerConsumer': [22, 0, 0, 22, 0, 0]}
+overall_count = [898, 0, 98, 332, 468, 0]
+
+print(total_attributes)
+print(overall_count)
+
+
+tal = []#total area list
+for i,j in total_attributes.items():
+	tal.append([i,j])
+
+# get the current time in seconds since the epoch
+seconds = time.time()
+# convert the time in seconds since the epoch to a readable format
+local_time = time.ctime(seconds)
+# print(local_time)
+overall_colors = []
+colors = []
+def find_overall_colors(a):
+	percent =  int((a[4]/a[0])*100)
+	if percent < 70:
+		overall_colors.append('FF0000')#red color
+	elif percent > 70 and percent < 80:
+		overall_colors.append('FFFF00')#yellow
+	elif percent > 80 and percent < 90:
+		overall_colors.append('8AE62E')#light green
+	elif percent > 90 and percent <= 100:
+		overall_colors.append('008000')# heavy green
+		# overall_colors.append('808080')#gray color
+
+find_overall_colors(overall_count)
+
+
+total_cases = 0;total_errors = 0;total_fail = 0
+total_notrun = 0;total_pass = 0;total_warn = 0
+
+
+# finding the colors for the test area values
+for i in range(len(tal)):
+	value = (tal[i][1][4] / tal[i][1][0]) * 100
+	print(value)
+	if value < 70:
+		colors.append('FF0000')#red color
+	elif value > 70 and value < 80:
+		colors.append('FFFF00')#yellow
+	elif value > 80 and value < 90:
+		colors.append('8AE62E')#light green
+	elif value > 90 and value <= 100:
+		colors.append('008000')# heavy green
+
+	total_cases += tal[i][1][0];total_errors += tal[i][1][1];total_fail += tal[i][1][2]
+	total_notrun += tal[i][1][3];total_pass += tal[i][1][4];total_warn += tal[i][1][5]
+
+summarized_values =[total_cases,total_errors,total_fail,total_notrun,total_pass,total_warn]
+
+
+# creating and viewing the html files in python
+# to open/create a new html file in the write mode
+f = open('GFG.html', 'w')
 
 # the html code which will go in the file GFG.html
+html_template1 = (
+			'''<html><head>'''
+			'''<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+			<script src="PTL_Media_jquery_functions_a0.js"></script>
+			<style>
+			table, th, td {border: 1px solid black;
+						   border-collapse:collapse;
+						   font-family: "Arial";}
+			th, td {padding: 5px;}
+			th {text-align: center;
+				color: white;
+				background-color: #3E5A93;}
+			td {background-color: #FFB84D;}
+			h2 {font-family: "Arial";
+				font-size: 20px;}
+			h1 {font-family: "Arial";
+				font-size: 12px;}
+			span {font-family: "Arial";
+				font-size: 10px;}
+			</style>
+			</head>'''
+			'''<body>'''
+			f'<h1>Last Updated: {local_time}</h1>'
+			'''<p></p><h2>Overall</h2>'''
+'''<table><tr><th>Overall Status</th>		<th>Total Test cases</th>								<th>Error</th>                                  <th>Fail</th>                                                                        <th>NotRun</th>                                                                          <th>Pass</th>                            <th>Warn</th>                                                            <th>Pass percentage</th></tr>'''
+f'<td>Overall_Status</td>			n<td id="row1Totaltestcases">{overall_count[0]}</td><td id="row1Error">{overall_count[1]}</td><td id="row1fail">{overall_count[2]}</td><td id="row1NotRun">{overall_count[3]}</td><td id="row1Pass">{overall_count[4]}</td><td id="row1Warn">{overall_count[5]}</td><td id="row1percentage" style="background-color:#{overall_colors[0]}">{str((overall_count[4]/overall_count[0])*100)[0:5]}%</td></tr>'
+'''</table><p></p>'''
+'''<h2>Legacy</h2>'''
+'''<table>'''
+'''<tr><th>Test Area</th>                <th>Total</th>                       <th>Error</th>                       <th>Fail</th>                                                          <th>NotRun</th>                                                         <th>Pass</th>                                                         <th>Warn</th>                  <th>Pass percentage</th></tr>'''
+f"<td>{tal[0][0]}</td><td id='row2Total'>{tal[0][1][0]}</td><td id='row2Error'>{tal[0][1][1]}</td><td id='row2Fail'>{tal[0][1][2]}</td><td id='row2NotRun'>{tal[0][1][3]}</td><td id='row2Pass'>{tal[0][1][4]}</td><td id='row2Warn'>{tal[0][1][5]}</td><td id='row2perecentage' style='background-color:#{colors[0]}'>{str((tal[0][1][4]/tal[0][1][0])*100)[0:5]}%</td></tr>"
+f"<td>{tal[1][0]}</td><td id='row3Total'>{tal[1][1][0]}</td><td id='row3Error'>{tal[1][1][1]}</td><td id='row3Fail'>{tal[1][1][2]}</td><td id='row3NotRun'>{tal[1][1][3]}</td><td id='row3Pass'>{tal[1][1][4]}</td><td id='row3Warn'>{tal[1][1][5]}</td><td id='row3perecentage' style='background-color:#{colors[1]}'>{str((tal[1][1][4]/tal[1][1][0])*100)[0:5]}%</td></tr>"
+f"<td>{tal[2][0]}</td><td id='row4Total'>{tal[2][1][0]}</td><td id='row4Error'>{tal[2][1][1]}</td><td id='row4Fail'>{tal[2][1][2]}</td><td id='row4NotRun'>{tal[2][1][3]}</td><td id='row4Pass'>{tal[2][1][4]}</td><td id='row4Warn'>{tal[2][1][5]}</td><td id='row4perecentage' style='background-color:#{colors[2]}'>{str((tal[2][1][4]/tal[2][1][0])*100)[0:5]}%</td></tr>"
+f"<td>{tal[3][0]}</td><td id='row5Total'>{tal[3][1][0]}</td><td id='row5Error'>{tal[3][1][1]}</td><td id='row5Fail'>{tal[3][1][2]}</td><td id='row5NotRun'>{tal[3][1][3]}</td><td id='row5Pass'>{tal[3][1][4]}</td><td id='row5Warn'>{tal[3][1][5]}</td><td id='row5perecentage' style='background-color:#{colors[3]}'>{str((tal[3][1][4]/tal[3][1][0])*100)[0:5]}%</td></tr>"
+f"<td>{tal[4][0]}</td><td id='row6Total'>{tal[4][1][0]}</td><td id='row6Error'>{tal[4][1][1]}</td><td id='row6Fail'>{tal[4][1][2]}</td><td id='row6NotRun'>{tal[4][1][3]}</td><td id='row6Pass'>{tal[4][1][4]}</td><td id='row6Warn'>{tal[4][1][5]}</td><td id='row6perecentage' style='background-color:#{colors[4]}'>{str((tal[4][1][4]/tal[4][1][0])*100)[0:5]}%</td></tr>"
+f"<td>{tal[5][0]}</td><td id='row7Total'>{tal[5][1][0]}</td><td id='row7Error'>{tal[5][1][1]}</td><td id='row7Fail'>{tal[5][1][2]}</td><td id='row7NotRun'>{tal[5][1][3]}</td><td id='row7Pass'>{tal[5][1][4]}</td><td id='row7Warn'>{tal[5][1][5]}</td><td id='row7perecentage' style='background-color:#{colors[5]}'>{str((tal[5][1][4]/tal[5][1][0])*100)[0:5]}%</td></tr>"
+f"<td>{tal[6][0]}</td><td id='row8Total'>{tal[6][1][0]}</td><td id='row8Error'>{tal[6][1][1]}</td><td id='row8Fail'>{tal[6][1][2]}</td><td id='row8NotRun'>{tal[6][1][3]}</td><td id='row8Pass'>{tal[6][1][4]}</td><td id='row8Warn'>{tal[6][1][5]}</td><td id='row8perecentage' style='background-color:#{colors[6]}'>{str((tal[6][1][4]/tal[6][1][0])*100)[0:5]}%</td></tr>"
+f"<td>{tal[7][0]}</td><td id='row9Total'>{tal[7][1][0]}</td><td id='row9Error'>{tal[7][1][1]}</td><td id='row9Fail'>{tal[7][1][2]}</td><td id='row9NotRun'>{tal[7][1][3]}</td><td id='row9Pass'>{tal[7][1][4]}</td><td id='row9Warn'>{tal[7][1][5]}</td><td id='row9perecentage' style='background-color:#{colors[7]}'>{str((tal[7][1][4]/tal[7][1][0])*100)[0:5]}%</td></tr>"
+f"<td>{tal[8][0]}</td><td id='row10Total'>{tal[8][1][0]}</td><td id='row10Error'>{tal[8][1][1]}</td><td id='row10Fail'>{tal[8][1][2]}</td><td id='row10NotRun'>{tal[8][1][3]}</td><td id='row10Pass'>{tal[8][1][4]}</td><td id='row10Warn'>{tal[8][1][5]}</td><td id='row10perecentage' style='background-color:#{colors[8]}'>{str((tal[8][1][4]/tal[8][1][0])*100)[0:5]}%</td></tr>"
+f"<td>{tal[9][0]}</td><td id='row11Total'>{tal[9][1][0]}</td><td id='row11Error'>{tal[9][1][1]}</td><td id='row11Fail'>{tal[9][1][2]}</td><td id='row11NotRun'>{tal[9][1][3]}</td><td id='row11Pass'>{tal[9][1][4]}</td><td id='row11Warn'>{tal[9][1][5]}</td><td id='row11perecentage' style='background-color:#{colors[9]}'>{str((tal[9][1][4]/tal[9][1][0])*100)[0:5]}%</td></tr>"
+f"<td>{tal[10][0]}</td><td id='row12Total'>{tal[10][1][0]}</td><td id='row12Error'>{tal[10][1][1]}</td><td id='row12Fail'>{tal[10][1][2]}</td><td id='row12NotRun'>{tal[10][1][3]}</td><td id='row12Pass'>{tal[10][1][4]}</td><td id='row12Warn'>{tal[10][1][5]}</td><td id='row12perecentage' style='background-color:#{colors[10]}'>{str((tal[10][1][4]/tal[10][1][0])*100)[0:5]}%</td></tr>"
+f"<td>{tal[11][0]}</td><td id='row13Total'>{tal[11][1][0]}</td><td id='row13Error'>{tal[11][1][1]}</td><td id='row13Fail'>{tal[11][1][2]}</td><td id='row13NotRun'>{tal[11][1][3]}</td><td id='row13Pass'>{tal[11][1][4]}</td><td id='row13Warn'>{tal[11][1][5]}</td><td id='row13perecentage' style='background-color:#{colors[11]}'>{str((tal[11][1][4]/tal[11][1][0])*100)[0:5]}%</td></tr>"
+f"<td>{tal[12][0]}</td><td id='row14Total'>{tal[12][1][0]}</td><td id='row14Error'>{tal[12][1][1]}</td><td id='row14Fail'>{tal[12][1][2]}</td><td id='row14NotRun'>{tal[12][1][3]}</td><td id='row14Pass'>{tal[12][1][4]}</td><td id='row14Warn'>{tal[12][1][5]}</td><td id='row14perecentage' style='background-color:#{colors[12]}'>{str((tal[12][1][4]/tal[12][1][0])*100)[0:5]}%</td></tr>"
+f"<td>{tal[13][0]}</td><td id='row15Total'>{tal[13][1][0]}</td><td id='row15Error'>{tal[13][1][1]}</td><td id='row15Fail'>{tal[13][1][2]}</td><td id='row15NotRun'>{tal[13][1][3]}</td><td id='row15Pass'>{tal[13][1][4]}</td><td id='row15Warn'>{tal[13][1][5]}</td><td id='row15perecentage' style='background-color:#{colors[13]}'>{str((tal[13][1][4]/tal[13][1][0])*100)[0:5]}%</td></tr>"
+f"<td>{tal[14][0]}</td><td id='row16Total'>{tal[14][1][0]}</td><td id='row16Error'>{tal[14][1][1]}</td><td id='row16Fail'>{tal[14][1][2]}</td><td id='row16NotRun'>{tal[14][1][3]}</td><td id='row16Pass'>{tal[14][1][4]}</td><td id='row16Warn'>{tal[14][1][5]}</td><td id='row16perecentage' style='background-color:#{colors[14]}'>{str((tal[14][1][4]/tal[14][1][0])*100)[0:5]}%</td></tr>"
+f"<td>{tal[15][0]}</td><td id='row17Total'>{tal[15][1][0]}</td><td id='row17Error'>{tal[15][1][1]}</td><td id='row17Fail'>{tal[15][1][2]}</td><td id='row17NotRun'>{tal[15][1][3]}</td><td id='row17Pass'>{tal[15][1][4]}</td><td id='row17Warn'>{tal[15][1][5]}</td><td id='row17perecentage' style='background-color:#{colors[15]}'>{str((tal[15][1][4]/tal[15][1][0])*100)[0:5]}%</td></tr>"
+f"<td>{tal[16][0]}</td><td id='row18Total'>{tal[16][1][0]}</td><td id='row18Error'>{tal[16][1][1]}</td><td id='row18Fail'>{tal[16][1][2]}</td><td id='row18NotRun'>{tal[16][1][3]}</td><td id='row18Pass'>{tal[16][1][4]}</td><td id='row18Warn'>{tal[16][1][5]}</td><td id='row18perecentage' style='background-color:#{colors[16]}'>{str((tal[16][1][4]/tal[16][1][0])*100)[0:5]}%</td></tr>"
+f"<td>{tal[17][0]}</td><td id='row19Total'>{tal[17][1][0]}</td><td id='row19Error'>{tal[17][1][1]}</td><td id='row19Fail'>{tal[17][1][2]}</td><td id='row19NotRun'>{tal[17][1][3]}</td><td id='row19Pass'>{tal[17][1][4]}</td><td id='row19Warn'>{tal[17][1][5]}</td><td id='row19perecentage' style='background-color:#{colors[17]}'>{str((tal[17][1][4]/tal[17][1][0])*100)[0:5]}%</td></tr>"
+f'<tr><td style="background-color:#B6B6A8">All</td><td id="all_total1" style="background-color:#B6B6A8">{summarized_values[0]}</td><td id="all_hw_pass1" style="background-color:#B6B6A8">{summarized_values[1]}</td><td id="all_hw_fail1" style="background-color:#B6B6A8">{summarized_values[2]}</td><td id="all_hw_hang1" style="background-color:#B6B6A8">{summarized_values[3]}</td><td id="all_hw_error1" style="background-color:#B6B6A8">{summarized_values[4]}</td><td id="all_rm_pass1" style="background-color:#B6B6A8">{summarized_values[5]}</td><td id="all_rm_fail1" style="background-color:#B6B6A8">{str((summarized_values[4]/summarized_values[0])*100)[0:5]}%</td></tr>'
+'''</table><p></p></table></body></html>'''
+)
+
+# writing the code into the file
+f.write(html_template1)
+
+# close the file
+f.close()
+
+# 1st method how to open html files in chrome using
+filename = 'file:///'+os.getcwd()+'/' + 'GFG.html'
+# webbrowser.open_new_tab(filename)
+
+
+
+
+# getting the html code from webpage
+'''
+# import requests
+#
+# import urllib.request, urllib.error, urllib.parse
+#
+# url = 'https://axeweb.intel.com/axe/tests/testlists/306/latestresults/combined/executions?executionStageId=3528,3529'
+#
+# r = requests.get(url, allow_redirects=True)
+# open('testing1.txt', 'wb').write(r.content)
+#
+#
+# # url = 'http://www.oldbaileyonline.org/browse.jsp?id=t17800628-33&div=t17800628-33'
+# #
+# # response = urllib.request.urlopen(url)
+# # webContent = response.read().decode('UTF-8')
+# #
+# # f = open('obo-t17800628-33.html', 'w')
+# # f.write(webContent)
+# # f.close
+'''
+
+
+
+# html pagae received from aravind
 html_template = """
 
 			<html>
@@ -105,112 +374,3 @@ html_template = """
 
 				</html>
 """
-# # writing the code into the file
-# f.write(html_template)
-#
-# # close the file
-# f.close()
-#
-# # 1st method how to open html files in chrome using
-# filename = 'file:///'+os.getcwd()+'/' + 'GFG.html'
-# webbrowser.open_new_tab(filename)
-#
-#
-
-
-
-# import requests
-#
-# import urllib.request, urllib.error, urllib.parse
-#
-# url = 'https://axeweb.intel.com/axe/tests/testlists/306/latestresults/combined/executions?executionStageId=3528,3529'
-#
-# r = requests.get(url, allow_redirects=True)
-# open('testing1.txt', 'wb').write(r.content)
-#
-#
-# # url = 'http://www.oldbaileyonline.org/browse.jsp?id=t17800628-33&div=t17800628-33'
-# #
-# # response = urllib.request.urlopen(url)
-# # webContent = response.read().decode('UTF-8')
-# #
-# # f = open('obo-t17800628-33.html', 'w')
-# # f.write(webContent)
-# # f.close
-'''
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-
-driver = webdriver.Chrome("chromedriver.exe")
-url="https://axeweb.intel.com/axe/tests/testlists/306/latestresults/combined/executions?executionStageId=3528,3529"
-driver.get("{}".format(url))
-# driver.maximize_window()
-story_points = str(driver.find_element(By.ID, "DataTables_Table_3_info").text)
-print(story_points)
-'''
-import time
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support.ui import Select
-
-#set chromodriver.exe path
-driver = webdriver.Chrome(executable_path="chromedriver.exe")
-
-
-#launch URL
-driver.get("https://axeweb.intel.com/axe/tests/testlists/306/latestresults/combined/executions")
-time.sleep(3)
-
-
-'''
-#dont delete
-l= driver.find_element(By.XPATH,'//div[@class="dataTables_info"]').text
-print(l)
-
-l=driver.find_element(By.CLASS_NAME, "multiselect-native-select")
-print(l)
-print("text",l.text)
-wait = WebDriverWait(driver, 30)
-#wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".\multiselect-native-select:nth-child(1) .\/btn btn-default btn-sm multiselect dropdown-toggle ng-scope"))).click()
-wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".\multiselect-native-select:nth-child(1)"))).click()
-
-# #browser quit
-driver.quit()
-'''
-
-# multiselect-native-select
-'''l = driver.find_element(By.XPATH,"//table[@class='axe-data-table pageResize table table-striped table-bordered table-hover table-condensed axe-table-word-break-all ng-isolate-scope dataTable no-footer']/thead/tr/th/span[@class='multiselect-native-select']")
-print(l)
-l.click()
-'''
-
-
-# l = driver.find_element(By.XPATH,"//table[@class='axe-data-table pageResize table table-striped table-bordered table-hover table-condensed axe-table-word-break-all ng-isolate-scope dataTable no-footer']/thead")
-# print(l.text)
-
-
-
-l = driver.find_element(By.XPATH,"//table[@class='axe-data-table pageResize table table-striped table-bordered table-hover table-condensed axe-table-word-break-all ng-isolate-scope dataTable no-footer']/thead/tr[3]/th[1]/span/select/optgroup[@label='render Fulsim']/option")
-# print(l)
-drop = Select(l)
-drop.select_by_value("object:30")
-
-print("hello")
-l = driver.find_element(By.XPATH,"//table[@class='axe-data-table pageResize table table-striped table-bordered table-hover table-condensed axe-table-word-break-all ng-isolate-scope dataTable no-footer']/thead/tr[3]/th[6]/span/select")
-print(l)
-drop = Select(l)
-drop.select_by_value("Pass")
-
-# wait = WebDriverWait(driver, 30)
-# wait.until(EC.presence_of_element_located((By.XPATH,"//table[@class='axe-data-table pageResize table table-striped table-bordered table-hover table-condensed axe-table-word-break-all ng-isolate-scope dataTable no-footer']/thead/tr[3]/th[6]"))).click()
-time.sleep(5)
-
-
-# pass count
-m= driver.find_element(By.XPATH,'//div[@class="dataTables_info"]').text
-print(m)
-
-driver.quit()
-

@@ -10,6 +10,7 @@ try:
     from datetime import date
     from shutil import copyfile
     import zipfile
+    import pandas as pd
 except ModuleNotFoundError:
     print("you have to install the below packages to run")
     sys.exit("install all modules")
@@ -199,8 +200,19 @@ if 0:
             a = 0
     print(a)
 
+if 0:
+    # count the duplicated values in list
+    l = [1,2,3,1,3,4,2,4,2,4,2,3,5,4,3,6,5,4,7,3,4,3,2,6]
+    d = {}
+    for i in l:
+        d[i]=d.get(i,0)+1
+    print(d)
 
-
+if 0:
+    Details = {"Destination": "China",
+            "Nstionality": "Italian", "Age": [1]}
+    Details["Age"] += [20, "Twenty"]
+    print(Details)
 
     
 # Pattern programs
@@ -3502,3 +3514,84 @@ if 0:
             print("\r")
 
     left_start_pattern(4)
+
+
+if 0:
+    s = "max_length"
+    check = True
+    for i in s:
+        if i.isupper() and not i == '_':
+            check=False
+
+    if check:
+        print(check,len(s.split('_')))
+    else:
+        check=False
+        print(check, len(s.split('_')))
+
+
+if 0:
+    def convert(a):
+        a1 = []
+        for i in a:a1.append(int(i))
+        return a1
+    m = 5;n = 5
+    a = '1 1 1 1 1'.split(" ");b = '1 1 1 1 1'.split(" ")
+    c = '1 0 1 1 0'.split(" ");d = '0 0 1 1 0'.split(" ");e = '0 0 0 0 0'.split(" ")
+
+    import numpy as np
+    t = np.array([convert(a),convert(b),convert(c),convert(d),convert(e)])
+    d={}
+    for i in range(m):
+        for j in range(n):
+            if t[j][i] == 0:d[i]=j-1;break
+    values = []
+    for c,i in enumerate(list(d.values())):
+        if i == max(list(d.values())):
+            values.append(c+1)
+    print(values)
+if 0:
+    # use of logging module
+    import logging
+
+    # logging.basicConfig(filename='sample.log', format='%(asctime)s | %(levelname)s: %(message)s', level=logging.NOTSET)
+    logging.basicConfig(filename='sample.log',filemode='w', level=logging.NOTSET)
+    logging.debug('Here you have some information for debugging.')
+    logging.info('Everything is normal. Relax!')
+    logging.warning('Something unexpected but not important happend.')
+    logging.error('Something unexpected and important happened.')
+    logging.critical('OMG!!! A critical error happend and the code cannot run!')
+
+
+
+if 0:
+    smedia=''
+    import glob
+    for file in glob.glob(os.path.join(os.getcwd(),'sm*')):
+        smedia = file
+        print(file)
+    print("sm", os.path.basename(smedia))
+    logging.info(os.path.basename(smedia))
+    logging.debug(os.getcwd())
+
+    a = 5
+    b = 0
+
+    try:
+        c = a / b
+    except Exception as e:
+        logging.error("Exception occurred", exc_info=True)
+
+
+if 0:
+    v = input("enter the students count")
+    t = input("enter the students ranks")
+    length = len(t.split())
+    reminder = length%3
+    if reminder > 0: extra_classes = 1
+    else: extra_classes = 0
+    total_classes = (length//3)+extra_classes
+    print(total_classes)
+
+
+

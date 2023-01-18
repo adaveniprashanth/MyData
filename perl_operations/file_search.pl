@@ -235,6 +235,30 @@ foreach my $vars4 (@vars3)
 print "total path is $total_path\n";
 =cut
 
+
+#finding the folder  with incomplete name and splitting the folder name
+=print "$dir\n";
+my $directory = "$dir"."/INTERACTIVE/bld/sm";
+my $incomplete_folder = 'MEDIA';
+opendir(my $vars2, $directory) || die "folder might not present $!";
+my @vars3 = readdir($vars2);
+
+my $media_path;
+foreach my $vars4 (@vars3)
+{
+	my $match_found = "$vars4" =~ /^$incomplete_folder/;
+	if ($match_found eq 1){$media_path = $vars4;}
+}
+
+print "media path is $media_path\n";
+my @items = split('\.', $media_path,2);
+my $context = $items[0];
+my $target = $items[-1];
+
+print "context $context target $target\n";
+=cut
+
+
 # Perl program to demonstrate the splitting on character
 =my $snapshot_model="/nfs/site/disks/lnl_soc_regress_001/ashish/soc_package/snapshot_model/LNL/ww43p4_LNL_SOC_RTL1p0_post_rev1_snapshot";
 my @items = split('/', $snapshot_model);
@@ -310,11 +334,11 @@ open(FH, '<', $filename) or die "Sorry!! couldn't open";
 
 
 #finding the string from the sentence from the file and writing into new file with the new chnages
-my $filename1 = 'output_file_for_command_generation.txt';
-open(my $fh1, '>', $filename1) or die "Could not open file '$filename1' $!";
+=my $output = 'output_file_for_command_generation.txt';
+open(my $fh1, '>', $output) or die "Could not open file '$output' $!";
 
-my $filename = "input_file_for_command_generation.txt";
-open(my $fh, "<", $filename) or die "Unable to open $!";
+my $input = "input_file_for_command_generation.txt";
+open(my $fh, "<", $input) or die "Unable to open $!";
 
 
 while (<$fh>) {
@@ -325,8 +349,12 @@ while (<$fh>) {
 		my $old = $_;
 		print "input string\n";
 		print "$old\n";
+		
 		$old =~ s/ +/ /;
 		$old =~ s/\t+//;
+		$old =~ s/ +/ /;
+		$old =~ s/\t+//;
+		
 		print "$old\n";
 		$old =~ s/-repo_ver[ a-z _0-9a-z]* -/-/;
 		my($first,$middle,$middle_a, $rest) = split(' ', $old, 4);
@@ -336,7 +364,8 @@ while (<$fh>) {
 		$rest =~ s/-grits_opt "/-grits_opt -qq /;
 		$rest =~ s/-testlib_opt "/-testlib_opt -qq /;
 		$rest =~ s/(?<!%)\"/ qq-/g;
-		my $start = 'GT_ROOT/source/rtl/cfg_env/dut/sm/gk_tests/';
+		
+		my $start = '$GT_ROOT/verif/scripts/gfxbuild_sm $GT_ROOT/source/rtl/cfg_env/dut/sm/gk_tests/';
 		my $middle1 = '.gsf -dut sm -soc_model soc --context MEDIA_LPM_SD -T o3c.vpi.sipdfx.gtsynth.default64 -testlib';
 		my $end = ' -testlib- -noclean -seed 0x1 | tee log.txt';
 
@@ -348,8 +377,10 @@ while (<$fh>) {
 			
 			print "output result\n";
 			my $total =  $start.$model."_".$model_extra."/".$model.$middle1." ".$rest.$end."\n";
+			
 			print "$total\n";
 			print $fh1 "$total";
+			
 		}
 		elsif($val =~ /(#)/){
 			my($model,$model_extra)= split('#',$val);
@@ -358,8 +389,11 @@ while (<$fh>) {
 			
 			print "output result\n";
 			my $total = $start.$model."_CFG".$model_extra."/".$model.$middle1." ".$rest.$end."\n";
+			$total =~ s/\t+//;
+			
 			print "$total\n";
 			print $fh1 "$total";
+			
 		}
 		else{
 			my $model = $val;
@@ -368,16 +402,17 @@ while (<$fh>) {
 			print "model extra $model_extra\n";
 			
 			print "output result\n";
-			my $total = $start.$model."_CFG".$model_extra."/".$model.$middle1." ".$rest.$end."\n";
+			my $total = $start.$model."/".$model.$middle1." ".$rest.$end."\n";
 			print "$total\n";
 			print $fh1 "$total";
+			
 		}
 	}
 }
-close $fh or die "Unable to close $filename: $!";
+close $fh or die "Unable to close $input: $!";
 close $fh1;
 print "done\n";
-
+=cut
 
 
 
@@ -474,12 +509,22 @@ print $s;
 my($first,$middle,$middle_a, $rest) = split(' ', $old, 4);
 =cut
 
-=my $val = 'MocsPat_CFG19 -cid GLOBALS/Caches -repo_ver 254606 -grits_opt "-DpavpEnable=false" -fulsim_opt "-pavpcPavpEnable false -enableFeature :xefiSupport" -testlib_opt "-enable_dop_clkgt -enable_unit_clkgt -gsc_disable -gsc_fuseoff" -seed 1';
-$val = ~ s/-fulsim_opt "/-fulsim_opt -qq /;
-=cut
-
 #replacing the particular string 
 =my $x = 'Time to -repo_ver 254606 -cat!';
 $x =~ s/-repo_ver[ _0-9]+ -/-/; 
 print "$x\n";
 =cut
+
+#if -else logic
+=my $value_From_input_file = 2;
+my $value = $value_From_input_file;
+if($value eq 1){ print "the given value is 1";}
+elsif ($value eq 2){ print "the given value is 2";}
+=cut
+
+#setting the environmental variable
+$ENV{'PATH'} = '/bin:/usr/bin:/home/fred/bin';
+print $ENV{'PATH'};
+
+my $val = 0;
+print ~$val;
