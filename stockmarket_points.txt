@@ -7,8 +7,6 @@ https://www.youtube.com/watch?v=hBKqk5oYexw
 
 
 
-
-
 DAY-1:
 LTCG (Long Termm Capital Gain)--> if person holds shares more than one year, and earns profit it is known as LTCG.
 
@@ -116,3 +114,29 @@ Other than that we have other advanced orders also.
 --> we have a method called shorting. There we can sell the share first and buy the share at the lower price tahn the seller price, then we can get the profit.
 For examlpe, we have sold a itc share at 100 and buy at 90 then we get the profit of 10. it is called shorting. we can do shorting only for intraday.
 and the normal method is called bullish like we can get profit whenever share price goes higher.
+
+
+For reference:
+https://www.youtube.com/watch?v=PQqfeyUQbyE&list=PL8uhW8cclMiOFY9hUCP7uROKCLkIMQ1tI
+
+Fundamental Analysis:
+--> Capital expense: we are paying the money only once and get their service more than financial year. like purchasing of furniture,building etc.
+--> revenue expense: we are paying the money everytime to get the service by that item. like food expenses,transportation,mobile bill etc.
+
+Profit & Loss account:it will helps to the investor to know the profit/loss of the company for that particular financial year. 
+	It will helps to the company owners to know whether they got profit/loss in that particular financial year.
+Balance sheet:--> it will helps to know which are the assets we have till that date from the date of starting of company.
+Assets: the item which we own.(your own house)
+Liability: the item which we owe to the others.(your loan taken from the bank)
+*** So capital expenses will come into balance sheet and revenue expenses will come under profit & Loss account.***
+
+The benifit of an expenditure goes beyond the balance sheet date,that expenditure is called capital expenditure and the item which we purchased is called asset.
+The benifit of an expenditure exhausted before the balance sheet date,that expenditure is called revenue expenditure.
+
+--> Types of fundamental analaysis:
+1.Economic analysis
+2.Industry analysis
+3.Company analaysis
+
+--> Economy analysis:
+	1.GDP(Gross domestic product):

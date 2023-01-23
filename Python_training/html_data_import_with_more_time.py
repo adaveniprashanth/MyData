@@ -13,22 +13,24 @@ seconds = time.time()
 local_time = time.ctime(seconds)
 print(local_time)
 
-
 # getting the data from the axeweb page
-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support.ui import Select
 
+
+
 #set chromodriver.exe path
-driver = webdriver.Chrome(executable_path="chromedriver.exe")
+# driver = webdriver.Chrome(executable_path="chromedriver.exe")
+# For chrome driver reference --> https://chromedriver.chromium.org/downloads
+driver = webdriver.Chrome("C:\chromedriver\chromedriver.exe")
 # driver = webdriver.Chrome()
 #launch URL and kept idle for 5 seconds
 driver.get("https://axeweb.intel.com/axe/tests/testlists/306/latestresults/combined/executions")
 time.sleep(5)
-'''
+
 # opening the dropdown list at execution stage
 l = driver.find_element(By.XPATH,"//table[@class='axe-data-table pageResize table table-striped table-bordered table-hover table-condensed axe-table-word-break-all ng-isolate-scope dataTable no-footer']/thead/tr[3]/th[1]/span")
 l.click()
@@ -60,8 +62,6 @@ drop = Select(l)
 # warn_count= driver.find_element(By.XPATH,'//div[@class="dataTables_info"]').text
 # #removing all the options
 # drop.deselect_all()
-#
-
 
 # filling the text box
 # l = driver.find_element(By.XPATH,"//table[@class='axe-data-table pageResize table table-striped table-bordered table-hover table-condensed axe-table-word-break-all ng-isolate-scope dataTable no-footer']/thead/tr[3]/th[2]/input")
@@ -84,6 +84,58 @@ for result in overall_list:
 	total = driver.find_element(By.XPATH,'//div[@class="dataTables_info"]').text
 	overall_count.append(get_actual_count(total))
 	drop.deselect_all()
+
+overall_colors = []
+colors = []
+def find_overall_colors(a):
+	percent =  int((a[4]/a[0])*100)
+	if percent < 70:
+		overall_colors.append('FF0000')#red color
+	elif percent > 70 and percent < 80:
+		overall_colors.append('FFFF00')#yellow
+	elif percent > 80 and percent < 90:
+		overall_colors.append('8AE62E')#light green
+	elif percent > 90 and percent <= 100:
+		overall_colors.append('008000')# heavy green
+		# overall_colors.append('808080')#gray color
+
+find_overall_colors(overall_count)
+
+f = open('GFG.html', 'w')
+html_template1 = (
+			'''<html><head>'''
+			'''<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+			<script src="PTL_Media_jquery_functions_a0.js"></script>
+			<style>
+			table, th, td {border: 1px solid black;
+						   border-collapse:collapse;
+						   font-family: "Arial";}
+			th, td {padding: 5px;}
+			th {text-align: center;
+				color: white;
+				background-color: #3E5A93;}
+			td {background-color: #FFB84D;}
+			h2 {font-family: "Arial";
+				font-size: 20px;}
+			h1 {font-family: "Arial";
+				font-size: 12px;}
+			span {font-family: "Arial";
+				font-size: 10px;}
+			</style>
+			</head>'''
+			'''<body>'''
+			f'<h1>Last Updated: {local_time}</h1>'
+			'''<p></p><h2>Overall</h2>'''
+'''<table><tr><th>Overall Status</th>		<th>Total Test cases</th>								<th>Error</th>                                  <th>Fail</th>                                                                        <th>NotRun</th>                                                                          <th>Pass</th>                            <th>Warn</th>                                                            <th>Pass percentage</th></tr>'''
+f'<td>Overall_Status</td><td id="row1Totaltestcases">{overall_count[0]}</td><td id="row1Error">{overall_count[1]}</td><td id="row1fail">{overall_count[2]}</td><td id="row1NotRun">{overall_count[3]}</td><td id="row1Pass">{overall_count[4]}</td><td id="row1Warn">{overall_count[5]}</td><td id="row1percentage" style="background-color:#{overall_colors[0]}">{str((overall_count[4]/overall_count[0])*100)[0:5]}%</td></tr>'
+'''</table><p></p>'''
+)
+f.write(html_template1)
+f.close()
+
+filename = 'file:///'+os.getcwd()+'/' + 'GFG.html'
+webbrowser.open_new_tab(filename)
+
 
 
 test_area_names = ['GLOBALS/UnifiedMemory','HWFE/MemoryInterface','HWFE/Interrupt',
@@ -122,14 +174,14 @@ for test_area in test_area_names:
 driver.quit()
 print(total_attributes)
 print(overall_count)
-'''
 
 
-total_attributes = {'GLOBALS/UnifiedMemory': [399, 0, 0, 111, 288, 0], 'HWFE/MemoryInterface': [84, 0, 6, 12, 66, 0], 'HWFE/Interrupt': [23, 0, 2, 3, 18, 0], 'HWFE/MicroController': [74, 0, 25, 49, 0, 0], 'GLOBALS/Flush': [18, 0, 0, 16, 2, 0], 'GLOBALS/Virtualization': [19, 0, 4, 0, 15, 0], 'GLOBALS/Caches': [63, 0, 47, 0, 16, 0], 'GLOBALS/HostGTAccesses': [17, 0, 10, 3, 4, 0], 'GLOBALS/Registers': [4, 0, 1, 1, 2, 0], 'HWFE/BatchBuffer': [20, 0, 0, 10, 10, 0], 'HWFE/Execlist': [37, 0, 37, 2, 32, 0], 'HWFE/RenderCompute': [1, 0, 0, 0, 1, 0], 'HWFE/RegisterAccess': [2, 0, 0, 0, 2, 0], 'HWFE/Semaphores': [11, 0, 0, 1, 10, 0], 'HWFE/Preemption': [2, 0, 0, 0, 2, 0], 'GLOBALS/PatMocs': [2, 0, 0, 2, 0, 0], 'Concurrency/AllEngine': [100, 0, 0, 100, 0, 0], 'Concurrency/ProducerConsumer': [22, 0, 0, 22, 0, 0]}
-overall_count = [898, 0, 98, 332, 468, 0]
 
-print(total_attributes)
-print(overall_count)
+# total_attributes = {'GLOBALS/UnifiedMemory': [399, 0, 0, 111, 288, 0], 'HWFE/MemoryInterface': [84, 0, 6, 12, 66, 0], 'HWFE/Interrupt': [23, 0, 2, 3, 18, 0], 'HWFE/MicroController': [74, 0, 25, 49, 0, 0], 'GLOBALS/Flush': [18, 0, 0, 16, 2, 0], 'GLOBALS/Virtualization': [19, 0, 4, 0, 15, 0], 'GLOBALS/Caches': [63, 0, 47, 0, 16, 0], 'GLOBALS/HostGTAccesses': [17, 0, 10, 3, 4, 0], 'GLOBALS/Registers': [4, 0, 1, 1, 2, 0], 'HWFE/BatchBuffer': [20, 0, 0, 10, 10, 0], 'HWFE/Execlist': [37, 0, 37, 2, 32, 0], 'HWFE/RenderCompute': [1, 0, 0, 0, 1, 0], 'HWFE/RegisterAccess': [2, 0, 0, 0, 2, 0], 'HWFE/Semaphores': [11, 0, 0, 1, 10, 0], 'HWFE/Preemption': [2, 0, 0, 0, 2, 0], 'GLOBALS/PatMocs': [2, 0, 0, 2, 0, 0], 'Concurrency/AllEngine': [100, 0, 0, 100, 0, 0], 'Concurrency/ProducerConsumer': [22, 0, 0, 22, 0, 0]}
+# overall_count = [898, 0, 98, 332, 468, 0]
+
+# print(total_attributes)
+# print(overall_count)
 
 
 tal = []#total area list
@@ -141,21 +193,7 @@ seconds = time.time()
 # convert the time in seconds since the epoch to a readable format
 local_time = time.ctime(seconds)
 # print(local_time)
-overall_colors = []
-colors = []
-def find_overall_colors(a):
-	percent =  int((a[4]/a[0])*100)
-	if percent < 70:
-		overall_colors.append('FF0000')#red color
-	elif percent > 70 and percent < 80:
-		overall_colors.append('FFFF00')#yellow
-	elif percent > 80 and percent < 90:
-		overall_colors.append('8AE62E')#light green
-	elif percent > 90 and percent <= 100:
-		overall_colors.append('008000')# heavy green
-		# overall_colors.append('808080')#gray color
 
-find_overall_colors(overall_count)
 
 
 total_cases = 0;total_errors = 0;total_fail = 0
@@ -165,7 +203,7 @@ total_notrun = 0;total_pass = 0;total_warn = 0
 # finding the colors for the test area values
 for i in range(len(tal)):
 	value = (tal[i][1][4] / tal[i][1][0]) * 100
-	print(value)
+	# print(value)
 	if value < 70:
 		colors.append('FF0000')#red color
 	elif value > 70 and value < 80:
@@ -179,6 +217,7 @@ for i in range(len(tal)):
 	total_notrun += tal[i][1][3];total_pass += tal[i][1][4];total_warn += tal[i][1][5]
 
 summarized_values =[total_cases,total_errors,total_fail,total_notrun,total_pass,total_warn]
+
 
 
 # creating and viewing the html files in python
@@ -238,6 +277,7 @@ f'<tr><td style="background-color:#B6B6A8">All</td><td id="all_total1" style="ba
 '''</table><p></p></table></body></html>'''
 )
 
+
 # writing the code into the file
 f.write(html_template1)
 
@@ -245,7 +285,7 @@ f.write(html_template1)
 f.close()
 
 # 1st method how to open html files in chrome using
-filename = 'file:///'+os.getcwd()+'/' + 'GFG.html'
+# filename = 'file:///'+os.getcwd()+'/' + 'GFG.html'
 # webbrowser.open_new_tab(filename)
 
 

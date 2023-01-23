@@ -6,8 +6,10 @@ use File::Basename;
 use File::Path qw( make_path );
 use List::Util 1.33 'any';
 use File::Copy;
+use Excel::Writer::XLSX;
 use autodie;
 #use Text::Trim qw(trim);
+use Time::Piece;
 
 use Cwd qw(cwd) ;
 my $dir = cwd;
@@ -438,7 +440,6 @@ print "\n";
 =cut
 
 #reaplcing the input string with the required changes
-
 =my $old = 'MocsPat_CFG41 -cid GLOBALS/Caches -repo_ver 254606 -grits_opt "-DpavpEnable=false" -fulsim_opt "-pavpcPavpEnable false -enableFeature :xefiSupport" -testlib_opt "-enable_dop_clkgt -enable_unit_clkgt -gsc_disable -gsc_fuseoff" -seed 2215237305';
 #my $old = 'gam_single_walker#10     -repo_ver head      -cid GLOBALS/UnifiedMemory    -fulsim_opt "-pavpcPavpEnable false -enableFeature :xefiSupport" -grits_opt "-DpavpEnable=false -DsriovEnable=true"    -testlib_opt "-enable_unit_clkgt -gsc_disable -gsc_fuseoff"';
 #my $old = 'gsc_boot_fw_load  -repo_ver head  -fid GSC  -fulsim_opt "-PAVPFuseCsmeModeEnable false  -PAVPFuseKcrSlaveDisable false -PAVPFuseBusValue 7" -grits_opt "-DpavpEnable=true -DgscEnable=true -DgscFwPagingEnable=true"  -testlib_opt "-gsc_enable -enable_pavp_production_mode -fuse_gtdis_en" -enable_pavp';
@@ -523,8 +524,125 @@ elsif ($value eq 2){ print "the given value is 2";}
 =cut
 
 #setting the environmental variable
-$ENV{'PATH'} = '/bin:/usr/bin:/home/fred/bin';
-print $ENV{'PATH'};
+#$ENV{'PATH'} = '/bin:/usr/bin:/home/fred/bin';
+#print $ENV{'PATH'};
 
-my $val = 0;
-print ~$val;
+#writing the outputfile commands in excel sheet
+=my $input = "output_file_for_command_generation.txt";
+open(my $fh, "<", $input) or die "Unable to open $!";
+my $Excel_book1 = Excel::Writer::XLSX->new('new_excel.xlsx' );
+my $Excel_sheet1 = $Excel_book1->add_worksheet();
+my $count = 0;
+while (<$fh>) {
+	chomp $_;
+	$count++;
+	my @parts = split(/\//, $_);
+	my @data_row = ($parts[7],$_);
+	#print "$data_row[1]\n";
+	$Excel_sheet1->write( "A$count", \@data_row );
+}
+print "counted is $count\n";
+$Excel_book1->close;
+close $fh or die "Unable to close $input: $!";
+=cut
+
+
+
+#excel data handling
+=my $Excel_book1 = Excel::Writer::XLSX->new('new_excel.xlsx' );
+my $Excel_sheet1 = $Excel_book1->add_worksheet();
+my @data_row = (1, 2, 3, 4);
+my @table_data = (
+	["l", "m"],
+	["n", "o"],
+	["p", "q"],
+);
+my @data_column = (1, 2, 3, 4, 5, 6, 7);
+
+# Using write() to write values in sheet
+$Excel_sheet1->write( "A1", "Geeks For Geeks" );
+$Excel_sheet1->write( "A2", "Perl|Reading Files in Excel" );
+$Excel_sheet1->write( "A3", \@data_row );
+$Excel_sheet1->write( 4, 0, \@table_data );
+$Excel_sheet1->write( 0, 4, [ \@data_column ] );
+$Excel_book1->close;
+=cut
+
+#finding the creation time of a file
+=my $input = "output_file_for_command_generation.txt";
+open(my $fh, "<", $input) or die "Unable to open $!";
+
+my $epoch_timestamp = (stat($fh))[9];
+my $timestamp       = localtime($epoch_timestamp);
+print "$timestamp\n";
+=cut
+
+#another logic
+=use File::stat;
+use Time::localtime;
+my $timestamp1 = ctime(stat($fh)->mtime);
+
+
+my $epoch_timestamp = (stat($fh))[9];
+my $timestamp1       = localtime($epoch_timestamp);
+print "$timestamp1\n";
+=cut
+
+#converting the date to epoch value
+
+
+=my $date = Time::Piece->strptime($timestamp,
+  "%a %b %e %H:%M:%S %Y");
+my $epoch_date = $date->epoch;
+
+print "$epoch_date\n";
+=cut
+
+#finding the latest modified file from the directory
+=use Time::Piece;
+opendir(my $vars2, $dir) or die "Cannot open directory: $!";
+my @allfiles = readdir $vars2;
+my $length = @allfiles;
+#print "@allfiles\n";
+closedir($vars2);
+
+my $latest_epoch = scalar 0;
+my $latest_file;
+my $modifiedtime;
+
+foreach my $vars4 (@allfiles)
+{
+	if($vars4 eq "." || $vars4 eq ".." || -d $vars4){ next;}
+	if($vars4 =~ /(collage)/){
+		my $input = $vars4;
+		open(my $fh, "<", $input) or die "Unable to open $!";
+		my $epoch_timestamp = (stat($fh))[9];
+		my $timestamp = localtime($epoch_timestamp);
+		my $date = Time::Piece->strptime($timestamp,"%a %b %e %H:%M:%S %Y");
+		my $epoch_date = $date->epoch;
+		if ($epoch_date > $latest_epoch) {
+			$latest_epoch = $epoch_date;
+			$latest_file = $vars4;
+			$modifiedtime = $timestamp;
+			}
+	}
+}
+
+print "latest file is $latest_file\n";
+print "modified time is $modifiedtime\n";
+=cut
+
+#reading the file
+my $input = "input_file_for_command_generation.txt";
+open(my $fh, "<", $input) or die "Unable to open $!";
+
+my @alllines = <$fh>;
+print $alllines[-1];
+
+if ($alllines[-1] eq 'compared striing') {
+	print "both strings are same";
+}
+else {
+	print "\nnot same";
+}
+
