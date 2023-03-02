@@ -6,7 +6,8 @@ try:
     import shutil
 except ModuleNotFoundError:
     sys.exit("install all modules")
-if 0:
+
+if 1:
     def get_parent_child_pair():
         print("pandas activity")
         parent_child = []
@@ -25,7 +26,7 @@ if 0:
 
     def get_instances_hierarchy():
         instances = []
-        with open('PTL_hierarchy.txt','r') as f:
+        with open('PTL_hierarchy1.txt','r') as f:
             for i in f:
                 values = i.strip().split()
                 instances.append((int(values[0]),values[-1]))
@@ -87,7 +88,7 @@ if 0:
 
     # print(hier_structure)
     length = len(hier_structure)
-    f = open('final_result.txt','w')
+    f = open('extend_final_result.txt','w')
     f.write("hier_spec = {\n")
     for c,i in enumerate(hier_structure.items()):
         string = "'/"+i[0]+"'"+":"+",\n".join(str(i[1]).split(", "))
@@ -97,11 +98,11 @@ if 0:
         else:
             f.write(string + ",\n")
     f.write("\n}")
-    f.write("\nmissed modules in hirerarchy are\n")
+    '''f.write("\nmissed modules in hirerarchy are\n")
     for c,i in enumerate(missed_in_hierarchy):
         f.write(i+",")
         if c%4 == 0:
-            f.write("\n")
+            f.write("\n")'''
     f.close()
 
 
@@ -109,7 +110,7 @@ if 0:
 if 0:
     def get_instances_hierarchy():
         instances = []
-        with open('gtmctoremove1.txt', 'r') as f:
+        with open('extend_gtmctoremove1.txt', 'r') as f:
             for i in f:
                 values = i.strip().split()
                 instances.append((int(values[0]), values[-1]))

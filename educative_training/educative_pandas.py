@@ -10,7 +10,7 @@ Created on Wed Sep 16 21:14:41 2020
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-
+import re
 # print(np.array([[1,2],[3,4]],dtype=np.float32).dtype)
 if 1:#Series -->pd.Series(data,dtype,index)
     
@@ -113,7 +113,12 @@ if 1:#DataFrame -->pd.DataFrame(data,index,columns)
         
         df_append = df.append(df2,ignore_index=True)
         print(df_append)#ignoring the index and continued with old dataframe
-        
+
+    if 0:
+        df1 = pd.DataFrame([[0,1,2],[3,4,5]])
+        print(df1)
+        print()
+        print(list(df1.iloc[0]))
     if 0:#Dropping data
         d = {'c1':[1,2],'c2':[3,4],'c3':[5,6]}#key will be column in DataFrame
         df= pd.DataFrame(d,index=['r1','r2'])
@@ -343,7 +348,7 @@ if 0:#File I/O operations
         # df = pd.read_excel('xls_sample.xls')#accessing first sheet
         # print("excel sheet is \n{}".format(df.loc[0:20]))
         
-        # df = pd.read_excel('xls_sample.xls',sheet_name=[0,1],index_col=0)#accessing sheet by numbers
+        #df = pd.read_excel('xls_sample.xls',sheet_name=[0,1],index_col=0)#accessing sheet by numbers
         # print("excel sheet is \n{}".format(df[0][0:20]))#printing first sheet
         # print("excel sheet is \n{}".format(df[1][0:20]))#printing second sheet
         
@@ -702,7 +707,7 @@ if 1:#To NumPy
         # Note that an indicator feature contains 1 when the row has that particular category, and 0 if the row does not.
         pass
 
-    if 1:#Converting categorical features to Indicator features
+    if 0:#Converting categorical features to Indicator features
         # df = pd.read_excel('Grouping.xls',index_col=0,sheet_name='Sheet3')
         df = pd.DataFrame({
         'playerID': ['bettsmo01', 'canoro01', 'cruzne02', 'ortizda01', 'cruzne02'],
@@ -726,7 +731,8 @@ if 1:#To NumPy
         print(n_matrix)
         print(type(n_matrix))
         
-
+#print(help(re.subn))
+print(re.subn("abc","xyz","abdabd"))
 
 
 

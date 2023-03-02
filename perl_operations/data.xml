@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<dut_overrides>
+<fulsim>
+<versions>
+<default>
+<branch>PTL</branch>
+<version>221201-73358</version>
+</default>
+</versions>
+</fulsim>

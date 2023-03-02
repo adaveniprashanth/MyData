@@ -209,6 +209,7 @@ if 0:
     print(d)
 
 if 0:
+    #appending the values to list in dictionary
     Details = {"Destination": "China",
             "Nstionality": "Italian", "Age": [1]}
     Details["Age"] += [20, "Twenty"]
@@ -3530,7 +3531,7 @@ if 0:
         print(check, len(s.split('_')))
 
 
-if 0:
+if 1:
     def convert(a):
         a1 = []
         for i in a:a1.append(int(i))
@@ -3595,3 +3596,15 @@ if 0:
 
 
 
+if 0:
+    import yaml
+
+    f = open('//sc6-samba.sc.intel.com/nfs/site/disks/xe3_clips_storage/hello.py','r')
+    print(f.readlines())
+
+# adding the values in list in dcitionary
+if 0:
+    Details = {"Destination": "China",
+               "Nstionality": "Italian", "Age": []}
+    Details["Age"] += [20, "Twenty"]
+    print(Details)

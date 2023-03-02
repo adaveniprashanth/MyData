@@ -6,7 +6,7 @@ try:
     import shutil
 except ModuleNotFoundError:
     sys.exit("install all modules")
-if 0:
+if 1:
     def get_parent_child_pair():
         print("pandas activity")
         parent_child = []

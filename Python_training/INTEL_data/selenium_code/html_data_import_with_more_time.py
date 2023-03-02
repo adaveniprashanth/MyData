@@ -28,11 +28,11 @@ def removing_old_file():
 
 	print(os.listdir())
 
-# removing_old_file()
+removing_old_file()
 
 def download_new_file():
 	options = webdriver.ChromeOptions()
-	prefs = { "download.default_directory": os.getcwd() }
+	prefs = {"download.default_directory": os.getcwd()}
 	options.add_experimental_option('prefs', prefs)
 
 	#set chromodriver.exe path
@@ -71,7 +71,7 @@ def download_new_file():
 
 	driver.quit()
 
-# download_new_file()
+download_new_file()
 
 df = pd.read_csv(os.path.join(os.getcwd(),'Axe Datatable.csv'))
 # print(df.columns)# printing column names
@@ -233,8 +233,8 @@ f.write(legcy_table_end+"\n")
 f.close()
 
 #  open html files in chrome
-# filename = 'file:///'+os.getcwd()+'/' + 'GFG.html'
-# webbrowser.open_new_tab(filename)
+filename = 'file:///'+os.getcwd()+'/' + 'GFG.html'
+webbrowser.open_new_tab(filename)
 
 
 

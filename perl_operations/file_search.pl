@@ -10,6 +10,8 @@ use Excel::Writer::XLSX;
 use autodie;
 #use Text::Trim qw(trim);
 use Time::Piece;
+use Text::Wrap qw{ wrap };
+use Spreadsheet::ParseExcel;
 
 use Cwd qw(cwd) ;
 my $dir = cwd;
@@ -334,12 +336,12 @@ open(FH, '<', $filename) or die "Sorry!! couldn't open";
 	close(FH);
 =cut
 
-
+#++++need to wrok on
 #finding the string from the sentence from the file and writing into new file with the new chnages
-=my $output = 'output_file_for_command_generation.txt';
+my $output = 'output_file_for_command_generation1.txt';
 open(my $fh1, '>', $output) or die "Could not open file '$output' $!";
 
-my $input = "input_file_for_command_generation.txt";
+my $input = "input_file_for_command_generation1.txt";
 open(my $fh, "<", $input) or die "Unable to open $!";
 
 
@@ -373,40 +375,46 @@ while (<$fh>) {
 
 
 		if($val =~ /(CFG)/){
-			my($model,$model_extra)= split('_',$val);
-			print "model $model\n";
-			print "model extra $model_extra\n";
+			my($model,$model_extra)= split('_CFG',$val);
+			print $fh1 "\n";
+			print $fh1 "$val\n";
+			print $fh1 "model $model\n";
+			print $fh1 "model extra $model_extra\n";
 			
 			print "output result\n";
-			my $total =  $start.$model."_".$model_extra."/".$model.$middle1." ".$rest.$end."\n";
+			#my $total =  $start.$model."_".$model_extra."/".$model.$middle1." ".$rest.$end."\n";
+			my $total =  $start.$val."/".$model.$middle1." ".$rest.$end."\n";
 			
 			print "$total\n";
+			print $fh1 "$_\n";
 			print $fh1 "$total";
 			
 		}
 		elsif($val =~ /(#)/){
-			my($model,$model_extra)= split('#',$val);
-			print "model $model\n";
-			print "model extra $model_extra\n";
-			
-			print "output result\n";
-			my $total = $start.$model."_CFG".$model_extra."/".$model.$middle1." ".$rest.$end."\n";
-			$total =~ s/\t+//;
-			
-			print "$total\n";
-			print $fh1 "$total";
+			print "\n";
+			#my($model,$model_extra)= split('#',$val);
+			#print "model $model\n";
+			#print "model extra $model_extra\n";
+			#
+			#print "output result\n";
+			#my $total = $start.$model."_CFG".$model_extra."/".$model.$middle1." ".$rest.$end."\n";
+			#$total =~ s/\t+//;
+			#
+			#print "$total\n";
+			#print $fh1 "$total";
 			
 		}
 		else{
-			my $model = $val;
-			my $model_extra = "0";
-			print "model $model\n";
-			print "model extra $model_extra\n";
-			
-			print "output result\n";
-			my $total = $start.$model."/".$model.$middle1." ".$rest.$end."\n";
-			print "$total\n";
-			print $fh1 "$total";
+			print "\n";
+			#my $model = $val;
+			#my $model_extra = "0";
+			#print "model $model\n";
+			#print "model extra $model_extra\n";
+			#
+			#print "output result\n";
+			#my $total = $start.$model."/".$model.$middle1." ".$rest.$end."\n";
+			#print "$total\n";
+			#print $fh1 "$total";
 			
 		}
 	}
@@ -414,22 +422,32 @@ while (<$fh>) {
 close $fh or die "Unable to close $input: $!";
 close $fh1;
 print "done\n";
-=cut
-
-
-
-
 
 
 
 
 
 #replacing the multiple white spaces with single space
-=my $data = "What    is the STA++TUS of your mind right now?";
+=my $data ='    media_gk_pm_flr      -repo_ver 253041		-fid Media_PM_GK/basic/media_gk_pm_flr  -fulsim_opt "-pavpcPavpEnable false -enableFeature :xefiSupport"   -grits_opt "-DpavpEnable=false"  -testlib_opt " -disable_unit_clkgt -flr_memwipe -gsc_fuseoff"				';
+print "old data $data\n";
+#$data =~ s/ +//;
+$data =~ s/\h+/ /g;#this will also work.
 
-$data =~ s/ +/ /;		
+#$data =~ s/\t+/ /;
+print "new data $data\n";
 
-print $data;
+=Canonicalize horizontal whitespace:
+
+s/\h+/ /g;
+Canonicalize vertical whitespace:
+
+s/\v+/\n/g;
+Canonicalize all whitespace:
+
+s/[\h\v]+/ /g;
+=cut
+
+
 =cut
 
 
@@ -528,7 +546,11 @@ elsif ($value eq 2){ print "the given value is 2";}
 #print $ENV{'PATH'};
 
 #writing the outputfile commands in excel sheet
-=my $input = "output_file_for_command_generation.txt";
+=use Text::Wrap qw{ wrap };
+$Text::Wrap::columns=60;
+#$Text::Wrap::separator="|";
+#print wrap("","","This is a bit of text that forms a normal book-style paragraph");
+my $input = "output_file_for_command_generation.txt";
 open(my $fh, "<", $input) or die "Unable to open $!";
 my $Excel_book1 = Excel::Writer::XLSX->new('new_excel.xlsx' );
 my $Excel_sheet1 = $Excel_book1->add_worksheet();
@@ -537,7 +559,10 @@ while (<$fh>) {
 	chomp $_;
 	$count++;
 	my @parts = split(/\//, $_);
-	my @data_row = ($parts[7],$_);
+	
+	my @data_row = ($parts[7],wrap("","",$_));
+	#my @data_row = ($parts[7],$_);
+	
 	#print "$data_row[1]\n";
 	$Excel_sheet1->write( "A$count", \@data_row );
 }
@@ -545,7 +570,6 @@ print "counted is $count\n";
 $Excel_book1->close;
 close $fh or die "Unable to close $input: $!";
 =cut
-
 
 
 #excel data handling
@@ -567,6 +591,124 @@ $Excel_sheet1->write( 4, 0, \@table_data );
 $Excel_sheet1->write( 0, 4, [ \@data_column ] );
 $Excel_book1->close;
 =cut
+
+#reading the data from xls sheet
+=my $parser   = Spreadsheet::ParseExcel->new();
+my $workbook = $parser->parse('Copy of node_signals_for_assertions.xls');
+ 
+if ( !defined $workbook ) {
+    die $parser->error(), ".\n";
+}
+
+my $output = 'excel_output.txt';
+open(my $fh1, '>', $output) or die "Could not open file '$output' $!";
+
+
+for my $worksheet ( $workbook->worksheets() ) {
+ 
+    my ( $row_min, $row_max ) = $worksheet->row_range();
+    my ( $col_min, $col_max ) = $worksheet->col_range();
+ 
+    for my $row ( $row_min .. $row_max ) {
+        for my $col ( $col_min .. $col_max ) {
+ 
+            my $cell = $worksheet->get_cell( $row, $col );
+            next unless $cell;
+ 
+            print "Row, Col    = ($row, $col)\n";
+            print "Value       = ", $cell->value(),       "\n";
+            print "Unformatted = ", $cell->unformatted(), "\n";
+            print "\n";
+			print $fh1 $cell->value(),"\n";
+        }
+    }
+}
+
+close $fh1;
+=cut
+
+#below code is not working
+#reading the data from xls sheet
+#use Spreadsheet::Read qw(ReadData);
+#my $workbook = ReadData ('new_excel1.xlsx');
+=use Spreadsheet::ParseExcel;
+use Spreadsheet::Read;
+my $workbook = Spreadsheet::Read->new ("new_excel1.xlsx");
+
+#use Spreadsheet::XLSX;
+#my $parser   = Spreadsheet::XLSX->new();
+#my $workbook = $parser->parse('new_excel1.xlsx');
+ 
+if ( !defined $workbook ) {
+    die $parser->error(), ".\n";
+}
+
+my $output = 'excel_output.txt';
+open(my $fh1, '>', $output) or die "Could not open file '$output' $!";
+
+
+for my $worksheet ( $workbook->worksheets() ) {
+ 
+    my ( $row_min, $row_max ) = $worksheet->row_range();
+    my ( $col_min, $col_max ) = $worksheet->col_range();
+ 
+    for my $row ( $row_min .. $row_max ) {
+        for my $col ( $col_min .. $col_max ) {
+ 
+            my $cell = $worksheet->get_cell( $row, $col );
+            next unless $cell;
+ 
+            print "Row, Col    = ($row, $col)\n";
+            print "Value       = ", $cell->value(),       "\n";
+            print "Unformatted = ", $cell->unformatted(), "\n";
+            print "\n";
+			print $fh1 $cell->value(),"\n";
+        }
+    }
+}
+
+close $fh1;
+=cut
+
+
+
+#wrapping the text 
+=use Text::Wrap;
+Text::Wrap::columns = 60;
+my $longdna_string = ''adfsfargrhgt at jh  ER TJH  YT REFaestgarhat jjjjjjjjjjjjjjjjjjjjtesfdagfwe g r eh   aejh tar  jh  ywtk  r eagawrewgreg;
+
+my $str_60 =Text::Wrap::fill( '', '', join '', uc($longdna_string) );
+print $str_60;
+
+
+my $longdna_string = <<END;
+ACAAGATGCCATTGTCCCCCGGCCTCCTGCTGCTGCTGCTCTCCGGGGCCACGGCCACCGCTGCCCTGCCCCTGGAGGGTGGCCCCACCGGCCGAGACAGCGAGCATATGCAGGAAGCGGCAGGAATAAGGAAAAGCAGCCTCCTGACTTTCCTCGCTTGGTGGTTTGAGTGGACCTCCCAGGCCAGTGCCGGGCCCCTCATAGGAGAGGAAGCTCGGGAGGTGGCCAGGCGGCAGGAAGGCGCACCCCCCCAGCAATCCGCGCGCCGGGACAGAATGCCCTGCAGGAACTTCTTCTGGAAGACCTTCTCCTCCTGCAAATAAAACCTCACCCATGAATGCTCACGCAAGTTTAATTACAGACCTGAA
+END
+
+$longdna_string =~ s/(.{60})/$1\n/gs;
+
+print $longdna_string;
+
+
+
+
+# $Text::Wrap::break   = qr/\s/;
+$Text::Wrap::columns = 80;
+my $firstline = q();
+my $wrapped = wrap(undef, undef, $firstline . $buff);
+$wrapped =~ s/\n(.*)$/\n/;
+my $lastline = $1;
+print $wrapped;
+$firstline = $lastline;
+
+
+
+$Text::Wrap::columns=20;
+#$Text::Wrap::separator="|";
+print wrap("","","This is a bit of text that forms a normal book-style paragraph");
+=cut
+
+
 
 #finding the creation time of a file
 =my $input = "output_file_for_command_generation.txt";
@@ -633,7 +775,7 @@ print "modified time is $modifiedtime\n";
 =cut
 
 #reading the file
-my $input = "input_file_for_command_generation.txt";
+=my $input = "input_file_for_command_generation.txt";
 open(my $fh, "<", $input) or die "Unable to open $!";
 
 my @alllines = <$fh>;
@@ -645,4 +787,237 @@ if ($alllines[-1] eq 'compared striing') {
 else {
 	print "\nnot same";
 }
+=cut
 
+#VDEBOX SV Content sync to AXE and setup of execution
+
+
+
+=use strict; 
+#use warnings;
+use File::Find;
+use File::Copy;
+use File::Path;
+use List::Util 1.33 'any';
+use Cwd qw(cwd) ;
+use File::Copy::Recursive qw(dircopy);
+use Time::Piece;
+
+my @word = ();
+my $dir = cwd;
+
+#finding the string from the sentence from the file and writing into new file with the new chnages
+my $output = "gfxbuild_cmd.list";
+open(my $fh1, '>', $output) or die "Could not open file '$output' $!";
+ 
+my $input = "level0_sd_soc.list";
+open(my $fh, "<", $input) or die "Unable to open $!";
+ 
+
+while (<$fh>) {
+    chomp $_;
+    if($_ =~ /(--)/){ next;}
+    elsif ($_ eq ""){ next;}
+    else {
+        my $old = $_;
+        print "input string\n";
+        print "$old\n";
+
+        $old =~ s/ +/ /;
+        $old =~ s/\t+//;
+        $old =~ s/ +/ /;
+        $old =~ s/\t+//;
+		$old =~ s/\h+/ /g;
+
+        $old =~ s/-repo_ver[ a-z _0-9a-z]* -/-/;
+        $old =~ s/-repo_ver( [0-9]+)//eg; 
+		   		
+        my($first,$middle,$middle_a, $rest) = split(' ', $old, 4);
+        my $val = $first;
+
+        $rest =~ s/-fulsim_opt "/-fulsim_opt -qq/;
+        $rest =~ s/-grits_opt "/-grits_opt -qq/;
+        $rest =~ s/-testlib_opt "/-testlib_opt -qq/;
+        $rest =~ s/(?<!%)\"/ qq-/g;
+
+        my $start = '$GT_ROOT/verif/scripts/gfxbuild_sm $GT_ROOT/source/rtl/cfg_env/dut/sm/gk_tests/';
+        my $middle1 = '.gsf -dut sm -soc_model soc -context MEDIA_LPM_SD -T o3c.vpi.sipdfx.gtsynth.default64 -testlib';
+        my $end = ' -testlib- -noclean -seed 0x1 | tee log.txt';
+ 
+
+        if($val =~ /(CFG)/){
+            my($model,$model_extra)= split('_',$val);
+            print "model $model\n";
+            print "model extra $model_extra\n";
+
+            print "output result\n";
+            my $total =  $start.$model."_".$model_extra."/".$model.$middle1." ".$rest.$end."\n";
+            $total =~ s/ +/ /;
+            $total =~ s/\t+//;
+            print "$total\n";
+            print $fh1 "$total";
+
+        }
+        elsif($val =~ /(#)/){
+            my($model,$model_extra)= split('#',$val);
+            print "model $model\n";
+            print "model extra $model_extra\n";
+
+            print "output result\n";
+            my $total = $start.$model."_CFG".$model_extra."/".$model.$middle1." ".$rest.$end."\n";
+            $total =~ s/\t+//;
+            $total =~ s/ +/ /;
+            $total =~ s/\t+//;
+            print "$total\n";
+            print $fh1 "$total";
+
+        }
+        else{
+            my $model = $val;
+            my $model_extra = "0";
+            print "model $model\n";
+            print "model extra $model_extra\n";
+
+            print "output result\n";
+            my $total = $start.$model."/".$model.$middle1." ".$rest.$end."\n";
+            $total =~ s/ +/ /;
+            $total =~ s/\t+//;
+            print "$total\n";
+            print $fh1 "$total";
+
+        }
+    }
+}
+close $fh or die "Unable to close $input: $!";
+close $fh1;
+print "done\n";
+=cut
+
+#finding the version number from xml file 31-01-2023
+=my $filename = "data.xml";
+print "filename $filename\n";
+open(FH, '<', $filename) or die "Sorry!! couldn't open";
+my @word = ();
+my $lines = 0;
+my $version = 0;
+while(<FH>){   
+	$lines = $lines+1;
+	last if ($lines >= 10);
+	
+	if ($_ =~ /<version>/)
+	{
+		print "line number $lines\n";
+		@word = split />/, $_;
+		@word = split /</,$word[1];
+		$version = $word[0];
+	
+	}
+}
+
+close(FH);
+print "version is $version\n";
+=cut
+
+#extracting the testlib option values from input data
+=my $line = '$GT_ROOT/verif/scripts/gfxbuild_sm $GT_ROOT/source/rtl/cfg_env/dut/sm/gk_tests/Dec_PicParameterSet_0_CFG0/Dec_PicParameterSet_0.gsf -dut sm -soc_model soc -context MEDIA_LPM_SD -T o3c.vpi.sipdfx.gtsynth.default64 -testlib -fulsim_opt -qq -pavpcPavpEnable false -enableFeature :xefiSupport qq- -grits_opt -qq -DpavpEnable=false qq- -testlib_opt -qq -chkpass -disable_unit_clkgt qq- -testlib- -noclean -seed 0x1 qq- | tee log.txt';
+
+my @word = split /-testlib_opt /, $line;
+print "$word[1]\n";
+@word = split /qq- /, $word[1];
+print "$word[0]\n";
+=cut
+#$word[0] =~ s/-qq //;
+#my $final_output = "-testlib_opt ".$word[0]."\"";
+#print "$final_output\n";
+
+
+#reading all files in current directory
+#my $dir = cwd;
+=opendir(DIR, $dir) or die "can't open $dir: $!";
+my @allfiles = readdir DIR;
+closedir DIR;
+print @allfiles;
+
+#deleting the files with .rb extension inside fodlers
+foreach my $vars (@allfiles)
+{
+	if($vars eq "." || $vars eq ".." || -f $vars){ next;}
+	unlink glob "$vars/*.rb";
+}
+=cut
+#copying the required data from eon file to other file
+=my $filename1 = "abc.txt";
+my $filename2 = 'xyz.txt';
+print "input filename $filename1\n";
+print "output filename $filename2\n";
+
+open(FH, '<', $filename1) or die "Sorry!! couldn't open";
+open(my $fh, '>', $filename2) or die "Could not open file '$filename2' $!";
+
+while(<FH>){   
+	if ($_ =~ /gt_tb.v/)
+	{
+	print $_;
+	}
+	elsif ($_ =~ /media_tile_wrapper.v/){
+		print $_;
+	}
+	else {
+	print $fh "$_";
+	}
+}
+
+close(FH);
+close $fh;
+=cut
+
+#dictionary in perl
+=my %data = ('John Paul' => 45, 'Lisa' => 30, 'Kumar' => "abcd");
+
+print "$data{'John Paul'}\n";
+print "$data{'Lisa'}\n";
+print "$data{'Kumar'}\n";
+=cut
+#counting the particular character in line
+=my $str = "a:b:c:d:e#f:g";
+my $count = ($str =~ tr/#//);
+print $count, "\n";
+=cut
+
+=my $filename1 = "X:\\site\\disks\\mtl_pipesm_aravind_av_regress\\aravind\\vfcat_with_fix\\mtl_cf_fix\\sm\\MTL_2VD1VE_SD.o3c.vpi.nodfx.gtsynth.default64\\INTERACTIVE\\GuCVFCatFaults_CFG0\\GuCVFCatFaults.gsf";
+my $dir_name = dirname($filename1);
+print "dir_name $dir_name";
+
+my $file_name = basename($filename1);
+print "basname $file_name";
+
+#my $filename2 = $dir_name."\\"."comments_for_".$file_name;
+my $filename2 = "xyz.txt";
+print "input filename $filename1\n";
+print "output filename $filename2\n";
+
+open(FH, '<', $filename1) or die "Sorry!! couldn't open";
+open(my $fh, '>', $filename2) or die "Could not open file '$filename2' $!";
+
+while(<FH>){
+	if ($_ =~ /#/){
+		my $count = ($_ =~ tr/#//);
+		if ($count eq 1){
+			my @word = split /#/, $_;
+			print $fh "#"."$word[1]\n";
+		}
+		else {
+			#if ($_ =~ /^#/){
+				print $fh "$_";
+			#}
+		}
+	}
+}
+close(FH);
+close $fh;
+=cut
+
+=if ($_ =~ /00e038a618/ and $_ =~ /10009000/){
+	
+$_ =~ s/-qq //;
+=cut

@@ -139,4 +139,7 @@ The benifit of an expenditure exhausted before the balance sheet date,that expen
 3.Company analaysis
 
 --> Economy analysis:
-	1.GDP(Gross domestic product):
+	1.GDP(Gross domestic product): if the GDP value is growing evry year, then it will be better.
+	2.Inflation:inflation is like cost of living/cost of item for today compared to yesterday. Too much of inflation/Too much of inflation is very bad. steady slow inflation is very good.
+	3.Forex reserve:The amount whcih kept aside for future by the country is called forex resrve.
+	

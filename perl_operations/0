@@ -1,0 +1,120 @@
+# Author : Elaine Jorge
+
+# Test Intends to generate GGTT faults from GUC to validate DCN https://vthsd.fm.intel.com/hsd/gen_hsd/default.aspx#feature/default.aspx?feature_id=398933
+#Also check the funtionality of chicken bit register 0xc064[22] used to enable/disabel this fix.
+
+# DB DeAllocation handling is not inteded by this test, make sure that the total number of workloads do not exceed 256  
+
+#***********************************************************************************************************************
+
+#Enabling Address translation services for MTL
+
+# set up Page Fault Queues
+
+#Generate Page Fault Interrupts
+
+   ##As per GT Team's  request reducing the no. of VF in Simulation for ELG due to long runtime
+#{numComputeCommandStreamers}"
+
+#{i}".to_sym
+
+#KernelFileName - <Proj>_GuCVFCatFault.obj
+
+#KernelFileName - <Proj>_GuCVFCatFault.obj
+
+#{i}".to_sym
+
+#KernelFileName - <Proj>_GuCVFCatFault.obj
+
+#KernelFileName - <Proj>_GuCVFCatFault.obj
+
+#Command line to enable/disable RC6
+
+#Catastrophic Error Handling Infrastructure Enable/Disable 0xc064[22]
+
+#true = enable handling 0xc064[22]=0
+
+#false = disable handling 0xc064[22]=1
+
+#enable Rc6 to check that 0xc064 value is restored on RC6 exit
+
+# Data register declaration
+
+#Read 0xc064 value before RC6 entry
+
+#Setup for RC6 Enable
+
+      ### Enabling Uncore register for DB ring which triggers RC6 exit
+#Enable RC6
+
+#Let software handle forcewakes 
+
+#Check that 0xc064 value is restored on RC exit
+
+#If there is a mismatch in data, test will fail    
+
+#Variable declaration   
+
+#Cookie value for doorbell ring
+
+#Doorbell Index initial value
+
+#Track SW Ctx ID
+
+   ################################################################################################
+   ################################### FRAME LOOP #################################################
+   ################################################################################################
+      #Array declaration #Declaration is done with the frame loop to reset the arrays per frame    
+#Stores the contexts created      
+
+#Create ctxs for all engines
+
+#Setup the doorbells for all contexts 
+
+         #Setup Application Context #####
+#As part of the doorbell ISR, GUC will do a write followed by a read to 0x10000000 in VF7 space.
+
+#When SHIM receives a read completion from GAM for SRC ID == 8’hE0 with *rdfullfaultcode non zero, 
+
+#It will stall returning read data to the core. SHIM instead generates an interrupt to GUC INT, directed to a new message offset C490. 
+
+#Data from this interrupt message is reflected into GUC_CAT_ERR_IIR at offset C560. Data for this interrupt message must be a non-0 value.
+
+#This needs to be characterized through GUC tracker files on RTL 
+
+#Ring Doorbells but do not poll for Context Completion
+
+#cookie update
+
+#TODO: Below code to check 0xc560 may have to be removed once ukernel has support to handle this interrupt.
+
+#Removing the code to check 0xc560 as ukernel has support to handle this interrupt.
+
+      # #Data from this interrupt message is reflected into GUC_CAT_ERR_IIR at offset C560. Data for this interrupt message must be a non-0 value if catErrorHandling is enabled.
+      # #Device.register.poll(:offset => 0xc560, :data => 0x0, :mask => 0xfffffff, :pollTest => "notequal")  if (catErrorHandling)
+# Device.register.test_poll(:space=>"mmio", :offset=>0xc560, :data => 0x0, :mask => 0xfffffff, :pollTest => "notequal")  if (catErrorHandling)
+
+      # #Data for this interrupt message must be a 0 value if catErrorHandling is disabled.
+      # #Device.register.poll(:offset => 0xc560, :data => 0x0, :mask => 0xfffffff, :pollTest => "equal")  if (!catErrorHandling)   
+# Device.register.test_poll(:space=>"mmio", :offset=>0xc560, :data => 0x0, :mask => 0xfffffff, :pollTest => "equal")  if (!catErrorHandling)
+
+	  ##TODO: Add a check from test side whether error is generated
+#Clear the IIR register
+
+#GuC idle poll
+
+#######################################################################   
+# Creates Basic contexts from each CS
+
+#######################################################################
+#Allocate a doorbell for each new workload created
+
+#Track SW CTS Id
+
+#Every VM gets beginDoorbellID and numDoorbells. In GuCUtility we choose beginDoorbellID as VFNum*32 and numDoorbells=32
+
+#Let's say for VF1, you choose doorbellID=10, the absolute doorbell ID would be 32+10=42
+
+#GT SIM supports only 2 VF's
+
+      print "\n dbID, function = #{dbId}, #{function} \n"        
