@@ -99,7 +99,6 @@ if 1:
     f.write("\n}")
     f.close()
     
-    
     if 0:#missed modules
         f1 = open("missed_modules.txt",'w')
         f1.write("\nmissed modules in hierarchy are\n")
@@ -109,15 +108,13 @@ if 1:
                 f1.write("\n")
         f1.close()
     
-    
-    
 
 
 # gtmctoremove1  code to fetch dfx_insert1 and dfx_tieoff1 modules
 if 1:
     def get_instances_hierarchy():
         instances = []
-        with open('gtmctoremove1.txt', 'r') as f:
+        with open('PTL_hierarchy.txt', 'r') as f:
             for i in f:
                 values = i.strip().split()
                 instances.append((int(values[0]), values[-1]))
@@ -125,7 +122,6 @@ if 1:
 
 
     instance_hierarchy = get_instances_hierarchy()
-
     print(instance_hierarchy)
 
 
@@ -184,7 +180,7 @@ if 1:
 
     print(hier_structure)
     length = len(hier_structure)
-    f = open('final.txt','w')
+    f = open('gtmctoremove1.txt','w')
     f.write("hier_spec = {\n")
     for c, i in enumerate(hier_structure.items()):
         string = "'/" + i[0] + "'" + ":" + ",\n".join(str(i[1]).split(", "))

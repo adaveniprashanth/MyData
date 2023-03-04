@@ -732,7 +732,7 @@ if 1:#To NumPy
         print(type(n_matrix))
         
 #print(help(re.subn))
-print(re.subn("abc","xyz","abdabd"))
+print(type(re.subn("abc","xyz","abdabd")[1]))
 
 
 

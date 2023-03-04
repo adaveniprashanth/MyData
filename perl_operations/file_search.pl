@@ -573,7 +573,7 @@ close $fh or die "Unable to close $input: $!";
 
 
 #excel data handling
-=my $Excel_book1 = Excel::Writer::XLSX->new('new_excel.xlsx' );
+=my $Excel_book1 = Excel::Writer::XLSX->new('new_excel.xlsx');
 my $Excel_sheet1 = $Excel_book1->add_worksheet();
 my @data_row = (1, 2, 3, 4);
 my @table_data = (

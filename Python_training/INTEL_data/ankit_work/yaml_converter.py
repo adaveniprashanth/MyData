@@ -5,8 +5,7 @@ import yaml
 from yaml.loader import SafeLoader
 import json,time
 import re,sys,subprocess
-import logging
-#logging.basicConfig(filename='app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s',level=logging.DEBUG)
+
 
 
 f1=open('temp_file.txt','w')
@@ -14,12 +13,12 @@ f1=open('temp_file.txt','w')
 # Open the file and load the file
 with open('trkset_components.yaml') as f:
     data = yaml.load(f, Loader=SafeLoader)
-    #print(data.items())
     yaml_dict=data['TRKSET_DEFAULT_DEFINITION']['TRKSET_COMPONENTS']
 
 #printing yaml data after converting to dictionary
 if 0:
     for k,v in yaml_dict.items():
+        f1.write(k+":"+str(v)+"\n")
         print(k,":",v)
 
 
@@ -52,6 +51,7 @@ for k,v in yaml_dict.items():
 
 #printing targets and dependencies
 if 0:
+    f1.write("printing targets and dependencies\n")
     for k,v in target_and_dependecies:
         f1.write(k+":"+str(v)+"\n")
 
@@ -61,6 +61,22 @@ if 0:
     for k,v in wrapper_target_depends_dict.items():
         f1.write(k+":"+str(v)+"\n")
 
+
+
+
+f = open('extend_final_result.txt','r')
+all_data = f.read()
+f.close()
+val=all_data.split("{")[1].split("}")[0].replace("'","\"")
+final_result=json.loads("{"+val+"}")    
+
+#printing the final_result 
+if 0:
+    f1.write("printing the final_result\n")
+    for k,v in final_result.items():
+        f1.write(k+":"+str(v)+"\n")
+
+'''
 
 new_dict = {}
 for i in target_and_dependecies:
@@ -86,21 +102,6 @@ if 0:
         f1.write(k+":"+str(v)+"\n")
 
 
-
-
-f = open('extend_final_result.txt','r')
-all_data = f.read()
-f.close()
-val=all_data.split("{")[1].split("}")[0].replace("'","\"")
-final_result=json.loads("{"+val+"}")    
-
-#printing the final_result 
-if 0:
-    f1.write("printing the final_result\n")
-    for k,v in final_result.items():
-        f1.write(k+":"+str(v)+"\n")
-
-'''
 def append_list(list1,key,list2):
     b=list1.copy()
     empty_list=list1.copy()
@@ -135,71 +136,38 @@ for k,v in final_dict.items():
 f.write(str(final_dict).replace("],","],\n")+"\n")
 f.close()                
 '''
-#print(wrapper_target_depends_dict)
-#print(final_result)
+
 total_dict={}
 for k,v in final_result.items():
     dummy_list=v.copy()
     for key,value in wrapper_target_depends_dict.items():
-        for i in value:
-            string="@".join(v)
-            res=re.subn(i+'[\d]+',key,string)[0].split("@")
-            
-            #print(res)
-            dummy_list+=res
+        if len(value)>=0:
+            for i in value:
+                string="@".join(v)
+                res=re.subn(i+'[\d]+',key,string)[0].split("@")
+                if re.subn(i+'[\d]+',key,string)[1] >= 1:
+                    f1.write(k+"=>"+i+" : "+key+"\n")
+                #print(res)
+                dummy_list+=res
+    for data in v:
+        if data in dummy_list:
+            dummy_list.remove(data)
+    total_dict[k]=list(set(dummy_list))
     f1.write(k+":"+str(v)+"\n")
     f1.write(k+":"+str(list(set(dummy_list)))+"\n")
 
 
+length = len(total_dict)
+f2 = open('total_final_result.txt','w')
+f2.write("hier_spec = {\n")
+for c,i in enumerate(total_dict.items()):
+    string = i[0]+"'"+":"+",\n".join(str(i[1]).split(", "))
+    print(string)
+    if c == length-1:
+        f2.write(string)
+    else:
+        f2.write(string + ",\n")
+f2.write("\n}")
+f2.close()
 
-#logging module example
-'''
-logger = logging.getLogger("test")
-logger.setLevel(level=logging.DEBUG)
-logFileFormatter = logging.Formatter(fmt='%(name)s - %(levelname)s - %(message)s')
-fileHandler = logging.FileHandler(filename='test.log')
-fileHandler.setFormatter(logFileFormatter)
-fileHandler.setLevel(level=logging.DEBUG)
-logger.addHandler(fileHandler)
-'''
-
-'''
-root = logging.getLogger()
-root.setLevel(logging.DEBUG)
-
-handler = logging.StreamHandler(sys.stdout)
-handler.setLevel(logging.DEBUG)
-handler = logging.FileHandler(filename='test.log')
-#formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-formatter = logging.Formatter('%(message)s')
-handler.setFormatter(formatter)
-root.addHandler(handler)
-'''
-
-'''
-# create logger with 'spam_application'
-logger = logging.getLogger('spam_application')
-logger.setLevel(logging.DEBUG)
-# create file handler which logs even debug messages
-fh = logging.FileHandler('spam.log')
-fh.setLevel(logging.DEBUG)
-# create console handler with a higher log level
-ch = logging.StreamHandler()
-ch.setLevel(logging.ERROR)
-# create formatter and add it to the handlers
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-fh.setFormatter(formatter)
-ch.setFormatter(formatter)
-# add the handlers to the logger
-logger.addHandler(fh)
-logger.addHandler(ch)
-
-'''
-
-'''
-if re.search('vmx_sl_vid[\d]+','/smvdbox0/smmfxvdenc1/vmx_sl_vid11'):
-    print("present")
-else:
-    print("not present")
-'''
 f1.close()

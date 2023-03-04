@@ -1,0 +1,3307 @@
+# ... ... ...
+# TRKSET_COMPONENTS :
+#    <trkset component> :
+#       target :               <target design unit>
+#       cluster :              <target cluster>
+#       dependencies :                              *** opt.
+#        - <list of dependency components>
+#       vcs_exclusions :                            *** opt.
+#        - <list of vcs exclusions if not instatiated>
+#       controls :
+#        - enable_force :      <force enable>
+#        - enable_force :      <force enable>
+#          fulsim_check :      true
+#        - disable_simv :      <simv disable>
+#    ... ... ...
+# SPY_COMPONENTS :
+#    <spy component> :
+#       target :               <target design unit>
+#       cluster :              <target cluster>
+#    ... ... ...
+# MOAT_COMPONENTS :
+#    <moat component> :
+#       dependencies :
+#        - <list of dependency components>
+#    ... ... ...
+---
+TRKSET_DEFAULT_DEFINITION :
+   TRKSET_COMPONENTS :
+      mgsr_msgch_trk_dpi :
+         cluster :        gti
+         controls :
+          - enable_force :   mgsr_msgch_trk_enable
+      mgsr_msgch_trk_dpi :
+         cluster :        gt
+         controls :
+          - enable_force :   mgsr_msgch_trk_enable
+      cpma_rpm_tracker :
+         controls :
+          - enable_force :   cpma_rpm_trk_enable
+      mgsr_cfgdb_tracker :
+         target :
+         cluster :        gti
+         dependencies :
+          - spy_mgsrunit
+         controls :
+          - enable_force :   mgsr_cfgdb_tracker_enable
+      mgsr_cfgdb_tracker :
+         target :
+         cluster :        gt
+         dependencies :
+          - spy_mgsrunit
+         controls :
+          - enable_force :   mgsr_cfgdb_tracker_enable
+      gp_iosf_sb_tracker :
+         controls :
+          - enable_force :    u2cmsg_iosf_tracker_enable
+      emulation_performance_monitor :
+          target :        GT_TRK
+          cluster :       gti
+          controls :
+          - enable_force : perf_trk_enable
+      GAMSQ_tracker :
+         target :          GT_TRK
+         cluster :         gti
+         dependencies :
+          - spy_GAMSQ
+         controls :
+          - enable_force : gam_sq_checks_enable
+      gucm_jem_wrapper :
+         target :         gucunit
+         cluster :        guc
+         dependencies :
+          - spy_gucunit
+         controls :
+          - enable_force :   gucm_rst_trk_enable
+          - enable_force :   gucm_memarb_trk_enable
+          - enable_force :   gucm_fsb_shim_trk_enable
+          - enable_force :   gucm_cfgarb_trk_enable
+          - enable_force :   gucm_eip_trk_enable
+          - enable_force :   gucm_msgch_trk_enable
+          - enable_force :   gucmcoreintsubmit_trk_enable
+          - enable_force :   gucm_sram_trk_enable
+          - enable_force :   gucm_xefi_monitor_enable
+      oam_guc_pm_trk_chk :
+         target :         oamscmiunit
+         cluster :        oam
+         dependencies :
+          - spy_oam_model
+         controls :
+          - enable_force :   guc_pm_trk_chk_enable
+      oamsag_guc_pm_trk_chk :
+         target :         oamsagunit
+         cluster :        oam
+         dependencies :
+          - spy_oamsag_model
+         controls :
+          - enable_force :   guc_pm_trk_chk_enable
+      HHLF_HSAO_frame_trk :
+         target :         hhlfunit
+         cluster :        med
+         controls :
+          - enable_force :   HHLF_HSAO_chk_enable
+      HHLF_HSAO_trk :
+         target :         hhlfunit
+         cluster :        med
+         controls :
+          - enable_force :   HHLF_HSAO_chk_enable
+      HHLF_row_trk :
+         target :         hhlfunit
+         cluster :        med
+         controls :
+          - enable_force :   HHLF_row_chk_enable
+      HHLF_tile_row_trk :
+         target :         hhlfunit
+         cluster :        med
+         controls :
+          - enable_force :   HHLF_tile_row_chk_enable
+      hhlf_op_chk :
+         target :         hhlfunit
+         cluster :        med
+         controls :
+          - enable_force :   hhlf_op_chk_enable
+      HedHfeDecCoeff_trk :
+         target :         hedunit
+         cluster :        med
+         dependencies :
+          - spy_hedunit
+         controls :
+          - enable_force :   hedunit_checker_enable
+          - enable_force :   hedunit_tracker_enable
+      HedHfePse_trk :
+         target :         hedunit
+         cluster :        med
+         dependencies :
+          - spy_hedunit
+         controls :
+          - enable_force :   hedunit_checker_enable
+          - enable_force :   hedunit_tracker_enable
+      HedHfeSaoData_trk :
+         target :         hedunit
+         cluster :        med
+         dependencies :
+          - spy_hedunit
+         controls :
+          - enable_force :   hedunit_checker_enable
+          - enable_force :   hedunit_tracker_enable
+      HfcHmxWriteData_trk :
+         target :         hfcunit
+         cluster :        med
+         dependencies :
+          - spy_hfcunit
+         controls :
+          - enable_force :   HfcHmxWriteData_chk_enable
+          - enable_force :   HfcHmxWriteData_trk_enable
+      HfcSfiData_chk :
+         target :         hfcunit
+         cluster :        med
+         dependencies :
+          - spy_hfcunit
+         controls :
+          - enable_force :   HfcSfiData_chk_enable
+      HfcSfc_perf_trk :
+         target :         hfcunit
+         cluster :        med
+         dependencies :
+          - spy_hfcunit
+         controls :
+          - enable_force :   HfcSfc_perf_trk_enable
+      HfqHitCoeff_trk :
+         target :         hfqunit
+         cluster :        med
+         dependencies :
+          - spy_hfqunit
+         controls :
+          - enable_force :   hfqhit_coeff_chk_enable
+      HfqHlcQpStatus_trk :
+         target :         hfqunit
+         cluster :        med
+         dependencies :
+          - spy_hfqunit
+         controls :
+          - enable_force :   hfqhlc_qpstatus_chk_enable
+      HfqHlcRD_trk :
+         target :         hfqunit
+         cluster :        med
+         dependencies :
+          - spy_hfqunit
+         controls :
+          - enable_force :   hfqhlc_rd_chk_enable
+      HfqHleCoeff_trk :
+         target :         hfqunit
+         cluster :        med
+         dependencies :
+          - spy_hfqunit
+         controls :
+          - enable_force :   hfqhle_coeff_chk_enable
+      HfqHppCbf_trk :
+         target :         hfqunit
+         cluster :        med
+         dependencies :
+          - spy_hfqunit
+         controls :
+          - enable_force :   hfqhpp_cbf_chk_enable
+      HfqHppSegState_trk :
+         target :         hfqunit
+         cluster :        med
+         dependencies :
+          - spy_hfqunit
+         controls :
+          - enable_force :   hfqhpp_state_chk_enable
+      HfqHtqCoeff_trk :
+         target :         hfqunit
+         cluster :        med
+         dependencies :
+          - spy_hfqunit
+         controls :
+          - enable_force :   hfqhtq_chk_enable
+      HfqVneCoeff_trk :
+         target :         hfqunit
+         cluster :        med
+         dependencies :
+          - spy_hfqunit
+         controls :
+          - enable_force :   hfqvne_coeff_chk_enable
+      HlcHmxCuStat_trk :
+         target :         hlcunit
+         cluster :        med
+         dependencies :
+          - spy_hlcunit
+         controls :
+          - enable_force :   hlchmx_custat_chk_enable
+          - enable_force :   hlchmx_custat_trk_enable
+      HlcHmxFinalBs_trk :
+         target :         hlcunit
+         cluster :        med
+         dependencies :
+          - spy_hlcunit
+         controls :
+          - enable_force :   hlchmx_finalbs_chk_enable
+          - enable_force :   hlchmx_finalbs_trk_enable
+      HlcHmxFrameStat_trk :
+         target :         hlcunit
+         cluster :        med
+         controls :
+          - enable_force :   hlchmx_framestat_chk_enable
+          - enable_force :   hlchmx_framestat_trk_enable
+      HlcHmxReadReq_trk :
+         target :         hlcunit
+         cluster :        med
+         dependencies :
+          - spy_hlcunit
+         controls :
+          - enable_force :   hlchmx_readreq_chk_enable
+          - enable_force :   hlchmx_readreq_trk_enable
+      HlcHmxSliceStat_trk :
+         target :         hlcunit
+         cluster :        med
+         dependencies :
+          - spy_hlcunit
+         controls :
+          - enable_force :   hlchmx_slicestat_chk_enable
+          - enable_force :   hlchmx_slicestat_trk_enable
+      HlcHmxTileStat_trk :
+         target :         hlcunit
+         cluster :        med
+         controls :
+          - enable_force :   hlchmx_tilestat_chk_enable
+          - enable_force :   hlchmx_tilestat_trk_enable
+      HlcHpoCDQp_trk :
+         target :         hlcunit
+         cluster :        med
+         dependencies :
+          - spy_hlcunit
+         controls :
+          - enable_force :   hlchpo_cdqp_chk_enable
+          - enable_force :   hlchpo_cdqp_trk_enable
+      HlcHwmMMIO_trk :
+         target :         hlcunit
+         cluster :        med
+         dependencies :
+          - spy_hlcunit
+         controls :
+          - enable_force :   hlchwm_mmio_chk_enable
+          - enable_force :   hlchwm_mmio_trk_enable
+      HlcHwm_trk :
+         target :         hlcunit
+         cluster :        med
+         controls :
+          - enable_force :   hlchwm_chk_enable
+          - enable_force :   hlchwm_trk_enable
+      HleHlcData_trk :
+         target :         hleunit
+         cluster :        med
+         dependencies :
+          - spy_hleunit
+         controls :
+          - enable_force :   HleHlcData_chk_enable
+          - enable_force :   HleHlcData_trk_enable
+      hle_scc_perf_trk :
+         target :         hleunit
+         cluster :        med
+         dependencies :
+          - spy_hleunit
+         controls :
+          - enable_force :   hle_scc_perf_trk_enable
+      Hle_perf_trk :
+         target :         hleunit
+         cluster :        med
+         dependencies :
+          - spy_hleunit
+         controls :
+          - enable_force :   hle_perf_trk_enable
+      HsaoHleSaoParams_trk :
+         target :         hsaounit
+         cluster :        med
+         controls :
+          - enable_force :   hsaohle_saoparam_chk_enable
+          - enable_force :   hsaohle_saoparam_trk_enable
+      HsaoHmxSaoParam_trk :
+         target :         hsaounit
+         cluster :        med
+         controls :
+          - enable_force :   hsaohmx_saoparam_chk_enable
+          - enable_force :   hsaohmx_saoparam_trk_enable
+      HsaoHsfSaoParams_trk :
+         target :         hsaounit
+         cluster :        med
+         controls :
+          - enable_force :   hsaohsf_saoparam_chk_enable
+          - enable_force :   hsaohsf_saoparam_trk_enable
+      HtqHfqCoeff_chk :
+         target :         htqunit
+         cluster :        med
+         controls :
+          - enable_force :   htqhfq_coeff_chk_enable
+          - enable_force :   htqhfq_coeff_trk_enable
+      HwmGlobalEnc_trk :
+         target :         hwmunit
+         cluster :        med
+         dependencies :
+          - spy_hwmunit
+         controls :
+          - enable_force :   hwm_global_enc_chk_enable
+      HwmHlcMMIOReadReq_trk :
+         target :         hwmunit
+         cluster :        med
+         dependencies :
+          - spy_hwmunit
+         controls :
+          - enable_force :   HwmHlcMMIOReadReq_trk_enable
+      HwmHlcMMIOWriteReq_trk :
+         target :         hwmunit
+         cluster :        med
+         dependencies :
+          - spy_hwmunit
+         controls :
+          - enable_force :   HwmHlcMMIOWriteReq_trk_enable
+      HwmHmdc_trk :
+         target :         hwmunit
+         cluster :        med
+         dependencies :
+          - spy_hwmunit
+         controls :
+          - enable_force :   hwm_hmdc_chk_enable
+      HwmMMIOReadWriteReq_trk :
+         target :         hwmunit
+         cluster :        med
+         controls :
+          - enable_force :   HwmMMIOReadWriteReq_trk_enable
+      MSGCH_Tracker :
+         target :         NA
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      MSGCH_scbd_nonposted :
+         target :         NA
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      MSGCH_scbd_posted :
+         target :         NA
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      McrHwmMMIO_trk :
+         target :         hwmunit
+         cluster :        med
+         dependencies :
+          - spy_hwmunit
+         controls :
+          - enable_force :   mcr_hwm_mmio_trk_enable
+      OagGamWriteData_checker :
+         target :         GT_TRK
+         cluster :        ff
+         controls :
+          - enable_force :   OagGamWriteData_checker_enable
+      OarGamWriteData_checker :
+         target :         GT_TRK
+         cluster :        ff
+         controls :
+          - enable_force :   OarGamWriteData_checker_enable
+      SLM_Monitor :
+         target :         NA
+         cluster :        l3
+         controls :
+          - disable_simv :   +bank_scbd_disable
+      SLM_Scbd :
+         target :         NA
+         cluster :        l3
+         controls :
+          - disable_simv :   +bank_scbd_disable
+      VHLFWriteData_trk :
+         target :         vhlfunit
+         cluster :        med
+         controls :
+          - enable_force :   VHLFWriteData_trk_enable
+      VncHfqCDQpLf_trk :
+         target :         vncunit
+         cluster :        med
+         dependencies :
+          - spy_vncunit
+         controls :
+          - enable_force :   vnchfq_cdqp_chk_enable
+      VncHmxBackAnn_trk :
+         target :         vncunit
+         cluster :        med
+         dependencies :
+          - spy_vncunit
+         controls :
+          - enable_force :   vnchmx_back_ann_chk_enable
+      VncHmxFinalBs_trk :
+         target :         vncunit
+         cluster :        med
+         dependencies :
+          - spy_vncunit
+         controls :
+          - enable_force :   vnchmx_finalbs_chk_enable
+      VncHmxFrameStat_trk :
+         target :         vncunit
+         cluster :        med
+         dependencies :
+          - spy_vncunit
+         controls :
+          - enable_force :   vnchmx_framestat_chk_enable
+      VncHmxReadReq_trk :
+         target :         vncunit
+         cluster :        med
+         dependencies :
+          - spy_vncunit
+         controls :
+          - enable_force :   vnchmx_readreq_chk_enable
+      VncHmxSymStatCnt_trk :
+         target :         vncunit
+         cluster :        med
+         dependencies :
+          - spy_vncunit
+         controls :
+          - enable_force :   vnchmx_symstatcnt_chk_enable
+      VncHmxTileStat_trk :
+         target :         vncunit
+         cluster :        med
+         dependencies :
+          - spy_vncunit
+         controls :
+          - enable_force :   vnchmx_tilestat_chk_enable
+      VncHwmMMIO_trk :
+         target :         vncunit
+         cluster :        med
+         dependencies :
+          - spy_vncunit
+         controls :
+          - enable_force :   vnchwm_mmio_chk_enable
+      ecpunit_checker :
+         target :         ecpunit
+         cluster :        med
+      ecpunit_perf_jem_monitor :
+         target :         ecpunit
+         cluster :        med
+         dependencies :
+          - ecpunit_spy
+         controls :
+          - enable_force :   ecpunit_perf_tracker_enable
+      fuse_checker :
+         target :         GT_TRK
+         cluster :        gti
+      ga_chkrs :
+         target :         GT_TRK
+         cluster :        gti
+         controls :
+          - enable_force :   ENABLE_GA_TRKRS
+          - enable_force :   ENABLE_GA_JEM_TRKRS
+          - enable_force :   sag_trkr_enable
+          - enable_force :   scmi_trkr_enable
+      gacb_trkers_wrapper :
+         target :         gacbunit
+         cluster :        gti
+         controls :
+          - enable_force :   ENABLE_ARB_MON
+          - enable_force :   ENABLE_ARB_SCB
+      gafs_trkers_wrapper :
+         target :         gafsunit
+         cluster :        gti
+         controls :
+          - enable_force :   ENABLE_ARB_MON
+          - enable_force :   ENABLE_ARB_SCB
+      gam_sq_mon_wrapper :
+         target :         GT_TRK
+         cluster :        gti
+         controls :
+          - enable_force :   gam_sq_monitor_enable
+      gamsq_monitor :
+         target :         gtsqidim
+         cluster :        gti
+         dependencies :
+          - spy_gt_gamsq_monitor
+         controls :
+          - enable_force :   checker_enable
+      lnep_lc_jem_monitor :
+         target :         smcc
+         cluster :        cclt
+         controls :
+          - enable_force :   lnep_lc_jem_monitor_enable
+      lc_sqidi_jem_monitor :
+         target :         smcc
+         cluster :        cclt
+         controls :
+          - enable_force :   lc_sqidi_jem_monitor_enable
+      lcunit_jem_monitor_bind :
+         target :         smcc
+         cluster :        lcunit
+         controls :
+          - enable_force :   lcunit_jem_monitor_enable
+          - enable_force :   lccomp_jem_monitor_enable
+      l3bank_xefi_jem_monitor_bind :
+        target :          smil3bankm
+        cluster :         l3bank_clt_uvm
+        controls :
+          - enable_force : l3bank_nonslm_jem_tracker_enable 
+  
+      GAMTLBMissHitPerfTracker :
+         target :         mgam 
+         cluster :        gt 
+         dependencies :
+          - spy_GAMTLBMissHitPerfTracker 
+         controls :
+          - enable_force :  GAMTLBMissHitPerfTracker_enable
+      gamcmdiunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      gamctrlunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      gamreqstrmunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      gamwkrsunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      oaaddrmsagunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      oamsagunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      dvpmediavccinfunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      dsomediasagvccinfunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      dvpmediavccsmunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      mediaslicespc0unit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      gscspcunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      gsciunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      hcpspcunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      mfxvdencspcunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      hcpspcunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      ecpunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      gt_idi_tracker :
+         target :         GT_TRK
+         cluster :        gti
+         dependencies :
+          - spy_gt_idi
+         controls :
+          - enable_force :   idi_tracker_enable
+      gt_perfunit :
+         target :         GT_TRK
+         cluster :        perf
+         controls :
+          - enable_force :   emulation_perftrken1.emulation_perftrk_monitor_enable
+          - enable_force :   emulation_perftrken1.emulation_perftrk_monitor_ltncytrk_enable
+      gucunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      hbeunit_checker :
+         target :         hbeunit
+         cluster :        med
+         controls :
+          - enable_force :   hbe_chk_enable
+          - enable_force :   hbe_trk_enable
+      hcrefunit_checker :
+         target :         hcrefunit
+         cluster :        med
+         dependencies :
+          - spy_hcrefunit
+          - hcrefunit_dbg
+         controls :
+          - enable_force :   hcref_checker_dpi_monitor_enable
+          - enable_force :   hcrefunit_perf_tracker_enable
+      hcreiunit_checker :
+         target :         hcreiunit
+         cluster :        med
+         controls :
+          - enable_force :   hcrei_RdoRes_monitor_enable
+          - enable_force :   hcrei_RdoState_monitor_enable
+          #- enable_force :   hcrei_adp_channel_enable
+          - enable_force :   hcrei_sad_checkers_enable
+          - enable_force :   hcrei_hmdc_statistic_monitor_enable
+          - enable_force :   hcrei_mdc_statistic_monitor_enable
+          - enable_force :   hcrei_vdx_preenc_monitor_enable 
+      hcresunit_checker :
+         target :         hcresunit
+         cluster :        med
+         dependencies :
+          - spy_hcresunit
+          - hcresunit_dbg
+         controls :
+          - enable_force :   hcres_checker_dpi_monitor_enable
+          - enable_force :   hcresunit_perf_tracker_enable
+      rdobunit_checker :
+         target :         rdobunit
+         cluster :        med
+         dependencies :
+          - rdobunit_spy
+         controls :
+          - enable_force :   rdobunit_checker_enable
+          - enable_force :   rdounit_perf_tracker_enable
+      rdounit_perfcounters :
+         target :         rdobunit
+         cluster :        med
+         dependencies :
+          - rdobunit_spy
+      rdofunit_checker :
+         target :         rdofunit
+         cluster :        med
+         dependencies :
+          - rdofunit_spy
+         controls :
+          - enable_force :   rdof_rb_intra1_chk_enable
+          - enable_force :   rdof_bb_intra1_chk_enable
+          - enable_force :   rdof_cost_intra1_chk_enable
+          - enable_force :   rdof_hcrei_intra1_chk_enable
+      hedunit_perf_trk :
+         target :         hedunit
+         cluster :        med
+         dependencies :
+          - spy_hedunit
+         controls :
+          - enable_force :   hedunit_perf_trk_enable
+      hfeunit_checker :
+         target :         hfeunit
+         cluster :        med
+         controls :
+          - enable_force :   hfeunit_checker_enable
+      hftunit_checker :
+         target :         hftunit
+         cluster :        med
+         dependencies :
+          - spy_hftunit
+         controls :
+          - enable_force :   hfthfq_coeff_chk_enable
+          - enable_force :   hfthfq_coeff_trk_enable
+          - enable_force :   hfthfq_tustate_chk_enable
+          - enable_force :   hfthfq_tustate_trk_enable
+      hhlf_op_chk :
+         target :         hhlfunit
+         cluster :        med
+         controls :
+          - enable_force :   hhlf_op_chk_enable
+      himeunit_checker :
+         target :         himeunit
+         cluster :        med
+         dependencies :
+          - spy_himeunit
+         controls :
+          - enable_force :   himeperf_trk_enable
+          - enable_force :   himeunit_hcref_monitor_enable
+          - enable_force :   himeunit_lbc_monitor_enable
+          - enable_force :   himeunit_hmdc_monitor_enable
+          - enable_force :   himeunit_sad_monitor_enable
+          #- enable_force :   himeunit_vdx_monitor_enable
+      lbcunit_checker :
+         target :         lbcunit
+         cluster :        med
+         dependencies :
+          - spy_lbcunit
+          - lbcunit_dbg
+         controls :
+          - enable_force :   lbc_RdoRes_monitor_dpi_enable
+          - enable_force :   lbc_RdoState_monitor_dpi_enable
+          - enable_force :   lbc_checker_dpi_monitor_enable
+          - enable_force :   lbc_sad_monitor_dpi_enable
+          - enable_force :   lbc_hcref_cand_monitor_dpi_enable
+      vvpunit_checker :
+         target :         vvpunit
+         cluster :        med
+         dependencies :
+          - spy_vvp_check
+      tbc_hime_trk :
+         target :         tbcunit
+         cluster :        med
+         controls :
+          - enable_force :   tbc_hime_chk_enable
+      pltsunit_checker :
+         target :         pltsunit
+         cluster :        med
+         controls :
+          - enable_force :   plts_pltd_custate_monitor_enable
+          - enable_force :   plts_pltd_mapping_monitor_enable
+          - enable_force :   plts_pltd_newcolors_monitor_enable
+          - enable_force :   plts_pltd_reuseflags_monitor_enable
+          - enable_force :   plts_pltd_translation_monitor_enable
+      pltdunit_checker :
+         target :         pltdunit
+         cluster :        med
+         controls :
+          - enable_force :   pltd_rdo_candidateinfo_monitor_enable
+          - enable_force :   PltdHrs_monitor_enable
+          - enable_force :   pltd_ult_ssechk_enable
+      hitunit_checker :
+         target :         hitunit
+         cluster :        med
+         controls :
+          - enable_force :   hitunit_checker_enable
+      #hmc_perf_lat_trk :
+       #  target :         hmcunit
+       #  cluster :        med
+       #  dependencies :
+       #   - spy_hmcunit
+       #  controls :
+       #   - enable_force :   hmc_perf_lat_trk_en
+      hmcunit_checker :
+         target :         hmcunit
+         cluster :        med
+         dependencies :
+          - spy_mgmcunit
+         controls :
+          - enable_force :   hmcunit_checker_enable
+      hmdcunit_checker :
+         target :         hmdcunit
+         cluster :        med
+         dependencies :
+          - spy_hmdcunit
+         controls :
+          - enable_force :   hmdcunit_mdc_wrdata_monitor_enable
+          - enable_force :   hmdcunit_me_lcustate_monitor_enable
+          - enable_force :   hmdcunit_perf_tracker_enable
+          - enable_force :   hmdcunit_vdx_rdreq_monitor_enable
+          - enable_force :   hmdcunit_vdx_wrdata_monitor_enable_frmstat_so
+          - enable_force :   hmdcunit_vdx_wrdata_monitor_enable_pakobj_so
+          - enable_force :   hmdcunit_vdx_wrdata_monitor_enable_rs
+          - enable_force :   hmdcunit_vdx_wrdata_monitor_enable_segm_so
+          - enable_force :   hmdcunit_ecp_QpPerRow_monitor_enable
+          - enable_force :   hmdcunit_cucount_monitor_enable
+      hmdc_perf_tracker :
+         target :         hmdcunit
+         cluster :        med
+         dependencies :
+          - spy_hmdcunit
+         controls :
+          - enable_force : hmdcunit_perf_tracker_enable
+      hmxbunit_checker :
+         target :         hmxbunit
+         cluster :        med
+         controls :
+          - enable_force :   hmxbunit_checker_enable
+         #- enable_force :   hmxb_perf_memory_latency_tracker_enable
+         #- enable_force :   hmxb_gac_tracker_enable
+         #- enable_force :   hmxbunit_hevc_perf_trk_enable
+      hmxbunit_hevc_perf_trk :
+         target :         hmxbunit
+         cluster :        med
+         controls :
+          - enable_force :  hmxbunit_hevc_perf_trk_enable
+      hmxfunit_checker :
+         target :         hmxfunit
+         cluster :        med
+         dependencies :
+          - spy_hmxfunit
+         controls :
+          - enable_force : hmxf_checker_enable
+      hpounit_checker :
+         target :         hpounit
+         cluster :        med
+         controls :
+          - enable_force :   hpohle_custate_chk_enable
+          - enable_force :   hpohle_custate_trk_enable
+          - enable_force :   hpohmx_rdreq_chk_enable
+          - enable_force :   hpohmx_rdreq_trk_enable
+          - enable_force :   hpohpppse_chk_enable
+          - enable_force :   hpohpppse_trk_enable
+          - enable_force :   hpohrs_tustate_chk_enable
+          - enable_force :   hpohrs_tustate_trk_enable
+          - enable_force :   hpohsaocu_chk_enable
+          - enable_force :   hpohsaocu_trk_enable
+          - enable_force :   hpohsse_chk_enable
+          - enable_force :   hpohsse_trk_enable
+          - enable_force :   hpovne_custate_chk_enable
+          - enable_force :   hpovne_custate_trk_enable
+      hppunit_checker :
+         target :         hppunit
+         cluster :        med
+         controls :
+          - enable_force :   hpp_chk_enable
+      hpr_perf_lat_trk :
+         target :         hprunit
+         cluster :        med
+         dependencies :
+          - spy_hprunit
+         controls :
+          - enable_force :   hprunit_checker_enable
+      hprunit_checker :
+         target :         hprunit
+         cluster :        med
+         dependencies :
+          - spy_hprunit
+         controls :
+          - enable_force :   hprunit_checker_enable
+          - enable_force :   hpr_hrs_ref_trk_enable
+      hrs_perf_cov :
+         target :         hrsunit
+         cluster :        med
+      hrsunit_dpi_checker :
+         target :         hrsunit
+         cluster :        med
+         dependencies :
+          - spy_dpi_hrsunit
+         controls :
+          - enable_force :   hrshft_residual_chk_enable
+          - enable_force :   hrshft_residual_trk_enable
+          - enable_force :   hrshft_tustate_chk_enable
+          - enable_force :   hrshft_tustate_trk_enable
+          - enable_force :   hrshmdc_chk_enable
+          - enable_force :   hrshmdc_trk_enable
+          - enable_force :   hrshle_chk_enable
+          - enable_force :   hrshle_trk_enable
+          - enable_force :   hrshmx_readreq_chk_enable
+          - enable_force :   hrshmx_readreq_trk_enable
+          - enable_force :   hrshsao_chk_enable
+          - enable_force :   hrshsao_trk_enable
+          - enable_force :   hrshsse_chk_enable
+          - enable_force :   hrshsse_trk_enable
+          - enable_force :   hrsaqs_chk_enable
+          - enable_force :   hrsaqs_trk_enable
+          - enable_force :   hrs_perf_trk_enable
+      Hrs_perf_trk :
+         target :         hrsunit
+         cluster :        med
+         dependencies :
+          - spy_dpi_hrsunit
+         controls :
+          - enable_force :  hrs_perf_trk_enable
+      hsse_hlcvnc_trk :
+         target :         hsseunit
+         cluster :        med
+         dependencies :
+          - spy_hsseunit
+         controls :
+          - enable_force :   hsse_hlcvnc_chk_enable
+      hsunit_checker :
+         target :         hsunit
+         cluster :        ff
+         dependencies :
+          - spy_hs
+         controls :
+          - enable_force :   hs_cs_checker_enable
+          - enable_force :   hs_deref_chkr_enable
+          - enable_force :   hs_dop_checker_enable
+          - enable_force :   hs_fftid_chkr_enable
+          - enable_force :   hs_gui_checker_enable
+          - enable_force :   hs_gui_negchk_enable
+          - enable_force :   hs_igpa_chk_enable
+          - enable_force :   hs_param_checker_enable
+          - enable_force :   hs_pc_credit_chk_enable
+          - enable_force :   hs_rtl_chk_enable
+          - enable_force :   hs_tdg_chkr_enable
+          - enable_force :   hs_te_chkr_enable
+          - enable_force :   hs_urbm_chkr_enable
+          - enable_force :   tehndl_chk_enable
+          - enable_force :   uav_chk_enable
+          - enable_force :   vs_hs_hndl_chkr_enable
+      hucmxunit_checker :
+         target :         hucmxunit
+         cluster :        med
+         dependencies :
+          - spy_hucmxunit
+         controls :
+          - enable_force :   hucmx_gac_chk_en
+          - enable_force :   hucmx_gac_trk_en
+          - enable_force :   hucmx_scr_chk_en
+          - enable_force :   hucmx_scr_trk_en
+      hucmx_gav_req_checker :
+         target :         hucmxunit
+         cluster :        med
+         dependencies :
+          - spy_hucmxunit
+         controls :
+          - enable_force :   hucmx_gac_chk_en
+          - enable_force :   hucmx_gac_trk_en
+          - enable_force :   hucmx_scr_chk_en
+          - enable_force :   hucmx_scr_trk_en
+      hucmx_scr_checker :
+         target :         hucmxunit
+         cluster :        med
+         dependencies :
+          - spy_hucmxunit
+         controls :
+          - enable_force :   hucmx_scr_chk_en
+      hucunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      hvdunit_perf_tracker :
+         target :         hvdunit
+         cluster :        med
+         dependencies :
+          - spy_hvd_check
+         controls :
+          - enable_force :   hvdunit_perf_tracker_enable
+      hvdunit_checker :
+         target :         hvdunit
+         cluster :        med
+         dependencies :
+          - spy_hvd_check
+         controls :
+          - enable_force :   hvdunit_checker_enable
+      hwmunit_hevc_perf_trk :
+         target :         hwmunit
+         cluster :        med
+         dependencies :
+          - spy_hwmunit
+         controls :
+          - enable_force :   hwmunit_hevc_perf_trk_enable
+      PipeSFC_perf_trk_jem_monitor :
+         target :         sfiunit
+         cluster :        med
+#         dependencies :
+#          - spy_PipeSFC_perf_trk
+         controls :
+          - enable_force :  PipeSFC_perf_trk_jem_enable
+      PipeVE_perf_trk_jem_monitor :
+         target :         vcusunit
+         cluster :        med
+         dependencies :
+          - spy_PipeVE_perf_trk
+         controls :
+          - enable_force :  PipeVE_perf_trk_enable
+      hwmunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      awmunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      sfiunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      ecrunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      mcmpunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      oaaddrmunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      mvdcpcfgcpunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      stlbunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      kcrunit_checker :
+         target :         kcrunit
+         cluster :        med
+         dependencies :
+          - kcrunit_spy
+         controls :
+          - enable_force :   KcrGamWriteData_chk_enable
+          - enable_force :   KcrGamWriteData_trk_enable
+          - enable_force :   Kcr_Mcr_WriteRequest_chk_enable
+          - enable_force :   Kcr_Mcr_WriteRequest_trk_enable
+      kinunit_checker :
+         target :         kinunit
+         cluster :        med
+         controls :
+          - enable_force :   kin0_mcr_chk_enable
+          - enable_force :   kin0_mcr_trk_enable
+          - enable_force :   kin_scr_data_chk_enable
+          - enable_force :   kin_scr_data_trk_enable
+          - enable_force :   kin_scr_static_chk_enable
+          - enable_force :   kin_scr_static_trk_enable
+      veounit_checker :
+         target :         veounit
+         cluster :        med
+         controls :
+          - enable_force :   veo_checker_enable
+      vfwunit_checker :
+         target :         vfwunit
+         cluster :        med
+         controls :
+          - enable_force :   vfw_checker_enable
+      vcwunit_checker :
+         target :         vcwunit
+         cluster :        med
+         controls :
+          - enable_force :   vcw_checker_enable
+      vdmunit_checker :
+         target :         vdmunit
+         cluster :        med
+         controls :
+          - enable_force :   vdmunit_checker_enable
+      vdnunit_checker :
+         target :         vdnunit
+         cluster :        med
+         controls :
+          - enable_force :   vdnunit_checker_enable
+    #  vdnunit_checker_p1 :
+    #     target :         vdnunit
+    #     cluster :        med
+    #     controls :
+    #      - enable_force :   vdnunit_checker_enable
+      vdiunit_checker :
+         target :         vdiunit
+         cluster :        med
+         controls :
+          - enable_force :   vdiunit_checker_enable
+    #  vdiunit_checker_p1 :
+    #     target :         vdiunit
+    #     cluster :        med
+    #     controls :
+    #      - enable_force :   vdiunit_checker_enable
+      VcusIecpData_trk :
+         target :         vcusunit
+         cluster :        med
+         controls :
+          - enable_force :   vcus_iecp_trk_en
+          - enable_force :   vcus_iecp_chk_en
+      IecpHisData_trk :
+         target :         iecpunit_cfg
+         cluster :        med
+         controls :
+          - enable_force :   iecp_veo_trk_en
+          - enable_force :   iecp_veo_chk_en
+      IecpOutData_trk :
+         target :         iecpunit_cfg
+         cluster :        med
+         controls :
+          - enable_force :   iecp_veo_trk_en
+          - enable_force :   iecp_veo_chk_en
+      IecpVeoData_trk :
+         target :         iecpunit_cfg
+         cluster :        med
+         controls :
+          - enable_force :   iecp_veo_trk_en
+          - enable_force :   iecp_veo_chk_en
+      IecpStdData_trk :
+         target :         iecpunit_cfg
+         cluster :        med
+         controls :
+          - enable_force :   iecp_veo_trk_en
+          - enable_force :   iecp_veo_chk_en
+      sfxunit_checker :
+         target :         sfxunit
+         cluster :        med
+      sfiunit_checker :
+         target :         sfinit
+         cluster :        med
+      sfaunit_checker :
+         target :         sfaunit
+         cluster :        med
+      sfdunit_checker :
+         target :         sfdunit
+         cluster :        med
+      sfeunit_checker :
+         target :         sfeunit
+         cluster :        med
+      alfunit_checker_tracker :
+         target :         alfunit
+         cluster :        med
+         dependencies :
+          - spy_alfunit
+         controls :
+          - enable_force :   alfunit_checker_enable
+          - enable_force :   alfunit_tracker_enable
+      aitunit_checker :
+         target :         aitunit
+         cluster :        med
+         dependencies :
+          - spy_aitunit
+         controls :
+          - enable_force :   aitunit_checker_enable
+      amcunit_checker :
+         target :         amcunit
+         cluster :        med
+         controls :
+          - enable_force :   amcunit_checker_enable
+      amxbunit_checker :
+         target :         amxbunit
+         cluster :        med
+         controls :
+          - enable_force :   amxbunit_checker_enable
+      amxbunit_checker_dpi :
+         target :         amxbunit
+         cluster :        med
+         controls :
+          - enable_force :   amxbunit_checker_dpi_enable
+      amx_gac_tracker :
+         target :         amxunit
+         cluster :        med
+         controls :
+          - enable_force :   amx_gac_tracker_enable
+      amxfunit_checker :
+         target :         amxfunit
+         cluster :        med
+         dependencies :
+          - spy_amxfunit
+         controls :
+          - enable_force :   amxf_checker_enable
+      AwmGlobalEnc_trk :
+         target :         awmunit
+         cluster :        med
+         dependencies :
+          - spy_awmunit
+         controls :
+          - enable_force :   awm_global_enc_chk_enable
+      awmunit_av1_perf_trk :
+         target :         awmunit
+         cluster :        med
+         dependencies :
+          - spy_awmunit
+         controls :
+          - enable_force :   awmunit_av1_perf_trk_enable
+      AwmMMIOReadWriteReq_trk :
+         target :         awmunit
+         cluster :        med
+         dependencies :
+          - spy_awmunit
+         controls :
+          - enable_force :   AwmMMIOReadWriteReq_trk_enable
+      McrAwmMMIO_trk :
+         target :         awmunit
+         cluster :        med
+         dependencies :
+          - spy_awmunit
+         controls :
+          - enable_force :   McrAwmMMIO_trk_enable
+      awfunit_checker :
+         target :         awfunit
+         cluster :        med
+         controls :
+          - enable_force :    AwfAleOut_chk_enable
+          - enable_force :    AwfAlnOut_chk_enable
+      AiqAit_trk :
+         target :         aiqunit
+         cluster :        med
+         dependencies :
+          - spy_aiqunit
+         controls :
+          - enable_force :   aiqait_chk_enable
+      aprunit_checker :
+         target :         aprunit
+         cluster :        med
+         dependencies :
+          - spy_aprunit
+         controls :
+          - enable_force :   aprunit_checker_enable
+      apr_perf_lat_trk :
+         target :         aprunit
+         cluster :        med
+         dependencies :
+          - spy_aprunit
+         controls :
+          - enable_force :   aprunit_checker_enable
+      alnunit_checkers :
+         target :         alnunit
+         cluster :        med
+         dependencies :
+          - spy_alnunit
+         controls :
+          - enable_force :   alnunit_trackers_enable
+          - enable_force :   alnunit_checkers_enable
+      appunit_checker :
+         target :         appunit
+         cluster :        med
+         dependencies :
+          - spy_appunit
+         controls :
+          - enable_force :   appaiq_chk_enable
+          - enable_force :   appalf_chk_enable
+          - enable_force :   appapr_chk_enable
+          - enable_force :   appaln_chk_enable
+          - enable_force :   appaed_chk_enable
+          - enable_force :   appamc_chk_enable
+          - enable_force :   appale_chk_enable
+      aedunit_checker :
+         target :         aedunit
+         cluster :        med
+         controls :
+          - enable_force :   aedunit_checker_enable
+          - enable_force :   aedunit_mem_checker_enable
+          - enable_force :   aedunit_int_checker_enable
+          - enable_force :   aedunit_perf_tracker_enable
+      aedunit_perf_trk :
+         target :         aedunit
+         cluster :        med
+         dependencies :
+          - spy_aedunit
+         controls :
+          - enable_force :   aedunit_checker_enable
+      apounit_checker :
+         target :         apounit
+         cluster :        med
+         controls :
+          - enable_force :   apounit_checker_enable
+      apounit_perf_trk2 :
+         target :         apounit
+         cluster :        med
+      arsunit_checker :
+         target :         arsunit
+         cluster :        med
+         controls :
+          - enable_force :   arsunit_checker_enable
+      arsunit_perf_trk :
+         target :         arsunit
+         cluster :        med
+      arsunit_perf_trk2 :
+         target :         arsunit
+         cluster :        med
+      AftAfqCoeff_trk :
+         target :         aftunit
+         cluster :        med
+         controls :
+          - enable_force :   aftafq_coeff_chk_enable
+      AftAfqTuState_trk :
+         target :         aftunit
+         cluster :        med
+         controls :
+          - enable_force :   aftafq_tustate_chk_enable
+      AfqAftZC_trk :
+         target :    afqunit
+         cluster :        med
+         dependencies :
+          - spy_acdfunit
+         controls :
+          - enable_force :   afqaftzc_chk_enable
+          - enable_force :   afqaftzc_trk_enable
+      AfqAiq_trk :
+         target :    afqunit
+         cluster :        med
+         dependencies :
+          - spy_acdfunit
+         controls :
+          - enable_force :   afqaiq_coeff_chk_enable
+          - enable_force :   afqaiq_coeff_trk_enable
+      afgunit_checkers :
+         target :    afgunit
+         cluster :        med
+         dependencies :
+          - spy_afgunit
+         controls :
+          - enable_force :   afgunit_trackers_enable
+          - enable_force :   afgunit_checkers_enable
+      AfqAle_trk :
+         target :    afqunit
+         cluster :        med
+         controls :
+          - enable_force :   afqale_chk_enable
+          - enable_force :   afqale_trk_enable
+      AleAlcData_trk :
+         target :    aleunit
+         cluster :        med
+         #dependencies :
+         # - spy_aleunit
+         controls :
+          - enable_force :   AleAlcData_chk_enable
+          - enable_force :   AleAlcData_trk_enable
+      Ale_perf_trk :
+         target :    aleunit
+         cluster :        med
+         dependencies :
+          - spy_aleunit
+         controls :
+          - enable_force :   Ale_perf_trk_enable
+      AlcAmxBackAnn_trk :
+         target :    alcunit
+         cluster :        med
+        # dependencies :
+        #  - spy_alcunit
+         controls :
+          - enable_force :   alcamx_back_ann_chk_enable
+      AlcAmxCdfWrite_trk :
+         target :    alcunit
+         cluster :        med
+       #  dependencies :
+       #   - spy_alcunit
+         controls :
+          - enable_force :   alcamx_cdfwrite_chk_enable
+      AlcAwmMMIO_trk :
+         target :    alcunit
+         cluster :        med
+       #  dependencies :
+       #   - spy_alcunit
+         controls :
+          - enable_force :   alcawm_mmio_chk_enable
+      AleAppData_trk :
+         target :    aleunit
+         cluster :        med
+         controls :
+          - enable_force :   AleAppData_chk_enable
+          - enable_force :   AleAppData_trk_enable
+      AleAmxSegmtWr_trk :
+         target :    aleunit
+         cluster :        med
+         controls :
+          - enable_force :   AleAmxSegmtWr_chk_enable
+          - enable_force :   AleAmxSegmtWr_trk_enable
+      AlcAmxFinalBs_trk :
+         target :    alcunit
+         cluster :        med
+        # dependencies :
+        #  - spy_alcunit
+         controls :
+          - enable_force :   alcamx_finalbs_chk_enable
+      AlcAmxTileRecord_trk :
+         target :    alcunit
+         cluster :        med
+       #  dependencies :
+       #   - spy_alcunit
+         controls :
+          - enable_force :   alcamx_tilerecord_chk_enable
+      AlcAmxTileStats_trk :
+         target :    alcunit
+         cluster :        med
+      #   dependencies :
+      #    - spy_alcunit
+         controls :
+          - enable_force :   alcamx_tilestat_chk_enable
+      AlcCabacInternal_trk :
+         target :    alcunit
+         cluster :        med
+         dependencies :
+          - spy_alcunit
+         controls :
+          - enable_force :  alc_cabacinternal_chk_enable
+      alc_ult_perf_trk :
+         target :    alcunit
+         cluster :        med
+         dependencies :
+          - spy_alcunit
+         controls :
+          - enable_force :   alcunit_perf_tracker_enable
+      AcdfAleData_trk :
+         target :    acdfunit
+         cluster :        med
+         dependencies :
+          - spy_acdfunit
+         controls :
+          - enable_force :   acdfale_data_chk_enable
+      AcdfAlnData_trk :
+         target :    acdfunit
+         cluster :        med
+         dependencies :
+          - spy_acdfunit
+         controls :
+          - enable_force :   acdfaln_data_chk_enable
+      AcdfBestdir_trk :
+         target :    acdfunit
+         cluster :        med
+         dependencies :
+          - spy_acdfunit
+         controls :
+          - enable_force :   acdf_bestdir_chk_enable
+      AcdfFiltpix_trk_wrapper :
+         target :    acdfunit
+         cluster :        med
+         dependencies :
+          - spy_acdfunit
+         controls :
+          - enable_force :   acdf_filteredpix_chk_enable
+      kin0unit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      mbcunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      gtgticpunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      oamunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      mediaslicespc1unit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      gsccsunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      gsciunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      mcfgunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      gsciunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      mc_mon_wrap :
+         target :         GT_TRK
+         cluster :        gti
+         controls :
+          - enable_force :   mc_mon_enable
+      mcfg_msgch_trk_dpi :
+         target :         mcfgunit
+         cluster :        gti
+         controls :
+          - enable_force :   mcfg_msgch_trk_enable
+      mcfg_msgch_trk_jem :
+         target :         mcfgunit
+         cluster :        gti
+         controls :
+          - enable_force :   mcfg_msgch_trk_enable
+      mdcunit_checker :
+         target :         mdcunit
+         cluster :        med
+         dependencies :
+          - mdcunit_spy
+         controls :
+          - enable_force :  MdcBsp_trk_enable
+          - enable_force :  MdcBsp_chk_enable
+          - enable_force :  MdcHcref_trk_enable
+          - enable_force :  MdcHcref_chk_enable
+          - enable_force :  MdcHcrei_trk_enable
+          - enable_force :  MdcHcrei_chk_enable
+          - enable_force :  MdcMbState_trk_enable
+          - enable_force :  MdcMbState_chk_enable
+          - enable_force :  MdcVrt_trk_enable
+          - enable_force :  MdcVrt_chk_enable
+          - enable_force :  MdcVdxRS_trk_enable
+          - enable_force :  MdcVdxRS_chk_enable
+          - enable_force :  MdcHcres_trk_enable
+          - enable_force :  MdcHcres_chk_enable
+      gpm_msgch_trk_dpi :
+         target :         gpmunit
+         cluster :        gti
+         controls :
+          - enable_force :   gpm_msgch_trk_enable
+      sgsi_sgci_spy  :
+         target :   sg_wrapper
+         cluster :  gt
+         controls :
+          - enable_force :   sgsi_trk_enable
+      mbc_msgch_trk_dpi :
+         target :         mbcunit
+         cluster :        gti
+         controls :
+          - enable_force :   mbc_msgch_trk_enable
+      rpm_msgch_trk_dpi :
+         target :         rpmunit
+         cluster :        gti
+         controls :
+          - enable_force :   rpm_msgch_trk_enable
+      mgsr_msgch_trk_jem :
+         target :
+         cluster :        gti
+         controls :
+          - enable_force :   mgsr_msgch_trk_enable
+      mgsr_msgch_trk_dpi :
+         target :
+         cluster :        gt
+         controls :
+          - enable_force :   mgsr_msgch_trk_enable
+      mgsrunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      kcrunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      misdunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      monitor_bind :
+         target :         GT_TRK
+         cluster :        gt
+         dependencies :
+          - gtl3bankm_bind
+      msnp_msqc_monitor_wrapper :
+         target :         NA
+         cluster :        gti
+      mtunit_checker :
+         target :         mtunit
+         cluster :        smp
+         dependencies :
+          - spy_mtunit
+         controls :
+           - enable_force :   gass_mt_monitor_enable
+           - enable_force :   gass_mt_tracker_enable
+           - enable_force :   mt_dm_monitor_enable
+           - enable_force :   mt_dm_tracker_enable
+           - enable_force :   mt_gass_monitor_enable
+           - enable_force :   mt_gass_tracker_enable
+           - enable_force :   sta_daprss_monitor_enable
+           - enable_force :   sta_daprss_tracker_enable
+      nxtslicespcunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      oa_msgch_trk :
+         target :         oacsunit
+         cluster :        oa
+         dependencies :
+          - spy_oacsunit_model
+         controls :
+          - enable_force :   oa_msgch_trk_enable
+      oacsunit_chk_model :
+         target :         oacsunit
+         cluster :        oa
+         controls :
+          - enable_force :   oacsunit_chk_model_enable
+         dependencies :
+          - spy_oacsunit_model
+      oaaddrunit_msgch_trk :
+         target :         oaaddrunit
+         cluster :        oa
+         dependencies :
+          - spy_oaaddrunit_model_00
+         controls :
+          - enable_force :   oaaddr_msgch_trk_enable
+      oaaddrunit_chk_model :
+         target :         oaaddrunit
+         cluster :        oa
+         dependencies :
+          - spy_oaaddrunit_model_00
+          - spy_oaaddrunit_model_01
+          - spy_oaaddrunit_model_02
+          - spy_oaaddrunit_model_10
+          - spy_oaaddrunit_model_20
+          - spy_oaaddrunit_model_30
+         controls :
+          - enable_force :   oaaddrunit_chk_model_enable
+      oaunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      oarunit_msgch_trk :
+         target :         oarunit
+         cluster :        oar
+         controls :
+          - enable_force :   oar_msgch_trk_enable
+      pipe_ctrl_tkr_bind :
+         target :         GT_TRK
+         cluster :        gt
+         controls :
+          - enable_force :   pipe_ctrl_tkr_gtdssm_enable
+          - enable_force :   pipe_ctrl_tkr_gtslice_enable
+          - enable_force :   pipe_ctrl_tkr_gtunslice_enable
+      plunit_checker :
+         target :         plunit
+         cluster :        smp
+         dependencies :
+          - spy_plunit
+         controls :
+          - enable_force :   pl_dg_monitor_enable
+          - enable_force :   pl_dg_trk_enable
+      pm_chkrs :
+         target :         cpma
+         cluster :        gti
+      pm_flow_checker :
+         target :         GT_TRK
+         cluster :        gti
+      pmcluster_jem_monitors_media :
+         target :         gpmunit
+         cluster :        pmclt
+         controls :
+          - enable_force :   gpmunit_flow_tracker_media_jem_monitor_enable
+      pma_checker :
+         target :         cpma
+         cluster :        gti
+         dependencies :
+          - pm_chkrs
+         controls :
+          - enable_force :   pma_chk_enable
+      pmcluster_checker_wrap :
+         target :         NA
+         cluster :        gti
+      rpmunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      cpmaunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      infcfgcpunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      dtfunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      dvpmediavccro3dunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      gtispcunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      scandfx_checkers_top :
+         target :         gen12hp8x4x16m
+         cluster :        dfx
+         controls :
+          - enable_force :  scandfx_checkers_enable
+      noa_val :
+         target :         sm
+         cluster :        dfx
+         controls :
+          - enable_force :  noa_checker_enable
+      scrunit_checker :
+         target :         scrunit
+         cluster :        med
+         controls :
+          - enable_force :   scr0_kin_chk_enable
+          - enable_force :   scr1_kin_chk_enable
+          - enable_force :   scr2_kin_chk_enable
+          - enable_force :   scr3_kin_chk_enable
+          - enable_force :   scr0_kin_trk_enable
+          - enable_force :   scr1_kin_trk_enable
+          - enable_force :   scr2_kin_trk_enable
+          - enable_force :   scr3_kin_trk_enable
+          - enable_force :   scr_hmxf_chk_enable
+          - enable_force :   scr_hucmx_chk_enable
+          - enable_force :   scr_vci_chk_enable
+          - enable_force :   scr_amx_chk_enable
+          - enable_force :   vci_scr_chk_enable
+          - enable_force :   hmxf_scr_chk_enable
+          - enable_force :   hucmx_scr_chk_enable
+          - enable_force :   amx_scr_chk_enable
+          - enable_force :   vci_scr_trk_enable
+          - enable_force :   hmxf_scr_trk_enable
+          - enable_force :   hucmx_scr_trk_enable
+          - enable_force :   amx_scr_trk_enable
+      vcreunit_checker :
+         target :         vcreunit
+         cluster :        med
+         dependencies :
+          - spy_vcreunit
+         controls :
+          - enable_force :   vcre_inter_ref_monitor_enable
+          - enable_force :   vcre_inter_sad_monitor_enable
+          - enable_force :   vcre_inter_src_monitor_enable
+          - enable_force :   vcre_mdc_monitor_enable
+          - enable_force :   vcre_pxa_monitor_enable
+          - enable_force :   vcre_vdx_ref_rdreq_monitor_enable
+          - enable_force :   vcreunit_perf_tracker_enable
+      vdl1isunit_checkers :
+         target :         vdl1isunit
+         cluster :        med
+         controls :
+          - enable_force :   vdl1isunit_checkers_enable
+      vdl1unit_checkers :
+         target :         vdl1unit
+         cluster :        med
+         dependencies :
+          - spy_vdl1unit
+         controls :
+          - enable_force :   vdl1unit_checkers_enable
+      vdxunit_checker :
+         target :         vdxunit
+         cluster :        med
+      vmxunit_checker :
+         target :         vmxunit
+         cluster :        med
+         dependencies :
+          - spy_vdxunit
+      vmmunit_checker :
+         target :         vmmunit
+         cluster :        med
+         dependencies :
+          - spy_vmmunit
+      vrtunit_checker :
+         target :         vrtunit
+         cluster :        med
+         dependencies :
+          - VrtMsgBus_spy
+         controls :
+          - enable_force :   VrtMsgBus_trk_enable
+      vacunit_checker :
+         target :         vacunit
+         cluster :        med
+      vamunit_checker :
+         target :         vamcunit
+         cluster :        med
+      vadunit_checker :
+         target :         vadunit
+         cluster :        med
+         dependencies :
+          - spy_vadunit
+      vmbunit_checker :
+         target :         vmbunit
+         cluster :        med
+         dependencies :
+          - spy_vmbunit
+      vhrunit_checker :
+         target :         vhrunit
+         cluster :        med
+      VciBsp_checker :
+         target :         vciunit
+         cluster :        med
+      VciVhr_checker :
+         target :         vciunit
+         cluster :        med
+      vbspunit_checker :
+         target :         vbspunit
+         cluster :        med
+         dependencies :
+          - spy_vbspunit
+      vipunit_checker :
+         target :         vipunit
+         cluster :        med
+      vitunit_checker :
+         target :         vipunit
+         cluster :        med
+      vslunit_checker :
+         target :         vslunit
+         cluster :        med
+      mpcunit_checker :
+         target :         mpcunit
+         cluster :        med
+     # vmpcunit_checker :
+     #    target :         vmpcunit
+     #    cluster :        med
+     #    dependencies :
+     #     - spy_vin_sl_vid4
+      #    - spy_vin_sl_vid4_svc
+         # - spy_vin_sl_vid1_pipevdve
+         # - spy_vin_sl_vid2_pipevdve
+      secunit_checker :
+         target :         secunit
+         cluster :        med
+      usbunit_checker :
+         target :         usbunit
+         cluster :        med
+      jusbunit_checker :
+         target :         jusbunit
+         cluster :        med
+      vftunit_checker :
+         target :         vftunit
+         cluster :        med
+      vtqunit_checker :
+         target :         vtqunit
+         cluster :        med
+      visunit_checker :
+         target :         vftunit
+         cluster :        med
+      jusbunit_checker :
+         target :         jusbunit
+         cluster :        med
+      bspunit_checker :
+         target :         bspunit
+         cluster :        med
+         dependencies :
+          - spy_bspunit
+      vipunit_checker :
+         target :         vipunit
+         cluster :        med
+      vopunit_checker_pli :
+         target :         vopunit
+         cluster :        med
+      vitunit_checker :
+         target :         vitunit
+         cluster :        med
+      vcrunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      vcs_be_jem_trackers :
+         target :         vcsunit
+         cluster :        med
+         dependencies :
+          - vcs_be_spy
+         controls :
+          - enable_force :   vcs_kin_jem_monitor_enable
+          - enable_force :   vcs_gam_jem_monitor_enable
+          - enable_force :   vcs_vrt_jem_monitor_enable
+      cs_jem_trackers_wrapper_vcs :
+         target :         vcsunit
+         cluster :        med
+         dependencies :
+          - vcs_fe_spy
+         controls :
+          - enable_force :   vcs_mcr_jem_monitor_enable
+          - enable_force :   mcr_vcs_jem_monitor_enable
+          - enable_force :   vcs_cmd_parser_jem_monitor_enable
+      vecs_be_jem_trackers :
+         target :         vecsunit
+         cluster :        med
+         dependencies :
+          - vecs_be_spy
+         controls :
+          - enable_force :   vecs_gam_jem_monitor_enable
+          - enable_force :   vecs_vfw_jem_monitor_enable
+      cs_jem_trackers_wrapper_vecs :
+         target :         vecsunit
+         cluster :        med
+         dependencies :
+          - vecs_fe_spy
+         controls :
+          - enable_force :   vecs_mcr_jem_monitor_enable
+          - enable_force :   mcr_vecs_jem_monitor_enable
+          - enable_force :   vecs_cmd_parser_jem_monitor_enable
+      gsccs_be_jem_trackers :
+         target :         gsccsunit
+         cluster :        med
+         dependencies :
+          - gsccs_be_spy
+         controls :
+          - enable_force :   gsccs_gsci_jem_monitor_enable
+          - enable_force :   gsccs_gam_jem_monitor_enable
+      cs_jem_trackers_wrapper_gsccs :
+         target :         gsccsunit
+         cluster :        med
+         dependencies :
+          - gsccs_fe_spy
+         controls :
+          - enable_force :   gsccs_mcr_jem_monitor_enable
+          - enable_force :   mcr_gsccs_jem_monitor_enable
+          - enable_force :   gsccs_cmd_parser_jem_monitor_enable
+      vcsunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      vcrunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      vcsunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      vdkmxunit_checker :
+         target :         vdkmxunit
+         cluster :        med
+         controls :
+          - enable_force :   vdkmx_gac_chk_enable
+      PipeVDAQM_perf_trk :
+         target :         aqsunit
+         cluster :        med
+         controls :
+          - enable_force :   PipeVDAQM_perf_trk_enable
+      AqsStateBus_trk :
+         target :         aqsunit
+         cluster :        med
+         controls :
+          - enable_force :   aqs_state_trk_en
+          - enable_force :   aqs_state_chk_en
+      AqmAqaWriteData_trk :
+         target :         aqmunit
+         cluster :        med
+         controls :
+          - enable_force :   aqm_aqa_write_data_trk_en
+          - enable_force :   aqm_aqa_write_data_chk_en
+      AqsAqmData_trk :
+         target :         aqsunit
+         cluster :        med
+         controls :
+          - enable_force :   aqs_aqm_data_trk_en
+          - enable_force :   aqs_aqm_data_chk_en
+      AqmFiltData_trk :
+         target :         aqmunit
+         cluster :        med
+         controls :
+          - enable_force :   aqm_filt_data_trk_en
+          - enable_force :   aqm_filt_data_chk_en
+      AqxGacWriteData_trk :
+         target :         aqxunit
+         cluster :        med
+         controls :
+          - enable_force :   aqx_gac_write_data_trk_en
+          - enable_force :   aqx_gac_write_data_chk_en
+      vdsunit_checker :
+         target :         vdsunit
+         cluster :        med
+         controls :
+          - enable_force :   monitor_enable
+      vecsunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      vfwunit_msgch_tracker_monitor :
+         target :         MSGCH_BIND
+         cluster :        gti
+         controls :
+          - disable_simv :   +disable_MSGCH_monitors
+      vhmeunit_checker :
+         target :         vhmeunit
+         cluster :        med
+         dependencies :
+          - spy_vhmeunit
+         controls :
+          - enable_force :   VHmeSAD0EngineOutput_chk_enable
+          - enable_force :   VHmeVImeMBState_chk_enable
+          - enable_force :   vhmeunit_perf_tracker_enable
+      vimeunit_checker :
+         target :         vimeunit
+         cluster :        med
+         dependencies :
+          - spy_vimeunit
+         controls :
+          - enable_force :  vimehime_chk_enable
+          - enable_force :  vimesadhevc_chk_enable
+          - enable_force :  vime_hcref_chk_enable
+          - enable_force :  vime_mdc_chk_enable
+          - enable_force :  vimesadavc_chk_enable
+          - enable_force :  vime_avcxymin_chk_enable
+          - enable_force :  vimeperf_trk_enable
+      #vinunit_msgch_tracker_monitor :
+      #   target :         MSGCH_BIND
+      #   cluster :        gti
+      #    controls :
+      #    - disable_simv :   +disable_MSGCH_monitors
+      vinunit_checker :
+         target :         vinunit
+         cluster :        med
+         dependencies :
+          - spy_vin_sl_vid4
+         # - spy_vin_sl_vid4_pipevdve
+          - spy_vin_sl_vid4_svc
+         # - spy_vin_sl_vid1_pipevdve
+         # - spy_vin_sl_vid2_pipevdve
+      vinunit_perf_tracker :
+         target :         vinunit
+         cluster :        med
+         dependencies :
+          - spy_vinunit_trkspy
+         controls :
+          - enable_force :   vinunit_perf_tracker_enable
+      vinunit_tracker :
+         target :         vinunit
+         cluster :        med
+         dependencies :
+          - spy_vinunit_trkspy
+         controls :
+          - enable_force :   vin_perftrack_enable
+      vlfunit_checker :
+         target :         vlfunit
+         cluster :        med
+         controls :
+          - enable_force :   vlfunit_checker_enable
+      jpgunit_checker :
+         target :         jpgunit
+         cluster :        med
+      vcdunit_checker :
+         target :         vcdunit
+         cluster :        med
+      vcpunit_checker :
+         target :         vcpunit
+         cluster :        med
+      vmdunit_checker :
+         target :         vcpunit
+         cluster :        med
+      vprunit_checker :
+         target :         vprunit
+         cluster :        med
+      VbpVcd_checker :
+         target :         vbpunit
+         cluster :        med
+      VbpVin_checker :
+         target :         vbpunit
+         cluster :        med
+      VbpVmxWr_checker :
+         target :         vbpunit
+         cluster :        med
+      vmtsunit_checker :
+         target :         vmtsunit
+         cluster :        med
+      vmcunit_checker :
+         target :         vmcunit
+         cluster :        med
+         controls :
+          - enable_force :   monitor_enable
+      vneunit_checker :
+         target :         vneunit
+         cluster :        med
+         dependencies :
+          - spy_vneunit
+         controls :
+          - enable_force :   VneVncData_chk_enable
+          - enable_force :   VneVncData_trk_enable
+      vneunit_perf_trk :
+         target :         vneunit
+         cluster :        med
+         dependencies :
+          - spy_vneunit
+         controls :
+          - enable_force :   vne_perf_trk_enable
+      vsunit_checker :
+         target :         vsunit
+         cluster :        ff
+         dependencies :
+          - vsfeunit_spy
+          - vsbeunit_spy
+         controls :
+          - enable_force :   VsCl_chk_enable
+          - enable_force :   VsCl_trk_enable
+          - enable_force :   VsHs_chk_enable
+          - enable_force :   VsHs_trk_enable
+          - enable_force :   VsInv_chk_enable
+          - enable_force :   VsInv_trk_enable
+          - enable_force :   VsVfHitMiss_chk_enable
+          - enable_force :   uav_chk_enable
+          - enable_force :   vs_eot_chk_enable
+          - enable_force :   vs_tdg_checker_enable
+          - enable_force :   vs_urbm_chk_enable
+      gt_iosf_sb_trk :
+         target :         sbrgt_sbr_generic
+         cluster :        gt
+         controls :
+          - enable_force :   gt_iosf_sb_trk_en
+      punit_iosf_sb_trk :
+         target :         sbrgt_sbr_generic
+         cluster :        gt
+         controls :
+          - enable_force :   punit_iosf_sb_trk_en
+      iosfbfm_iosf_sb_trk :
+         target :         sbrgt_sbr_generic
+         cluster :        gt
+         controls :
+          - enable_force :   iosfbfm_iosf_sb_trk_en
+      iosf_p_cdie_sg_jem_monitor_bind :
+         target :             sg_wrapper
+         cluster :            gt
+         controls :
+          - enable_force :    iosf_p_cdie_sg_jem_monitor_enable
+      iosf_p_pl_sg_jem_monitor_bind :
+         target :             sg_wrapper
+         cluster :            gt
+         controls :
+          - enable_force :    iosf_p_pl_sg_jem_monitor_enable
+      iosf_p_sg_mert_jem_monitor_bind :
+         target :             sg_wrapper
+         cluster :            gt
+         controls :
+          - enable_force :    iosf_p_sg_mert_jem_monitor_enable
+      iosf_if_bfm :
+         target :          iosf_if_bfm
+         cluster :         gt
+         controls :
+          - enable_force : memtrk_enable
+          - enable_force : bfm_trkprint_en
+          - enable_force : membfm_trk_enable
+          - enable_force : iosf_reqgnt_trk_enable
+      iosf_pl_if_bfm :
+         target :          iosf_pl_if_bfm
+         cluster :         gt
+         controls :
+          - enable_force : memtrk_enable
+          - enable_force : bfm_trkprint_en
+          - enable_force : membfm_trk_enable
+          - enable_force : iosf_reqgnt_trk_enable
+      uncorebfm :
+         target :          uncorebfm
+         cluster :         gt
+         controls :
+          - enable_force : memtrk_enable
+          - enable_force : bfm_trkprint_en
+          - enable_force : membfm_trk_enable
+          - enable_force : iosf_reqgnt_trk_enable
+      Dec_Input_trk_jem_monitor :
+         target :   dec400unit
+         cluster :  med
+         dependencies :
+          - Dec_Input_trk_jem_monitor_spy
+          - Dec_io_common_jem_trk_spy
+         controls :
+          - enable_force :   DecGamInt_trk_enable
+      Dec_Input_ve_trk_jem_monitor :
+         target :   dec400unit
+         cluster :  med
+         dependencies :
+          - Dec_Input_ve_trk_jem_monitor_spy
+          - Dec_io_common_jem_trk_spy
+         controls :
+          - enable_force :   DecGamInt_trk_enable
+      DecGamInt_trk_jem_monitor :
+         target :   dec400unit
+         cluster :  med
+         dependencies :
+          - DecGamInt_trk_jem_monitor_spy
+          - Dec_io_common_jem_trk_spy
+         controls :
+          - enable_force :   DecGamInt_trk_enable
+      DecGamInt_ve_trk_jem_monitor :
+         target :   dec400unit
+         cluster :  med
+         dependencies :
+          - DecGamInt_ve_trk_jem_monitor_spy
+          - Dec_io_common_jem_trk_spy
+         controls :
+          - enable_force :   DecGamInt_trk_enable
+      Dec_Input_p2_trk_jem_monitor :
+         target :   dec400unit
+         cluster :  med
+         dependencies :
+          - Dec_Input_p2_trk_jem_monitor_spy
+          - Dec_io_common_jem_trk_spy
+         controls :
+          - enable_force :   DecGamInt_trk_enable
+      Dec_Input_p3_trk_jem_monitor :
+         target :   dec400unit
+         cluster :  med
+         dependencies :
+          - Dec_Input_p3_trk_jem_monitor_spy
+          - Dec_io_common_jem_trk_spy
+         controls :
+          - enable_force :   DecGamInt_trk_enable
+      DecGamInt_p2_trk_jem_monitor :
+         target :   dec400unit
+         cluster :  med
+         dependencies :
+          - DecGamInt_p2_trk_jem_monitor_spy
+          - Dec_io_common_jem_trk_spy
+         controls :
+          - enable_force :   DecGamInt_trk_enable
+      DecGamInt_p3_trk_jem_monitor :
+         target :   dec400unit
+         cluster :  med
+         dependencies :
+          - DecGamInt_p3_trk_jem_monitor_spy
+          - Dec_io_common_jem_trk_spy
+         controls :
+          - enable_force :   DecGamInt_trk_enable
+      ecrunit_checker :
+         target :   ecrunit
+         cluster :  med
+         controls :
+          - enable_force :   EcrDecVd0_chk_enable
+          - enable_force :   EcrDecVd0_trk_enable
+          - enable_force :   EcrDecVd1_chk_enable
+          - enable_force :   EcrDecVd1_trk_enable
+          - enable_force :   EcrDecVe0_chk_enable
+          - enable_force :   EcrDecVe0_trk_enable
+          - enable_force :   EcrDecVe1_chk_enable
+          - enable_force :   EcrDecVe1_trk_enable
+      maxfpsmi_trackers_wrap :
+         target :   maxfpsmiunit
+         cluster :  smsag
+         controls :
+          - enable_force :   psmi_tracker_enable
+      gaxf_psmi_e2e_tracker :
+         target :   gaxfpsmiunit
+         cluster :  gti
+         controls :
+          - enable_force :   psmi_tracker_enable
+      gaxf_psmi_db_tracker :
+         target :   gaxfpsmiunit
+         cluster :  gti
+         controls :
+          - enable_force :   psmi_tracker_enable
+      gaxf_psmi_ctrl_tracker:
+         target :   gaxfpsmiunit
+         cluster :  gti
+         controls :
+          - enable_force :   psmi_tracker_enable
+      gaxf_psmi_msgch_trk :
+         target :   gaxfpsmiunit
+         cluster :  gti
+         controls :
+          - enable_force :   psmi_tracker_enable
+      spy_gaxf_psmi:
+         target :   gaxfpsmiunit
+         cluster :  gti
+      gscpsmi_e2e_trkr :
+         target :   gscpsmiunit
+         cluster :  gti
+         controls :
+          - enable_force :   psmi_tracker_enable
+      gscpsmi_db_trkr :
+         target :   gscpsmiunit
+         cluster :  gti
+         controls :
+          - enable_force :   psmi_tracker_enable
+      gscpsmi_ctrl_trkr:
+         target :   gscpsmiunit
+         cluster :  gti
+         controls :
+          - enable_force :   gsc_psmi_tracker_enable
+      gscpsmi_req_trkr:
+         target :   gscpsmiunit
+         cluster :  gti
+         controls :
+          - enable_force :   psmi_tracker_enable
+      gscpsmi_trkr_spies:
+         target :   gscpsmiunit
+         cluster :  gti
+      sf_tracker :
+         target :   snp_filter
+         cluster :  gti
+         controls :
+          - enable_force :   psmi_tracker_enable
+      sf_ctrl_tracker_jem_monitor :
+         target :   snp_filter
+         cluster :  gti
+         controls :
+          - enable_force :   psmi_tracker_enable
+      sf_msgch_trk_dpi :
+         target :   snp_filter
+         cluster :  gti
+         controls :
+          - enable_force :   psmi_tracker_enable
+      sf_msgch_trk_jem :
+         target :   snp_filter
+         cluster :  gti
+         controls :
+          - enable_force :   psmi_tracker_enable
+      spy_SFPSMI :
+         target : snp_filter
+         cluster : gti
+      spy_sqpsmi_hash :
+         target : snp_filter
+         cluster : gti
+      gsc_mia_jem_wrapper :
+         target :   gsciunit
+         cluster :  smgsc
+         dependencies :
+          - gsc_mia_jem_spy
+         controls :
+          - enable_force :   gsc_mia_jem_monitor_enable          
+      gsciunit_checker :
+         target :   gsciunit
+         cluster :  smgsc
+         controls :
+          - enable_force :   Gsci_Mcr_WriteRequest_trk_enable          
+          - enable_force :   GsciIosfSidebandIn_trk_enable          
+          - enable_force :   GsciIosfSidebandOut_trk_enable          
+          - enable_force :   GsciIosfPrimaryIn_trk_enable          
+          - enable_force :   GsciIosfPrimaryOut_trk_enable          
+          - enable_force :   Gsci_Mcr_ReadCom_chk_enable          
+          - enable_force :   Gsci_Mcr_ReadCom_trk_enable
+          - enable_force :   Gsci_Mcr_ReadRequest_chk_enable          
+          - enable_force :   Gsci_Mcr_ReadRequest_trk_enable
+          - enable_force :   Gsci_Mcr_WriteRequest_chk_enable          
+          - enable_force :   Gsci_Mcr_WriteRequest_trk_enable
+          - enable_force :   GsciGamWriteData_chk_enable        
+          - enable_force :   GsciGamWriteData_trk_enable     
+      psmiunit_sfpsmi_tracker :
+         target :   psmiunit
+         cluster :  gti
+         controls :
+          - enable_force :   psmi_tracker_enable
+      psmiunit_sfpsmi_tracker_jem :
+         target :   psmiunit
+         cluster :  gti
+         controls :
+          - enable_force :   psmi_tracker_enable
+      psmi_sqcmi_hash_trk :
+         target :   psmiunit
+         cluster :  gti
+         controls :
+          - enable_force :   psmi_tracker_enable
+      psmi_cxl_tracker :
+         target :   psmiunit
+         cluster :  gti
+         controls :
+          - enable_force :   cxl_tracker_enable
+      gt_sg_cxl_tracker_jem :
+         target :   sqidi_trackers
+         cluster :  gti
+         controls :
+          - enable_force :   cxl_jem_tracker_enable
+      psmiunit_trackers :
+         target :   psmiunit
+         cluster :  gti
+         controls :
+          - enable_force :   psmi_tracker_enable
+      mgam_dbgwrap :
+         target :   gt_hang_detector
+         cluster :  gt
+         controls :
+          - enable_force :   gamcmdi_hd_enable
+          - enable_force :   gamcc_hd_enable
+          - enable_force :   gamreqstrm_hd_enable
+          - enable_force :   gamreqstrm_msgchtrk_enable
+          - enable_force :   gamdrtn_hd_enable
+      gtsqidim_dbgwrap :
+         target :   gt_hang_detector
+         cluster :  gt
+         controls :
+          - enable_force :   gtsqidim_hd_enable
+          - enable_force :   msqc_hd_enable
+      gtmidslice_dbgwrap :
+         target :   gt_hang_detector
+         cluster :  gt
+         controls :
+          - enable_force :   midslice_hd_enable
+      gtmedia0_dbgwrap :
+         target :   gt_hang_detector
+         cluster :  gt
+         controls :
+          - enable_force :   media_hd_enable
+          - enable_force :   vcs_hd_enable
+          - enable_force :   vcs_msgchtrk_enable
+          - enable_force :   vecs_hd_enable
+          - enable_force :   vecs_msgchtrk_enable
+      gtmedia1_dbgwrap :
+         target :   gt_hang_detector
+         cluster :  gt
+         controls :
+          - enable_force :   media_hd_enable
+          - enable_force :   vcs_hd_enable
+          - enable_force :   vcs_msgchtrk_enable
+          - enable_force :   vecs_hd_enable
+          - enable_force :   vecs_msgchtrk_enable
+      smgsc_dbgwrap :
+         target :   gt_hang_detector
+         cluster :  gt
+         controls :
+          - enable_force :   smgsc_hd_enable
+          - enable_force :   gsccs_hd_enable
+          - enable_force :   gsccs_msgchtrk_enable
+#      gt_hang_detector :
+#         target :   gt_hang_detector
+#         cluster :  gt
+#         controls :
+#          - enable_force :    gt_hang_detector_hd_enable
+      sm_perfbind :
+         target :         sm_perfbind
+         cluster :        med
+         controls :
+          - enable_force :   sm_lcunit_perftrk_enable
+   SPY_COMPONENTS :
+      ### GT_TRK
+      inj_gamtgunit :
+         target :    GT_TRK
+         cluster :   gti
+      inj_gamtounit :
+         target :    GT_TRK
+         cluster :   gti
+      inj_gamvtdunit :
+         target :    GT_TRK
+         cluster :   gti
+      inj_gamwcunit :
+         target :    GT_TRK
+         cluster :   gti
+      inj_gamwdunit :
+         target :    GT_TRK
+         cluster :   gti
+      spy_gamdmunit :
+         target :    GT_TRK
+         cluster :   gti
+      spy_gamdunit :
+         target :    GT_TRK
+         cluster :   gti
+      spy_gamtgunit :
+         target :    GT_TRK
+         cluster :   gti
+      spy_gamtounit :
+         target :    GT_TRK
+         cluster :   gti
+      spy_gamvtdunit :
+         target :    GT_TRK
+         cluster :   gti
+      spy_gamwcunit :
+         target :    GT_TRK
+         cluster :   gti
+      spy_gamwdunit :
+         target :    GT_TRK
+         cluster :   gti
+      spy_gatrunit :
+         target :    GT_TRK
+         cluster :   gti
+      spy_gatrwunit :
+         target :    GT_TRK
+         cluster :   gti
+      spy_GAMSQ :
+         target :    GT_TRK
+         cluster :   gti
+      spy_gt_gamsq_monitor :
+         target :    gtsqidim
+         cluster :   gti
+      ### GTSSM.HIER
+      spy_creunit :
+         target :    creunit
+         cluster :   med_smp
+      spy_vmesc:
+         target :    msarbunit
+         cluster :   med_smp
+      spy_dgunit :
+         target :    dgunit
+         cluster :   smp
+      spy_dmunit :
+         target :    dmunit
+         cluster :   smp
+      spy_flunit :
+         target :    flunit
+         cluster :   smp
+      spy_ftunit :
+         target :    ftunit
+         cluster :   smp
+      spy_imeunit :
+         target :    imeunit
+         cluster :   med_smp
+      spy_avsunit :
+         target :    avsunit
+         cluster :   med_smp
+      spy_mtunit :
+         target :    mtunit
+         cluster :   smp
+      spy_plunit :
+         target :    plunit
+         cluster :   smp
+      spy_scunit :
+         target :    scunit
+         cluster :   smp
+      spy_siunit :
+         target :    siunit
+         cluster :   smp
+      spy_stunit :
+         target :    stunit
+         cluster :   smp
+      spy_svsmunit :
+         target :    svsmunit
+         cluster :   smp
+      spy_maunit01 :
+         target :    maunit_wrapper0
+         cluster :   ssm
+      spy_maunit11 :
+         target :    maunit_wrapper1
+         cluster :   ssm
+      ### GTDSSM.HIER
+      psdunit_debugfifo :
+         target :    psdunit
+         cluster :   ssm
+      spy_tdpunit :
+         target :    tdpunit
+         cluster :   ssm
+      spy_cpssunit :
+         target :    cpssunit
+         cluster :   ssm
+      spy_daprssunit :
+         target :    daprssunit
+         cluster :   cofe
+      slmbeunit_spy :
+         target :    slmbeunit
+         cluster :   ssm
+      spy_vafeunit :
+         target :    vafeunit
+         cluster :   ssm
+      ### GTSLICE.HIER
+      zclt_flush_spy_hizbe :
+         target :    hizbeunit
+         cluster :   scfe
+      zclt_flush_spy_hizfe :
+         target :    hizfeunit
+         cluster :   scfe
+      zclt_flush_spy_wmbe :
+         target :    wmunit
+         cluster :   scfe
+      zclt_flush_spy_stc :
+         target :    stcunit
+         cluster :   scfe
+      zclt_flush_spy_wmfe :
+         target :    wmunit
+         cluster :   scfe
+      spy_sbeunit :
+         target :    sbeunit
+         cluster :   psclt
+      spy_sbel2unit :
+         target :    sbel2unit
+         cluster :   psclt
+      spy_wmunit :
+         target :    wmunit
+         cluster :   scfe
+      spy_pfeunit :
+         target :    pfeunit
+         cluster :   cofe
+      spy_mscunit_cache :
+         target :    mscunit
+         cluster :   cofe
+      rcdebugfub_rcpbeunit_spy :
+         target :    rcpbeunit
+         cluster :   scbe
+      rcdebugfub_rccunit_spy :
+         target :    rccunit
+         cluster :   scbe
+      rccunit_spy :
+         target :    rccunit
+         cluster :   scbe
+      dapbunit_spy :
+         target :    dapbunit
+         cluster :   scbe
+      spy_pssunit1 :
+         target :    pssunit
+         cluster :   psclt
+      spy_oacsunit_model_00 :
+         target :    oacsunit
+         cluster :   oa
+      spy_oaaddrunit_model_00 :
+         target :    oaaddrunit
+         cluster :   oa
+      spy_oaaddrunit_model_01 :
+         target :    oaaddrunit
+         cluster :   oa
+      spy_oaaddrunit_model_02 :
+         target :    oaaddrunit
+         cluster :   oa
+      spy_oaaddrunit_model_10 :
+         target :    oaaddrunit
+         cluster :   oa
+      spy_oaaddrunit_model_20 :
+         target :    oaaddrunit
+         cluster :   oa
+      spy_oaaddrunit_model_30 :
+         target :    oaaddrunit
+         cluster :   oa
+      ### GTUNSLICE.HIER
+      tdsunit_spy :
+         target :    tdsunit
+         cluster :   ff
+      spy_hs :
+         target :    hsunit
+         cluster :   ff
+      spy_vfunit :
+         target :    vfunit
+         cluster :   ff
+      spy_vfbe3unit :
+         target :    vfbe3unit
+         cluster :   ff
+      vsfeunit_spy :
+         target :    vsfeunit
+         cluster :   ff
+      vsbeunit_spy :
+         target :    vsbeunit
+         cluster :   ff
+      spy_svgunit :
+         target :    svgunit
+         cluster :   ff
+      spy_csunit :
+         target :    csunit
+         cluster :   CS
+      spy_PocsCpdata :
+         target :    csunit
+         cluster :   CS
+      spy_CcsCpdata :
+         target :    csunit
+         cluster :   CS
+      spy_tsgunit :
+         target :    tsgunit
+         cluster :   ff
+      spy_vfeunit :
+         target :    vfeunit
+         cluster :   ff
+      solunit_spy :
+         target :    solunit
+         cluster :   ff
+      tdgunit_spy :
+         target :    tdgunit
+         cluster :   ff
+      spy_gs :
+         target :    gsunit
+         cluster :   ff
+      spy_teunit :
+         target :    teunit
+         cluster :   ff
+      spy_tetgunit :
+         target :    teunit
+         cluster :   ff
+      spy_vfbe1unit :
+         target :    vfbe1unit
+         cluster :   ff
+      spy_vfbe2unit :
+         target :    vfbe2unit
+         cluster :   ff
+      spy_bfceunit :
+         target :    bfceunit
+         cluster :   blt
+      spy_mgsrunit :
+         target :    mgsrunit
+         cluster :   gti
+      spy_mgsrunit :
+         target :    mgsrunit
+         cluster :   gt
+      spy_gucunit :
+         target :    gucunit
+         cluster :   guc
+      spy_oam_model :
+         target :    oamscmiunit
+         cluster :   oam
+      spy_oamsag_model :
+         target :    oamsagunit
+         cluster :   oam
+      spy_svgrunit :
+         target :    svgrunit
+         cluster :   ff
+      Dec_io_common_jem_trk_spy :
+         target :   dec400unit
+         cluster :  med
+      Dec_Input_trk_jem_monitor_spy :
+         target :   dec400unit
+         cluster :  med
+      Dec_Input_p2_trk_jem_monitor_spy :
+         target :   dec400unit
+         cluster :  med
+      Dec_Input_p3_trk_jem_monitor_spy :
+         target :   dec400unit
+         cluster :  med
+      Dec_Input_ve_trk_jem_monitor_spy :
+         target :   dec400unit
+         cluster :  med
+      DecGamInt_trk_jem_monitor_spy :
+         target :   dec400unit
+         cluster :  med
+      DecGamInt_p2_trk_jem_monitor_spy :
+         target :   dec400unit
+         cluster :  med
+      DecGamInt_p3_trk_jem_monitor_spy :
+         target :   dec400unit
+         cluster :  med
+      DecGamInt_ve_trk_jem_monitor_spy :
+         target :   dec400unit
+         cluster :  med
+      ### GTVDBOX.HIER
+      kcrunit_spy :
+         target :    kcrunit
+         cluster :   med
+      spy_hprunit :
+         target :    hprunit
+         cluster :   med
+      spy_dpi_hrsunit :
+         target :    hrsunit
+         cluster :   med
+      spy_hsseunit :
+         target :    hsseunit
+         cluster :   med
+      spy_hmcunit :
+         target :    hmcunit
+         cluster :   med
+      spy_hucmxunit :
+         target :    hucmxunit
+         cluster :   med
+      spy_hvd_check :
+         target :    hvdunit
+         cluster :   med
+      spy_hfqunit :
+         target :    hfqunit
+         cluster :   med
+      spy_hftunit :
+         target :    hftunit
+         cluster :   med
+      spy_vneunit :
+         target :    vneunit
+         cluster :   med
+      spy_hwmunit :
+         target :    hwmunit
+         cluster :   med
+      VrtMsgBus_spy :
+         target :    vrtunit
+         cluster :   med
+      spy_PipeVE_perf_trk :
+         target :    vcusunit
+         cluster :   med
+      spy_hmxfunit :
+         target :    hmxfunit
+         cluster :   med
+      spy_vmmunit :
+         target :    vmmunit
+         cluster :   med
+      spy_hleunit :
+         target :    hleunit
+         cluster :   med
+      spy_hedunit :
+         target :    hedunit
+         cluster :   med
+      spy_hfcunit :
+         target :    hfcunit
+         cluster :   med
+      spy_hcresunit :
+         target :    hcresunit
+         cluster :   med
+      hcresunit_dbg :
+         target :    hcresunit
+         cluster :   med
+      spy_hcrefunit :
+         target :    hcrefunit
+         cluster :   med
+      hcrefunit_dbg :
+         target :    hcrefunit
+         cluster :   med
+      rdobunit_spy :
+         target :    rdobunit
+         cluster :   med
+      rdofunit_spy :
+         target :    rdofunit
+         cluster :   med
+      spy_himeunit :
+         target :    himeunit
+         cluster :   med
+      spy_hmdcunit :
+         target :    hmdcunit
+         cluster :   med
+      spy_vhmeunit :
+         target :    vhmeunit
+         cluster :   med
+      spy_vimeunit :
+         target :    vimeunit
+         cluster :   med
+      spy_vcreunit :
+         target :    vcreunit
+         cluster :   med
+      spy_vcrunit :
+         target :    vcrunit
+         cluster :   med
+      vcs_fe_spy :
+         target :    vcsunit
+         cluster :   med
+      vcs_be_spy :
+         target :    vcsunit
+         cluster :   med
+      gsccs_fe_spy :
+         target :    gsccsunit
+         cluster :   med
+      gsccs_be_spy :
+         target :    gsccsunit
+         cluster :   med
+      vecs_fe_spy :
+         target :    vecsunit
+         cluster :   med
+      vecs_be_spy :
+         target :    vecsunit
+         cluster :   med
+      spy_vinunit_trkspy :
+         target :    vinunit
+         cluster :   med
+      spy_alfunit :
+         target : alfunit
+         cluster : med
+      spy_alnunit :
+         target : alnunit
+         cluster : med
+      gsc_mia_jem_spy :
+         target : gsciunit
+         cluster : smgsc
+      spy_appunit :
+         target : appunit
+         cluster : med
+      spy_afgunit :
+         target : afgunit
+         cluster : med
+      spy_aitunit :
+         target : aitunit
+         cluster : med
+      spy_amxfunit :
+         target : amxfunit
+         cluster : med
+      spy_awmunit :
+         target : awmunit
+         cluster : med
+      spy_aprunit :
+         target : aprunit
+         cluster : med
+      spy_acdfunit :
+         target : acdfunit
+         cluster : med
+      spy_alcunit :
+         target : alcunit
+         cluster : med
+      spy_aleunit :
+         target : aleunit
+         cluster : med
+      spy_wimeunit :
+         target :    wimeunit
+         cluster :   med
+      ecpunit_spy :
+         target :    ecpunit
+         cluster :   med
+      mdcunit_spy :
+         target :    mdcunit
+         cluster :   med
+      spy_hvdl1unit :
+         target :    hvdl1unit
+         cluster :   med
+      spy_vdl1unit_trkspy :
+         target :    vdl1unit
+         cluster :   med
+      spy_vdl1unit :
+         target :    vdl1unit
+         cluster :   med
+      spy_vdxunit :
+         target :    vdxunit
+         cluster :   med
+      spy_vadunit :
+         target :    vadunit
+         cluster :   med
+      spy_lbcunit :
+         target :    lbcunit
+         cluster :   med
+      lbcunit_dbg :
+         target :    lbcunit
+         cluster :   med
+      spy_vmbunit :
+         target :    vmbunit
+         cluster :   med
+      spy_vbspunit :
+         target :    vbspunit
+         cluster :   med
+      spy_vslunit :
+         target :    vslunit
+         cluster :   med
+      spy_vvp_check :
+         target :    vvpunit
+         cluster :   med
+      spy_bspunit :
+         target :    bspunit
+         cluster :   med
+      spy_vin_sl_vid4 :
+         target :    vin_sl_vid4
+         cluster :   med
+      spy_vin_sl_vid4_pipevdve :
+         target :    vin_sl_vid4
+         cluster :   med
+      spy_vin_sl_vid4_svc :
+         target :    vin_sl_vid4
+         cluster :   med
+      spy_vin_sl_vid1_pipevdve :
+         target :    vin_sl_vid1
+         cluster :   med
+      spy_vin_sl_vid2_pipevdve :
+         target :    vin_sl_vid2
+         cluster :   med
+      spy_vin_sl_vid2 :
+         target :    vin_sl_vid2
+         cluster :   med
+      spy_aiqunit :
+         target : aiqunit
+         cluster : med
+      spy_aedunit :
+         target : aedunit
+         cluster : med
+      spy_aitunit :
+         target : aitunit
+         cluster : med
+      spy_amxfunit :
+         target : amxfunit
+         cluster : med
+      spy_awmunit :
+         target : awmunit
+         cluster : med
+      spy_aprunit :
+         target : aprunit
+         cluster : med
+      cfeg_fulsim_checker_spy :
+         target :   cfegunit
+         cluster :  gpss
+         controls :
+          - enable_force :    cfeg_cfe_monitor_enable
+      rcs_spy_signals :
+         target :    csunit
+         cluster :   ff
+      pocs_spy_signals :
+         target :    pocsunit
+         cluster :   ff
+      ccs0_spy_signals :
+         target :    ccsunit
+         cluster :   ff
+      ccs1_spy_signals :
+         target :    ccsunit
+         cluster :   ff
+      ccs2_spy_signals :
+         target :    ccsunit
+         cluster :   ff
+      ccs3_spy_signals :
+         target :    ccsunit
+         cluster :   ff
+      sgcunit_jem_monitor_bind:
+         target :             sg_wrapper
+         cluster :            gt
+         controls :
+          - enable_force :    sgc_interface_monitor_enable 
+      sggiunit_jem_monitor_bind:
+         target :             sg_wrapper
+         cluster :            gt
+         controls :
+          - enable_force :    sggi_interface_monitor_enable
+      sgrunit_jem_monitor_bind:
+         target :             sg_wrapper
+         cluster :            gt
+         controls :
+          - enable_force :    sgr_interface_monitor_enable
+      sgsi_jem_monitor_bind:
+         target :             sg_wrapper
+         cluster :            gt
+         controls :
+          - enable_force :    sgsi_fuse_jem_monitor_enable
+          - enable_force :    sgsi_interface_monitor_enable
+      sgsi_sb_monitor_bind:
+         target :             sg_wrapper
+         cluster :            gt
+         controls :
+          - enable_force :    trk_enable
+      sgqunit_jem_monitor_bind:
+         target :             sg_wrapper
+         cluster :            gt
+         controls :
+          - enable_force :    sgq_interface_monitor_enable
+      sgsim_jem_monitor_bind:
+         target :             sg_wrapper
+         cluster :            gt
+         controls :
+          - enable_force :    sgsim_interface_monitor_enable
+      sgprsunit_jem_monitor_bind:
+         target :             sg_wrapper
+         cluster :            gt
+         controls :
+          - enable_force :    sgprs_interface_monitor_enable
+      sg_iosfsb_jem_monitor_bind:
+         target :             sg_wrapper
+         cluster :            gt
+         controls :
+          - enable_force :    iosfsb_jem_monitor_enable
+      starbunit_checker :
+         target :   plunit
+         cluster :  gt
+         controls :
+          - enable_force : starb_fl_monitor_en
+          - enable_force : starb_fl_trk_en
+          - enable_force : starb_st_monitor_en
+          - enable_force : starb_st_trk_en
+      plunit_checker :
+         target :   plunit
+         cluster :  gt
+         controls :
+          - enable_force : pl_dg_monitor_enable
+          - enable_force : pl_dg_trk_enable
+      svsmunit_checker :
+         target :   svsmunit
+         cluster :  gt
+         controls :
+          - enable_force : svsm_data_enable
+      siunit_checker :
+         target :   siunit
+         cluster :  gt
+         controls :
+          - enable_force : si_pl_monitor_enable
+          - enable_force : si_ssla_monitor_enable
+          - enable_force : si_media_monitor_enable
+          - enable_force : si_fl_monitor_enable
+          - enable_force : si_fl_sideband_monitor_enable
+          - enable_force : si_svsm_monitor_enable
+      monitor_bind :
+         target :   GT_TRK
+         cluster :  gt
+         controls :
+          - disable_simv : +disable_MSGCH_monitors
+          - disable_simv : +disable_ga_trkrs
+      staunit_tracker :
+         target :   mtunit
+         cluster :  gtdssm
+         controls :
+          - enable_force :    gass_sta_tracker_enable
+      mert_trdy_go_monitor :
+         target :   mertgunit
+         cluster :  gt
+         controls :
+          - enable_force :    mert_trdy_go_tracker_enable
+      mert_trdy_go_jem_monitor_bind :
+         target :   mertfunit
+         cluster :  gt
+         controls :
+          - enable_force :    mert_trdy_go_tracker_enable
+      mert_xefi_jem_monitor_bind :
+         target :   mertgunit
+         cluster :  gt
+         controls :
+          - enable_force :    mert_xefi_jem_monitor_enable
+      mertfunit_msgch_trk_jem_monitor_bind :
+         target :   mertfunit
+         cluster :  gt
+      mertxgunit_msgch_trk_jem_monitor_bind :
+         target :   mertxgunit
+         cluster :  gt
+      MERTGT_monitor :
+         target :   mertfunit
+         cluster :  gt
+         controls :
+          - enable_force :    mertgt_monitor_enable
+      mertf_msgch_trk_dpi :
+         target :         mertfunit
+         cluster :        gt
+         controls :
+          - enable_force :   mertf_msgch_trk_enable
+      sbez_sbe_jem_monitor_wrapper :
+         target :         sbeunit
+         cluster :        gt
+         dependencies :
+          - spy_sbez_sbe_jem_monitor
+         controls :
+          - enable_force :   sbe_jem_enable
+      sbe_actrl_jem_monitor_wrapper :
+         target :         sbeunit
+         cluster :        gt
+         dependencies :
+          - spy_abe_actrl_jem_monitor
+         controls :
+          - enable_force :   sbe_jem_enable
+      sbe_sbel2_req_jem_monitor_wrapper :
+         target :         sbeunit
+         cluster :        gt
+         dependencies :
+          - spy_sbe_sbel2_req_jem_monitor
+         controls :
+          - enable_force :   sbe_jem_enable
+      sbel2_sbe_data_jem_monitor_wrapper :
+         target :         sbeunit
+         cluster :        gt
+         dependencies :
+          - spy_sbel2_sbe_data_jem_monitor
+         controls :
+          - enable_force :   sbe_jem_enable
+      sbe_deref_jem_monitor_wrapper :
+         target :         sbeunit
+         cluster :        gt
+         dependencies :
+          - spy_sbe_deref_jem_monitor
+         controls :
+          - enable_force :   sbe_jem_enable
+      rtclt_jem_monitor_bind :
+         target :         gtdssm_wrap
+         cluster :        rt
+         controls :
+          - enable_force :   row_eu_obus_rtf_jem_monitor_enable
+          - enable_force :   rtf_sts_spawn_jem_monitor_enable
+          - enable_force :   rtt_rtc_req_jem_monitor_enable
+          - enable_force :   rtc_rtt_resp_jem_monitor_enable
+          - enable_force :   rtc_rtm_req_jem_monitor_enable
+          - enable_force :   rtm_rtc_rtn_jem_monitor_enable
+          - enable_force :   rtm_lsc_req_jem_monitor_enable
+          - enable_force :   lsc_rtm_rtn_jem_monitor_enable
+          - enable_force :   rtt_sts_query_jem_monitor_enable
+          - enable_force :   rtt_sts_spawn_jem_monitor_enable
+          - enable_force :   sts_rtt_query_resp_jem_monitor_enable
+          - enable_force :   rtf_rtt_alloc_jem_monitor_enable
+          - enable_force :   sts_rtf_gcc_rd_req_jem_monitor_enable
+          - enable_force :   rtf_sts_gcc_rd_data_jem_monitor_enable
+          - enable_force :   sts_rtf_deref_jem_monitor_enable
+          - enable_force :   rtt_rtm_rd_req_jem_monitor_enable
+          - enable_force :   rtm_rtt_resp_jem_monitor_enable
+          - enable_force :   rtt_rtm_wr_req_jem_monitor_enable
+          - enable_force :   sts_tsl_dispatch_jem_monitor_enable
+          - enable_force :   sts_tsl_deref_jem_monitor_enable
+          - enable_force :   sts_rtm_fetch_jem_monitor_enable
+          - enable_force :   rtm_sts_rd_ret_jem_monitor_enable
+          - enable_force :   rtf_rtm_wr_jem_monitor_enable
+          - enable_force :   rtf_rtm_rd_jem_monitor_enable
+          - enable_force :   rtm_rtf_rtn_jem_monitor_enable
+      rtc_cache_checker :
+         target :         rtcunit
+         cluster :        rt
+         controls :
+          - enable_force :   rtc_cache_checker_enable
+      rtf_cache_checker :
+         target :         rtfunit
+         cluster :        rt
+         controls :
+          - enable_force :   rtf_cache_checker_enable
+      punit_tracker_jem_monitor :
+         target :         gt
+         cluster :        punit_bfm
+         controls :
+          - enable_force :  punit_tracker_jem_enable
+      dmfbfm_tracker :
+         target :         gt
+         cluster :        mediadmf_bfm
+         controls :
+          - enable_force :   dmfbfm_trk_scmi0_enable
+          - enable_force :   dmfbfm_trk_scmi1_enable
+          - enable_force :   dmfbfm_trk_sag0_enable
+      gambfm_tracker :
+         target :         vdebox
+         cluster :        med      
+         controls :
+          - enable_force :   gambfm_tracker_enable
+      VcwmGlobal_trk :
+         target :         vcwmunit
+         cluster :        med
+         controls :
+          - enable_force :   vcwm_global_chk_enable
+      VcwmMMIOReadWriteReq_trk :
+         target :         vcwmunit
+         cluster :        med
+         controls :
+          - enable_force :   VcwmMMIOReadWriteReq_trk_enable
+          - enable_force :   VcwmMMIOReadWriteReq_chk_enable
+      VcwmVcmx_wr_trk :
+         target :         vcwmunit
+         cluster :        med
+         controls :
+          - enable_force :   vcwm_vcmw_wr_chk_enable
+      vcwmunit_vvc_perf_trk :
+         target :         vcwmunit
+         cluster :        med
+         dependencies :
+          - spy_vcwmunit
+         controls :
+          - enable_force :   vcwmunit_vvc_perf_trk_enable
+      vcmxunit_checker :
+         target :         vcmxunit
+         cluster :        med
+         controls :
+          - enable_force :   vcmxunit_checker_enable
+      vcedunit_checker :
+         target :         vcedunit
+         cluster :        med
+         controls :
+          - enable_force :   vcedunit_tracker_enable
+          - enable_force :   vcedunit_checker_enable
+      vcppunit_checker :
+         target :         vcppunit
+         cluster :        med
+         controls :
+          - enable_force :   vcppunit_checker_enable
+          - enable_force :   vcppunit_tracker_enable
+      vciqunit_checker :
+         target :         vciqunit
+         cluster :        med
+         controls :
+          - enable_force :   vciqunit_checker_enable
+          - enable_force :   vciqunit_tracker_enable
+      vcitunit_checker :
+         target :         vcitunit
+         cluster :        med
+         controls :
+          - enable_force :   vcitunit_checker_enable
+          - enable_force :   vcitunit_tracker_enable
+      vcmcunit_checker :
+         target :         vcmcunit
+         cluster :        med
+         controls :
+          - enable_force :   vcmcunit_checker_enable
+      vcprunit_checker :
+         target :         vcprunit
+         cluster :        med
+         dependencies :
+          - spy_vcprunit
+         controls :
+          - enable_force :     vcprunit_checker_enable
+      vcpr_perf_ctu_trk :
+         target :         vcprunit
+         cluster :        med
+         dependencies :
+          - spy_vcprunit
+         controls :
+          - enable_force :     vcprunit_checker_enable
+      vclfunit_checker_tracker :
+         target :         vclfunit
+         cluster :        med
+         dependencies :
+          - spy_vclfunit
+         controls :
+          - enable_force :   vclfunit_checker_enable
+          - enable_force :   vclfunit_tracker_enable
+      vcsaounit_checker_tracker :
+         target :         vcsaounit
+         cluster :        med
+         controls :
+          - enable_force :   vcsaounit_checker_enable
+          - enable_force :   vcsaounit_tracker_enable
+      vcalfunit_checkers :
+         target :         vcalfunit
+         cluster :        med
+         dependencies :
+          - spy_vcalfunit
+         controls :
+          - enable_force :   vcalfunit_checkers_enable
+          - enable_force :   vcalfunit_trackers_enable
+      spy_vcprunit :
+         target : vcprunit
+         cluster : med
+      spy_vcwmunit :
+         target : vcwmunit
+         cluster : med
+      spy_vclfunit :
+         target : vclfunit
+         cluster : med
+      spy_vcalfunit :
+         target : vcalfunit
+         cluster : med
+      vcmvunit_checker :
+         target :         vcmvunit
+         cluster :        med
+         controls :
+          - enable_force :   vcmvvcmc_chk_enable
+          - enable_force :   vcmvvcpr_chk_enable
+          - enable_force :   vcmvvclf_chk_enable

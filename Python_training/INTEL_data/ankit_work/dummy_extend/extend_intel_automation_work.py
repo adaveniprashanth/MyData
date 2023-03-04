@@ -9,7 +9,7 @@ try:
 except ModuleNotFoundError:
     sys.exit("install all modules")
 
-if 0:
+if 1:
     def get_parent_child_pair():
         print("pandas activity")
         parent_child = []
@@ -21,10 +21,23 @@ if 0:
             if parent == 'None':
                 continue
             parent_child.append([parent,child])
-        return parent_child
+        
+        '''
+        file_input=open('excel_data.txt','r')
+        all_lines=file_input.readlines()
+        file_input.close()
+        for line in all_lines:
+            data=line.strip().split("\t")
+            if data[0] == 'None':
+                continue
+            parent_child.append(data)
+        '''
 
+        return parent_child
+    
     parent_child_combo = get_parent_child_pair()
-    print(parent_child_combo)
+    
+    #print(parent_child_combo)
 
     def get_instances_hierarchy():
         instances = []
@@ -101,8 +114,7 @@ if 0:
             f.write(string + ",\n")
     f.write("\n}")
     f.close()
-    
-    if 0:#missed modules
+    if 1:#missed modules
         f1 = open("missed_modules.txt",'w')
         f1.write("\nmissed modules in hierarchy are\n")
         for c,i in enumerate(missed_in_hierarchy):
@@ -114,7 +126,7 @@ if 0:
 
 
 # gtmctoremove1  code to fetch dfx_insert1 and dfx_tieoff1 modules
-if 0:
+if 1:
     def get_instances_hierarchy():
         instances = []
         with open('PTL_hierarchy1.txt', 'r') as f:
@@ -184,7 +196,7 @@ if 0:
 
     print(hier_structure)
     length = len(hier_structure)
-    f = open('extend_gtmctoremove1.txt','w')
+    f = open('extend_gtmctoremove.txt','w')
     f.write("hier_spec = {\n")
     for c, i in enumerate(hier_structure.items()):
         string = "'/" + i[0] + "'" + ":" + ",\n".join(str(i[1]).split(", "))
@@ -198,7 +210,7 @@ if 0:
 
 
 #updated structure with yaml file values.
-if 0:
+if 1:
     f1=open('temp_file.txt','w')
     # Open the file and load the file
     with open('trkset_components.yaml') as f:
@@ -210,7 +222,6 @@ if 0:
         for k,v in yaml_dict.items():
             f1.write(k+":"+str(v)+"\n")
             print(k,":",v)
-
 
     target_and_dependecies=[]
     wrapper_target_depends_dict={}

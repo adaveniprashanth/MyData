@@ -11,6 +11,7 @@ try:
     from shutil import copyfile
     import zipfile
     import pandas as pd
+    import logging
 except ModuleNotFoundError:
     print("you have to install the below packages to run")
     sys.exit("install all modules")
@@ -3553,7 +3554,7 @@ if 1:
     print(values)
 if 0:
     # use of logging module
-    import logging
+    
 
     # logging.basicConfig(filename='sample.log', format='%(asctime)s | %(levelname)s: %(message)s', level=logging.NOTSET)
     logging.basicConfig(filename='sample.log',filemode='w', level=logging.NOTSET)
@@ -3562,6 +3563,61 @@ if 0:
     logging.warning('Something unexpected but not important happend.')
     logging.error('Something unexpected and important happened.')
     logging.critical('OMG!!! A critical error happend and the code cannot run!')
+
+if 0:
+    #logging module example
+    pass
+    #logging.basicConfig(filename='app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s',level=logging.DEBUG)
+'''
+logger = logging.getLogger("test")
+logger.setLevel(level=logging.DEBUG)
+logFileFormatter = logging.Formatter(fmt='%(name)s - %(levelname)s - %(message)s')
+fileHandler = logging.FileHandler(filename='test.log')
+fileHandler.setFormatter(logFileFormatter)
+fileHandler.setLevel(level=logging.DEBUG)
+logger.addHandler(fileHandler)
+'''
+
+'''
+root = logging.getLogger()
+root.setLevel(logging.DEBUG)
+
+handler = logging.StreamHandler(sys.stdout)
+handler.setLevel(logging.DEBUG)
+handler = logging.FileHandler(filename='test.log')
+#formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter('%(message)s')
+handler.setFormatter(formatter)
+root.addHandler(handler)
+'''
+
+'''
+# create logger with 'spam_application'
+logger = logging.getLogger('spam_application')
+logger.setLevel(logging.DEBUG)
+# create file handler which logs even debug messages
+fh = logging.FileHandler('spam.log')
+fh.setLevel(logging.DEBUG)
+# create console handler with a higher log level
+ch = logging.StreamHandler()
+ch.setLevel(logging.ERROR)
+# create formatter and add it to the handlers
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+ch.setFormatter(formatter)
+# add the handlers to the logger
+logger.addHandler(fh)
+logger.addHandler(ch)
+
+'''
+
+'''
+if re.search('vmx_sl_vid[\d]+','/smvdbox0/smmfxvdenc1/vmx_sl_vid11'):
+    print("present")
+else:
+    print("not present")
+'''
+
 
 
 
@@ -3608,3 +3664,27 @@ if 0:
                "Nstionality": "Italian", "Age": []}
     Details["Age"] += [20, "Twenty"]
     print(Details)
+
+if 0:
+    # count the duplicated values in list
+    l = [1,2,3,1,3,4,2,4,2,4,2,3,5,4,3,6,5,4,7,1,3,4,3,2,6]
+    d = {}
+    for i in l:
+        d[i]=d.get(i,0)+1
+    print(d)
+
+
+
+def copy_files():
+    destination = '/nfs/site/disks/xe3_clips_storage/Decoder/MFX/MPEG'
+    f = open(output_file,'r')
+    l = f.readlines()
+    print(os.getcwd())
+    for i in l[0:2]:
+        clipname = i.strip().split("\\")[-1]
+        print(clipname)
+        dest_path = destination+"/"+clipname
+        source = i.strip()
+        print(source)
+        print(dest_path)
+        # shutil.copyfile(source,dest_path)
