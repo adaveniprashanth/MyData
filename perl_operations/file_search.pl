@@ -338,7 +338,7 @@ open(FH, '<', $filename) or die "Sorry!! couldn't open";
 
 #++++need to wrok on
 #finding the string from the sentence from the file and writing into new file with the new chnages
-my $output = 'output_file_for_command_generation1.txt';
+=my $output = 'output_file_for_command_generation1.txt';
 open(my $fh1, '>', $output) or die "Could not open file '$output' $!";
 
 my $input = "input_file_for_command_generation1.txt";
@@ -422,7 +422,7 @@ while (<$fh>) {
 close $fh or die "Unable to close $input: $!";
 close $fh1;
 print "done\n";
-
+=cut
 
 
 
@@ -945,6 +945,7 @@ foreach my $vars (@allfiles)
 	unlink glob "$vars/*.rb";
 }
 =cut
+
 #copying the required data from eon file to other file
 =my $filename1 = "abc.txt";
 my $filename2 = 'xyz.txt';
@@ -983,7 +984,7 @@ print "$data{'Kumar'}\n";
 my $count = ($str =~ tr/#//);
 print $count, "\n";
 =cut
-
+#copying the lines which having # in the lines.
 =my $filename1 = "X:\\site\\disks\\mtl_pipesm_aravind_av_regress\\aravind\\vfcat_with_fix\\mtl_cf_fix\\sm\\MTL_2VD1VE_SD.o3c.vpi.nodfx.gtsynth.default64\\INTERACTIVE\\GuCVFCatFaults_CFG0\\GuCVFCatFaults.gsf";
 my $dir_name = dirname($filename1);
 print "dir_name $dir_name";
@@ -1017,7 +1018,15 @@ close(FH);
 close $fh;
 =cut
 
-=if ($_ =~ /00e038a618/ and $_ =~ /10009000/){
-	
+=if ($_ =~ /00e038a618/ and $_ =~ /10009000/){	
 $_ =~ s/-qq //;
+=cut
+
+
+#code to find broken links in linux
+=system( "ls -l");
+system("find . -xtype l");
+1;
+#code to find broken links and delete them.
+#system("find . -xtype l -delete);
 =cut

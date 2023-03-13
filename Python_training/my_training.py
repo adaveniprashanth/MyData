@@ -784,7 +784,7 @@ if 0:
     new_list1 = list(map(lambda a,b:a*b,my_list,my_list1))
     print(new_list1)
     
-    # reduce syntax reduce(function,iterables)
+    # reduce syntax reduce(function,iterables,initial)
     # the function in reduce needs 2 parameters
     from functools import reduce
     my_data = range(1,7)
@@ -894,7 +894,16 @@ if 0:
         print("code executed with out any errors")
     finally:
         print("The execution code has completed")
-if 0:
+
+if 0:#printing prime numbers
+    for i in range(2,25):
+        for j in range(2,i):
+            if i%j==0:
+                break
+        else:
+            print(i)
+
+if 0:#printing prime numbers
     print_primes = [x for x in range(2,25) if all(x%y !=0 for y in range(2,x))]
     print(print_primes)
 
@@ -934,6 +943,47 @@ if 0:
     # a = (x for x in range(0,100)) #generator expression
     # for i in a:
     #     print(i)
+
+
+
+if 0:#class variables addition
+    #not a good practice
+    class test:
+        pass
+
+    t1=test   #assiging the class to the variable
+    print(t1)
+    print(type(t1))
+    t1.name ='test1'
+    t1.surname = 'newtest1'
+    t1.numer = 1
+    t2=test    #assiging the class to the variable
+    t2.name ='test2'
+    t2.surname = 'newtest2'
+    t2.number = 2
+    print(t1.name)
+    print(t2.name)
+    print(test.name)
+
+if 0:
+    class practice:
+        pass
+
+    t1=practice()#creating the instance of class
+    print(t1)
+    print(type(t1))
+    t1.name ='test1'
+    t1.surname = 'newtest1'
+    t1.numer = 1
+    t2=practice()
+    t2.name ='test2'
+    t2.surname = 'newtest2'
+    t2.number = 2
+    print(t1.name)
+    print(t2.name)
+    print(practice.name)
+
+
 
 
 if 0:
@@ -1096,7 +1146,7 @@ if 0:
 
 # parent
 # OOPS concepts
-# classews and objects
+# classes and objects
 # types of variables in class
 # 1.class variable: it can be shared by all instances/objects
 # 2.instance variable: it will specific to particualr object
@@ -1106,6 +1156,9 @@ if 0:
     class Cars:
         
         # constructor which helps to assign value at object creation 
+        #NO need give the word only 'self'. we can provide any name,
+        #but we have to use that name only entire class definition
+        
         def __init__(self,price,name,year):
             self.price= price
             self.year = year
@@ -1183,6 +1236,9 @@ if 0:  #DONT TRY
 # 1.sinlge  2.multiple
 # 3.multi level inheritence
 # 4.Hierarchial and hybrid inheritence
+#For MRO reference: 
+#http://www.srikanthtechnologies.com/blog/python/mro.aspx#:~:text=Method%20Resolution%20Order%20(MRO)%20is,lets%20examine%20a%20few%20cases.
+#https://stackoverflow.com/questions/27954695/what-is-a-sibling-class-in-python
 if 0:
     # Sinlge inheritence
     
