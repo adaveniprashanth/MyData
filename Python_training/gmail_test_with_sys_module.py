@@ -29,7 +29,7 @@ TO = ['prashanthx.adaveni@intel.com'] # must be a list
  
 SUBJECT = "PTL hierarchy attachment"
 
-TEXT = "Hi,\n\nsending the PTL hier attachment \n\nThanks!"
+TEXT = "Hi,\n\n i am sending "+sys.argv[1]+" \n\nThanks!"
 
 #This will work for attachment
 #Setup the MIME

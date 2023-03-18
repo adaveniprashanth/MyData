@@ -205,17 +205,91 @@ if 0:
 '''
 try/except logic handles only run time errors.
 '''
+#Multiple ways of try/except logics
+
 if 0:
     try:
         a = int(input("enter the number"))
         b = 9/a
         print("completed execution")
-    except:
-        print("error in code based on input")
+    except FileExistsError:
+        print("error with FileExistsError")
+    except ValueError:
+        print("the value is not correct")
+    except Exception as e:
+        print("error in code")
+        print(e)
     else:
         print("no error with try block")
+
 if 0:
-    print(type(None))
-    print('sdaSAF'.ljust(20,'^'))
-    print('sdaSAF'.rjust(20,'^'))
-    print('sdaSAF'.center(20,'^'))
+    try:
+        a = int(input("enter the number"))
+        b = 9/a
+        print("completed execution")
+    except (FileExistsError,ValueError,Exception,ZeroDivisionError):
+        print("there is an error in code")
+    else:
+        print("no error with try block")
+
+# raise the exception
+#just for fun
+if 0:
+    while True:
+        try:
+            a = input(" are you donkey? yes or no?")
+            if a.lower() != 'yes':
+                raise ValueError("you have not selected correct answer")
+        except ValueError as e:
+            print("you are wrong",e)
+        else:
+            print("you are right")
+            break
+
+if 0:
+    try:
+        a = int(input(" enter the value"))
+        if a < 10:
+            raise ValueError("the value what you gave is less than the required value")
+    except ValueError as e:
+        print(e)
+    else:
+        print("you are right")
+
+#raising the ZeroDivisionError
+if 0:
+    try:
+        v = int(input("eneter the value"))
+        if v == 2:
+            raise ZeroDivisionError("here i am considering 2 as 0")
+        print(56/v)
+    except ZeroDivisionError as e:
+        print(e)
+if 0:
+    # default exception
+    try:
+        f = open('adsasfd.txt')
+    except ValueError:
+        print("value error tried")
+    except:#it has to be placed at last except
+        print("default except block")
+
+# The simplest way to concatenate two dictionaries in python is by using the unpacking operator(**)
+if 0:
+    dict_1 = {'John': 15, 'Rick': 10, 'Misa': 12}
+    print(dict(**dict_1))
+if 0:#merging 2 dictionaries
+    dict_1 = {'Media/SFC': [495, 0, 0, 0, 0, 495], 'Media/VE': [274, 50, 0, 0, 0, 224]}
+    dict_2 = {'Media/SFC': [495, 0, 0, 0, 0, 495], 'Media/VE': [274, 73, 0, 0, 0, 201]}
+
+    def mergeDictionary(dict_1, dict_2):
+       dict_3 = {**dict_1, **dict_2}
+       print("dict_3",dict_3)
+       for key, value in dict_3.items():
+           if key in dict_1 and key in dict_2:
+                   dict_3[key] =  dict_1[key]+value
+       return dict_3
+
+    dict_3 = mergeDictionary(dict_1, dict_2)
+    print(dict_3)
+

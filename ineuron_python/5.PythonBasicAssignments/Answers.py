@@ -67,4 +67,8 @@ if 1:#Assignment_6
     if 0:#question 8
         print('Remember, remember, the fifth of July.'.split())
         print('-'.join('There can only one.'.split()))
-    
+    if 0:#question 9
+        s = "abcdefgh"
+        print(s.rjust(20,'*'))
+        print(s.ljust(20,'*'))
+        print(s.center(20,'*'))

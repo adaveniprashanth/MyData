@@ -28,7 +28,7 @@ def removing_old_file():
 
 	print(os.listdir())
 
-removing_old_file()
+
 
 def download_new_file():
 	options = webdriver.ChromeOptions()
@@ -38,8 +38,8 @@ def download_new_file():
 	#set chromodriver.exe path
 	# For chrome driver reference --> https://chromedriver.chromium.org/downloads
 	s = Service("C:\chromedriver\chromedriver.exe")
-	driver = webdriver.Chrome(service=s, options=options)
-	# driver = webdriver.Chrome(executable_path=r"C:\chromedriver\chromedriver.exe",options=options)
+	#driver = webdriver.Chrome(service=s, options=options)
+	driver = webdriver.Chrome(executable_path=r"C:\chromedriver\chromedriver.exe",options=options)
 
 	#launch URL to get data from axeweb page and kept idle for 5 seconds
 	driver.get("https://axeweb.intel.com/axe/tests/testlists/306/latestresults/combined/executions")
@@ -71,9 +71,10 @@ def download_new_file():
 
 	driver.quit()
 
-download_new_file()
+#removing_old_file()
+#download_new_file()
 
-df = pd.read_csv(os.path.join(os.getcwd(),'Axe Datatable.csv'))
+df = pd.read_csv(os.path.join(os.getcwd(),'Axe_Datatable.csv'))
 # print(df.columns)# printing column names
 df.to_excel('abc.xlsx')
 
@@ -111,7 +112,9 @@ for name,group in test_area_groups: #getting all grooups
 	# print(name,total,passed,failed,remain)
 	total_groups[name] = [total,passed,failed,remain]
 
-print(total_groups)
+#print(total_groups)
+for key,value in total_groups.items():
+    print(key,":",value)
 
 overall_colors = []
 def find_overall_colors(total_tests1):
