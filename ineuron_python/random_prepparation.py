@@ -293,3 +293,37 @@ if 0:#merging 2 dictionaries
     dict_3 = mergeDictionary(dict_1, dict_2)
     print(dict_3)
 
+"""
+hi
+hello
+[Tuesday 12:50 PM] Adaveni, PrashanthX
+https://www.python.org/ftp/python/3.8.3/python-3.8.3-amd64.exe
+
+[Tuesday 12:51 PM] Adaveni, PrashanthX
+python-3.8.3-amd64.exe /passive InstallAllUsers=1 PrependPath=1 TargetDir="C:\Python38"
+
+python-3.8.3-amd64
+
+https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.4.7/npp.8.4.7.Installer.x64.exe
+
+https://www.programiz.com/python-programming
+
+print("hello")
+x=9
+print(x)
+z= x+y+z
+https://-string-methods/
+
+s = 'i am practicing the coding for my future'
+1.print only 'coding'
+2.print ['i', 'am', 'practicing', 'the', 'coding', 'for', 'my', 'future']
+3.print i@am@practicing@the@coding@for@my@future
+4. find the index value of future
+5. reaplace 'a' with 'w'
+6.reverse the string
+7.count how many 'a' in string
+nums="1,2.786"
+print(nums)
+
+
+"""

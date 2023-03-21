@@ -41,22 +41,22 @@ def download_new_file():
     driver = webdriver.Chrome(executable_path=r"C:\chromedriver\chromedriver.exe",options=options)
 
     #launch URL to get data from axeweb page and kept idle for 5 seconds
-    driver.get("https://axeweb.intel.com/axe/tests/testlists/295/latestresults/combined/executions?executionStageId=3360,4363,4409")
+    driver.get("https://axeweb.intel.com/axe/tests/testlists/295/latestresults/combined/executions?executionStageId=3360,4362,4363,4364,4409,4410")
     time.sleep(20)
     
     # selecting the download option
     l = driver.find_element(By.XPATH,"//button[@class='btn btn-default buttons-collection']")
     l.click()
-    time.sleep(10)
+    time.sleep(30)
     # clicking the download option
     l = driver.find_element(By.XPATH,"//ul[@class='dropdown-menu']/li[@class='dt-button']")
     l.click()
-    time.sleep(20)
+    time.sleep(30)
     driver.quit()
 
 
-#removing_old_file()
-#download_new_file()
+removing_old_file()
+download_new_file()
 
 path = os.path.join(os.getcwd(),'Axe Datatable.csv')
 print(path)
@@ -140,24 +140,7 @@ find_overall_colors(total_tests)
 # print(overall_count)
 """
 
-"""
-colors = {}
-group_names = []
-# finding the colors for the test area values
-for group_name,value in total_groups.items():
-	percent = (value[1]/value[0]) * 100
-	# print(percent)
-	group_names.append(group_name)
-	if percent < 70:
-		colors[group_name]='FF0000'#red color
-	elif percent > 70 and percent < 80:
-		colors[group_name]='FFFF00'#yellow
-	elif percent > 80 and percent < 90:
-		colors[group_name]='8AE62E'#light green
-	elif percent > 90 and percent <= 100:
-		colors[group_name]='008000'# heavy green
 
-"""
 def create_color_value(data):
     pass
     percent = (data[1]/data[0]) * 100
