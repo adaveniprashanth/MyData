@@ -2,6 +2,20 @@ require 'set'
 
 
 #For reference --> http://ruby-for-beginners.rubymonstas.org/index.html
+=begin
+#DATATYPES
+#GLOBAL VARIABLE
+=end
+if not true
+	$global = 10 #global variable starts with $
+	puts $global
+	def abc
+		$global = 40
+	end
+	abc()
+	puts $global
+end
+
 
 =begin
 #DICTIONARY/HASH
@@ -34,7 +48,7 @@ end
 =end
 $hw_total_result = [0,0,0,0,0,0]
 $rm_total_result = [0,0,0,0,0,0]
-if true
+if not true
 	def update_array_value
 		$hw_total_result = [$hw_total_result[0]+10,$hw_total_result[1]+15,$hw_total_result[2]+45,$hw_total_result[3]+33,$hw_total_result[4]+23,$hw_total_result[5]+78]
 		$rm_total_result = [$rm_total_result[0]+56,$rm_total_result[1]+45,$rm_total_result[2]+45,$rm_total_result[3]+12,$rm_total_result[4]+89,$rm_total_result[5]+56]
@@ -97,5 +111,18 @@ if not true
 	puts sorted_set
 	arr = sorted_set.to_a
 	puts arr
+end
 
+=begin
+#spreadsheet/excel handling
+=end
+if not true
+	require 'spreadsheet'    
+	book = Spreadsheet.open('myexcel.xls')
+	sheet1 = book.worksheet('Sheet1') # can use an index or worksheet name
+	sheet1.each do |row|
+		break if row[0].nil? # if first cell empty
+		puts row.join(',') # looks like it calls "to_s" on each cell's Value
+	end
+end
 end

@@ -5,52 +5,107 @@ try:
     import numpy as np
     import array as arr
     import string
-    import random
+    import random,re
     import shutil
     from datetime import date
     from shutil import copyfile
     import zipfile
     import pandas as pd
     import logging
+    import pyinputplus as pypi
 except ModuleNotFoundError:
     print("you have to install the below packages to run")
     sys.exit("install all modules")
-a = arr.array('i',[1,2,3,4,5])
-# print(len(a))
 
-#adding elemenbts to array
-a.append(4)
-a.extend([5,6])
-a.insert(3, 10)
-# removing elements from array
-# print(a)
-a.pop()  #<--removes last element
-a.pop(5) #removes element from position
-a.remove(4)#removes the value from array
-# print(a)
+if 1:#pyinputplus usage similar to input with additional features
+    if 0:#string input
+        if 0:
+            string = pypi.inputStr(prompt='enter the string',blank=True,blockRegexes='abcde')
+            print(string)
+        if 0:
+            string = pypi.inputStr(prompt='enter the string',blank=False,blockRegexes='abcde',allowRegexes="hjkl")
+            print(string)
+    if 0:#integer input
+        if 0:
+            num = pypi.inputInt(prompt='enter the number',default=10,limit=4)
+            print(num)
+        if 0:
+            num = pypi.inputInt(prompt='enter the number',limit=4)#after 3 times if we provide wrong data,raises retrylimit error (limit=4)
+            print(num)
+        if 0:
+            num = pypi.inputInt(prompt='enter the number',default=1,max=30,min=6,limit=4)#default will override min value condition, once limit is over
+            print(num)
+        if 0:
+            num = pypi.inputInt(prompt='enter the number',default=10,timeout=6)#value has to give within 6 secondds,otherwise default will be taken
+            print(num)
+    if 0:#menu input
+        if 0:
+            value = pypi.inputMenu([1,2,3,4,5,6])#we cannot give numeric vlaues in the menu
+            print(value)
+        if 0:
+            value = pypi.inputMenu(["1","2","3","4","5","6"])
+            print(value)
+        if 0:
+            value = pypi.inputMenu(["abc","def","ghi","jkl","mno","pqr","stu","vwx","yz"])
+            print(value)
+        if 0:
+            value = pypi.inputMenu(["abc","def","ghi","jkl","mno","pqr","stu","vwx","yz"],numbered=True)#we can give numbers instead of values
+            print(value)
+        if 0:
+            value = pypi.inputMenu(["abc","def","ghi","jkl","mno","pqr","stu","vwx","yz"],numbered=True)
+            print(value)
+        if 0:
+            value = pypi.inputMenu(["abc","def","ghi","jkl","mno","pqr","stu","vwx","yz"],lettered=True)
+            print(value)
+    if 1:#datetimeinput
+        if 1:#%y year value has to be given in 2 digits. and  %y will take year value in 4 digits
+            date = pypi.inputDatetime(prompt='enter the date and time',formats=('%m/%d/%y %H:%M:%S','%m.%d.%Y %H:%M:%S'))#we have to provide strftime formats only
+            print(date)
 
-#concatination
-# print(a)
-b = arr.array('i',[7,4,7,4,5,7,6,54,4])
-c = arr.array('i')
-c = a+b
-# print(c)
-# slicing
-# print(a)
-# print(a[0:3])
-# print(a[0:-2:-1])
-# Looping through array
-# print(a)
-'''for i in a:
-    print(i)
 
-for i in a[0:-2]:
-    print(i)'''
 
-'''temp = 0
-while temp <a[4]:
-    print(a[temp])
-    temp+=1'''
+
+
+
+
+
+
+if 0:
+    a = arr.array('i',[1,2,3,4,5])
+    # print(len(a))
+    #adding elemenbts to array
+    a.append(4)
+    a.extend([5,6])
+    a.insert(3, 10)
+    # removing elements from array
+    # print(a)
+    a.pop()  #<--removes last element
+    a.pop(5) #removes element from position
+    a.remove(4)#removes the value from array
+    # print(a)
+
+    #concatination
+    # print(a)
+    b = arr.array('i',[7,4,7,4,5,7,6,54,4])
+    c = arr.array('i')
+    c = a+b
+    # print(c)
+    # slicing
+    # print(a)
+    # print(a[0:3])
+    # print(a[0:-2:-1])
+    # Looping through array
+    # print(a)
+    '''for i in a:
+        print(i)
+
+    for i in a[0:-2]:
+        print(i)'''
+
+    '''temp = 0
+    while temp <a[4]:
+        print(a[temp])
+        temp+=1'''
 # Hash tables and Hash maps
 #nested dictionary
 if 0:
@@ -926,12 +981,13 @@ if 0:
         print("The execution code has completed")
 
 # default exception
-try:
-    f = open('adsasfd.txt')
-except ValueError:
-    print("value error tried")
-except:#it has to be placed at last except
-    print("default except block")
+if 0:
+    try:
+        f = open('adsasfd.txt')
+    except ValueError:
+        print("value error tried")
+    except:#it has to be placed at last except
+        print("default except block")
 
 
 #Multiple ways of try/except logics
@@ -2682,14 +2738,109 @@ r"ain\B"
     \Z	        Returns a match if the specified characters are at the end of the string	"Spain\Z"
 """
 
+
+
+
+"""
+1	[Pp]ython--> Match "Python" or "python"
+2	rub[ye]--> Match "ruby" or "rube"
+3	[aeiou]--> Match any one lowercase vowel
+4	[0-9]--> Match any digit; same as [0123456789]
+5	[a-z]--> Match any lowercase ASCII letter
+6	[A-Z]--> Match any uppercase ASCII letter
+7	[a-zA-Z0-9]--> Match any of the above
+8	[^aeiou]--> Match anything other than a lowercase vowel
+9	[^0-9]--> Match anything other than a digit
+"""
+"""
+Special Character Classes
+
+1	.  --> Match any character except newline
+2	\d  --> Match a digit: [0-9]
+3	\D  --> Match a nondigit: [^0-9]
+4	\s  --> Match a whitespace character: [ \t\r\n\f]
+5	\S  --> Match nonwhitespace: [^ \t\r\n\f]
+6	\w  --> Match a single word character: [A-Za-z0-9_]
+7	\W  --> Match a nonword character: [^A-Za-z0-9_]
+"""
+"""
+Repetition Cases
+
+1	ruby?  --> Match "rub" or "ruby": the y is optional
+2	ruby*  --> Match "rub" plus 0 or more ys
+3	ruby+  --> Match "rub" plus 1 or more ys
+4	\d{3}  --> Match exactly 3 digits
+5	\d{3,}  --> Match 3 or more digits
+6	\d{3,5}  --> Match 3, 4, or 5 digits
+"""
+
+"""
+Nongreedy repetition :- This matches the smallest number of repetitions −
+
+1	<.*>  --> Greedy repetition: matches "<python>perl>"
+2	<.*?>  --> Nongreedy: matches "<python>" in "<python>perl>"
+"""
+"""
+Grouping with Parentheses
+
+1	\D\d+  --> No group: + repeats \d
+2	(\D\d)+   --> Grouped: + repeats \D\d pair
+3	([Pp]ython(, )?)+   --> Match "Python", "Python, python, python", etc.
+"""
+
+"""
+Backreferences :- This matches a previously matched group again −
+
+1	([Pp])ython&\1ails  --> Match python&pails or Python&Pails
+2	(['"])[^\1]*\1  --> Single or double-quoted string. \1 matches whatever the 1st group matched. \2 matches whatever the 2nd group matched, etc.
+"""
+"""
+Alternatives
+
+1	python|perl  --> Match "python" or "perl"
+2	rub(y|le))  --> Match "ruby" or "ruble"
+3	Python(!+|\?)  --> "Python" followed by one or more ! or one ?
+"""
+
+"""
+Anchors :- This needs to specify match position.
+1	^Python  --> Match "Python" at the start of a string or internal line
+2	Python$  --> Match "Python" at the end of a string or line
+3	\APython  --> Match "Python" at the start of a string
+4	Python\Z  --> Match "Python" at the end of a string
+5	\bPython\b  --> Match "Python" at a word boundary
+6	\brub\B  --> \B is nonword boundary: match "rub" in "rube" and "ruby" but not alone
+7	Python(?=!)  --> Match "Python", if followed by an exclamation point.
+8	Python(?!!)  --> Match "Python", if not followed by an exclamation point.
+"""
+
+
 # Regular expression methods 
 import re
-if 0:
+if 0:#search method will searches the entire string and return if any match found
+    a = re.search('\d','asabnm2323')
+    print(a)
+
+if 0:#match method will search from the starting,if match found retirn the value,otherwise returns None
+    a = re.match('as','asabasnm2323')
+    print(a)
+    print(a.group())
+    b = re.match('\d','asd13adas')
+    print(b)
+    b = re.match('asd\d','asd13adas')
+    print(b)
+    print(b.group())
+
+
+if 0:#raw string will remove the property of "\". it will be consider as a literal only.
     import re
     xx = "guru99,education is fun"
     r1 = re.findall(r"^\w+", xx)
     print((re.split(r'\s','we are splitting the words')))
     print((re.split(r's','split the words')))
+    print((re.split(r'\\s','we are \\splitting the words')))
+    print((re.split( '\\s','we are \\splitting the words')))
+    print((re.split( '\\s','we are \ splitting the words')))
 
 if 0:
     list = ["guru99 get", "guru99 give", "guru Selenium"]
@@ -2753,6 +2904,40 @@ if 0:
     m = re.split(r'[/*@&]',str1)
     print("".join(m))
 
+if 0:#putting comment in search pattern and making it exceptional using re.X or re.VERBOSE
+    target_str = "Jessa is a Python developer, and her salary is 8000"
+
+    # re.X to add indentation  and comment in regex
+    result = re.search(r"""(^\w{2,}) # match 5-letter word at the start
+                            .+(\d{4}$) # match 4-digit number at the end """, target_str, re.X)
+    # Fiver-letter word
+    print(result.group(1))
+    # Output 'Jessa'
+
+    # 4-digit number
+    print(result.group(2))
+    # Output 8000
+
+if 0:#making the . to accept newline character also as a literal by using re.S or re.DOTALL
+    # string with newline character
+    target_str = "ML\nand AI"
+
+    # Match any character
+    result = re.search(r".+", target_str)
+    print("Without using re.S flag:", result.group())
+    # Output 'ML'
+
+    # With re.S flag
+    result = re.search(r".+", target_str, re.S)
+    print("With re.S flag:", result.group())
+    # Output 'ML\nand AI'
+
+    # With re.DOTALL flag
+    result = re.search(r".+", target_str, re.DOTALL)
+    print("With re.DOTALL flag:", result.group())
+    # Output 'ML\nand AI'
+
+
 if 0:  # preparing
     while True:
         v = input("enter the data")
@@ -2795,8 +2980,8 @@ if 0:  # preparing
         print(m)
 if 0:
     v = 'From:prashanth : raj : abc'
-    # Grredy match means search for the longer range
-    # Non-Grredy match means search for the short range
+    # Greedy match means search for the longer range
+    # Non-Greedy match means search for the short range
     print("main string", v)
     m = re.findall('^F.*:', v)  # <--greedy
     print("greedy search", m)
@@ -3664,26 +3849,7 @@ if 0:
         print(check, len(s.split('_')))
 
 
-if 1:
-    def convert(a):
-        a1 = []
-        for i in a:a1.append(int(i))
-        return a1
-    m = 5;n = 5
-    a = '1 1 1 1 1'.split(" ");b = '1 1 1 1 1'.split(" ")
-    c = '1 0 1 1 0'.split(" ");d = '0 0 1 1 0'.split(" ");e = '0 0 0 0 0'.split(" ")
 
-    import numpy as np
-    t = np.array([convert(a),convert(b),convert(c),convert(d),convert(e)])
-    d={}
-    for i in range(m):
-        for j in range(n):
-            if t[j][i] == 0:d[i]=j-1;break
-    values = []
-    for c,i in enumerate(list(d.values())):
-        if i == max(list(d.values())):
-            values.append(c+1)
-    print(values)
 if 0:
     # use of logging module
     
