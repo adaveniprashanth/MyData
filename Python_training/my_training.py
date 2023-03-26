@@ -20,10 +20,10 @@ except ModuleNotFoundError:
 if 1:#pyinputplus usage similar to input with additional features
     if 0:#string input
         if 0:
-            string = pypi.inputStr(prompt='enter the string',blank=True,blockRegexes='abcde')
+            string = pypi.inputStr(prompt='enter the string',blank=True,blockRegexes='abcde')#blank=True allows the string
             print(string)
         if 0:
-            string = pypi.inputStr(prompt='enter the string',blank=False,blockRegexes='abcde',allowRegexes="hjkl")
+            string = pypi.inputStr(prompt='enter the string',blank=False,blockRegexes='abcde',allowRegexes="hjkl")#does not regexes of abcde
             print(string)
     if 0:#integer input
         if 0:
@@ -37,6 +37,9 @@ if 1:#pyinputplus usage similar to input with additional features
             print(num)
         if 0:
             num = pypi.inputInt(prompt='enter the number',default=10,timeout=6)#value has to give within 6 secondds,otherwise default will be taken
+            print(num)
+        if 0:
+            num = pypi.inputInt(prompt='enter the number',default=10,limit=4,blockRegexes=[r'[13579]$'])#allows the integer not ends with 1,3,5,7,9
             print(num)
     if 0:#menu input
         if 0:
@@ -57,8 +60,8 @@ if 1:#pyinputplus usage similar to input with additional features
         if 0:
             value = pypi.inputMenu(["abc","def","ghi","jkl","mno","pqr","stu","vwx","yz"],lettered=True)
             print(value)
-    if 1:#datetimeinput
-        if 1:#%y year value has to be given in 2 digits. and  %y will take year value in 4 digits
+    if 0:#datetimeinput
+        if 0:#%y year value has to be given in 2 digits. and  %y will take year value in 4 digits
             date = pypi.inputDatetime(prompt='enter the date and time',formats=('%m/%d/%y %H:%M:%S','%m.%d.%Y %H:%M:%S'))#we have to provide strftime formats only
             print(date)
 
