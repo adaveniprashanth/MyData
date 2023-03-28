@@ -6,7 +6,6 @@ import send2trash
 import zipfile
 import PyPDF2
 
-
 if 0:#Assignment 3
     if 0:#question 10
         print(type(None))
