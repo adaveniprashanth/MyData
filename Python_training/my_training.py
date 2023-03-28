@@ -13,11 +13,16 @@ try:
     import pandas as pd
     import logging
     import pyinputplus as pypi
+    import random as rd
+    import send2trash
+    import PyPDF2
+    from PyPDF2 import PdfFileReader,PdfFileWriter
+
 except ModuleNotFoundError:
     print("you have to install the below packages to run")
     sys.exit("install all modules")
 
-if 1:#pyinputplus usage similar to input with additional features
+if 0:#pyinputplus usage similar to input with additional features
     if 0:#string input
         if 0:
             string = pypi.inputStr(prompt='enter the string',blank=True,blockRegexes='abcde')#blank=True allows the string
@@ -64,14 +69,6 @@ if 1:#pyinputplus usage similar to input with additional features
         if 0:#%y year value has to be given in 2 digits. and  %y will take year value in 4 digits
             date = pypi.inputDatetime(prompt='enter the date and time',formats=('%m/%d/%y %H:%M:%S','%m.%d.%Y %H:%M:%S'))#we have to provide strftime formats only
             print(date)
-
-
-
-
-
-
-
-
 
 if 0:
     a = arr.array('i',[1,2,3,4,5])
@@ -170,7 +167,6 @@ if 0:#merging 2 dictionaries by Adding values of common keys
     print(dict_3)
 
 
-import random as rd
 # print(int(20*rd.random()))
 # print(rd.random()+1)
 
@@ -3486,7 +3482,7 @@ if 0:
     if not os.path.isdir(os.path.join(os.getcwd(),'smedia_top/source/rtl/src')):
         os.makedirs('smedia_top/source/rtl/src')
 
-    copyfile('abc.txt','smedia_top/source/includes/abc.txt')
+    copyfile('abc.txt','smedia_top/source/includes/abc.txt')#we have to provide file name also in detination if we use copyfile
 
 
 
@@ -3855,8 +3851,6 @@ if 0:
 
 if 0:
     # use of logging module
-    
-
     # logging.basicConfig(filename='sample.log', format='%(asctime)s | %(levelname)s: %(message)s', level=logging.NOTSET)
     logging.basicConfig(filename='sample.log',filemode='w', level=logging.NOTSET)
     logging.debug('Here you have some information for debugging.')
@@ -3989,3 +3983,187 @@ def copy_files():
         print(source)
         print(dest_path)
         # shutil.copyfile(source,dest_path)
+
+if 0:#copy/delete files/folders
+    if 0:
+        print(os.listdir('abc'))#to list all the directories/files in it
+        os.rename('abc/abc.txt','abc/xyz.txt')#to rename the file
+    if 0:#copy files/folders
+        os.mkdir('def')#to create a folder
+        #os.rmdir('def')#to delete an empty directory
+        shutil.copy('abc/abc.txt','def')#copying the file from one folder to other folder
+        shutil.copyfile('abc/abc.txt','def/abc.txt')#copying the file from one folder to other folder but we have to provide the file name in destination
+        #shutil.copytree('abc','def/abc')#to copy the fodler structure from one folder to other folder
+        #shutil.rmtree('def/abc')
+    if 0:# delete file/folders
+        os.rmdir('def')#to delete an empty directory
+        os.remove('def/abc.txt')#to delete a file
+        os.unlink('def/abc.txt')#linux form of deleting the file
+        shutil.rmtree('def/abc')#to delete the directory with files/folders having in it.
+        #send2trash.send2trash('abc/abc.txt')#deleting the file and sending it to recycle bin
+        #os.remove('def/abc.txt')#deleting the file permannently shift+delete
+    
+if 0:#zipping/unzipping the files/folders
+    if 0:#zipping the files/folders
+        zip_file = zipfile.ZipFile('abc.zip','w')
+        zip_file.write('abc/abc.txt')#add file names only. not the folders
+        zip_file.close()
+        
+        shutil.make_archive('archive','zip','abc')#zipping the folder using shutil module. we can zip only folders using this.
+
+    if 0:#unzipping/extracting the files/folders
+        zip_file = zipfile.ZipFile('abc.zip','r')
+        files = zip_file.namelist()
+        print(files) #printing the file names in the zipped folder
+        zip_file.printdir()#print all the files in zipped file
+        #zip_file.extractall("extract_zipped")#extracting the zipped files to files to extract_zipped folder
+        zip_file.close()
+        
+        #shutil.unpack_archive('archive.zip','archive')
+if 0:#reading/writing into zipped file
+    if 0:#reading the data
+        zip_file = zipfile.ZipFile('abc.zip','r')#reading the zip file
+        lines = zip_file.read('abc/abc.txt').split(b"\n")#bytes type of "\n"
+        print(lines)
+        zip_file.close()
+    if 0:#another way
+        zip_file = zipfile.ZipFile('abc.zip','r')#reading the zip file
+        data = zip_file.open('abc/abc.txt','r')
+        for i in data:
+            print(i)
+        data.close()
+        zip_file.close()
+    if 0:#appending into the zip file
+        zip_file = zipfile.ZipFile('abc.zip','a')#we are adding the new member to zip file, so we have to use append method
+        data = zip_file.open('abc/abc.txt','w')#adding a new file to archive file
+        data.write(b"writing the data into the file after zipping")
+        data.close()
+        zip_file.close()
+    if 0:#writing into the zip file
+        zip_file = zipfile.ZipFile('abc.zip','w')#we are adding the new member to zip file, so we have to use append method
+        data = zip_file.open('abc/abc.txt','w')#adding a new file to archive file
+        data.write(b"writing the data into the file after zipping")
+        data.close()
+        zip_file.close()
+
+#Handling the pdf files.
+from PyPDF2 import PdfFileReader,PdfFileWriter,PdfFileMerger
+if 1:
+    if 0:#getting the document details
+        filename= 'NLP_overview.pdf'
+        f = open(filename,'rb')
+        pdf_reader = PdfFileReader(f)#creating the pdf read object
+        pdf_file_info = pdf_reader.getDocumentInfo()
+        total_pages = pdf_reader.getNumPages()
+        f.close()
+        print("total pages",total_pages)
+        author = pdf_file_info.author
+        creator = pdf_file_info.creator
+        producer = pdf_file_info.producer
+        subject = pdf_file_info.subject
+        title = pdf_file_info.title
+        print("author",author)
+        print("creator",creator)
+        print("producer",producer)
+        print("subject",subject)
+        print("title",title)
+    if 0:#extracting the data from pdf file# NOT WORKING
+        filename= 'NLP_overview.pdf'
+        f = open(filename,'rb')
+        pdf_reader = PdfFileReader(f)#creating the pdf read object
+        page  =pdf_reader.getPage(1)#getting the page from pdf
+        #print(page)
+        text = page.extractText()
+        print(text)
+        f.close()
+    if 0:#rotating the files in pdf file. but not rotate the pdf file
+        filename= 'NLP_overview.pdf'
+        f = open(filename,'rb')
+        f1 = open('rotated_'+filename,'wb')
+        pdf_reader = PdfFileReader(f)
+        pdf_writer = PdfFileWriter()#creating the object for writing
+        for pagenum in range(pdf_reader.numPages):
+            page = pdf_reader.getPage(pagenum)
+            page.rotateClockwise(180)
+            pdf_writer.addPage(page)#adding the data to the object
+            pdf_writer.write(f1)
+        f1.close()
+        f.close()
+    if 0:#merging the pdf files
+        file1='NLP_1.pdf'
+        file2='NLP_2.pdf'
+        file3='NLP_3.pdf'
+        pdf_merger = PdfFileMerger()#creating the object of file merger
+        pdf_merger.append(PdfFileReader(open(file1,'rb')))
+        pdf_merger.append(PdfFileReader(open(file2,'rb')))
+        pdf_merger.append(PdfFileReader(open(file3,'rb')))
+        output = open("merged_output.pdf",'wb')
+        pdf_merger.write(output)
+        output.close()
+    if 0:#merging the files in other method
+        pdf_merger = PdfFileMerger()#creating the object
+        for i in range(1,10):
+            pdf_merger.append(PdfFileReader('NLP_'+str(i)+'.pdf','rb'))
+        output = open('combined_merged.pdf','wb')
+        pdf_merger.write(output)
+        output.close()
+    if 0:#separating the pages from pdf
+        filename ='NLP_1.pdf'
+        pdf_reader = PdfFileReader(filename)
+        page = pdf_reader.getPage(0)#getting the required page
+        
+        pdf_writer = PdfFileWriter()
+        pdf_writer.addPage(page)#adding the page. not the file
+        
+        output = open("separated.pdf",'wb')
+        pdf_writer.write(output)
+        output.close()
+    if 0:#encryption of a file
+        file = 'NLP_1.pdf'
+        password = '1234'
+        pdf_reader = PdfFileReader(file)
+        pages = pdf_reader.getNumPages()
+        pdf_writer = PdfFileWriter()
+        for page_number in range(pages):
+            pdf_writer.addPage(pdf_reader.getPage(page_number))
+            pdf_writer.encrypt(user_pwd=password,owner_pwd=None,use_128bit=True)
+        output = open('encrypted.pdf','wb')
+        pdf_writer.write(output)
+        output.close()
+    if 1:#watermark the pdf
+        input_file = 'NLP_1.pdf'
+        watermark_file = 'NLP_2.pdf'
+        
+        input_pdf_reader = PdfFileReader(open(input_file,'rb'))#creating the object for input file
+        watermark_pdf_reader = PdfFileReader(open(watermark_file,'rb'))#creating the object for watermark file
+        
+        watermark_page = watermark_pdf_reader.getPage(0)#getting the watermark page
+        input_pdf_page = input_pdf_reader.getPage(0)#getting the first page from input file
+        
+        input_pdf_page.mergePage(watermark_page)#merging the watermark page with input file page
+        
+        pdf_writer = PdfFileWriter()
+        pdf_writer.addPage(input_pdf_page)#adding the merged watermark page with pdf writer
+        output = open('watermark.pdf','wb')
+        pdf_writer.write(output)
+        output.close()
+    
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        
+    
+    

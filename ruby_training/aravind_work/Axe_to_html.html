@@ -1,0 +1,76 @@
+<html>
+<head>
+<style>
+			table, th, td {border: 1px solid black;
+						   border-collapse:collapse;
+						   font-family: "Arial";}
+			th, td {padding: 5px;}
+			th {text-align: center;
+				color: white;
+				background-color: #3E5A93;}
+			td {background-color: #FFB84D;}
+			h2 {font-family: "Arial";
+				font-size: 20px;}
+			h1 {font-family: "Arial";
+				font-size: 12px;}
+			span {font-family: "Arial";
+				font-size: 10px;}
+			</style>
+</head>
+<body>
+<h1>Last Updated: 24/03/2023 14:59</h1>
+<p></p><h2>Overall</h2>
+
+	<table>
+	<tr>
+	<th>Overall Status</th><th>Total Test cases</th><th>HW Pass</th><th>HW Fail</th><th>HW Warn</th><th>HW Error</th><th>HW NotRun</th>
+	<th>RM Pass</th><th>RM Fail</th><th>RM Warn</th><th>RM Error</th><th>RM NotRun</th><th>HW Pass percentage</th><th>RM Pass percentage</th>
+	</tr>
+	<tr>
+	<td>Overall_Status</td><td>424</td><td>330</td><td>69</td><td>0</td><td>0</td><td>25</td>
+	<td>394</td><td>21</td><td>4</td><td>5</td><td>0</td>
+	<td style="background-color:#008000">77.83%</td>
+	<td style="background-color:#008000">92.92%</td>
+	</tr>
+	</table><p></p><h2>Lockup and Render</h2>
+
+<table>
+
+<tr><th>Units</th><th>HW Total</th><th>HW Pass</th><th>HW Fail</th><th>HW Warn</th><th>HW Error</th><th>HW NotRun</th><th>RM Pass</th><th>RM Fail</th><th>RM Warn</th><th>RM Error</th><th>RM NotRun</th><th>HW Pass %</th><th>RM Pass %</th></tr>
+<tr><td>Concurrency/AllEngine</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td style='background-color:008000'>100.0%</td><td style='background-color:008000'>100.0%</td></tr>
+<tr><td>GLOBALS/Caches</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td style='background-color:008000'>100.0%</td><td style='background-color:008000'>100.0%</td></tr>
+<tr><td>GLOBALS/Flush</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td style='background-color:008000'>100.0%</td><td style='background-color:008000'>100.0%</td></tr>
+<tr><td>GLOBALS/HostGTAccesses</td><td>14</td><td>3</td><td>10</td><td>0</td><td>0</td><td>1</td><td>13</td><td>1</td><td>0</td><td>0</td><td>0</td><td style='background-color:FF0000'>21.42%</td><td style='background-color:008000'>92.85%</td></tr>
+<tr><td>GLOBALS/PatMocs</td><td>49</td><td>49</td><td>0</td><td>0</td><td>0</td><td>0</td><td>49</td><td>0</td><td>0</td><td>0</td><td>0</td><td style='background-color:008000'>100.0%</td><td style='background-color:008000'>100.0%</td></tr>
+<tr><td>GLOBALS/Registers</td><td>2</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td style='background-color:8AE62E'>50.0%</td><td style='background-color:008000'>100.0%</td></tr>
+<tr><td>GLOBALS/UnifiedMemory</td><td>9</td><td>4</td><td>5</td><td>0</td><td>0</td><td>0</td><td>9</td><td>0</td><td>0</td><td>0</td><td>0</td><td style='background-color:FFFF00'>44.44%</td><td style='background-color:008000'>100.0%</td></tr>
+<tr><td>GLOBALS/Virtualization</td><td>4</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>0</td><td>0</td><td style='background-color:FF0000'>0.0%</td><td style='background-color:008000'>100.0%</td></tr>
+<tr><td>HWFE/Interrupt</td><td>8</td><td>7</td><td>1</td><td>0</td><td>0</td><td>0</td><td>8</td><td>0</td><td>0</td><td>0</td><td>0</td><td style='background-color:008000'>87.5%</td><td style='background-color:008000'>100.0%</td></tr>
+<tr><td>HWFE/MemoryInterface</td><td>7</td><td>5</td><td>0</td><td>0</td><td>0</td><td>2</td><td>5</td><td>2</td><td>0</td><td>0</td><td>0</td><td style='background-color:8AE62E'>71.42%</td><td style='background-color:8AE62E'>71.42%</td></tr>
+<tr><td>HWFE/MicroController</td><td>44</td><td>26</td><td>16</td><td>0</td><td>0</td><td>2</td><td>38</td><td>2</td><td>4</td><td>0</td><td>0</td><td style='background-color:8AE62E'>59.09%</td><td style='background-color:008000'>86.36%</td></tr>
+
+<tr><td style='background-color:#B6B6A8'>All</td><td style='background-color:#B6B6A8'>142</td><td style='background-color:#B6B6A8'>100</td><td style='background-color:#B6B6A8'>37</td><td style='background-color:#B6B6A8'>0</td><td style='background-color:#B6B6A8'>0</td><td style='background-color:#B6B6A8'>5</td><td style='background-color:#B6B6A8'>133</td><td style='background-color:#B6B6A8'>5</td><td style='background-color:#B6B6A8'>4</td><td style='background-color:#B6B6A8'>0</td><td style='background-color:#B6B6A8'>0</td><td style='background-color:8AE62E'>70.42%</td><td style='background-color:008000'>93.66%</td></tr>
+</table>
+<h2>Compare and Render Fulsim</h2>
+
+<table>
+
+<tr><th>Units</th><th>HW Total</th><th>HW Pass</th><th>HW Fail</th><th>HW Warn</th><th>HW Error</th><th>HW NotRun</th><th>RM Pass</th><th>RM Fail</th><th>RM Warn</th><th>RM Error</th><th>RM NotRun</th><th>HW Pass %</th><th>RM Pass %</th></tr>
+<tr><td>Concurrency/AllEngine</td><td>43</td><td>39</td><td>3</td><td>0</td><td>0</td><td>1</td><td>42</td><td>1</td><td>0</td><td>0</td><td>0</td><td style='background-color:008000'>90.69%</td><td style='background-color:008000'>97.67%</td></tr>
+<tr><td>GLOBALS/Caches</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td style='background-color:008000'>100.0%</td><td style='background-color:008000'>100.0%</td></tr>
+<tr><td>GLOBALS/PatMocs</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td style='background-color:008000'>100.0%</td><td style='background-color:008000'>100.0%</td></tr>
+<tr><td>GLOBALS/UnifiedMemory</td><td>68</td><td>61</td><td>2</td><td>0</td><td>0</td><td>5</td><td>63</td><td>4</td><td>0</td><td>1</td><td>0</td><td style='background-color:008000'>89.70%</td><td style='background-color:008000'>92.64%</td></tr>
+<tr><td>HWFE/BatchBuffer</td><td>20</td><td>14</td><td>6</td><td>0</td><td>0</td><td>0</td><td>20</td><td>0</td><td>0</td><td>0</td><td>0</td><td style='background-color:8AE62E'>70.0%</td><td style='background-color:008000'>100.0%</td></tr>
+<tr><td>HWFE/Execlist</td><td>37</td><td>32</td><td>4</td><td>0</td><td>0</td><td>1</td><td>35</td><td>0</td><td>0</td><td>2</td><td>0</td><td style='background-color:008000'>86.48%</td><td style='background-color:008000'>94.59%</td></tr>
+<tr><td>HWFE/Interrupt</td><td>13</td><td>12</td><td>1</td><td>0</td><td>0</td><td>0</td><td>13</td><td>0</td><td>0</td><td>0</td><td>0</td><td style='background-color:008000'>92.30%</td><td style='background-color:008000'>100.0%</td></tr>
+<tr><td>HWFE/MemoryInterface</td><td>52</td><td>39</td><td>3</td><td>0</td><td>0</td><td>10</td><td>42</td><td>10</td><td>0</td><td>0</td><td>0</td><td style='background-color:008000'>75.0%</td><td style='background-color:008000'>80.76%</td></tr>
+<tr><td>HWFE/MicroController</td><td>30</td><td>15</td><td>13</td><td>0</td><td>0</td><td>2</td><td>28</td><td>0</td><td>0</td><td>2</td><td>0</td><td style='background-color:8AE62E'>50.0%</td><td style='background-color:008000'>93.33%</td></tr>
+<tr><td>HWFE/Preemption</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td style='background-color:008000'>100.0%</td><td style='background-color:008000'>100.0%</td></tr>
+<tr><td>HWFE/RegisterAccess</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td style='background-color:008000'>100.0%</td><td style='background-color:008000'>100.0%</td></tr>
+<tr><td>HWFE/RenderCompute</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td style='background-color:008000'>100.0%</td><td style='background-color:008000'>100.0%</td></tr>
+<tr><td>HWFE/Semaphores</td><td>11</td><td>10</td><td>0</td><td>0</td><td>0</td><td>1</td><td>10</td><td>1</td><td>0</td><td>0</td><td>0</td><td style='background-color:008000'>90.90%</td><td style='background-color:008000'>90.90%</td></tr>
+
+<tr><td style='background-color:#B6B6A8'>All</td><td style='background-color:#B6B6A8'>282</td><td style='background-color:#B6B6A8'>230</td><td style='background-color:#B6B6A8'>32</td><td style='background-color:#B6B6A8'>0</td><td style='background-color:#B6B6A8'>0</td><td style='background-color:#B6B6A8'>20</td><td style='background-color:#B6B6A8'>261</td><td style='background-color:#B6B6A8'>16</td><td style='background-color:#B6B6A8'>0</td><td style='background-color:#B6B6A8'>5</td><td style='background-color:#B6B6A8'>0</td><td style='background-color:008000'>81.56%</td><td style='background-color:008000'>92.55%</td></tr>
+</table>
+</body>
+</html>

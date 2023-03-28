@@ -1,5 +1,12 @@
 import re
-import pyinputplus
+import pyinputplus as pypi
+import os
+import shutil
+import send2trash
+import zipfile
+import PyPDF2
+
+
 if 0:#Assignment 3
     if 0:#question 10
         print(type(None))
@@ -180,5 +187,65 @@ if 0:#Assignment_7
         a = 'ALICE THROWS FOOTBALLS.'
         a = 'Carol eats 7 cats.'
         print(re.findall('(Alice|Bob|Carol)\s(eats|pets|throws)\s(apples|cats|baseballs)\.',a,re.IGNORECASE))
-if 1:#Assignment_8
-    pass
+if 0:#Assignment_8
+    if 0:#question 3
+        value = pypi.inputFloat(prompt="enter the numeric/floating number")#converts the number to float
+        print(value)
+        value  = pypi.inputInt(prompt='enter the numeric number')
+        print(value)
+    if 0:#question 4
+        value = pypi.inputInt(prompt="enter the number",min=0,max=99)
+        print(value)
+    if 0:#question 5
+        num = pypi.inputInt(prompt='enter the number',default=10,limit=4,blockRegexes=[r'[13579]$'])#allows the integer not ends with 1,3,5,7,9
+        print(num)
+    if 1:#question 6
+        string = pypi.inputStr(prompt='enter the string',limit=3)
+        print(string)
+if 0:#Assignment_9
+    if 0:#question 5
+        path = 'C:\\bacon\\eggs\\spam.txt'
+        print("dir name",os.path.dirname(path))
+        print("base name",os.path.basename(path))
+if 0:#Assignment_10
+    if 0:#question 1
+        shutil.copy('abc/abc.txt','def')#copying the file from one folder to other folder
+        shutil.copyfile('abc/abc.txt','def/abc.txt')#copying the file from one folder to other folder but we have to provide the file name in destination
+        #shutil.copytree('abc/123','def/abc')#copying the directories and files in it.
+        #shutil.rmtree('def/abc')#deleting the folder and files/folders in it
+        
+    if 0:#question 2
+        os.rename('abc/abc.txt','abc/xyz.txt')# to rename the file/folder
+        #os.rename('abc/xyz.txt','abc/abc.txt')
+        os.rename('abc/123','abc/890')
+        #os.rename('abc/890','abc/123')
+    if 0: #question 4 #unzipping the zipped files
+        zip_file = zipfile.ZipFile('abc.zip','w')
+        zip_file.write('abc')
+        zip_file.close()
+        zip_file = zipfile.ZipFile('abc.zip','r')
+        zip_file.printdir()
+        zip_file.extractall("zipped")
+        zip_file.close()
+    if 0:#question 5
+        dest_folder = 'separated_data'
+        if not os.path.exists(dest_folder):
+            os.mkdir(dest_folder)
+        for dirpath,dirname,filenames in os.walk('abc'):
+            for filename in filenames:
+                if '.txt' in filename:
+                    shutil.copy(os.path.join(dirpath,filename),dest_folder)
+if 0:#Assignment_11
+    if 0:#question 1
+        spam = int(input("enter the data"))
+        assert spam >=0, "assert condition failed"
+        print("given value is ",spam)
+    if 0:#question 2
+        eggs = input("enter the value for eggs")
+        bacon = input("enter the value for bacon")
+        assert eggs.lower() != bacon.lower(), "both are same values"
+        print("eggs = ",eggs," and bacon = ",bacon)
+    if 0:#question 3
+        assert False,"error"
+    
+    

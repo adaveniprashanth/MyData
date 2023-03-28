@@ -9,6 +9,7 @@ It will split the string wherever the separator presents
 in partition operation, it will return the part before the separator,separator and part after the separaton.
 and also that it will split the string only at first occurance of separator.
 '''
+import pyinputplus as pypi
 
 s = "my@name@is@prashanth"
 if 0:
@@ -324,6 +325,17 @@ s = 'i am practicing the coding for my future'
 7.count how many 'a' in string
 nums="1,2.786"
 print(nums)
-
-
 """
+
+if 0:#creating the temporary file and deleting after completing the work
+    import pandas as pd
+    import tempfile
+    fo = tempfile.NamedTemporaryFile()
+    df =pd.read_excel('My_daily_status.xlsx',sheet_name='Sheet1')
+    #print(df)
+    print(fo.name+".csv")
+    df.to_csv(fo.name+".csv",index=False)
+    df1 = pd.read_csv(fo.name+".csv")
+    print(df1)
+
+    fo.close()
