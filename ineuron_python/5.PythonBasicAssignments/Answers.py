@@ -5,6 +5,8 @@ import shutil
 import send2trash
 import zipfile
 import PyPDF2
+import csv
+import json
 
 if 0:#Assignment 3
     if 0:#question 10
@@ -247,4 +249,27 @@ if 0:#Assignment_11
     if 0:#question 3
         assert False,"error"
     
+if 0:#Assignment 13
+    if 0:#question 2, question 3, question 4 and question 5
+        f = open("abc.csv","w",newline='')#if we do not give newline='', it will create an empty row in csv file
+        writer = csv.writer(f)
+        writer.writerow([1,"ghj","ghj"])
+        writer.writerow([2,"edc","edc"])
+        writer.writerows([[3,"wsx","wsx"],[4,"tgb","tgb"],[5,"ujm","ujm"]])
+        f.close()
+        
+        f=open("abc.csv","r")
+        reader = csv.reader(f,delimiter=',')
+        for row in reader:
+            print(row)
     
+    if 0:#question 6 and question 7
+        d = '''{"a":1,"b":2,"c":3}'''
+        data = json.loads(d)
+        print(data)
+        
+        d = {'a':1,'b':2,'c':3}
+        data = json.dumps(d)#in json data we can't have any single quotes(')
+        print(data)
+
+

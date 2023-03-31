@@ -4,7 +4,7 @@ try:
     import sys,os
     import numpy as np
     import array as arr
-    import string
+    #import string
     import random,re
     import shutil
     from datetime import date
@@ -17,10 +17,21 @@ try:
     import send2trash
     import PyPDF2
     from PyPDF2 import PdfFileReader,PdfFileWriter
+    import docx
+    import csv
+    import json
+    
+    #import readDocx
 
 except ModuleNotFoundError:
     print("you have to install the below packages to run")
     sys.exit("install all modules")
+
+'''
+https://www.python.org/ftp/python/3.8.3/python-3.8.3-amd64.exe
+python-3.8.3-amd64.exe /passive InstallAllUsers=1 PrependPath=1 TargetDir="C:\Python38"
+'''
+
 
 if 0:#pyinputplus usage similar to input with additional features
     if 0:#string input
@@ -4048,7 +4059,7 @@ if 0:#reading/writing into zipped file
 
 #Handling the pdf files.
 from PyPDF2 import PdfFileReader,PdfFileWriter,PdfFileMerger
-if 1:
+if 0:
     if 0:#getting the document details
         filename= 'NLP_overview.pdf'
         f = open(filename,'rb')
@@ -4130,7 +4141,7 @@ if 1:
         output = open('encrypted.pdf','wb')
         pdf_writer.write(output)
         output.close()
-    if 1:#watermark the pdf
+    if 0:#watermark the pdf
         input_file = 'NLP_1.pdf'
         watermark_file = 'NLP_2.pdf'
         
@@ -4147,18 +4158,98 @@ if 1:
         output = open('watermark.pdf','wb')
         pdf_writer.write(output)
         output.close()
-    
+#handling with documents
+#A Run object is a contiguous run of text with the same style. A new Run object is needed whenever the text style changes.
+#paragraph objectw ill be added to end of the document, but run object will be added at the end of the paragraph object
+#adding heading is also considered as a paragraph
+
+if 0:
+    if 0:#saving the data into document
+        new_document=docx.Document() #creating the document object
+        new_document.add_heading('Heading one with style1',0)#adding the heading to document with heading1 style
+        new_document.add_paragraph('This is the first paragraph in the document') #adding a paragraph
         
+        new_document.add_heading('Heading one with style2',1)#adding the heading to document with heading1 style
+        para = new_document.add_paragraph('This is the second paragraph in the document',style='Body Text') #adding with style
+        para.add_run('adding the run object to the paragraph object')#adding the run object to para object
+        new_document.add_heading('Heading one with style3',2)#adding the heading to document with heading1 style
+        new_document.add_paragraph('This is the third paragraph in the document',style='Quote')
+        new_document.add_paragraph('This is the third paragraph in the document',style='macro')
+        new_document.add_paragraph('this is a Computer Science portal for guys.',style = 'Title')
+        new_document.add_paragraph('this is a Computer Science portal for guys.',style = 'Subtitle')
+        new_document.add_paragraph('this is a Computer Science portal for guys.',style = 'No Spacing')
+        
+        
+        new_document.save('new_testing.docx') #saving the documnet
+    if 0:#reading the data from documnet
+        file=docx.Document('testing.docx')
+        print(len(file.paragraphs)) #counting the paragraphs in document
+        
+        print(len(file.paragraphs[0].runs))#count the styles used in paragraph
+        
+        #printing the text in document based on styles
+        for i in range(len(file.paragraphs[0].runs)):
+            print(file.paragraphs[0].runs[i].text)
+        
+        #printing the full text from the document using paragraphs
+        for para in file.paragraphs:
+            print(para.text)
+if 0:#handling the csv data
+    if 0:#writing the data into csv file
+        f = open('csv_file.csv','w',newline='')#if we do not give newline='', it will create an empty row in csv file
+        writer = csv.writer(f)#creating the object for csv writer
+        writer.writerow(["No","name","place"])#writing each row into the file
+        writer.writerow([1,"asd","asd"])
+        writer.writerow([2,"abc","abc"])
+        #writing multiple rows at a time
+        writer.writerows([[3,"qwert","qwert"],[4,"yuiop","yuiop"],[5,"hjkl","hjkl"],
+                            [6,"zxcv","zxcv"]])
+        f.close()
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    if 0:#reading the csv file as a line
+        f = open("csv_file.csv","r")
+        reader = csv.reader(f,delimiter=',')
+        for row in reader:
+            print(row)
+        f.close()
+    if 0:#reading the csv file as a dictionary
+        f = open("csv_file.csv","r")
+        reader = csv.DictReader(f,delimiter=',')
+        for row in reader:
+            print(row)
+        f.close()
+if 1:#JSON(Java Script Object Notation) data handling
+    if 0:#python data to JSON 
+        d ={'a':1,"b":"my name",2:"my place"}
+        # Serializing json
+        json_data = json.dumps(d)
+        print(type(json_data))	
+        
+        json_object = json.dumps(d, indent = 4)
+        print(json_object)
+        print(type(json_object))
+        
+    if 0:#storing json data into file
+        d ={'a':1,"b":"my name",2:"my place"}
+        fp = open("json_data.json","w")
+        json_data = json.dump(d,fp)
+        fp.close()
+    if 0:#convert json to python data
+        data = """{
+            "Name": "Jennifer Smith",
+            "Contact Number": 7867567898,"Email": "jen123@gmail.com","Hobbies":["Reading", "Sketching", "Horse Riding"]
+            }"""
+        #data = """{'a':1,'b':2}"""#it will not work because the key is ecnlosed in dingle quote
+        # parse data:
+        res = json.loads( data )
+        # the result is a Python dictionary:
+        print( res )
+        print( type(res ))
+    if 0:#convert json data from file to python
+        f = open('json_data.json','r')
+        data = json.load(f)
+        print(data)
+        
     
     
     
