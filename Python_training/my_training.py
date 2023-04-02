@@ -28,8 +28,9 @@ except ModuleNotFoundError:
     sys.exit("install all modules")
 
 '''
-https://www.python.org/ftp/python/3.8.3/python-3.8.3-amd64.exe
-python-3.8.3-amd64.exe /passive InstallAllUsers=1 PrependPath=1 TargetDir="C:\Python38"
+https://silentinstallhq.com/python-3-9-silent-install-how-to-guide/
+https://www.python.org/ftp/python/3.9.3/python-3.9.3-amd64.exe
+python-3.9.3-amd64.exe /passive InstallAllUsers=1 PrependPath=1 TargetDir="C:\Python39"
 '''
 
 
