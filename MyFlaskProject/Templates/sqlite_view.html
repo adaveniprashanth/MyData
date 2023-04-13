@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SQLite view data</title>
+</head>
+<body>
+<h2>Employees data</h2>
+<table border=5>
+    <thead>
+    <td>ID</td><td>Name</td><td>Email</td>
+    </thead>
+    {% for row in rows%}
+    <tr>
+    <td>{{row['id']}}</td>
+    <td>{{row['name']}}</td>
+    <td>{{row['email']}}</td>
+    </tr>
+    {%endfor%}
+</table>
+
+<br><br>
+<a href="/sqlitehome">Go to home page</a>
+<p></p>
+<a href="/sqliteadd">Add Data</a>
+<p></p>
+<a href="/sqlitedelete">Delete Data</a>
+</body>
+</html>

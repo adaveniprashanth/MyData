@@ -20,6 +20,7 @@ try:
     import docx
     import csv
     import json
+    import heapq #for finding the nth largest number in list
     
     #import readDocx
 
@@ -172,7 +173,7 @@ if 0:#merging 2 dictionaries by Adding values of common keys
        print("dict_3",dict_3)
        for key, value in dict_3.items():
            if key in dict_1 and key in dict_2:
-                   dict_3[key] =  dict_1[key]+value
+                   dict_3[key] =  dict_1[key]+value #here value will be dict2[key] because of override
        return dict_3
 
     dict_3 = mergeDictionary(dict_1, dict_2)
@@ -188,7 +189,7 @@ random_value = int(20 * rd.random())
 # print(rd.random())
 # print(random_value)
 user_selected = 0
-# print(++user_selected)
+# print(++user_selected) #it will work
 # print(user_selected++)
 '''
 while random_value != user_selected:
@@ -1002,7 +1003,7 @@ if 0:
 
 
 #Multiple ways of try/except logics
-if 0:
+if 1:
     try:
         a = int(input("enter the number"))
         b = 9/a
@@ -1093,7 +1094,7 @@ if 0:#class variables addition
     #not a good practice
     class test:
         pass
-
+    test.name = 'test'
     t1=test   #assiging the class to the variable
     print(t1)
     print(type(t1))
@@ -1106,12 +1107,12 @@ if 0:#class variables addition
     t2.number = 2
     print(t1.name)
     print(t2.name)
-    print(test.name)
+    print(test.name) #all are same
 
 if 0:
     class practice:
         pass
-
+    practice.name = 'practice'
     t1=practice()#creating the instance of class
     print(t1)
     print(type(t1))
@@ -1124,7 +1125,7 @@ if 0:
     t2.number = 2
     print(t1.name)
     print(t2.name)
-    print(practice.name)
+    print(practice.name) #All are different
 
 
 
@@ -1134,7 +1135,6 @@ if 0:
     
         car_type = 'Sedan'    #class attribute wiil be same for all objects
         
-        
         # constructor
         def __init__(self,name,milage,color,has_safety):
             print('my car is ready')
@@ -1142,12 +1142,12 @@ if 0:
             self.milage = milage   #  <--instance attributes differ for each object
             
             self._color = color  #<-- protected variable
-            self.__has_safety = has_safety
+            self.__has_safety = has_safety #private variable
         def __del__(self):
             print('object is deleted')
         
         #instance method with instance attributes
-        def description(self): 
+        def description(self):
             print("{} is the milage of {} looks good".format(self.name, self.milage))
         
         
@@ -1211,7 +1211,7 @@ if 0:
     '''Encapsulation  is a way to ensure security. Basically, it hides the data from the access of outsiders'''
     print('\n encapsulation\n')
     
-    #accessing protected variable via class method 
+    # accessing protected variable via class method 
     # my_car.car_color()
     # bmw.car_color()
     # audi.car_color()
@@ -1224,7 +1224,7 @@ if 0:
     my_car.has_safety()
     bmw.has_safety()
     
-    #accessing private variable directly from outside
+    # accessing private variable directly from outside
     # print(my_car.__has_safety)  #will give an error
     
     # Name mangling is a mechanism we use for accessing the class members from outside.
@@ -1297,7 +1297,6 @@ if 0:
 # associated with class and object
 if 0:
     class Cars:
-        
         # constructor which helps to assign value at object creation 
         #NO need give the word only 'self'. we can provide any name,
         #but we have to use that name only entire class definition
@@ -2529,27 +2528,27 @@ if 0:
             cls.method_two()
     
     
-    class T2(Test):  #derived class
+    class Test2(Test):  #derived class
         @staticmethod
         def method_two():
-            print ("T2")
+            print ("Test2")
     
     a_test = Test()
-    a_test.method_one()
-    a_test.method_two()
-    a_test.method_three()
-    a_test.method_four()
+    a_test.method_one() #Called method_one
+    a_test.method_two() #Called method_two
+    a_test.method_three() #Called method_two
+    a_test.method_four() #Called method_two
     print('hello')
-    b_test = T2()
-    b_test.method_one()
-    b_test.method_two()
-    b_test.method_three()
-    a_test.method_four()
+    b_test = Test2()
+    b_test.method_one() #Called method_one
+    b_test.method_two() #Test2
+    b_test.method_three() #Called method_two
+    b_test.method_four() #Test2
     print('hello1')
-    Test.method_two()
-    Test.method_four()
-    T2.method_two()
-    T2.method_four()
+    Test.method_two() #Called method_two
+    Test.method_four() #Called method_two
+    Test2.method_two() #Test2
+    Test2.method_four() #Test2
 
 
 
@@ -2633,10 +2632,7 @@ if 0:
 if 0:
     
     # insert operation in binary search tree
-    
-    # A utility class that represents
-    # an individual node in a BST
-    
+    # A utility class that represents an individual node in a BST
     
     class Node:
     	def __init__(self, key):
@@ -2674,15 +2670,23 @@ if 0:
     	# Key is smaller than root's key
     	return search(root.left,key)
     
-    # A utility function to do inorder tree traversal
-    
-    
+    # A utility function to do inorder tree traversal    
     def inorder(root):
     	if root:
     		inorder(root.left)
     		print(root.val)
     		inorder(root.right)
-    
+    def preorder(root):
+        if root:
+            print(root.val)
+            preorder(root.left)
+            preorder(root.right)
+            
+    def postorder(root):
+        if root:
+            postorder(root.left)
+            postorder(root.right)
+            print(root.val)
     
     r = Node(50)
     r = insert(r, 30)
@@ -3408,7 +3412,7 @@ if 0:
     print(l)
 
 #printing the 2 biggest values from the list
-import heapq
+
 integers = [1, 16, 3, 39, 26, 4, 8, 16]
 
 # get 2 largest values

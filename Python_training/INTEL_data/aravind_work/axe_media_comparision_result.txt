@@ -1,0 +1,79 @@
+
+present only in -->X2_all_media_tests.list and not present in axe_page_test_names.txt
+
+media_gk_pm_medslc_hcp#media1
+media_gk_pm_rc6#media1
+gsc_iosf_sb_fatal_err
+SFC_VE_SF_2Vebox_i384x128_P016_o128x128_oY216_oy_iefoff_YUYV_rot90#0
+media_gk_pm_flr
+mcmpr_ms_dec_2pipe_vp9_virtual_tile_ayuv#golds_ats
+gsc_boot_flr
+hvdenc_ms2pipe_rev0_1frm_2x1Tile_NV12_tileY#0
+media_gk_pm_medslc_mfx#media1
+gsc_iosf_sb_non_fatal_err
+mcmpr_concurrency_2VD_1VE#golds_ats
+media_gk_arat_timer_ia_oneshot_largevalue
+gsc_pavp_avc_decode_disp_heavy
+gsc_trng
+ms_dec_vp9_420_8_tile2x1_512x64#0
+gsc_iosf_sb_correctable_err
+gsc_pavp_timer_expiry_ets_rc6
+gsc_pavp_uscse_gp2_abort
+ve_ss_2SF_IECP_i128x128_iRGBA8_iy_o128x128_oAYUV_ol_1#0
+GuC001_GSCCS001#0
+vdenc_vp9_ms2pipe_rev0_2frm_2x2Tile_NV21_linear#0
+gsc_boot_fw_load
+gsc_iosf_sb_npk_write
+media_gk_pm_pg#media1
+media_gk_pm_gtgv
+media_sklpm_pg#legacy_abortFreq
+ms_dec_hevc_422_8_lcu32_tile2x1_flags_rev0_256x128_realtile#0
+media_gk_pm_sr#media1
+
+present only in -->axe_page_test_names.txt and not present in X2_all_media_tests.list
+
+gsc_boot_fw_load#0
+gsc_pavp_uscse_gp2_abort#0
+gsc_iosf_sb_correctable_err#0
+media_gk_pm_gtgv#0
+gsc_iosf_sb_non_fatal_err#0
+media_gk_arat_timer_ia_oneshot_largevalue#0
+media_gk_pm_flr#0
+gsc_trng#0
+gsc_boot_flr#0
+gsc_iosf_sb_fatal_err#0
+gsc_pavp_timer_expiry_ets_rc6#0
+gsc_pavp_avc_decode_disp_heavy#0
+gsc_iosf_sb_npk_write#0
+
+
+
+not in AXE page:
+GuC001_GSCCS001
+vdenc_vp9_ms2pipe_rev0_2frm_2x2Tile_NV21_linear
+ms_dec_hevc_422_8_lcu32_tile2x1_flags_rev0_256x128_realtile
+hvdenc_ms2pipe_rev0_1frm_2x1Tile_NV12_tileY
+ms_dec_vp9_420_8_tile2x1_512x64
+ve_ss_2SF_IECP_i128x128_iRGBA8_iy_o128x128_oAYUV_ol_1
+SFC_VE_SF_2Vebox_i384x128_P016_o128x128_oY216_oy_iefoff_YUYV_rot90
+media_gk_pm_medslc_hcp#media1
+media_gk_pm_medslc_mfx#media1
+media_gk_pm_rc6#media1
+media_gk_pm_sr#media1
+media_gk_pm_pg#media1
+mcmpr_ms_dec_2pipe_vp9_virtual_tile_ayuv#golds_ats
+mcmpr_concurrency_2VD_1VE#golds_ats
+gsc_boot_flr_CFG0 not present but gsc_boot_flr#0 is present
+gsc_boot_fw_load not present but gsc_boot_fw_load#0 is present
+gsc_pavp_uscse_gp2_abort not present but gsc_pavp_uscse_gp2_abort#0 is present
+gsc_pavp_timer_expiry_ets_rc6 not present but gsc_pavp_timer_expiry_ets_rc6#0 is present
+gsc_iosf_sb_correctable_err not present but gsc_iosf_sb_correctable_err#0 is present
+gsc_iosf_sb_fatal_err not present but gsc_iosf_sb_fatal_err#0 is present
+gsc_iosf_sb_non_fatal_err not present but gsc_iosf_sb_non_fatal_err#0 is present
+gsc_iosf_sb_npk_write not presnt but gsc_iosf_sb_npk_write#0 is present
+gsc_pavp_avc_decode_disp_heavy not presnt but gsc_pavp_avc_decode_disp_heavy#0 is present
+media_gk_pm_flr not present but media_gk_pm_flr#0 is present
+media_gk_pm_gtgv not present but media_gk_pm_gtgv#0 is present
+media_sklpm_pg#legacy_abortFreq
+media_gk_arat_timer_ia_oneshot_largevalue not present but media_gk_arat_timer_ia_oneshot_largevalue#0 is present
+gsc_trng not present but gsc_trng#0 is present

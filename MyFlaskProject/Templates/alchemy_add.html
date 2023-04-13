@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add employee to database</title>
+</head>
+<body>
+<h2>Add an Employee</h2>
+<!--calling the same action example
+<form action="/alchemyadd" method="post">
+-->
+<form action="{{request.path}}" method="post">
+    <p>Name <input type="text" name="name"></p>
+    <label for="salary">Salary</label>
+    <input type="text" name="salary" placeholder="salary"/><br>
+
+    <label for="age">Age</label>
+    <textarea name="text" placeholder="age"/><br>
+
+    <p>PIN <input type="text" name="pin" placeholder="pin"></p>
+
+    <input type="submit" value="Submit"/>
+</form>
+</body>
+</html>

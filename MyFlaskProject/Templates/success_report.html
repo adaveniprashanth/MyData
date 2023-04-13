@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Result</title>
+</head>
+<body>
+  <p>Thanks for the details.</p>
+<p><strong> Please check for the confirmation</strong></p>
+
+<table border=1>
+    {%for k,v in result.items()%}
+    <tr>
+        <th>{{k}}</th>
+        <td>{{v}}</td>
+    </tr>
+    {%endfor%}
+
+</table>
+
+</body>
+</html>

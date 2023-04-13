@@ -573,7 +573,7 @@ close $fh or die "Unable to close $input: $!";
 
 
 #excel data handling
-=my $Excel_book1 = Excel::Writer::XLSX->new('new_excel.xlsx');
+my $Excel_book1 = Excel::Writer::XLSX->new('new_excel.xlsx');
 my $Excel_sheet1 = $Excel_book1->add_worksheet();
 my @data_row = (1, 2, 3, 4);
 my @table_data = (
@@ -588,9 +588,9 @@ $Excel_sheet1->write( "A1", "Geeks For Geeks" );
 $Excel_sheet1->write( "A2", "Perl|Reading Files in Excel" );
 $Excel_sheet1->write( "A3", \@data_row );
 $Excel_sheet1->write( 4, 0, \@table_data );
-$Excel_sheet1->write( 0, 4, [ \@data_column ] );
+$Excel_sheet1->write( 1, 4, [ \@data_column ] );
 $Excel_book1->close;
-=cut
+
 
 #reading the data from xls sheet
 =my $parser   = Spreadsheet::ParseExcel->new();
