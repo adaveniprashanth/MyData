@@ -1030,3 +1030,33 @@ system("find . -xtype l");
 #code to find broken links and delete them.
 #system("find . -xtype l -delete);
 =cut
+
+#file size in perl script
+=my $filename = $ARGV[0];
+if(@ARGV == 0)
+{
+print "Please pass the name of file as an argument to check its size\n";
+exit;
+}
+my $filesize = -s $filename;
+if ($filesize == 0)
+{
+print "File Size Is Zero";
+}
+else
+{
+print "Size of the file $ARGV[0] is ".$filesize/1024 ." Bytes\n";
+print "Size of the file $ARGV[0] is ".$filesize/1024 ." KB\n";
+}
+=cut
+
+
+
+use 5.010; 
+use File::Find; 
+my $total; 
+#my $dir = cwd;
+find(sub { $total += -s if -f;}, $dir); 
+$total = $total/1024;
+$total = $total/1024;
+say $total;

@@ -1,0 +1,2 @@
+
+we can create a string in python using ' or " or """ but python will convert into single quote(')

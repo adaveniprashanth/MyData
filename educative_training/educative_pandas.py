@@ -88,6 +88,32 @@ if 1:#DataFrame -->pd.DataFrame(data,index,columns)
         df = pd.DataFrame({'c1':[1,2],'c2':[3,4],'c3':[5,6]},
                           index=['r1','r2'])
         # print(df)#if we pass dictionary, key will be like column name
+    if 0:#basic details of dataframe
+        # df = pd.read_excel('Grouping.xls',index_col=0,sheet_name='Sheet3')
+        df = pd.DataFrame({
+        'playerID': ['bettsmo01', 'canoro01', 'cruzne02', 'ortizda01', 'cruzne02'],
+        'year': [2016, 2018, np.nan, 2016, 2017],
+        'team': ['BOS', 'SEA', 'SEA', 'BOS', np.nan],
+        'Hits':[2516,8526,4625,2365,2345],
+        'Runs':[1236,4236,2145,2356,2344],
+        'HR': [31, 39, 43, 38, 39]},index=['r1','r2','r3','r4','r5',])
+        print(df)
+        # getting column names and row names
+        print(df.columns)
+        print(df.index)
+        # getting the type of each column
+        print(df.dtypes)
+        # printing the first 4 rows
+        print(df.head(4))
+        # printing the last 3 rows
+        print(df.tail(3))
+        df1 = df[['year']]
+        print(df1.dtypes)
+        print(pd.isnull(df))#checking the null value positions
+
+
+
+
         
     if 0:#Upcasting it will be done per-column base
         df=pd.DataFrame([[1.0,2],[3,4]],index=['r1','r2'],
@@ -174,7 +200,7 @@ if 1:#DataFrame -->pd.DataFrame(data,index,columns)
         print(df_append)
         '''column_df = pd.DataFrame([1,2,3,4],index=['r1','r2','r3','r4'],
                                  columns=['c3'])
-        df_append= df.append(column_df)
+       df_append= df.append(column_df)
         print(df_append)'''
         df_drop = df_append.drop(labels='r2')
         print(df_drop)
@@ -335,20 +361,50 @@ if 1:#Indexing
         df.loc[['r2','r3'],'c3'] = 0
         print(df)
 
-if 0:#File I/O operations
-    if 0:#Reading data --> accessing csv/excel/json files
-        # df = pd.read_csv('csv_sample.csv',encoding='latin1',index_col=0)
+if 1:#File I/O operations
+    if 1:#Reading data --> accessing csv/excel/json files
+        pass
+        # df = pd.read_csv('csv_sample1.csv')#considering the first row as column names
         # print("csv format \n{}\n".format(df))
-        
-        # df = pd.read_csv('csv_sample.csv',encoding='latin1',index_col=0)
-        # print("csv format \n\n\n{}\n".format(df))#index_col means which column
-                                    # should be used as index labels
-        
+
+        # df = pd.read_csv('csv_sample1.csv',header=None)#column names given by pandas
+        # print(df)
+
+        # column names given by user
+        # df = pd.read_csv('csv_sample1.csv',names=['c1','c2','c3','c4','c5','c6'])
+        # print(df)
+
+
+
+        # consider the column as the index labels
+        # df = pd.read_csv('csv_sample1.csv', index_col=0,header=None)
+        # print(df)
+        # *user cannot give the row names. either he has to choos the columns for index or default values
+        # while reading the data from csv file
+
+        #giving names to only some of the columns in data
+        # df = pd.read_csv('csv_sample2.csv',names=['c1','c2','c3','c4'])
+        # print(df)
+
+        # providing the 2 column names for index labels(multi level indexing)
+        # df = pd.read_csv('csv_sample2.csv',index_col=[0,1],header=None)
+        # print(df)
+
+        # skipping the rows in data
+        # df = pd.read_csv('csv_sample3.csv',skiprows=[0,2,5],header=None)
+        # print(df)
+
+        #finding the positions of NaN
+        # df = pd.read_csv('csv_sample3.csv', skiprows=[0, 2, 5], header=None)
+        # print(df)
+        # null_df = pd.isnull(df)
+        # print(null_df)
+
         #Excel file access
-        # df = pd.read_excel('xls_sample.xls')#accessing first sheet
+        # df = pd.read_excel('excel_sample1.xlsx')#accessing first sheet
         # print("excel sheet is \n{}".format(df.loc[0:20]))
-        
-        #df = pd.read_excel('xls_sample.xls',sheet_name=[0,1],index_col=0)#accessing sheet by numbers
+
+        # df = pd.read_excel('xls_sample.xls',sheet_name=[0,1],index_col=0)#accessing sheet by numbers
         # print("excel sheet is \n{}".format(df[0][0:20]))#printing first sheet
         # print("excel sheet is \n{}".format(df[1][0:20]))#printing second sheet
         
@@ -365,8 +421,16 @@ if 0:#File I/O operations
         # df = pd.read_json('json_sample.json')#outer keys are column labels and inner keys as index/row labels
         # print("json file is \n{}\n".format(df[0:1]))
         
-        df = pd.read_json('json_sample.json',orient='index')#outer keys are column labels and inner keys as index/row labels
-        print("json file is \n{}\n".format(df.loc['data']))
+        # df = pd.read_json('json_sample.json',orient='index')#outer keys are column labels and inner keys as index/row labels
+        # print("json file is \n{}\n".format(df.loc['data']))
+
+        # HTML page table access
+        # ******* WORKs OUTSIDE OFFICE NETWORK ******
+        # getting the data in list format. Because we can have multiple tables in single page
+        # total_tables = pd.read_html('https://www.basketball-reference.com/leagues/NBA_2015_totals.html')
+        # print(len(total_tables))
+        #accessng the each table by list index
+        # print(total_tables[0])
         
         
     if 0:#writing to files
@@ -724,7 +788,7 @@ if 1:#To NumPy
         converted = pd.get_dummies(df)
         print(type(converted))
         print(converted)
-        print(converted.columns)#getting all column names 
+        print(converted.columns)#getting all column names
         
         #Converting to NumPy
         n_matrix = converted.values
@@ -732,7 +796,7 @@ if 1:#To NumPy
         print(type(n_matrix))
         
 #print(help(re.subn))
-print(type(re.subn("abc","xyz","abdabd")[1]))
+#print(type(re.subn("abc","xyz","abdabd")[1]))
 
 
 
