@@ -8,6 +8,7 @@ from kivy.uix.floatlayout import FloatLayout
 class TutorialApp(App):
     def build(self):
         f = FloatLayout()
+        
         s = Scatter()
         l = Label(text="Hello!",
                   font_size=50)
