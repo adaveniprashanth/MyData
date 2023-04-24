@@ -8,7 +8,7 @@ from kivy.uix.floatlayout import FloatLayout
 class TutorialApp(App):
     def build(self):
         f = FloatLayout()
-        #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  --> my_access_token
+        
         s = Scatter()
         l = Label(text="Hello!",
                   font_size=50)
