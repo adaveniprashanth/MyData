@@ -8,6 +8,9 @@ use Cwd qw(cwd);
 use File::Copy::Recursive qw(dircopy);
 use Time::Piece;
 
+##for reference --> https://metacpan.org/pod/Excel::Writer::XLSX::Examples#Example:-autofit.pl
+##for reference --> https://metacpan.org/release/JMCNAMARA/Excel-Writer-XLSX-1.11/source/examples/autofilter.pl
+
 my $content_excel_sw = 1;
 if ($content_excel_sw eq 1)
 {
