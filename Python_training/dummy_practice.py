@@ -13,7 +13,7 @@ if 0:
     print(full_path)
     os.makedirs(os.path.dirname(full_path))
     copyfile('sai_help.py',full_path)
-if 1:
+if 0:
     print(len(sys.argv))
     print(sys.argv[0])
     print(type(sys.argv[0]))
@@ -148,3 +148,22 @@ if 0:
     a = b'1000'
     print(bin(int(a,2)+int(b'0011',2)))
     print(type(a))
+
+
+if 0:
+    import dummy2
+    dummy2.tiny(1,2)
+if 0:
+    n  = 5
+    for i in range(n):
+        print(((chr(65+i)+" ")*n).strip())
+
+if 0:
+    n = 5
+    for i in range(1,n+1):
+        print("* "*i)
+if 0:#nmot completed
+    n = 3
+    for i in range(1,(n*2)):
+        if i < n:
+            print(" "*(n-1)+"* "*i)
