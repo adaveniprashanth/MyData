@@ -15,7 +15,6 @@
 
 # ** What is 7 to the power of 4?**
 
-# In[1]:
 
 
 7**4
@@ -27,13 +26,11 @@
 #     
 # **into a list. **
 
-# In[4]:
 
 
 s = 'Hi there Sam!'
 
 
-# In[3]:
 
 
 s.split()
@@ -48,14 +45,12 @@ s.split()
 # 
 #     The diameter of Earth is 12742 kilometers.
 
-# In[5]:
 
 
 planet = "Earth"
 diameter = 12742
 
 
-# In[6]:
 
 
 print("The diameter of {} is {} kilometers.".format(planet,diameter))
@@ -63,13 +58,11 @@ print("The diameter of {} is {} kilometers.".format(planet,diameter))
 
 # ** Given this nested list, use indexing to grab the word "hello" **
 
-# In[7]:
 
 
 lst = [1,2,[3,4],[5,[100,200,['hello']],23,11],1,7]
 
 
-# In[14]:
 
 
 lst[3][1][2][0]
@@ -77,13 +70,11 @@ lst[3][1][2][0]
 
 # ** Given this nest dictionary grab the word "hello". Be prepared, this will be annoying/tricky **
 
-# In[16]:
 
 
 d = {'k1':[1,2,3,{'tricky':['oh','man','inception',{'target':[1,2,3,'hello']}]}]}
 
 
-# In[22]:
 
 
 d['k1'][3]['tricky'][3]['target'][3]
@@ -91,7 +82,6 @@ d['k1'][3]['tricky'][3]['target'][3]
 
 # ** What is the main difference between a tuple and a list? **
 
-# In[23]:
 
 
 # Tuple is immutable
@@ -103,14 +93,12 @@ d['k1'][3]['tricky'][3]['target'][3]
 #     
 # **So for example, passing "user@domain.com" would return: domain.com**
 
-# In[24]:
 
 
 def domainGet(email):
     return email.split('@')[-1]
 
 
-# In[26]:
 
 
 domainGet('user@domain.com')
@@ -118,14 +106,12 @@ domainGet('user@domain.com')
 
 # ** Create a basic function that returns True if the word 'dog' is contained in the input string. Don't worry about edge cases like a punctuation being attached to the word dog, but do account for capitalization. **
 
-# In[27]:
 
 
 def findDog(st):
     return 'dog' in st.lower().split()
 
 
-# In[28]:
 
 
 findDog('Is there a dog here?')
@@ -133,7 +119,6 @@ findDog('Is there a dog here?')
 
 # ** Create a function that counts the number of times the word "dog" occurs in a string. Again ignore edge cases. **
 
-# In[30]:
 
 
 def countDog(st):
@@ -144,7 +129,6 @@ def countDog(st):
     return count
 
 
-# In[31]:
 
 
 countDog('This dog runs faster than the other dog dude!')
@@ -158,13 +142,11 @@ countDog('This dog runs faster than the other dog dude!')
 # 
 #     ['soup','salad']
 
-# In[34]:
 
 
 seq = ['soup','dog','salad','cat','great']
 
 
-# In[35]:
 
 
 list(filter(lambda word: word[0]=='s',seq))
@@ -177,7 +159,6 @@ list(filter(lambda word: word[0]=='s',seq))
 #   and 80 inclusive, the result is "Small Ticket". If speed is 81 or more, the result is "Big    Ticket". Unless it is your birthday (encoded as a boolean value in the parameters of the function) -- on your birthday, your speed can be 5 higher in all 
 #   cases. **
 
-# In[4]:
 
 
 def caught_speeding(speed, is_birthday):
@@ -195,13 +176,11 @@ def caught_speeding(speed, is_birthday):
         return 'No Ticket'
 
 
-# In[5]:
 
 
 caught_speeding(81,True)
 
 
-# In[6]:
 
 
 caught_speeding(81,False)
