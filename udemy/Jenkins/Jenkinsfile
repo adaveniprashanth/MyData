@@ -1,9 +1,19 @@
 pipeline {
     agent any
     stages {
+        stage('cleaning') {
+            steps {
+                deleteDir()
+            }
+        }
         stage('stage 1') {
             steps {
                 sh 'python3 ./stage1.py'
+            }
+        }
+        stage('post cleaning') {
+            steps {
+                deleteDir()
             }
         }
     }
