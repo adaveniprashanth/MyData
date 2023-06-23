@@ -1,0 +1,58 @@
+types of data collection:
+1.population: the data whcih is collected from all people is called population and the values comes from population is called "parameters"
+2.sample:it si subset of population and the numbers which we have colelcted from sample is called "statistics"
+
+just consider the example of people in college:
+1.population:collecting the data from all the people in college(online,distance students,part time students)
+
+2.sample: collecting the data from some of them who represents all the people
+
+
+characteristics of sample data:
+1.randomness:it is a group or set chosen in a random manner from a larger population.(some random people has to be choose from large group)
+2.representive:it is a group or set chosen from a larger statistical population according to specified characteristics.(the chosen people will represnt whole large population)
+
+classifications of data:
+1.based on type
+2. based on measurement levels.
+
+based on type:
+1.categorical, 2.numercial
+
+1.categorical data: it is like data has benn collected in groups. like if we have a car, we have purchased it from specific brand. or yes/no questions.
+2.numercial data will be continuous data(time) and descretre value(salary)
+
+based on measurement level:
+1.qualitative data, 2.quantitative data
+
+qualitative data: it has 2 types of data 
+A. nominal data: which means the data can be separated into groups which does not have order.example weather seasons
+B. Ordinal data: which means the data have value in between some ranges. example customer feedback from not satisfied to fully satisfied
+
+quantitative data> it also have 2 types
+A. interval: An interval scale is one where there is order and the difference between two values is meaningful. here we dont have a real zero value(0). example  credit score (300-850).
+
+B.ratio: but it will have true zero value example dose amount.
+
+
+we can present the categorical data in iamges in below forms:
+1.Frequence distribution tables
+2.bar charts
+3.pie charts
+4.pareto diagrams
+
+
+
+measures of central tendency:
+1.mean--> average value
+2.median--> center value 
+3.mode --> frequency of the values i.e. which value more times occured we will considered.
+
+measure of asymmetry:
+1.skewness: right/positive skew(mean> median),no/equal skew(mean=median) and left/negative skew (mean<median) here skew means which side values are not high
+
+
+measures of variability: 
+population variance = (sum of squares of (value-avg))/total values
+sample variance = (sum of squares of (value-avg))/(total values-1)
+sample variance > population variance 

@@ -721,3 +721,24 @@ lst
 
 
 # # Great Job!
+class Company:
+    def __init__(self,age,gender,salary,profession,designation):
+        self.age = age
+        self.gender = gender
+        self.salary = salary
+        self.profession = profession
+        self.designation =designation
+
+c = Company(21,'Male',25000,'softsare','senior engineer')
+print(c.age,c.salary,c.gender,c.designation,c.profession)
+# like this create 5 items
+
+f = open("filename.txt",'w')
+f.write('1,raj,bangalore,123456,23-06-2023,amazon\n')
+f.write('1,raj,bangalore,123456,23-06-2023,amazon\n')
+f.write('1,raj,bangalore,123456,23-06-2023,amazon\n')
+f.write('1,raj,bangalore,123456,23-06-2023,amazon\n')
+f.write('1,raj,bangalore,123456,23-06-2023,amazon\n')
+f.write('1,raj,bangalore,123456,23-06-2023,amazon\n')
+f.close()
+
