@@ -1,0 +1,72 @@
+<!-- Button trigger modal -->
+<!-- reference: https://getbootstrap.com/docs/4.0/components/modal/-->
+<style>
+    .modal-content {
+    background-color:#212121}
+</style>
+<!--this will display a pop-up when user click on the button -->
+<!-- Modal for more-info details in db market html page -->
+<!--                                      item.id will come from where it has been called -->
+<div class="modal fade" id="moreInfo-{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="moreInfo">{{item.name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{item.description}}  <!--comes from where it has been called -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+<!--                <button type="button" class="btn btn-primary">Save changes</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal for purchase item details in db market html page -->
+<!--                                      item.id will come from where it has been called -->
+<div class="modal fade" id="purchaseItem-{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="purchaseItem">{{item.name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 class="text-center">
+                Are you sure you want to buy {{item.name}} for {{item.price}}/- ?  <!--comes from where it has been called -->
+                </h4>
+                <br>
+                <h6 class="text-center">
+                    by clicking purchase button, you will purchase this item.
+                </h6>
+            </div>
+            <div class="modal-footer">
+                <form method="POST">
+                    {{purchase_form.hidden_tag()}}
+
+                    {{purchase_form.submit(class="btn btn-outline-success")}}
+                    <!--the above line supports displaying the purchase button in modal-->
+                    <!--when we click the purchase button it will convert the click action into below html format-->
+                    <!-- <input id="submit" name="submit" type="submit" value="Purchase"> -->
+                    <!-- but instead we are converting that action into below format-->
+                    <input id="purchased_item" name="item_purchased" type="hidden" value="{{item.name}}">
+                    <!--we are making hidden because it should not be accessed by forms-->
+                    <!--value="{{item.name}} because to capture which item purchased-->
+                    <!-- this html data can be used in server functions using request module-->
+                </form>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div>
+    </div>
+</div>

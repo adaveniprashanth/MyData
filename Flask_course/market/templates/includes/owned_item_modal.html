@@ -1,0 +1,51 @@
+<!-- Button trigger modal -->
+<!-- reference: https://getbootstrap.com/docs/4.0/components/modal/-->
+<style>
+    .modal-content {
+    background-color:#212121}
+</style>
+<!--this will display a pop-up when user click on the button -->
+<!-- Modal for more-info details in db market html page -->
+<!--                                      item.id will come from where it has been called -->
+
+<!-- Modal for purchase item details in db market html page -->
+<!--                                      owned_item.id will come from where it has been called -->
+<div class="modal fade" id="sellingItem-{{owned_item.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="SoldItem">{{owned_item.name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 class="text-center">
+                Are you sure you want to sell {{owned_item.name}} for {{owned_item.price}}/- ?  <!--comes from where it has been called -->
+                </h4>
+                <br>
+                <h6 class="text-center">
+                    by clicking sell button, you will sell this item.
+                </h6>
+            </div>
+            <div class="modal-footer">
+                <form method="POST">
+                    {{selling_form.hidden_tag()}}
+
+                    {{selling_form.submit(class="btn btn-outline-danger")}}
+                    <!--the above line supports displaying the purchase button in modal-->
+                    <!--when we click the purchase button it will convert the click action into below html format-->
+                    <!-- <input id="submit" name="submit" type="submit" value="Purchase"> -->
+                    <!-- but instead we are converting that action into below format-->
+                    <input id="sold_item" name="item_sold" type="hidden" value="{{owned_item.name}}">
+                    <!--we are making hidden because it should not be accessed by forms-->
+                    <!--value="{{owned_item.name}} because to capture which item purchased-->
+                    <!-- this html data can be used in server functions using request module-->
+                </form>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+            </div>
+        </div>
+    </div>
+</div>

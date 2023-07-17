@@ -1,0 +1,34 @@
+{% extends 'base.html'%}
+
+{%block title %}
+Register Page
+{% endblock %}
+
+{%block content%}
+<body class="text-container">
+<div class="container"> <!-- to make the form in center using the container-->
+    <h1>Please create your account</h1>
+    <form method="POST" class="form-register" style="color:white">
+        <br>
+        {{form.hidden_tag()}} <!-- to avoid security leakage of details -->
+        {{form.username.label()}} <!-- this value will come from forms.py-->
+        {{form.username(class="form-control",placeholder="User Name")}}
+        {{form.email.label()}}
+        {{form.email(placeholder="email address")}} <!-- form-control will control the size of holder-->
+        {{form.password.label()}}
+        {{form.password(class="form-control",placeholder="Password")}}
+        {{form.confirm_password.label()}}
+        {{form.confirm_password(class="form-control",placeholder="Confirm Password")}}
+        <br> <!-- line break space-->
+        {{form.submit(class="btn btn-lg btn-block btn-primary")}}
+        <!-- btn-lg  will be used for large size of button font-->
+        <!-- btn-block will make button size to block size-->
+        <!--btn-primary for blue color-->
+        <div class="check-box mb-3">
+            <h3>Existing user?</h3>
+            <a class="btn btn-sm btn-secondary" href="{{url_for('login_page')}}">Login</a>
+        </div>
+    </form>
+</div>
+</body>
+{% endblock %}

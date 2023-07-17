@@ -1,0 +1,13 @@
+{%extends 'base.html'%}  <!--using jinja technique to inherit from other html (base.html) page-->
+
+{% block title %}
+Home Page
+{% endblock %}
+
+{% block content %}
+Welcome to my market page
+<div>
+    <h1>Start Purchasing from here</h1>
+    <a class="btn btn-primary" href="{{url_for('market_page')}}">Start</a>
+</div>
+{% endblock %}

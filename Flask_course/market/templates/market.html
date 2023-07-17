@@ -1,0 +1,33 @@
+{%extends 'base.html' %} <!--inheriting the code from base.html file-->
+{% block title %}
+Market Page
+{% endblock %}
+{% block content %}
+  <table class=" table table-dark"> <!--to highlight the table we need this class-->
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">name</th>
+            <th scope="col">barcode</th>
+            <th scope="col">price</th>
+            <th scope="col">options</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--JINJA code for looping-->
+        {%for item in items%}
+        <tr>
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.barcode}}</td>
+            <td>{{item.price}}/-</td>
+            <td>
+                <button class="btn btn-outline btn-info">More Info</button>
+                <button class="btn btn-outline btn-success">Purchase</button>
+            </td>
+        </tr>
+        {%endfor%}
+        </tbody>
+    </table>
+ {{itemname}}
+{% endblock %}
