@@ -1,0 +1,5 @@
+<h1>thissi the sample of dynamic routing</h1>
+<h2>Click on each item. it will route to same page with updated details</h2>
+{% for name in names %}
+<h1><a href="{% url 'post' name %}" >{{name}}</a></h1>
+{% endfor %}

@@ -1,0 +1,26 @@
+<h1>sign up below</h1>
+<!--to display the flash messages-->
+<style>
+  h5{
+  color:red;
+  }
+</style>
+{%for message in messages %}
+<h5>{{message}}</h5>
+{% endfor %}
+
+<form method="POST" action="register">
+  {% csrf_token%}
+  <p>Username</p>
+  <input type="text" name="username" />
+  <p>Email</p>
+  <input type="email" name="email" />
+  <p>Password</p>
+  <input type="password" name="password" />
+  <p>Confirm Password</p>
+  <input type="password" name="confirm_password" />
+  <p>Submit</p>
+  <input type="submit" />
+</form>
+<p>Existing user?</p>
+<a class="getstarted scrollto" href="login">Login</a>

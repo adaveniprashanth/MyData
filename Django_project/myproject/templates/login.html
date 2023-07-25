@@ -1,0 +1,24 @@
+<h1>Login Form</h1>
+
+<style>
+  h3{
+  color:red;
+  }
+
+</style>
+{% for message in messages %}
+<h3>{{message}}</h3>
+{% endfor %}
+<form method="post" action="login">
+  {% csrf_token %}
+  <p>Username</p>
+  <input type="text" name="username" />
+  <p>Email</p>
+  <input type="email" name="email" />
+  <p>Password</p>
+  <input type="password" name="password" />
+  <p>Submit</p>
+  <input type="submit">
+</form>
+<p>New user?</p>
+<a class="getstarted scrollto" href="register">Sign Up</a>

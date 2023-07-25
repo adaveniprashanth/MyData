@@ -1,0 +1,27 @@
+<html>
+<head>
+  <h1>Enter the city Name</h1>
+</head>
+<body>
+<div class="row">
+  <form method="post" class="col-mid-6 col-mid-offset-3">
+    {% csrf_token %}
+    <div class="input-group">
+      <input type="text" placeholder="Enter the city name" name="city" class="form-control"/>
+        <input type="submit">
+    </div>
+  </form>
+</div>
+
+<div class="row">
+    {%  if data %}
+         <h1>{{data.city}}</h1>
+          <p>country code: {{data.country_code}}</p>
+          <p>temp: {{data.temperature}}K</p>
+          <p>pressure: {{data.pressure}}</p>
+          <p>humidity: {{data.humidity}}</p>
+    {% endif %}
+</div>
+</body>
+
+</html>

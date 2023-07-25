@@ -4,7 +4,7 @@ try:
     import sys,os
     import numpy as np
     import array as arr
-    #import string
+    import string
     import random,re
     import shutil
     from datetime import date
@@ -17,12 +17,11 @@ try:
     import send2trash
     import PyPDF2
     from PyPDF2 import PdfFileReader,PdfFileWriter
-    import docx
-    import csv
+    # import docx #not able to install
+    # import csv
     import json
     import heapq #for finding the nth largest number in list
-    
-    #import readDocx
+    # import readDocx #not able to install
 
 except ModuleNotFoundError:
     print("you have to install the below packages to run")
@@ -185,7 +184,7 @@ if 0:#merging 2 dictionaries by Adding values of common keys
 
 # while else condition
 
-random_value = int(20 * rd.random())
+random_value = int(20 *rd.random())
 # print(rd.random())
 # print(random_value)
 user_selected = 0
@@ -1132,7 +1131,6 @@ if 0:
 
 if 0:
     class Car():
-    
         car_type = 'Sedan'    #class attribute wiil be same for all objects
         
         # constructor
