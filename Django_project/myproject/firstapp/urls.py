@@ -26,8 +26,15 @@ urlpatterns = [
     path('blogs',views.blogs,name='blogs'),
     path('blogdetails/<str:id>', views.blog_details, name='blog_details'),
     path('weather', views.weather_request, name='weather'),
+    # chat application
     path('chathome', views.chat_home, name='chathome'),
-    path('room_name/<str:room_name>',views.chat_room,name='chatroom'),# here we can see the all the messages
-    path('checkroom', views.check_room, name='checkroom'),
-
+    path('chat/<str:room>/',views.room,name='room'), # it will go to chat room
+    path('checkview', views.checkview, name='checkview'),
+    path('send', views.send, name='send'),
+    path('getMessages/<str:room>/',views.getMessages,name='getMessages'),
+    # my chat application
+    path('loginchat', views.login_chat, name='loginchat'),
+    path('joinroom',views.join_room,name='joinroom'),
+    path('chatsend', views.chat_send, name='chatsend'),
+    path('getHistory/<str:room>/',views.getHistory,name='getHistory'),
 ]
