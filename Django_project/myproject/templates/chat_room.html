@@ -23,11 +23,14 @@ setInterval(function(){
         url : "/getHistory/{{room}}/",
         success: function(response){
             console.log(response);
+            const inputValue = document.getElementById("username").value;
+            console.log(inputValue);
+            console.log("printed");
             $("#display").empty();
             for (var key in response.messages)
             {
-                if ({{username}} == response.messages[key].user){
-                    var temp="<div style='text-align:right'></style>><b>"+response.messages[key].user+"</b><p>"+response.messages[key].value+"</p><span>"+response.messages[key].date+"</span></div>";
+                if (inputValue == response.messages[key].user){
+                    var temp="<div style='text-align:right'><b>"+response.messages[key].user+"</b><p>"+response.messages[key].value+"</p><span>"+response.messages[key].date+"</span></div>";
                     $("#display").append(temp);
                 }
                 else{

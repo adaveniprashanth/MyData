@@ -30,7 +30,7 @@ class Room(models.Model):
 #
 class Message(models.Model):
     value=models.CharField(max_length=1000000,)
-    date=models.DateTimeField(default=datetime.now(),blank=True)
+    date=models.DateTimeField(default=datetime.now().time(),blank=True)
     user=models.CharField(max_length=1000)  # to store the username who sent the message
     room_name=models.CharField(max_length=150)  # to which room the user has connected
 
