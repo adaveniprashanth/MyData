@@ -209,10 +209,10 @@ def chat_send(request):#getting details from ajax script of send code
     username=request.POST['username']
     room_id=request.POST['room_id']
     message=request.POST['message']
+
     # storing the message in messages table in database
     new_messaqe=Message.objects.create(value=message,user=username,room_name=room_id)
     new_messaqe.save()
-
     return HttpResponse('Message successfully sent!')#sending the message to alert function in javascript
 
 def getHistory(request,room):
