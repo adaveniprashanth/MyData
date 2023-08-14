@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.urls import reverse #importing this because we are using namespace in project/urls.py urlpatterns
 from django.http import HttpResponse,JsonResponse
 from django.contrib.auth.models import User,auth # here User is like Usr table in database
 from django.contrib import messages
@@ -61,6 +62,8 @@ def db_model_sample(request):
     return render(request, 'db_model_sample.html', {'features': designs})
 
 def register(request):
+    register_url=reverse("firstapp:register")
+    login_url=reverse("firstapp:login")
     if request.method == 'POST':
         username=request.POST['username']
         email = request.POST['email']
@@ -69,22 +72,24 @@ def register(request):
         if password == confirm_password:
             if User.objects.filter(email=email).exists():
                 messages.info(request,'Email already exist!') # showing the message
-                return redirect('register')
+                return redirect(register_url)
             elif User.objects.filter(username=username).exists():
                 messages.info(request,'User already exist!') # showing the message
-                return redirect('register')
+                return redirect(register_url)
             else:
                 user=User.objects.create_user(username=username,email=email,password=password)
                 user.save()# saving user details in database user table
                 messages.info(request, 'Success!')
-                return redirect('login')
+                return redirect(login_url)
         else:
             messages.info(request, 'passwords not matched!')
-            return redirect('register')
+            return redirect(register_url)
     else:
         return render(request,'register.html')
 
 def login(request):
+    login_url = reverse("firstapp:login")
+    home_url = reverse("firstapp:home")
     if request.method == 'POST':
         username=request.POST['username']
         email = request.POST['email']
@@ -98,16 +103,17 @@ def login(request):
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             auth.login(request,user)
-            return redirect('home')
+            return redirect(home_url)
         else:
             messages.info(request,'Invalid credentials!')
-            return redirect('login')
+            return redirect(login_url)
     else:
         return render(request,'login.html')
 
 def logout(request):
+    home_url=reverse('firstapp:home')
     auth.logout(request)
-    return redirect('home')
+    return redirect(home_url)
 
 # dynamic routing means the url link(i.e value in url) will change for each request
 def post(request,name):
@@ -124,6 +130,7 @@ def blogs(request):
     return render(request,'blogs.html',{'posts':posts})
 
 def blog_details(request,id):
+    # href="{% url 'firstapp:blogdetails' post.id %}
     post=Post.objects.get(id=id)
     # print(post)
     return render(request,'blog_details.html',{'post':post})
@@ -147,75 +154,117 @@ def weather_request(request):
     else:
         data={}
     return render(request,'weather_request.html',{'data':data})
+if 0: # without namespace it will work
+    def chat_home(request):
+        return render(request,'chat_home.html')
 
-def chat_home(request):
-    return render(request,'chat_home.html')
+    def room(request,room):
+        user=request.GET.get('username') # this value is coming from the url value
+        room_details = Room.objects.get(name=room)
+        print("hello")
+        return render(request,'room.html',{'username':user,'room':room,'room_details':room_details}) # this will help to enter into chat room
 
-def room(request,room):
-    user=request.GET.get('username') # this value is coming from the url value
-    room_details = Room.objects.get(name=room)
-    print("hello")
-    return render(request,'room.html',{'username':user,'room':room,'room_details':room_details}) # this will help to enter into chat room
+    def checkview(request):
+        if request.method =='POST':
+            room_name=request.POST['room_name']
+            user=request.POST['username']
+            room_url= reverse('firstapp:chat/'+room_name+"/?username="+user)
+            if Room.objects.filter(name=room_name).exists():
+                return redirect('chat/'+room_name+"/?username="+user)
+                # return redirect(room_url)
+            else:
+                new_room=Room.objects.create(name=room_name) # creating the new room
+                new_room.save()
+                return redirect('chat/' + room_name + "/?username=" + user)
+                # return redirect(room_url)
 
-def checkview(request):
-    if request.method =='POST':
-        room_name=request.POST['room_name']
-        user=request.POST['username']
-        if Room.objects.filter(name=room_name).exists():
-            return redirect('chat/'+room_name+"/?username="+user)
-        else:
-            new_room=Room.objects.create(name=room_name) # creating the new room
-            new_room.save()
-            return redirect('chat/' + room_name + "/?username=" + user)
+    def send(request):#getting details from ajax script of send code
+        username=request.POST['username']
+        room_id=request.POST['room_id']
+        message=request.POST['message']
+        # storing the message in messages table in database
+        new_messaqe=Message.objects.create(value=message,user=username,room_name=room_id)
+        new_messaqe.save()
 
-def send(request):#getting details from ajax script of send code
-    username=request.POST['username']
-    room_id=request.POST['room_id']
-    message=request.POST['message']
-    # storing the message in messages table in database
-    new_messaqe=Message.objects.create(value=message,user=username,room_name=room_id)
-    new_messaqe.save()
+        return HttpResponse('Message successfully sent!')#sending the message to alert function in javascript
 
-    return HttpResponse('Message successfully sent!')#sending the message to alert function in javascript
+    def getMessages(request,room):
+        room_details=Room.objects.get(name=room)
+        print("get messages")
+        messages=Message.objects.filter(room_name=room_details.id)
+        return JsonResponse({"messages":list(messages.values())})
 
-def getMessages(request,room):
-    room_details=Room.objects.get(name=room)
-    messages=Message.objects.filter(room_name=room_details.id)
-    return JsonResponse({"messages":list(messages.values())})
+if 1: #with namespace it will work
+    def login_chat_namespace(request):
+        return render(request,'login_chat_test.html')
 
-def login_chat(request):
-    return render(request,'login_chat.html')
+    def join_room_namespace(request):
+        if request.method =='POST':
+            room_name=request.POST['room_name']
+            user=request.POST['username']
+            if Room.objects.filter(name=room_name).exists():
+                return chat_room_namespace(request,room_name,user)
+            else:
+                new_room=Room.objects.create(name=room_name) # creating the new room
+                new_room.save()
+                return chat_room_namespace(request, room_name, user)
 
-def join_room(request):
-    if request.method =='POST':
-        room_name=request.POST['room_name']
-        user=request.POST['username']
-        if Room.objects.filter(name=room_name).exists():
-            return chat_room(request,room_name,user)
-            # return redirect('chatroom/'+room_name,{'user':user})
-        else:
-            new_room=Room.objects.create(name=room_name) # creating the new room
-            new_room.save()
-            return chat_room(request, room_name, user)
-            # return redirect('chatroom/' + room_name,{'user':user})
+    def chat_room_namespace(request,room,user):
+        # user=request.GET.get('username') # this value is coming from the url value
+        room_details = Room.objects.get(name=room)
+        return render(request,'chat_room_test.html',{'username':user,'room':room,'room_details':room_details}) # this will help to enter into chat room
 
-def chat_room(request,room,user):
-    # user=request.GET.get('username') # this value is coming from the url value
-    room_details = Room.objects.get(name=room)
-    print("testing")
-    return render(request,'chat_room.html',{'username':user,'room':room,'room_details':room_details}) # this will help to enter into chat room
+    def chat_send_namespace(request):#getting details from ajax script of send code
+        username=request.POST['username']
+        room_id=request.POST['room_id']
+        message=request.POST['message']
 
-def chat_send(request):#getting details from ajax script of send code
-    username=request.POST['username']
-    room_id=request.POST['room_id']
-    message=request.POST['message']
+        # storing the message in messages table in database
+        new_messaqe=Message.objects.create(value=message,user=username,room_name=room_id)
+        new_messaqe.save()
+        return HttpResponse('Message successfully sent!')#sending the message to alert function in javascript
 
-    # storing the message in messages table in database
-    new_messaqe=Message.objects.create(value=message,user=username,room_name=room_id)
-    new_messaqe.save()
-    return HttpResponse('Message successfully sent!')#sending the message to alert function in javascript
+    def getHistory_namespace(request,room_value):
+        room_details=Room.objects.get(name=room_value)
+        messages=Message.objects.filter(room_name=room_details.id)
+        print("messages",list(messages.values()))
+        return JsonResponse({"messages":list(messages.values())})
 
-def getHistory(request,room):
-    room_details=Room.objects.get(name=room)
-    messages=Message.objects.filter(room_name=room_details.id)
-    return JsonResponse({"messages":list(messages.values())})
+
+if 0: # below are working fine without namespace
+    def login_chat(request):
+        return render(request,'login_chat.html')
+
+    def join_room(request):
+        if request.method =='POST':
+            room_name=request.POST['room_name']
+            user=request.POST['username']
+            if Room.objects.filter(name=room_name).exists():
+                return chat_room(request,room_name,user)
+                # return redirect('chatroom/'+room_name,{'user':user})
+            else:
+                new_room=Room.objects.create(name=room_name) # creating the new room
+                new_room.save()
+                return chat_room(request, room_name, user)
+                # return redirect('chatroom/' + room_name,{'user':user})
+
+    def chat_room(request,room,user):
+        # user=request.GET.get('username') # this value is coming from the url value
+        room_details = Room.objects.get(name=room)
+        print("testing")
+        return render(request,'chat_room.html',{'username':user,'room':room,'room_details':room_details}) # this will help to enter into chat room
+
+    def chat_send(request):#getting details from ajax script of send code
+        username=request.POST['username']
+        room_id=request.POST['room_id']
+        message=request.POST['message']
+
+        # storing the message in messages table in database
+        new_messaqe=Message.objects.create(value=message,user=username,room_name=room_id)
+        new_messaqe.save()
+        return HttpResponse('Message successfully sent!')#sending the message to alert function in javascript
+
+    def getHistory(request,room):
+        room_details=Room.objects.get(name=room)
+        messages=Message.objects.filter(room_name=room_details.id)
+        return JsonResponse({"messages":list(messages.values())})

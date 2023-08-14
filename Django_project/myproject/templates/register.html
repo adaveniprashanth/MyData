@@ -9,7 +9,7 @@
 <h5>{{message}}</h5>
 {% endfor %}
 
-<form method="POST" action="register">
+<form method="POST" action="{% url 'firstapp:register' %}">
   {% csrf_token%}
   <p>Username</p>
   <input type="text" name="username" />
@@ -23,4 +23,4 @@
   <input type="submit" />
 </form>
 <p>Existing user?</p>
-<a class="getstarted scrollto" href="login">Login</a>
+<a class="getstarted scrollto" href="{% url 'firstapp:login' %}">Login</a>

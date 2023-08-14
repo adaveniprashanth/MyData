@@ -9,8 +9,8 @@
   <div class="leftcolumn">
     {% for post in posts reversed %}
     <div class="card">
-<!--      <a href="{%url 'blog_details' post.id %}" style="text-decoration:none;color:black;">-->
-      <a href="blogdetails/{{post.id}}" style="text-decoration:none;color:black;">
+<!--      <a href="{% url 'firstapp:blogdetails' post.id %}" style="text-decoration:none;color:black;">-->
+      <a href="{% url 'firstapp:blogdetails' post.id %}" style="text-decoration:none;color:black;">
 <!--        both hrefs will work without any issue-->
       <h2>{{post.title}}</h2>
       <h3>{{post.body|truncatewords:20}}</h3>

@@ -16,9 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #importing the urls tha supports to particular app. ex: firstapp
-    path('',include('firstapp.urls'))
+    # importing the urls that supports to particular app. ex: firstapp
+    path('firstapp/',include(('firstapp.urls','firstapp'),namespace='firstapp')), #providing namespace to avoid conflicts  between apps urls
+    # path('chatapp/',include(('chatapp.urls','chatapp'),namespace='chatapp'))
 ]
