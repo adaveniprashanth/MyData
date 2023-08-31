@@ -1,0 +1,9 @@
+<form action="countwords" method="post">  <!--action will call the url link when submitting the data-->
+    <!--we are using the p[ost method to avoid details in url link request
+    It means post method will hide the details-->
+    <!--textarea is an input field and it will capture data and assign data to sentence variable -->
+    <textarea name="sentence" row="25" cols="50"></textarea>
+    <br>
+    {% csrf_token %}  <!--we are using this line to avoid csrf attacks Cross-Site Request Forgery(csrf)-->
+    <input type="submit"> <!--we have to press the input to perform assign operation above-->
+</form>

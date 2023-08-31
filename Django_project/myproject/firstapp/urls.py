@@ -46,5 +46,5 @@ urlpatterns = [
     path('joinroomnamespace',views.join_room_namespace,name='joinroomnamespace'),
     path('chatsendnamespace', views.chat_send_namespace, name='chatsendnamespace'),
     path('getHistorynamespace/<str:room_value>/',views.getHistory_namespace,name='getHistorynamespace'),
-    
+
 ]

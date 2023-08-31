@@ -64,6 +64,7 @@ def db_model_sample(request):
 def register(request):
     register_url=reverse("firstapp:register")
     login_url=reverse("firstapp:login")
+
     if request.method == 'POST':
         username=request.POST['username']
         email = request.POST['email']

@@ -1,0 +1,12 @@
+{% load static %}  <!--loading the static folder into this file-->
+                <!-- already we have provided the static folder path to django in settings.py file-->
+
+<link rel="stylesheet" href="{% static 'style.css' %}"> <!--applying the effects of style.css file into this file-->
+{% if user.is_authenticated %}  <!--checking that user is logged in or not-->
+<h1 class="title">welcome {{user.username}}</h1>
+<li><a class="getstarted scrollto" href="{% url 'firstapp:logout'%}">Logout</a></li>
+{% else %}
+<h1 class="title">welcome {{name}}</h1>
+<li><a class="getstarted scrollto" href="login">Login/SignUp</a></li>
+{% endif %}
+

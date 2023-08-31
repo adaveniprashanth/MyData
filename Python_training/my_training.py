@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 try:
@@ -19,7 +20,7 @@ try:
     from PyPDF2 import PdfFileReader,PdfFileWriter
     # import docx #not able to install
     # import csv
-    import json
+    import json,pickle
     import heapq #for finding the nth largest number in list
     # import readDocx #not able to install
 
@@ -1147,7 +1148,7 @@ if 0:
         #instance method with instance attributes
         def description(self):
             print("{} is the milage of {} looks good".format(self.name, self.milage))
-        
+
         
         def max_speed(self,speed):
             print("{} is going with max speed of {}".format(self.name,speed))
@@ -4252,7 +4253,20 @@ if 1:#JSON(Java Script Object Notation) data handling
         f = open('json_data.json','r')
         data = json.load(f)
         print(data)
-        
+
+    if 0: #pickling
+        import pickle
+        # Input Data
+        my_data = {'BMW', 'Audi', 'Toyota', 'Benz'}
+
+        # Pickle the input
+        with open("demo.pickle", "wb") as file_handle:
+            pickle.dump(my_data, file_handle, pickle.HIGHEST_PROTOCOL)
+
+        # Unpickle the above pickled file
+        with open("demo.pickle", "rb") as file_handle:
+            res = pickle.load(file_handle)
+            print(my_data)  # display the output
     
     
     

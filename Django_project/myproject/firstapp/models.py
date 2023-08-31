@@ -24,6 +24,7 @@ class feature:
 # python manage.py migrate
 # admin user is admin and password is prashanth
 # next we have register this model in admin.py
+
 class design(models.Model):
     name = models.CharField(max_length=50)
     description=models.CharField(max_length=100)

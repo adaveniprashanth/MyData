@@ -1,0 +1,24 @@
+<html>
+<head>
+<div class="header">
+  <h2>My Blogs</h2>
+</div>
+  </head>
+<body>
+<div class="row">
+  <div class="leftcolumn">
+    {% for post in posts reversed %}
+    <div class="card">
+<!--      <a href="{% url 'firstapp:blogdetails' post.id %}" style="text-decoration:none;color:black;">-->
+      <a href="{% url 'firstapp:blogdetails' post.id %}" style="text-decoration:none;color:black;">
+<!--        both hrefs will work without any issue-->
+      <h2>{{post.title}}</h2>
+      <h3>{{post.body|truncatewords:20}}</h3>
+      <h5>{{post.created_at}}</h5>
+        </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+</body>
+</html>
