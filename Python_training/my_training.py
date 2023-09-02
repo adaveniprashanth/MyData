@@ -4268,7 +4268,38 @@ if 1:#JSON(Java Script Object Notation) data handling
             res = pickle.load(file_handle)
             print(my_data)  # display the output
     
-    
+if 0:#balanced paranthesis
+    stack = []
+    b = "(())))(())((())"
+    for i in b:
+        if i == "(":
+            stack.append(")")
+        elif i == ")" and ")" in stack:
+            stack.remove(")")
+    print(stack)
+if 0:#syntactially correct paranthesis
+    def isValid(sequence):
+        while True:
+            if '()' in sequence:
+                sequence = sequence.replace('()', '')
+            #   elif '{}' in sequence :
+            #       sequence = sequence.replace ( '{}' , '' )
+            #   elif '[]' in sequence :
+            #       sequence = sequence.replace ( '[]' , '' )
+            else:
+                print(sequence)
+                break
+    isValid("))(())(")
+
+if 0:#finalize method
+    import weakref
+    class MyClass:
+        pass
+    def clean_up(*args):
+        print('clean_up', args)
+    my_obj = MyClass()
+    weakref.finalize(my_obj, clean_up, 'arg1', 'arg2', 'arg3')
+    del my_obj  # optional
     
     
     
