@@ -1,6 +1,6 @@
 # https://pynative.com/python-class-method/
 # https://pynative.com/python-class-method-vs-static-method-vs-instance-method/
-
+# https://realpython.com/intro-to-python-threading/
 if 0:
     class parent1:
         def __init__(self,a):
@@ -150,7 +150,7 @@ if 0:
     Student.change_school('XYZ School')
     jessa.show()
 
-if 1:
+if 0:
     import time
     class Student:
         # constructor
@@ -175,3 +175,51 @@ if 1:
     time.sleep(5)
     print('After sleep')
     s2.show()
+
+if 0: #creating socket acts as client and receiving data from server.
+    # it is a client
+    import socket
+    my_socket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    my_socket.connect(('data.pr4e.org', 80))
+    cmd='GET http://data.pr4e.org/page1.htm HTTP/1.0\r\n\r\n'.encode() #conveting from string type to utf-8 format
+    my_socket.send(cmd)
+
+    while True:
+        data=my_socket.recv(512)#collecting 512 bytes of data
+        if len(data) <1:
+            break
+        print(data.decode())
+
+    my_socket.close()
+
+if 0:#creating the server
+    from socket import *
+    def startserver():
+        serversocket = socket(AF_INET,SOCK_STREAM)
+        try:
+            serversocket.bind(('localhost',9000))#creating thehost and port number and binding them to server
+            serversocket.listen(5)#making the server to listen mode
+            while 1:
+                (clientsocket,address) = serversocket.accept()# accepting the request from client and holding other client requests
+                rd=clientsocket.recv(5000).decode()#receive 5k bytes from clinet and decode them to make python understand
+                pieces=rd.split("\n")
+                if len(pieces) > 0: print(pieces[0])#printing headers data
+                data ='HTTP/1.1 200 OK\r\n'
+                data+='Content-Type: text/html; character=utf-8\r\n'
+                data+='\r\n'
+                data+='<html><body><h1>The First Page</h1></body></html>'
+                clientsocket.sendall(data.encode())#sending data to client
+                clientsocket.shutdown(SHUT_WR)#closing the connection with client
+        except KeyboardInterrupt:
+            print("server stopped")
+        except Exception as e:
+            print("error",e)
+        serversocket.close()
+    print("access sever from http://loclahost:9000")
+    startserver()
+# keep below code in other file and run from other terminal
+if 0:#connetingto the above crated server
+    import urllib.request
+    fhand = urllib.request.urlopen('http://127.0.0.1:9000/romeo.txt')
+    for line in fhand:
+        print(line.decode().strip())
