@@ -1,0 +1,27 @@
+
+table1 data
+['user_id', 'name', 'order_id']
+(1, 'raj', 123)
+(2, 'ramesh', 234)
+(3, 'arun', 456)
+(4, 'kamal', 567)
+
+table2 data
+['order_id', 'price', 'profit']
+(123, 450, 150)
+(234, 550, 50)
+(789, 567, 45)
+(987, 456, 12)
+color table data
+['color', 'name', 'assigned_color']
+('blue', 'raj', 'black')
+('red', 'ram', 'blue')
+('yellow', 'kamal', 'red')
+('black', 'amar', 'yellow')
+
+self join result
+['name', 'assigned_color', 'santa']
+('ram', 'blue', 'raj')
+('kamal', 'red', 'ram')
+('amar', 'yellow', 'kamal')
+('raj', 'black', 'amar')

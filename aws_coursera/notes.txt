@@ -1,0 +1,12 @@
+Regional endpoints
+Most Amazon Web Services offer a Regional endpoint that you can use to make your requests. The general syntax of a Regional endpoint is as follows.
+protocol://service-code.region-code.amazonaws.com
+Ex: https://dynamodb.us-west-2.amazonaws.com is the endpoint for the Amazon DynamoDB service in the US West (Oregon) Region.
+
+Dual stack endpoints
+Some AWS services offer dual stack endpoints, so that you can access them using either IPv4 or IPv6 requests.
+
+The general syntax of a dual stack endpoint is as follows.
+
+protocol://service-code.region-code.api.aws
+For example, https://ec2.us-west-2.api.aws is the dual stack endpoint for Amazon EC2 in the US West (Oregon) Region.

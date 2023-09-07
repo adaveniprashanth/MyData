@@ -2576,12 +2576,8 @@ if 0:
     
     # Example to test the above code
     arr = [ 26, 21, 2, 1 ]
-    
     bubbleSort(arr)
-    
-    print("Sorted array is:")
-    for i in arr:
-    	print("%d" % i)
+
 # selection sort
 if 0:
     # Selection Sort algorithm in Python

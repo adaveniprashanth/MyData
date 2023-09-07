@@ -1,6 +1,9 @@
 # https://pynative.com/python-class-method/
 # https://pynative.com/python-class-method-vs-static-method-vs-instance-method/
 # https://realpython.com/intro-to-python-threading/
+import os
+# os.system("echo $hello")
+
 if 0:
     class parent1:
         def __init__(self,a):

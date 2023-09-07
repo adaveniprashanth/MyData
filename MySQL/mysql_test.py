@@ -2,24 +2,28 @@ import mysql.connector
 
 # for reference --> https://www.interviewbit.com/mysql-cheat-sheet/
 # for reference --> https://realpython.com/python-mysql/#installing-mysql-server
-
+# for reference --> https://medium.com/@jinendra-singh/master-sql-joins-chapter-5-9901a83302f8
 # connecting to mysql database
 connection = mysql.connector.connect(
   host="localhost",
   user="admin",
   password="admin",
-  database="mydatabase"
+  # database="mydatabase"
 )
 
 print(connection)
 cursor = connection.cursor()
+print("display all databases in server")
 cursor.execute("SHOW DATABASES;")
 for i in cursor:
   print(i)
 
 # cursor.execute("CREATE DATABASE IF NOT EXISTS mydatabase;")
-# cursor.execute(" USE mydatabase;")
-
+cursor.execute(" USE mydatabase;")
+print("display all tables in database")
+cursor.execute("SHOW TABLES;")
+for i in cursor:
+    print(i)
 if 0:  # data types
     if 0: # character data type
         # we can support any character data, but we cannot specify particular datatype
@@ -159,8 +163,8 @@ if 0:
     # closing the sqlite database
     cur.close()
 
-if 1: #select functionality
-    if 1: #selecting all columns
+if 0: #select functionality
+    if 0: #selecting all columns
         cursor.execute('SELECT * FROM users;')
         names = [description[0] for description in cursor.description]
         print(names)
@@ -246,6 +250,131 @@ if 1: #select functionality
         cursor.execute('SELECT userId,Country FROM users WHERE userId NOT BETWEEN 2 and 57;')
         for i in cursor:
             print(i)
+
+if 1:#sql joins
+    f1 =open('joins_result.txt','w')
+    cursor.execute("DROP TABLE IF EXISTS table1;")
+    cursor.execute("DROP TABLE IF EXISTS table2;")
+    cursor.execute('''CREATE TABLE IF NOT EXISTS table1(
+    user_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    name VARCHAR(50),
+    order_id INT NOT NULL
+    );''')
+    cursor.execute('''CREATE TABLE IF NOT EXISTS table2(
+        order_id INT NOT NULL,
+        price INT,
+        profit INT  
+        );''')
+    cursor.execute('''INSERT IGNORE INTO table1
+    (name,order_id) VALUES
+    ('raj',123),('ramesh',234),
+    ('arun',456),('kamal',567);
+    ''')
+    cursor.execute('''INSERT IGNORE INTO table2
+    (order_id,price,profit) VALUES
+    (123,450,150),(234,550,50),
+    (789,567,45),(987,456,12);''')
+    for i in cursor:
+        print(i)
+    print("table1 details")
+    f1.writelines("\ntable1 data\n")
+    cursor.execute('''SELECT * FROM table1;''')
+    names = [description[0] for description in cursor.description]
+    f1.writelines(str(names)+"\n")
+    for i in cursor:
+        f1.writelines(str(i)+"\n")
+        print(i)
+
+    print("table2 details")
+    f1.writelines("\ntable2 data\n")
+    cursor.execute('''SELECT t2.order_id,t2.price,t2.profit FROM table2 as t2;''')
+    names=[i[0] for i in cursor.description]
+    f1.writelines(str(names)+"\n")
+    for i in cursor:
+        f1.writelines(str(i) + "\n")
+        print(i)
+    if 0: #cross join
+        f1.writelines("\ncross join result\n")
+        cursor.execute('''SELECT t1.name,t2.profit FROM table1 as t1 CROSS JOIN table2 as t2;''')
+        names=[i[0] for i in cursor.description]
+        f1.writelines(str(names) + "\n")
+        for i in cursor:
+            print(i)
+            f1.writelines(str(i) + "\n")
+
+    if 0: #inner join
+        print("inner join result")
+        f1.writelines("\ninner join result\n")
+        cursor.execute('''SELECT t1.order_id,t1.name,t2.profit FROM table1 as t1 
+                                            INNER JOIN table2 as t2 ON t1.order_id = t2.order_id;''')
+        names=[i[0] for i in cursor.description]
+        f1.writelines(str(names) + "\n")
+        for i in cursor:
+            print(i)
+            f1.writelines(str(i) + "\n")
+    if 0: #left join
+        print("left join result")
+        f1.writelines("\nleft join result\n")
+        cursor.execute('''SELECT t1.order_id,t1.name,t2.profit FROM table1 as t1 
+                                            LEFT JOIN table2 as t2 ON t1.order_id = t2.order_id;''')
+        names=[i[0] for i in cursor.description]
+        f1.writelines(str(names) + "\n")
+        for i in cursor:
+            print(i)
+            f1.writelines(str(i) + "\n")
+    if 0: #right join
+        print("right join result")
+        f1.writelines("\nright join result\n")
+        cursor.execute('''SELECT t1.order_id,t1.name,t2.profit FROM table1 as t1 
+                                            RIGHT JOIN table2 as t2 ON t1.order_id = t2.order_id;''')
+        names=[i[0] for i in cursor.description]
+        f1.writelines(str(names) + "\n")
+        for i in cursor:
+            print(i)
+            f1.writelines(str(i) + "\n")
+    if 0: #full join
+        print("full join result")
+        f1.writelines("\nfull join result is combination of left and right join result\n")
+        cursor.execute('''SELECT t1.order_id,t1.name,t2.profit FROM table1 as t1 
+                                            LEFT JOIN table2 as t2 ON t1.order_id = t2.order_id UNION
+                          SELECT t1.order_id,t1.name,t2.profit FROM table1 as t1 
+                                            RIGHT JOIN table2 as t2 USING(order_id)
+                                        ;''')
+        names=[i[0] for i in cursor.description]
+        f1.writelines(str(names) + "\n")
+        for i in cursor:
+            print(i)
+            f1.writelines(str(i) + "\n")
+    if 1:#self join
+
+        cursor.execute('''DROP TABLE IF EXISTS color_table;''')
+        cursor.execute('''CREATE TABLE IF NOT EXISTS color_table(
+        color VARCHAR(50),name VARCHAR(50),assigned_color VARCHAR(50));''')
+        cursor.execute('''INSERT IGNORE INTO color_table
+        (color,name,assigned_color) VALUES
+        ('blue','raj','black'),
+        ('red','ram','blue'),
+        ('yellow','kamal','red'),
+        ('black','amar','yellow');''')
+        print("color table data")
+        f1.writelines("color table data\n")
+        cursor.execute('''SELECT * FROM color_table;''')
+        names=[i[0] for i in cursor.description]
+        f1.writelines(str(names)+"\n")
+        for i in cursor:
+            print(i)
+            f1.writelines(str(i)+"\n")
+        print("self join result")
+        f1.writelines("\nself join result\n")
+        cursor.execute('''SELECT t1.name,t1.assigned_color,t2.name AS 'santa'  FROM color_table as t1
+                                                    JOIN color_table as t2 ON t1.assigned_color=t2.color;''')
+        names = [i[0] for i in cursor.description]
+        f1.writelines(str(names) + "\n")
+        for i in cursor:
+            print(i)
+            f1.writelines(str(i) + "\n")
+
+    f1.close()
 
 # cursor.execute("DROP DATABASE mydatabase;")
 # cursor.execute("DROP DATABASE IF EXISTS mydatabase;")
