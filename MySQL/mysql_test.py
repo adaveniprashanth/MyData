@@ -251,7 +251,7 @@ if 0: #select functionality
         for i in cursor:
             print(i)
 
-if 1:#sql joins
+if 0:#sql joins
     f1 =open('joins_result.txt','w')
     cursor.execute("DROP TABLE IF EXISTS table1;")
     cursor.execute("DROP TABLE IF EXISTS table2;")

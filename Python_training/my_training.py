@@ -1,6 +1,7 @@
 
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+#  670826185610
 try:
     import sys,os
     import numpy as np
@@ -10,21 +11,22 @@ try:
     import shutil
     from datetime import date
     from shutil import copyfile
-    import zipfile
+    # import zipfile
     import pandas as pd
     import logging
-    import pyinputplus as pypi
+    # import pyinputplus as pypi
     import random as rd
-    import send2trash
-    import PyPDF2
-    from PyPDF2 import PdfFileReader,PdfFileWriter
+    # import send2trash
+    # import PyPDF2
+    # from PyPDF2 import PdfFileReader,PdfFileWriter
     # import docx #not able to install
     # import csv
     import json,pickle
     import heapq #for finding the nth largest number in list
     # import readDocx #not able to install
 
-except ModuleNotFoundError:
+except ModuleNotFoundError as e:
+    print(e)
     print("you have to install the below packages to run")
     sys.exit("install all modules")
 
@@ -1003,7 +1005,7 @@ if 0:
 
 
 #Multiple ways of try/except logics
-if 1:
+if 0:
     try:
         a = int(input("enter the number"))
         b = 9/a
@@ -1082,7 +1084,20 @@ if 0:
         if i >50:
             break
         print(i,end=" ")
-    
+if 0:
+    def fibonacci(f,s,n):
+        if n==0:
+            print("number should be > 0")
+        elif n == 1:
+            print(f)
+        elif n == 2:
+            print(f)
+            print(s)
+        else:
+            print(f)
+            f,s=s,f+s
+            fibonacci(f,s,n-1)
+    fibonacci(0,1,10)
     # numnber stream
     # a = (x for x in range(0,100)) #generator expression
     # for i in a:
@@ -2594,7 +2609,7 @@ if 0:
     		# Arranging min at the correct position
     		(array[s], array[min_idx]) = (array[min_idx], array[s])
     
-    # Driver code
+    # Drfiver code
     data = [ 7, 2, 1, 6 ]
     selectionSort(data)    
     print('Sorted Array in Ascending Order is :')
@@ -4058,7 +4073,7 @@ if 0:#reading/writing into zipped file
         zip_file.close()
 
 #Handling the pdf files.
-from PyPDF2 import PdfFileReader,PdfFileWriter,PdfFileMerger
+# from PyPDF2 import PdfFileReader,PdfFileWriter,PdfFileMerger
 if 0:
     if 0:#getting the document details
         filename= 'NLP_overview.pdf'
@@ -4296,9 +4311,42 @@ if 0:#finalize method
     my_obj = MyClass()
     weakref.finalize(my_obj, clean_up, 'arg1', 'arg2', 'arg3')
     del my_obj  # optional
-    
-    
+if 0:
+    boxes = [1,3,5,2,4]
+    unitsperbox=[2,5,10,7,9]
+    truck_size=7
+    collected_boxes=0
+    total=0
+    while True:
+        units=max(unitsperbox)
+        index=unitsperbox.index(units)
+        box=boxes[index]
+        required_boxes = 7 - collected_boxes
+        if box > required_boxes:
+            collected_boxes+=required_boxes
+            total+=(units*required_boxes)
+            break
+        else:
+            collected_boxes+=box
+            total+= (units*box)
+        boxes.pop(index)
+        unitsperbox.pop(index)
+
+    print(total)
+
+if 0:
+    def cyclic_generator(n,m):
+        for j in range(m):
+            for i in range(n):
+                yield i
+
+    a = cyclic_generator(5,3)
+    for x in a:
+        print(x)
+
+
+
+
+
     
         
-    
-    

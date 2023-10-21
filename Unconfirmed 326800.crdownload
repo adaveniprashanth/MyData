@@ -1,0 +1,22 @@
+[FILESettings]
+input_filename = WW46_49.xlsx
+approved_consolidated_filename = WW46_49_approved_consollidated_bill.xlsx
+not_approved_consolidated_jiras = WW46_49_not_approved_consollidated_bill.xlsx
+jira_submission_filename = jira_submission.xlsx
+work_week = 33
+column_width = 25
+PONumber = 3002139874
+Vendor = Cerium
+Team = E2E - Automation
+Platform = RAILS
+SKU = NA
+BillableHeader = StoryPointSlab
+Location = SRR Bangalore
+L1Approver = Kh, Brinda
+L2Approver = Jain, Nalina
+c1_billing = 15000
+c2_billing = 16000
+c3_billing = 18000
+c4_billing = 12000
+c5_billing = 11000
+Jira_update = 0

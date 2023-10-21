@@ -20,5 +20,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # importing the urls that supports to particular app. ex: firstapp
     path('firstapp/',include(('firstapp.urls','firstapp'),namespace='firstapp')), #providing namespace to avoid conflicts  between apps urls
-    path('chatapp/',include(('chatapp.urls','chatapp'),namespace='chatapp'))
+    path('chatapp/',include(('chatapp.urls','chatapp'),namespace='chatapp')),
+    path('apis/v1/',include(('apis.urls','apis'),namespace='apis')),
+    path('notes/',include(('notes.urls','notes'),namespace='notes')),
+    path('drf_token/', include(('drf_token.urls', 'drf_token'), namespace='drf_token')),
 ]

@@ -2,6 +2,7 @@ print("welcome to sql training")
 import sqlite3
 # For reference--> https://www.w3resource.com/sqlite/core-functions-replace.php for string methods
 # for reference --> https://www.sqlitetutorial.net/sqlite-date-functions/sqlite-datetime-function/
+# for reference --> https://www.sqlitetutorial.net/sqlite-date-functions/sqlite-datetime-function/
 # For reference --> https://www.w3resource.com/sqlite/index.php
 # For reference --> https://learnsql.com/cookbook/how-to-get-day-names-in-sqlite/
 # For reference --> https://learnsql.com/cookbook/how-to-calculate-the-difference-between-two-dates-in-sqlite/

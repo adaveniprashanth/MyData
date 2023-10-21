@@ -39,7 +39,25 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'firstapp',# registering the app in django for migration
     'chatapp',
+    'rest_framework',
+    'rest_framework.authtoken',#this will be used for authentication validation
+    'apis',
+    'todos',
+    'notes',
+    'drf_token',
+
 ]
+
+# AUTH_USER_MODEL = 'accounts.CustomUser' #for accounts app only.
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':[#adding type of authentication is using ex: basic,token,session,remote
+        'rest_framework.authentication.TokenAuthentication',#adding the token authentication,
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',#by default this permission is given
+    ],
+
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
