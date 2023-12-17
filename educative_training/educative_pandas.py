@@ -344,7 +344,7 @@ if 0:#Indexing
         print(type(rows))
         
         #accessing single/multiple elements
-        single = df.loc['r2','c1']#first row index only
+        single = df.loc['r2','c1']#second row first column value
         print(single)
         print(type(single))
         
@@ -955,7 +955,7 @@ if 0:
             print(s1,s2,s3,s4,s6)
 
 # Section 2 - The Pandas Dataframe Object
-if 0:
+if 1:
     area_dict = {'California': 12345, 'Boston': 6745, 'newyork': 9078, 'newtown': 23126}
     Population_dict = {'California': 123543, 'Texas': 87451, 'Boston': 986734, 'Newyork': 907856}
     area = pd.Series(area_dict)
@@ -1340,6 +1340,7 @@ def make_df(cols,ind):
     """Quickly make a DataFrame"""
     data={c:[str(c)+str(i) for i in ind] for c in cols}
     return pd.DataFrame(data,ind)
+
 if 0:
     if 0:
         #creation of dataframe using function
@@ -1571,34 +1572,24 @@ if 0:
         df_a = df.groupby('key')['data'].sum()
         print(df_a)
     #aggregate functions
-    if 1:
+    if 0:
         result_df=df1.groupby('key').aggregate([min,np.median,max])
         print(result_df)
         print(result_df.loc['a',['data1']])
         print(type(result_df.loc['a', ['data1']]))
+# apply will work on axis wise but map will will on element wise
+if 0:
+    df = pd.DataFrame([[4, 9]] * 3, columns=['A', 'B'])
+    df1=df.apply(np.sqrt)
 
+if 0:
+    df = pd.DataFrame({'key': ['A', 'B', 'C', 'A', 'B', 'C'], 'data': [1, 2, 3, 4, 5, 6]})
+    # print(df)
+    df1= df.map(lambda x: x*2)
+    print(df1)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+if 0:
+    df =pd.DataFrame({'a':[1,2,3],'b':[4,5,6],'c':[7,8,9]})
+    # print(df.iloc[0][1])#gives warning
+    # print(df.iloc[0].get(1))#gives warning
+    print(df.iloc[0].iloc[1])

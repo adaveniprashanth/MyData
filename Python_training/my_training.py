@@ -24,7 +24,7 @@ try:
     import json,pickle
     import heapq #for finding the nth largest number in list
     # import readDocx #not able to install
-
+    from itertools import combinations
 except ModuleNotFoundError as e:
     print(e)
     print("you have to install the below packages to run")
@@ -85,6 +85,21 @@ if 0:#pyinputplus usage similar to input with additional features
             date = pypi.inputDatetime(prompt='enter the date and time',formats=('%m/%d/%y %H:%M:%S','%m.%d.%Y %H:%M:%S'))#we have to provide strftime formats only
             print(date)
 
+if 0:
+    l=[1,2,3,4,5]
+    l.pop(3)
+    l.pop()
+    print(l)
+    t=(10) # when you use parentheses to enclose a single value, it is treated as an expression, not as a tuple.
+    ab=(10,) # tuple
+    print(type(t))
+if 0:
+    s={2,3,4,5}
+    s.pop()
+    s.discard(2)
+    s.remove(1)
+    print(s)
+    # help(s.pop)
 if 0:
     a = arr.array('i',[1,2,3,4,5])
     # print(len(a))
@@ -299,14 +314,6 @@ if 0:
             i = a
             a = 0
     print(a)
-
-if 0:
-    # count the duplicated values in list
-    l = [1,2,3,1,3,4,2,4,2,4,2,3,5,4,3,6,5,4,7,3,4,3,2,6]
-    d = {}
-    for i in l:
-        d[i]=d.get(i,0)+1
-    print(d)
 
 if 0:
     #appending the values to list in dictionary
@@ -697,6 +704,30 @@ if 0:
     c = func
     print(c(1)())
 
+if 0:
+    def calculate(n):
+        if n==0:
+            return 0
+        elif n==1:
+            return 1
+        else:
+            return calculate(n-1)+calculate(n-2)
+    print(calculate(5))
+    print(calculate(5))
+if 0:
+    def  outer_function(y):
+        def inner_function(x):
+            return x+y
+        return inner_function
+    res=outer_function(10)(7)
+    print(res)
+if 0:
+    a="jump"+"4"
+    a=a*2
+    print(a)
+    print("foo"*3)
+    print(2**3)
+
 
 # Decorators way 1
 if 0:
@@ -733,6 +764,65 @@ if 0:
         print("Learner")
     
     function2()
+#double decorators
+if 0:
+    def percent(func):
+        def wrapper(*args):
+            print("%"*15)
+            func(*args)
+            print("%"*15)
+        return wrapper
+    def star(func):
+        def wrapper(*args):
+            print("*"*15)
+            func(*args)
+            print("*"*15)
+        return wrapper
+
+    @star
+    @percent
+    def main_func(msg):
+        print(msg)
+
+    main_func("hello")
+
+#nested wrappers decorator
+if 0:
+    def print_stars(value):
+        def outer_wrapper(func):
+            def inner_wrapper(*args):
+                print("*"*value)
+                func(*args)
+                print("*" * value)
+            return inner_wrapper
+        return outer_wrapper
+
+    @print_stars(15)
+    def main_func(msg):
+        print(msg)
+
+    main_func("hello")
+# decorator with value
+if 0:
+    def my_decorator(parameter):
+        def decorator(func):
+            def wrapper(*args, **kwargs):
+                print(f"Decorator parameter: {parameter}")
+                result = func(*args, **kwargs)
+                return result
+
+            return wrapper
+
+        return decorator
+
+
+    @my_decorator("Hello")
+    def my_function():
+        print("Inside the function")
+
+
+    # Call the decorated function
+    my_function()
 
 '''
 # ######
@@ -866,23 +956,22 @@ if 0:
     
     a = new(5) #a contains the address of lambda function
     print(a(8)) #passing the value to the lambda function
-
+my_list = [1,2,3,4,5,6]
 if 0:
     # lambda function within filter,map,reduce functions
-    my_list = [1,2,3,4,5,6]
     
     # filter syntax filter(function,iterables)
     new_list = list(filter(lambda a:a%2 == 0,my_list))
     print(new_list) #contains only values satisfies the function
-    
+if 0:
     # map syntax map(function,iterables)
     new_list1 = list(map(lambda a:a%2 == 0,my_list))
-    print(new_list1)# return the list after satisfies condition
-    
+    print(new_list1)# return the result after applying the function
+if 0:
     my_list1 = [2,3,4,5,6]
     new_list1 = list(map(lambda a,b:a*b,my_list,my_list1))
     print(new_list1)
-    
+if 0:
     # reduce syntax reduce(function,iterables,initial)
     # the function in reduce needs 2 parameters
     from functools import reduce
@@ -978,7 +1067,24 @@ if 0: #reverse the words in a string
     d = " ".join(["".join(reversed(i)) for i in s.split()])
     # d = " ".join(["".join(list(reversed(i))) for i in s.split()])
     print(d)
-    
+
+if 0:
+    l1=["a","!","b","%","c","#","d","e"]
+    # ["e","i","d","%","c","#","b","a"]
+    # print(list(reversed(l)))
+    res=l1.copy()
+    l=0;r=len(l1)-1
+    while l<r:
+        if l1[l].isalpha() and l1[r].isalpha():
+            res[r],res[l]=res[l],res[r]
+            l+=1
+            r-=1
+        elif not l1[l].isalpha():
+            l+=1
+        elif not l1[r].isalpha():
+            r-=1
+    print(res)
+
 # try/except/else/finally
 if 0:
     b=4
@@ -1103,7 +1209,20 @@ if 0:
     # for i in a:
     #     print(i)
 
-
+if 0:#not working
+    def fibonacci(n):
+        if n==0:
+            # print("number should be > 0")
+            return []
+        elif n == 1:
+            return [0]
+        elif n == 2:
+            return [0,1]
+        else:
+            fib_series=fibonacci(n-1)
+            fib_series.append(fibonacci(n-1)+fibonacci(n-2))
+            return fib_series
+    print(fibonacci(10))
 
 if 0:#class variables addition
     #not a good practice
@@ -3463,9 +3582,9 @@ if 0:
     print(test)
 if 0:
     l = [2,32,23,3,4,53,233,242,532,5,325,223]
-    maximum = None
+    maximum = l[0]
     for i in l:
-        if maximum is None or maximum < i:
+        if maximum < i:
             maximum = i
     print(maximum)
 if 0:
@@ -3993,7 +4112,11 @@ if 0:
     for i in l:
         d[i]=d.get(i,0)+1
     print(d)
-
+if 0:
+    # count the duplicated values in list
+    l = [1,2,3,1,3,4,2,4,2,4,2,3,5,4,3,6,5,4,7,1,3,4,3,2,6]
+    d={char:l.count(char) for char in l}
+    print(d)
 
 
 def copy_files():
@@ -4344,9 +4467,186 @@ if 0:
     for x in a:
         print(x)
 
+if 0:
+    l=[{'name':'sai','salary':10000},{'name':'ram','salary':40000},{'name':'rakesh','salary':30000}]
+    l.sort(key=lambda x: x['salary'])
+    print(l)
 
 
+    def bubble_sort(lst, key):
+        n = len(lst)
+
+        for i in range(n - 1):
+            for j in range(0, n - i - 1):
+                if lst[j][key] > lst[j + 1][key]:
+                    lst[j], lst[j + 1] = lst[j + 1], lst[j]
 
 
-    
-        
+    # Original list
+    employee_list = [
+        {'name': 'sai', 'salary': 10000},
+        {'name': 'ram', 'salary': 40000},
+        {'name': 'rakesh', 'salary': 30000}
+    ]
+
+    # Sort the list based on 'salary' using bubble sort
+    bubble_sort(employee_list, key='salary')
+
+    # Print the sorted list
+    for employee in employee_list:
+        print(employee)
+# move negatives front ans positives to end
+if 0:
+    l=[1,-2,3,4,-5,-6,-7,8]
+    ptr1=0
+    ptr2=len(l)-1
+    while (ptr1 < ptr2):
+        if l[ptr1]<0 and l[ptr2] >0:
+            ptr1+=1
+            ptr2-=1
+        elif l[ptr1] < 0:
+            ptr1+=1
+        elif l[ptr2]>0:
+            ptr2-=1
+        else :
+            l[ptr1],l[ptr2]=l[ptr2],l[ptr1]
+            ptr1+=1
+            ptr2-=1
+    print(l)
+if 0:
+    def binary_search_first_occurrence(arr, target):
+        low, high = 0, len(arr) - 1
+        result = -1
+
+        while low <= high:
+            mid = (low + high) // 2
+
+            if arr[mid] == target:
+                result = mid
+                high = mid - 1  # Move to the left to find the first occurrence
+            elif arr[mid] < target:
+                low = mid + 1
+            else:
+                high = mid - 1
+
+        return result
+
+
+    my_list = [0, 0, 0, 1, 1]
+    index_of_1 = binary_search_first_occurrence(my_list, 1)
+
+    if index_of_1 != -1:
+        print("Index of first occurrence of 1:", index_of_1)
+    else:
+        print("1 not found in the list")
+
+if 0:
+    items=['a','b','c','d']
+    weights=[2,3,1,4]
+    profits=[4,5,3,7]
+    capacity=5
+    total_capacity=0
+    # for item,weight,profit in zip(items,weights,profits):
+    max_profit=[0,'','']
+    for i in range(len(weights)):
+        for j in range(i+1,len(weights)):
+            if weights[i]+weights[j] ==capacity:
+                profit=profits[i]+profits[j]
+                if profit > max_profit[0]:
+                    max_profit=[profit,items[i],items[j]]
+    print(max_profit)
+
+if 0:
+    items=['a','b','c','d']
+    weights=[2,3,1,4]
+    profits=[4,5,3,7]
+    capacity=5
+    # total_capacity=0
+    # for item,weight,profit in zip(items,weights,profits):
+    max_profit=[0,'','']
+    ptr1=0
+    ptr2=len(weights)-1
+    while ptr1 < ptr2:
+        if weights[ptr1]+weights[ptr2] == capacity:
+            profit=profits[ptr1]+profits[ptr2]
+            if profit > max_profit[0]:
+                max_profit = [profit, items[ptr1], items[ptr2]]
+            ptr1+=1
+            ptr2-=1
+        elif weights[ptr1] + weights[ptr2] > capacity:
+            ptr1 +=1
+        elif weights[ptr1] + weights[ptr2] < capacity:
+            ptr2 -=1
+    print(max_profit)
+
+if 0:
+    def factorial(n):
+        if  n==0:
+            return 1
+        elif n==1:
+            return 1
+        else:
+            return n*factorial(n-1)
+    print(factorial(6))
+
+if 0:
+    def fibonacci(f,s,n):
+        if n ==0:
+            pass
+            # return 0
+        else:
+            print(f)
+            f,s=s,f+s
+            fibonacci(f,s,n-1)
+    fibonacci(0,1,5)
+if 0:
+    l=["abcd","afgs34as","safdsfds","ewre4er4tre"]
+    for i in l:
+        if i.isalpha():
+            print(i)
+# find the combination of values to produce the required sum
+if 0:
+    from itertools import combinations
+    def find_combinations_with_sum(lst, target_sum):
+        result = []
+        for r in range(1, len(lst) + 1):
+            for combination in combinations(lst, r):
+                if sum(combination) == target_sum:
+                    result.append(combination)
+        return result
+
+    # Example usage:
+    my_list = [1, 2, 3, 4, 5]
+    target_sum = 7
+
+    combinations_with_sum = find_combinations_with_sum(my_list, target_sum)
+    print(combinations_with_sum)
+
+# find the combination of values to produce the required sum
+if 0:
+    lst=[1, 2, 3, 4, 5]
+    for i in combinations(lst,3):
+        print(i)
+
+if 0:
+    def add_numbers(num1, num2):
+        # Iterate until there is no carry
+        while num2 != 0:
+            # XOR gives the sum of bits without considering the carry
+            sum_bits = num1 ^ num2
+
+            # AND gives the carry bits
+            carry = (num1 & num2) << 1
+
+            # Update num1 with the sum of bits and num2 with the carry
+            num1, num2 = sum_bits, carry
+
+        return num1
+
+
+    # Example usage:
+    num1 = 5
+    num2 = 30
+
+    result = add_numbers(num1, num2)
+    print(f"The result of {num1} + {num2} is: {result}")

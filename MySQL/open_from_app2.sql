@@ -1,0 +1,18 @@
+INSERT IGNORE INTO organisation (id,first_name,last_name,profession,joining_year,salary,switched_companies) VALUES 
+(1,'TONY', 'STARK', 'SOFTWARE ENGINEER',1980, 28000,2),
+        (2,'TIM', 'ADOLF', 'SALESMAN', 1951, 16000,2),
+        (3,'KIM', 'JARVIS', 'MANAGER', 1961, 35000,2),
+        (4,'KIM', 'MILES', 'SALESMAN', 1991, 12000,1),
+        (5,'KEVIN', 'HILL', 'MANAGER', 1971, 29000,3),
+        (6,'CONNIE', 'SMITH', 'ANALYST', 1982, 30000,3),
+        (7,'ALFRED', 'KINSLEY', 'PRESIDENT', 1981, 50000,3),
+        (8,'PAUL', 'TIMOTHY', 'SALESMAN', 1991, 15000,2),
+        (9,'JOHN', 'ASGHAR', 'SOFTWARE ENGINEER',1983, 31000,1),
+        (10,'ROSE', 'SUMMERS', 'TECHNICAL LEAD',1981, 29000,2),
+        (11,'ANDREW', 'FAULKNER', 'ANALYST', 1961, 30000,4),
+        (12,'KAREN', 'FAULKNER', 'SOFTWARE ENGINEER',1982, 33000,1),
+        (13,'WENDY', 'SHAWN', 'SALESMAN', 1991, 50000,2),
+        (14,'BELLA', 'FAULKNER', 'MANAGER', 1971, 34000,1),
+        (15,'MADII', 'HIMBURY', 'ANALYST', 1941, 20000,2),
+        (16,'ATHENA', 'WILSON', 'ANALYST', 1992, 70000,4),
+        (17,'JENNIFER', 'HUETTE', 'ANALYST', 1996, 50000,3);

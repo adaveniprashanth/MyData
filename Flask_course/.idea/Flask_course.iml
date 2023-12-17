@@ -5,6 +5,8 @@
       <sourceFolder url="file://$MODULE_DIR$/venv" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
+    <content url="jar://C:/spark/spark-3.5.0-bin-hadoop3/python/lib/py4j-0.10.9.7-src.zip!/" />
+    <content url="jar://C:/spark/spark-3.5.0-bin-hadoop3/python/lib/pyspark.zip!/" />
     <orderEntry type="jdk" jdkName="Python 3.11" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

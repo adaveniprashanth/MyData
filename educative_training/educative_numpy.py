@@ -198,7 +198,7 @@ if 1: #Random operations
         #np.random.randint(low,high,size=shape) <--uniform
         # print(np.random.uniform())
         uniform = np.random.uniform(0,24,size=6)
-        print(uniform)
+        #print(uniform)
         
         #np.random.normal(loc,scale,size=shape)
         #              ||
@@ -206,7 +206,7 @@ if 1: #Random operations
         #np.random.normal(mean,deviation,size=shape)
         # print(np.random.normal())
         random_norm = np.random.normal(2.0,3.5,size=(10,5))
-        print(random_norm)
+        #print(random_norm)
         
         #own choice distribution
         #np.random.choice(array,p=[total sum = 1],size=shape)
@@ -238,7 +238,7 @@ if 1:#Indexing
         arr2 = np.arange(9).reshape(3,3)
         # print(arr2)
         arr3 = np.arange(27).reshape(3,3,3)
-        print(arr3)
+        # print(arr3)
         
         # print(arr2[:,2:])     #<--check this
         # print(type(arr2[:,2:]))
@@ -431,7 +431,7 @@ if 1:#saving data
         print("\nloaded array is \n{}".format(load_arr1))
 
 # Kaggle questions --> https://www.kaggle.com/code/utsav15/100-numpy-exercises
-if 0: #Create a 2d array with 1 on the border and 0 inside
+if 1: #Create a 2d array with 1 on the border and 0 inside
     if 0:
         Z = np.ones((10, 10))
         Z[1:-1, 1:-1] = 0
@@ -462,7 +462,7 @@ if 0:
     print(0.3)
     print(3*0.1)
 
-if 0: #Create a 5x5 matrix with values 1,2,3,4 just below the diagonal
+if 1: #Create a 5x5 matrix with values 1,2,3,4 just below the diagonal
     if 0:
         a = np.diag(1 + np.arange(4), k=1)  # moving the values just above the diagonal
         print(a)
@@ -476,9 +476,9 @@ if 0: #Create a 5x5 matrix with values 1,2,3,4 just below the diagonal
         a=np.diag(np.arange(4))
         print(a)
 
-if 0: #Create a 8x8 matrix and fill it with a checkerboard pattern
-    if 0:
-        if 1:
+if 1: #Create a 8x8 matrix and fill it with a checkerboard pattern
+    if 1:
+        if 0:
             a = np.zeros((8, 8))
             a[1::2,::2]=1
             a[::2,1::2]=1
@@ -494,7 +494,7 @@ if 0: #Create a 8x8 matrix and fill it with a checkerboard pattern
         if 0:
             a=np.zeros((8,8))
             print(a)
-    if 1:
+    if 0:
         if 1:
             a=np.ones((8,8))
             a[1::2,::2]=0
@@ -511,13 +511,14 @@ if 0: #Create a 8x8 matrix and fill it with a checkerboard pattern
 if 0: #Consider a (6,7,8) shape array, what is the index (x,y,z) of the 100th element?
     if 1:
         a=np.arange(6*7*8).reshape((6,7,8))
-        index=np.unravel_index(100,a.shape)#getting the position of 100 element in array
+        index=np.unravel_index(10,a.shape)#getting the position of 100(any value) in array
         print(index)
     if 0:
         a=np.arange(6*7*8).reshape((6,7,8))
         print(a)
 
-if 0: #Create a checkerboard 8x8 matrix using the tile function
+#Create a checkerboard 8x8 matrix using the tile function
+if 1:
     if 1:
         a=np.tile(np.array([[1,0],[0,1]]),(4,4))
         print(a)

@@ -1,0 +1,54 @@
+Docker--> it is like a manager to share all the resources of kernel to all its containers
+docker image registry --> it is like a module in python contains the definction of all classes
+docker images --> they are like definition of a class
+dockerfile  --> this will be like a controller of a class definition i.e methods and properties that can be added to the class definition by this file.
+docker compose --> it is a yaml file. it will be like init method in object creation. ex: how much volume needed can be provided by this file
+containers --> they are like objects of a class
+docker namespace --> it will helps to provide the isolation b/w containers. so containers can communicate through their ports only.
+hypervisor --> it is like a virtual environment creator and monitor. and it will do the allocation of resources of host to each each environment.
+
+
+
+The date in a container can be loses only when we delete the container.
+types of docker components:
+1. docker client: it will perform the build and run opertions for the purpose of communicating with docker host.
+2.docker host:it will have host con and their associated images. it will make the connection with docker registry.
+3.docker registry: it will have all the docker images.
+docker hub: it is like a public cloud based registry for storing the images of containers.
+
+Container restart policy values:
+1. Off: In this, the container won’t be restarted in case it's stopped or it fails.
+2. On-failure: Here, the container restarts by itself only when it experiences failures not associated with the user.
+3. Unless-stopped: Using this policy, ensures that a container can restart only when the command is executed to stop it by the user.
+4. Always: Irrespective of the failure or stopping, the container always gets restarted in this type of policy.
+
+Commands in docker compose:
+1.up --> with this, we can start or restart the sevices(network,services,drivers connection) provided by the container
+2.run --> with this we can start or stop the specific servcice based on requiremnts.
+3.start --> with this we can restart the already stopeed containers.
+
+Most commonly used  instructions in Dockerfile:
+1.FROM: This is used to set the base image for upcoming instructions. A docker file is considered to be valid if it starts with the FROM instruction.
+2.LABEL: This is used for the image organization based on projects, modules, or licensing. It also helps in automation as we specify a key-value pair while defining a label that can be later accessed and handled programmatically.
+3.RUN: This command is used to execute instructions following it on the top of the current image in a new layer. Note that with each RUN command execution, we add layers on top of the image and then use that in subsequent steps.
+4.CMD: This command is used to provide default values of an executing container. In cases of multiple CMD commands the last instruction would be considered.
+
+Stages(lifecycle) of docker container:
+1.Created: This is the state where the container has just been created new but not started yet.
+2.Running: In this state, the container would be running with all its associated processes.
+3.Paused: This state happens when the running container has been paused.
+4.Stopped: This state happens when the running container has been stopped.
+5.Deleted: In this, the container is in a dead state.
+
+
+
+
+
+PATH values in environmental; variables
+C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\spark\spark-3.5.0-bin-hadoop3\bin
+
+
+
+
+JAVA_HOME
+C:\Program Files\Java\jdk-21\bin

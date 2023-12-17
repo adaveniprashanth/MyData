@@ -19,8 +19,9 @@ for i in cursor:
   print(i)
 
 # cursor.execute("CREATE DATABASE IF NOT EXISTS mydatabase;")
-cursor.execute(" USE mydatabase;")
-print("display all tables in database")
+db_name= "mydatabase"
+cursor.execute(" USE {};".format(db_name))
+print("display all tables in database {}".format(db_name))
 cursor.execute("SHOW TABLES;")
 for i in cursor:
     print(i)

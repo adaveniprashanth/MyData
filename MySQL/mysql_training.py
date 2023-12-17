@@ -1233,6 +1233,7 @@ if 1:
         data = cursor.execute(
             "SELECT first_name||' '||last_name AS full_name,salary AS salary  FROM organisation WHERE salary >= 30000;")
         names = [i[0] for i in data.description];
+        names = [i[0] for i in data.description];
         print(names)
         for i in cursor:
             print(i)

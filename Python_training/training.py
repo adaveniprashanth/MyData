@@ -109,7 +109,7 @@ if 0:
     import threading,time
     threadLock=threading.Lock()
     class mythread(threading.Thread):
-        value=0
+
         def __init__(self,thread_id,name,delay,counter):
             threading.Thread.__init__(self)
             self.id=thread_id
@@ -118,10 +118,10 @@ if 0:
             self.counter=counter
 
         def run(self):
+            print("id values is",self.id)
             # threadLock.acquire() #to lock resources
             while self.counter:
-                mythread.value+=1
-                print(self.name +" running"+" "+str(mythread.value))
+                print(self.name +" running"+" "+str(self.counter))
                 time.sleep(self.delay)
                 self.counter -= 1
             # threadLock.release() # to release locked resources
@@ -231,9 +231,10 @@ if 0:#connetingto the above crated server
     for line in fhand:
         print(line.decode().strip())
 
-if 1:
+if 0:
     str1="prashanth abc"
     print(["".join(reversed(i)) for i in str1.split()])
+    print("".join(list(reversed(str1))))
     # print(" ".join(["".join(reversed(i)) for i in str1.split()]))
 
 if 0:
@@ -404,6 +405,23 @@ if 0:
     d=dog("abc")
     print(pets.total_dogs)
 
+#  SOLID principles
+
+# Single responsibilty model ==> one class  takes only 1 responsibility
+if 0:
+    my_global_value=10
+    class update_global: #always update the global value
+        def __init__(self,value):
+            global my_global_value
+            my_global_value=value
+            print("updated global value")
+    class print_global: #always prints the global value
+        def __init__(self):
+            print("current global value is ",my_global_value)
+    update_global(100)
+    print_global()
+
+# Open-closed principle #so in this one common values will be sned the to the parent
 if 0:
     from abc import ABC, abstractmethod
     from math import pi
@@ -433,3 +451,39 @@ if 0:
             self.side = side
         def calculate_area(self):
             return self.side ** 2
+
+    r =Rectangle(2,3)
+    print(r.shape_type)
+    print(r.calculate_area())
+
+# Liscov principle
+if 0:
+    from abc import ABC,abstractmethod
+
+    class Shape(ABC):
+        def __init__(self,shape):
+            self.shape_type=shape
+        @abstractmethod
+        def calculate_area(self):
+            pass
+
+    class Rectangle(Shape):
+        def __init__(self,length,width):
+            super().__init__("rectangle")
+            self.length=length
+            self.width=width
+
+        def calculate_area(self):
+            return self.length*self.width
+
+    class Square(Shape):
+        def __init__(self,side):
+            super().__init__("square")
+            self.side=side
+        def calculate_area(self):
+            return self.side**2
+
+    r=Rectangle(2,3)
+    s=Square(4)
+    print(r.calculate_area())
+    print(s.calculate_area())

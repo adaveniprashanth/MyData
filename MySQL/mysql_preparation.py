@@ -222,12 +222,10 @@ if 0: #select functionality
         for i in cursor:
             print(i)
 
-if 1:
+if 0:
     if 1:
         cursor.execute('''SET @country="India";''')
         pass
-
-
 
 cursor.close()
 database.close()
