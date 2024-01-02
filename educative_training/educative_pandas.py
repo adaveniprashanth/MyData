@@ -12,6 +12,7 @@ import pandas as pd
 from pandasql import sqldf
 import matplotlib.pyplot as plt
 import re
+
 # print(np.array([[1,2],[3,4]],dtype=np.float32).dtype)
 if 1:#Series -->pd.Series(data,dtype,index)
     
@@ -27,6 +28,7 @@ if 1:#Series -->pd.Series(data,dtype,index)
         
         series = pd.Series([1,2],dtype=np.float32)# manual casting
         # print(series)
+        print(series._append(pd.Series([2], index=['D'])))
         
         series = pd.Series([[1,2],[3,4]]) # not an array it is like each one as object having [1,2]  and [3,4]
         # print(series)
@@ -1571,12 +1573,18 @@ if 0:
             print(name,group)
         df_a = df.groupby('key')['data'].sum()
         print(df_a)
+        print(df_a.loc['A'])
+        print(df_a.iloc[[1,2]])
+        print(df_a.size)
+        # for i in df.groupby('key')['data']:
+        #     print(i)
+
     #aggregate functions
     if 0:
-        result_df=df1.groupby('key').aggregate([min,np.median,max])
+        result_df=df1.groupby('key').aggregate(['min','median','max'])
         print(result_df)
         print(result_df.loc['a',['data1']])
-        print(type(result_df.loc['a', ['data1']]))
+        # print(type(result_df.loc['a', ['data1']]))
 # apply will work on axis wise but map will will on element wise
 if 0:
     df = pd.DataFrame([[4, 9]] * 3, columns=['A', 'B'])
@@ -1592,4 +1600,42 @@ if 0:
     df =pd.DataFrame({'a':[1,2,3],'b':[4,5,6],'c':[7,8,9]})
     # print(df.iloc[0][1])#gives warning
     # print(df.iloc[0].get(1))#gives warning
-    print(df.iloc[0].iloc[1])
+    print(df)
+    # print(df.iloc[0].iloc[0])
+    # df.iloc[0].iloc[0]=100
+    df=df._append(pd.Series([1,1,1]),ignore_index=True)
+    print(df)
+# appending a row using series
+if 0:
+    df = pd.DataFrame([[1, 2], [3, 4]])
+    print(df)
+    ser = pd.Series([1.0, 3], name='r3')
+    df_append = df._append(ser)  # name will be considered as row/index
+    print(df_append)
+
+# appending a rows using dataframe
+if 0:
+    df = pd.DataFrame([[1, 2], [3, 4]])
+    print(df)
+    df1=pd.DataFrame([[1,1],[1,1]])
+    df_append=df._append(df1,ignore_index=True)
+    # print(df_append)
+    df_add_rows=pd.concat([df,df1],axis=0)
+    # print(df_add_rows)
+    df_add_columns = pd.concat([df, df1], axis=1)
+    # print(df_add_columns)
+    df_group=df.groupby(0)
+
+    for name,group in df_group:
+        print("+++++++++++++")
+        print(group)
+if 1:
+    df = pd.DataFrame({
+        'playerID': ['bettsmo01', 'canoro01', 'cruzne02', 'ortizda01', 'cruzne02'],
+        'year': [2016, 2018, 2015, 2016, 2017],
+        'team': ['BOS', 'SEA', 'SEA', 'BOS', np.nan],
+        'Hits': [2516, 8526, 4625, 2365, 2345],
+        'Runs': [1236, 4236, 2145, 2356, 2344],
+        'HR': [31, 39, 43, 38, 39]})
+    print(df)
+    
