@@ -1,0 +1,5 @@
+google
+google-cloud-storage==2.7.0
+google-cloud-bigquery==3.6.0
+google-cloud-secret-manager==2.16.0
+google-cloud-bigquery[pandas]

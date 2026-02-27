@@ -149,9 +149,14 @@ if 0:
         def show(self):
             print(self.name, self.age, 'School:', Student.school_name)
 
+        @staticmethod
+        def isAdult(age):
+            return age > 18
+
 
     jessa = Student('Jessa', 20)
     jessa.show()
+    print(Student.isAdult(22))
 
     # change school_name
     Student.change_school('XYZ School')
@@ -235,7 +240,7 @@ if 0:
     str1="prashanth abc"
     print(["".join(reversed(i)) for i in str1.split()])
     print("".join(list(reversed(str1))))
-    # print(" ".join(["".join(reversed(i)) for i in str1.split()]))
+    print(" ".join(["".join(reversed(i)) for i in str1.split()]))
 
 if 0:
     # import re
@@ -487,3 +492,303 @@ if 0:
     s=Square(4)
     print(r.calculate_area())
     print(s.calculate_area())
+
+# keeping same numbers adjescent in the order of 0,1,2
+if 0:
+    import random
+    l=[random.choice([0,1,2]) for i in range(30) ]
+    print(l)
+    for i in range(len(l)):
+        for j in range(len(l)):
+            if l[i]<l[j]:
+                l[i],l[j]=l[j],l[i]
+    print(l)
+
+# generates the output of 2 nums which sums equal to target
+if 0:
+    import random
+    l=[int(20*random.random()) for i in range(15)]
+    # random.shuffle(l)
+    print(l)
+    left=0
+    right=len(l)-1
+    target=25
+    res=[]
+    while left < right:
+        # print(l[left],l[right],l[left]+l[right])
+        if l[left]+l[right] == target:
+            res.append((l[left],l[right]))
+            left+=1
+            right-=1
+        elif l[left] + l[right] < target:
+            right -= 1
+        else:
+            left += 1
+    print(res)
+# generates the output of 3 nums which sums equal to target
+if 0:
+    from itertools import combinations
+    import random
+    l = [int(20 * random.random()) for i in range(15)]
+    target=45
+    res=[]
+    for combination in combinations(l,3):
+        # print(combination)
+        if sum(combination) == target:
+            res.append(combination)
+    print(res)
+
+# generate sub array which sum eqaul to target.
+if 0:
+    import random
+    l = [int(20 * random.random()) for i in range(15)]
+    target = 45
+    print(l,target)
+    res=[]
+    for i in range(1,len(l)):
+        for j in range(len(l)):
+            # print(l[j:j+i])
+            if j+i < len(l) and sum(l[j:j+i]) == target:
+                res.append(tuple(l[j:j+i]))
+    print(res)
+
+# given 2 arrays in ascending order and merge them into single array in ascending order
+if 0:
+    import random
+    nums1 = [int(20 * random.random()) for i in range(10)]
+    nums2 = [int(20 * random.random()) for i in range(15)]
+    nums1.sort()
+    nums2.sort()
+    l,m=len(nums1),len(nums2)
+    print(nums1,nums2,l,m)
+    left=right=0
+    res=[]
+    while left < l and right < m:
+        if nums1[left]< nums2[right]:
+            res.append(nums1[left])
+            left+=1
+        else:
+            res.append(nums2[right])
+            right+=1
+    print(res)
+
+# move 0's to end while maintaing  the order of other elements
+if 0:
+    l=[2,0,1,3,0,4,0,57,0,78,79,9,89,0,8,7,0,80,8,0,8,90,9,0,9,0,9,8]
+    for i in range(len(l)):
+        if  l[i] ==0:
+            l.insert(len(l),l.pop(i))
+    print(l)
+
+if 0:
+    print("31 LPA")
+    print("LTIMINDTREE")
+    basic = 67595
+    bob = 126401
+    basic_piece=16276
+    bob_piece=12300+669
+    print("basic"+39*" ",basic+basic_piece)
+    print("bob" + 40 * " ", bob + bob_piece)
+    a=base_salary=(basic+basic_piece+bob+bob_piece)*12
+    print("base salary"+15*" ",a)
+    b=variable=base_salary//10
+    print("variable"+19*" ",b)
+    c=TTC=a+b
+    print("TTC"+23*" ",c)
+    provident_piece=0
+    provident=7511+provident_piece
+    gratuaty_piece=1000
+    gratuaty=3010+gratuaty_piece
+    insurance_piece=2000+113-75
+
+    insurance=12929+insurance_piece
+    print("provident"+36*" ",provident)
+    print("gratuaty"+37*" ",gratuaty)
+    print("insurance"+19*" ",insurance)
+    d=others=(provident+gratuaty)*12+insurance
+
+    CTC=c+d
+    print("other"+22*" ",d)
+    print("CTC"+23*" ",CTC)
+    # final_miss = 72
+    # print(CTC-3100000-final_miss)
+
+if 0:
+    print("30 LPA")
+    print("LTIMINDTREE")
+    basic = 67595
+    bob = 126401
+    basic_piece=16276-3861
+    bob_piece=12300+669-3715
+    print("basic"+39*" ",basic+basic_piece)
+    print("bob" + 40 * " ", bob + bob_piece)
+    a=base_salary=(basic+basic_piece+bob+bob_piece)*12
+    print("base salary"+15*" ",a)
+    b=variable=base_salary//10
+    print("variable"+19*" ",b)
+    c=TTC=a+b
+    print("TTC"+23*" ",c)
+    provident_piece=0
+    provident=7511+provident_piece
+    gratuaty_piece=1000
+    gratuaty=3010+gratuaty_piece
+    insurance_piece=2000+116-75
+
+    insurance=12929+insurance_piece
+    print("provident"+36*" ",provident)
+    print("gratuaty"+37*" ",gratuaty)
+    print("insurance"+19*" ",insurance)
+    d=others=(provident+gratuaty)*12+insurance
+
+    CTC=c+d
+    print("other"+22*" ",d)
+    print("CTC"+23*" ",CTC)
+
+
+if 0:
+    print("30 LPA")
+    print("innominds")
+    a=basic=95000
+    print("basic pay"+10*" ",basic,5*" ",basic*12)
+    b=HRA=38000
+    print("House RA"+11*" ",HRA,6*" ",HRA*12)
+    c=meal_card=2200
+    print("meal card"+11*" ",meal_card,7*" ",meal_card*12)
+    d=LTA=18875
+    print("Leave TA"+11*" ",LTA,6*" ",LTA*12)
+    e=provident=1800
+    print("provident"+11*" ",provident,7*" ",provident*12)
+    f=gratuaty=3567
+    print("gratuaty"+12*" ",gratuaty,7*" ",gratuaty*12)
+    g=special_allowance=57558
+    print("allowance"+10*" ",special_allowance,6*" ",special_allowance*12)
+    h=variable1=12500
+    print("variable1"+10*" ",variable1,6*" ",variable1*12)
+    i=variable2=12500
+    print("variable2"+10*" ", variable2,6*" ",variable2*12)
+    total1=a+b+c+d+e+f+g+h+i
+    print()
+    print("total A" + 3 * " ", total1, 5 * " ", total1 * 12)
+    j=telephone=3000
+    print("telephone"+11*" ",telephone,7*" ",telephone*12)
+    k=entertain=3000
+    print("entertain"+11*" ",entertain,7*" ",entertain*12)
+    l=books=1000+1000
+    print("books"+15*" ",books,7*" ",books*12)
+    total2=j+k+l
+
+    print("total B"+5*" ",total2,7*" ",total2*12)
+    CTC=total1+total2
+    print("CTC"+7*" ",CTC,5*" ",CTC*12)
+
+if 0:
+    print("11 LPA")
+    print("innominds")
+    a=basic=33500
+    print("basic pay"+10*" ",basic,5*" ",basic*12)
+    b=HRA=10000
+    print("House RA"+11*" ",HRA,6*" ",HRA*12)
+    c=meal_card=2200
+    print("meal card"+11*" ",meal_card,7*" ",meal_card*12)
+    d=LTA=5864
+    print("Leave TA"+11*" ",LTA,6*" ",LTA*12)
+    e=provident=1800
+    print("provident"+11*" ",provident,7*" ",provident*12)
+    f=gratuaty=2572
+    print("gratuaty"+12*" ",gratuaty,7*" ",gratuaty*12)
+    g=special_allowance=12806
+    print("allowance"+10*" ",special_allowance,6*" ",special_allowance*12)
+    h=variable1=6742+720
+    print("variable1"+10*" ",variable1,6*" ",variable1*12)
+    i=variable2=6742+720
+    print("variable2"+10*" ", variable2,6*" ",variable2*12)
+    total1=a+b+c+d+e+f+g+h+i
+    print()
+    print("total A" + 3 * " ", total1, 5 * " ", total1 * 12)
+    j=telephone=3000
+    print("telephone"+11*" ",telephone,7*" ",telephone*12)
+    k=entertain=3000
+    print("entertain"+11*" ",entertain,7*" ",entertain*12)
+    l=books=1000+1000
+    print("books"+15*" ",books,7*" ",books*12)
+    total2=j+k+l
+
+    print("total B"+5*" ",total2,7*" ",total2*12)
+    CTC=total1+total2
+    print("CTC"+7*" ",CTC,5*" ",CTC*12)
+    print(1100000-CTC*12)
+    print(1100000/12)
+# print(16000//12)
+# print(1333/2)
+# print((CTC*12-3100000)/12)
+if 1:
+    import subprocess
+    import time
+    import signal
+    from streamlink import Streamlink
+
+    # --- Configuration ---
+    # Replace with the target website's live stream URL
+    WEB_URL = 'https://stripchat.com/Hot_Misti_69'
+    # Replace with your desired output file name (e.g., 'recording.mp4')
+    OUTPUT_FILENAME = 'recording.mp4'
+    # Desired stream quality (e.g., 'best', 'high', 'low', 'worst')
+    STREAM_QUALITY = 'best'
+    # Duration to record in seconds (for demonstration, set to a suitable time)
+    RECORD_DURATION = 60  # Records for 60 seconds
+
+
+    def record_stream(url, quality, output_file, duration):
+        """
+        Fetches stream URL using Streamlink and records using FFmpeg subprocess.
+        """
+        session = Streamlink()
+        try:
+            streams = session.streams(url)
+            if not streams:
+                print(f"No streams found for {url}")
+                return
+
+            # Get the URL for the desired quality stream
+            stream_url = streams[quality].to_url()
+            print(f"Found stream URL: {stream_url}")
+
+            # Command to run FFmpeg as a subprocess
+            ffmpeg_command = [
+                'ffmpeg',
+                '-i', stream_url,
+                '-c', 'copy',  # Copy codecs to avoid re-encoding
+                output_file
+            ]
+
+            print(f"Starting recording for {duration} seconds...")
+            # Start FFmpeg process
+            process = subprocess.Popen(ffmpeg_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+            # Wait for the specified duration
+            try:
+                time.sleep(duration)
+            except KeyboardInterrupt:
+                print("Recording interrupted by user...")
+            finally:
+                # Stop FFmpeg gracefully
+                print("Stopping recording...")
+                process.send_signal(signal.SIGINT)  # Use SIGINT to stop gracefully
+                try:
+                    process.wait(timeout=10)
+                except subprocess.TimeoutExpired:
+                    process.kill()
+                    print("FFmpeg process killed due to timeout.")
+
+            print(f"Recording finished. File saved as {output_file}")
+
+        except Exception as e:
+            print(f"An error occurred: {e}")
+
+
+    if __name__ == "__main__":
+        record_stream(WEB_URL, STREAM_QUALITY, OUTPUT_FILENAME, RECORD_DURATION)
+
+    # Replace with the actual URL of the YouTube live stream
+    live_url = "https://stripchat.com/Hot_Misti_69"
+    # record_youtube_live(live_url)

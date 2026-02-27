@@ -69,7 +69,7 @@ if 1:#Series -->pd.Series(data,dtype,index)
         print(s3)
         print(s4)
         
-if 1:#DataFrame -->pd.DataFrame(data,index,columns)
+if 0:#DataFrame -->pd.DataFrame(data,index,columns)
     
     if 0:#2-D data
         df=pd.DataFrame() 
@@ -123,8 +123,8 @@ if 1:#DataFrame -->pd.DataFrame(data,index,columns)
                         columns=['c1','c2'])
         print(df)#upcasting will be done based per column
         print(df.dtypes)
-        
-    if 0:#Appending rows #df.append(series/dataframe,ignore_index)
+    # Appending rows #df.append(series/dataframe,ignore_index)
+    if 0:
         df = pd.DataFrame([[1,2],[3,4]])
         # print(df)
         ser = pd.Series([1.0,3],name='r3')
@@ -143,12 +143,12 @@ if 1:#DataFrame -->pd.DataFrame(data,index,columns)
         df_append = df.append(df2,ignore_index=True)
         print(df_append)#ignoring the index and continued with old dataframe
 
-    if 0:
+    if 0:#accessing the rows from dataframe
         df1 = pd.DataFrame([[0,1,2],[3,4,5]])
         print(df1)
         print()
         print(list(df1.iloc[0]))
-    if 0:#Dropping data
+    if 0:#Dropping data. by default, rows will e dropped
         d = {'c1':[1,2],'c2':[3,4],'c3':[5,6]}#key will be column in DataFrame
         df= pd.DataFrame(d,index=['r1','r2'])
         print(df)
@@ -212,8 +212,8 @@ if 1:#DataFrame -->pd.DataFrame(data,index,columns)
         
         df_drop = df_append.drop(index=['r2','r3'])
         print(df_drop)
-
-if 1:#Combining
+#Combining
+if 0:
     if 0:#Concatinate  rows/columns --> pd.concat([df1,df2,df3,.],axis))
         #append is using for concatinating rows only.
         df1 = pd.DataFrame({'c1':[1,2],'c2':[3,4]},index= ['r1','r2'])
@@ -277,8 +277,8 @@ if 1:#Combining
         def merge_df(df1,df2):
             merged_df = pd.merge([df1,df2])
             return merged_df
-        
-if 0:#Indexing
+#Indexing
+if 0:
     if 0:#Direct Indexing #by this, we can retrieve columns only
         d= {'c1':[1,2,3],'c2':[4,5,6],'c3':[7,8,9]}#dict
         df = pd.DataFrame(d,index=['r1','r2','r3'])#dataframe
@@ -877,6 +877,7 @@ if 1:
                     print(type(s.dt))
                     print(s.dt.date)
                     print(s.dt.time)
+
                     print(s.dt.timetz)
                     print(s.dt.dayofyear)
                     print(s.dt.tz)
@@ -957,7 +958,7 @@ if 0:
             print(s1,s2,s3,s4,s6)
 
 # Section 2 - The Pandas Dataframe Object
-if 1:
+if 0:
     area_dict = {'California': 12345, 'Boston': 6745, 'newyork': 9078, 'newtown': 23126}
     Population_dict = {'California': 123543, 'Texas': 87451, 'Boston': 986734, 'Newyork': 907856}
     area = pd.Series(area_dict)
@@ -1629,7 +1630,7 @@ if 0:
     for name,group in df_group:
         print("+++++++++++++")
         print(group)
-if 1:
+if 0:
     df = pd.DataFrame({
         'playerID': ['bettsmo01', 'canoro01', 'cruzne02', 'ortizda01', 'cruzne02'],
         'year': [2016, 2018, 2015, 2016, 2017],
@@ -1638,4 +1639,18 @@ if 1:
         'Runs': [1236, 4236, 2145, 2356, 2344],
         'HR': [31, 39, 43, 38, 39]})
     print(df)
-    
+
+if 0:
+    df=pd.DataFrame({0:[1,2,3],1:[4,5,6],2:[7,8,9]})
+    print(df)
+    print(df[0],type(df[0]))#accessing the column
+    print(df[0:1],type(df[0:1]))#accessing the row
+
+if 0:
+    d= {'c1':[1,2,3],'c2':[4,5,6],'c3':[7,8,9]}#dict
+    df = pd.DataFrame(d,index=['r1','r2','r3'])#dataframe
+    print(df)
+
+    #Retrieving the rows by integer indexing
+    row1 = df[0:1] #excluding end index i.e like lists
+    print(row1)

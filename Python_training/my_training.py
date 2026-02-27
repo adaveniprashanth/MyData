@@ -2685,77 +2685,7 @@ if 0:
 
 
 
-# Sorting algorithms
-# Bubble sort 
-if 0:
-    # Python3 program for Bubble Sort Algorithm Implementation
-    def bubbleSort(arr):
-    	
-        n = len(arr)
-        print(arr)
-    
-    	# For loop to traverse through all
-    	# element in an array
-        for i in range(n):
-            
-            for j in range(0, n - i - 1):
-                	
-    			# Range of the array is from 0 to n-i-1
-    			# Swap the elements if the element found
-                #is greater than the adjacent element
-                if arr[j] > arr[j + 1]:
-                    arr[j], arr[j + 1] = arr[j + 1], arr[j]
-    
-    # Driver code
-    
-    # Example to test the above code
-    arr = [ 26, 21, 2, 1 ]
-    bubbleSort(arr)
 
-# selection sort
-if 0:
-    # Selection Sort algorithm in Python
-    def selectionSort(array):
-    	size = len(array)
-    	for s in range(size):
-    		min_idx = s		
-    		for i in range(s + 1, size):			
-    			# For sorting in descending order
-    			# for minimum element in each loop
-    			if array[i] < array[min_idx]:
-    				min_idx = i
-    
-    		# Arranging min at the correct position
-    		(array[s], array[min_idx]) = (array[min_idx], array[s])
-    
-    # Drfiver code
-    data = [ 7, 2, 1, 6 ]
-    selectionSort(data)    
-    print('Sorted Array in Ascending Order is :')
-    print(data)
-# Insertion sort
-if 0:
-    # Creating a function for insertion sort algorithm
-    def insertion_sort(list1):    
-    		# Outer loop to traverse on len(list1)
-    		for i in range(1, len(list1)):    
-    			a = list1[i]    
-    			# Move elements of list1[0 to i-1],which are greater to one position
-    			# ahead of their current position
-    			j = i - 1
-    		
-    			while j >= 0 and a < list1[j]:
-    				list1[j + 1] = list1[j]
-    				j -= 1
-    				
-    			list1[j + 1] = a
-    			
-    		return list1
-    			
-    # Driver code
-    list1 = [ 7, 2, 1, 6 ]
-    print("The unsorted list is:", list1)
-    print("The sorted new list is:", insertion_sort(list1))
 # Binary search Tree
 
 if 0:
@@ -3174,7 +3104,7 @@ if 0:
     
     	# We pass used defined function last
     	# as a parameter.
-    	return sorted(tuples, key = last)
+    	return sorted(tuples, key=last)
     
     # driver code
     a = ((23, 45, 20), (25, 44, 39), (89, 40, 23))
@@ -4581,9 +4511,7 @@ if 0:
 
 if 0:
     def factorial(n):
-        if  n==0:
-            return 1
-        elif n==1:
+        if n==0 or n==1:
             return 1
         else:
             return n*factorial(n-1)
@@ -4650,3 +4578,180 @@ if 0:
 
     result = add_numbers(num1, num2)
     print(f"The result of {num1} + {num2} is: {result}")
+
+# Sorting algorithms
+# Bubble sort
+if 0:
+    # Python3 program for Bubble Sort Algorithm Implementation
+    def bubbleSort(arr):
+
+        n = len(arr)
+        print(arr)
+
+        # For loop to traverse through all
+        # element in an array
+        for i in range(n):
+
+            for j in range(0, n - i - 1):
+
+                # Range of the array is from 0 to n-i-1
+                # Swap the elements if the element found
+                # is greater than the adjacent element
+                if arr[j] > arr[j + 1]:
+                    arr[j], arr[j + 1] = arr[j + 1], arr[j]
+
+
+    # Driver code
+
+    # Example to test the above code
+    arr = [26, 21, 2, 1]
+    bubbleSort(arr)
+
+# selection sort
+if 0:
+    # Selection Sort algorithm in Python
+    def selectionSort(array):
+        size = len(array)
+        for s in range(size):
+            min_idx = s
+            for i in range(s + 1, size):
+                # For sorting in descending order
+                # for minimum element in each loop
+                if array[i] < array[min_idx]:
+                    min_idx = i
+
+            # Arranging min at the correct position
+            (array[s], array[min_idx]) = (array[min_idx], array[s])
+
+
+    # Drfiver code
+    data = [7, 2, 1, 6]
+    selectionSort(data)
+    print('Sorted Array in Ascending Order is :')
+    print(data)
+# Insertion sort
+if 0:
+    # Creating a function for insertion sort algorithm
+    def insertion_sort(list1):
+        # Outer loop to traverse on len(list1)
+        for i in range(1, len(list1)):
+            a = list1[i]
+            # Move elements of list1[0 to i-1],which are greater to one position
+            # ahead of their current position
+            j = i - 1
+
+            while j >= 0 and a < list1[j]:
+                list1[j + 1] = list1[j]
+                j -= 1
+
+            list1[j + 1] = a
+
+        return list1
+
+
+    # Driver code
+    list1 = [7, 2, 1, 6]
+    print("The unsorted list is:", list1)
+    print("The sorted new list is:", insertion_sort(list1))
+
+# Quick sort
+if 0:
+    def quicksort(arr):
+        if len(arr) <= 1:
+            return arr
+        else:
+            pivot = arr[0]
+            less = [x for x in arr[1:] if x <= pivot]
+            greater = [x for x in arr[1:] if x > pivot]
+            return quicksort(less) + [pivot] + quicksort(greater)
+
+    # Example usage:
+    my_list = [3, 6, 8, 10, 1, 2, 1]
+    sorted_list = quicksort(my_list)
+    print(sorted_list)
+
+# Quick sort
+if 1:
+    def partition(array, low, high):
+        # choose the rightmost element as pivot
+        pivot = array[high]
+        # pointer for greater element
+        i = low - 1
+        # traverse through all elements
+        # compare each element with pivot
+        for j in range(low, high):
+            if array[j] <= pivot:
+                # if element smaller than pivot is found
+                # swap it with the greater element pointed by i
+                i = i + 1
+
+                # swapping element at i with element at j
+                (array[i], array[j]) = (array[j], array[i])
+
+        # swap the pivot element with the greater element specified by i
+        (array[i + 1], array[high]) = (array[high], array[i + 1])
+        # return the position from where partition is done
+        return i + 1
+    def quickSort(array, low, high):
+        if low < high:
+            # find pivot element such that
+            # element smaller than pivot are on the left
+            # element greater than pivot are on the right
+            pi = partition(array, low, high)
+
+            # recursive call on the left of pivot
+            quickSort(array, low, pi - 1)
+
+            # recursive call on the right of pivot
+            quickSort(array, pi + 1, high)
+
+
+    data = [8, 7, 2, 1, 0, 9, 6]
+    print("Unsorted Array")
+    print(data)
+
+    size = len(data)
+
+    quickSort(data, 0, size - 1)
+
+    print('Sorted Array in Ascending Order:')
+    print(data)
+# Merge sort
+if 1:
+    def merge_sort(arr):
+        if len(arr) > 1:
+            mid = len(arr) // 2
+            left_half = arr[:mid]
+            right_half = arr[mid:]
+
+            merge_sort(left_half)
+            merge_sort(right_half)
+
+            i = j = k = 0
+
+            while i < len(left_half) and j < len(right_half):
+                if left_half[i] < right_half[j]:
+                    arr[k] = left_half[i]
+                    i += 1
+                else:
+                    arr[k] = right_half[j]
+                    j += 1
+                k += 1
+
+            while i < len(left_half):
+                arr[k] = left_half[i]
+                i += 1
+                k += 1
+
+            while j < len(right_half):
+                arr[k] = right_half[j]
+                j += 1
+                k += 1
+
+
+    # Example usage:
+    my_list = [3, 6, 8, 10, 1, 2, 1]
+    merge_sort(my_list)
+    print(my_list)
+
+
