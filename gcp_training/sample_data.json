@@ -1,0 +1,29 @@
+[
+	{
+		"mode":"NULLABLE",
+		"name":"SHIPMODE",
+		"type":"STRING"
+
+	},
+	{
+		"mode":"NULLABLE",
+		"name":"PROFIT",
+		"type":"STRING"
+
+	},
+	{
+		"mode":"NULLABLE",
+		"name":"UNIT_PRICE",
+		"type":"FLOAT"
+	},
+	{
+		"mode":"NULLABLE",
+		"name":"SHIPPING_COST",
+		"type":"STRING"
+	},
+	{
+		"mode":"NULLABLE",
+		"name":"CUSTOMER_NAME",
+		"type":"STRING"
+	}
+]
