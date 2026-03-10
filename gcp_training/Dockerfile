@@ -1,0 +1,24 @@
+# which python image to use
+FROM python:3.11
+
+# set the working directory to /app
+WORKDIR /app
+
+# upgrade the pip to latest version
+RUN pip install --no-cache-dir --upgrade pip
+
+# copy the requirements file for dependents
+COPY requirements.txt .
+
+# install the requirements from requiremenst file using pip
+RUN pip install --trusted-host pypi.python.org -r requirements.txt
+
+# install the specified packages with special version
+RUN pip3 install "xlrd==1.1.0" -t "old_xlrd"
+
+# copy the rest of the working directory content into the container of /app
+COPY . .
+
+# run main.py when container launches
+ENTRYPOINT ["python" "main.py"]
+

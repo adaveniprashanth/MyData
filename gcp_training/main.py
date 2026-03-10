@@ -1,9 +1,9 @@
-import pandas as pd
+import os
 from utils.run import run
-import logging
-from google.cloud import storage
-import uuid
+from flask import Flask,request
 
+app=Flask(__name__)
+@app.route('/',methods=['GET','POST'])
 def main():
     print('flow is started')
     envelope={'project':'develop-488306',
@@ -13,8 +13,13 @@ def main():
               'secret-name':'secret_manager_value'}
     run(envelope)
 
+@app.route('/home')
+def home():
+    return {'message':'this is the home function'},200
+
 if __name__ == '__main__':
-    PROJECT_SETTINGS= {
-        'test-bucktet': 'us-test-bucket1'
-    }
-    main()
+    server_port=os.environ.get('PORT','8080')
+    # PROJECT_SETTINGS= {
+    #     'test-bucktet': 'us-test-bucket1'
+    # }
+    app.run(debug=False,port=server_port,host='0.0.0.0')

@@ -1,0 +1,45 @@
+substitutions:
+  _APPLY_CHANGES : 'false'
+  _ENV: 'undefined'
+steps:
+- id: 'context'
+  name: 'alpine'
+  entrypoint: 'sh'
+  args:
+      -  '-c'
+      - |
+         echo "***********"
+         echo "project : $PROJECT_ID"
+         echo "branch  : $BRANCH_NAME"
+         echo "env     : ${_ENV}"
+         echo "mode    : $([[ ${_APPLY_CHANGES} = 'true' ]] && echo 'LIVE'  || echo 'DRY RUN')"
+         echo "***********"
+
+#Build the container image
+- id: 'build image'
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/gcp_training', '.']
+
+#Push the image to container registry'
+- id: 'Push the image to gcr'
+  name: 'gcr.io/cloud-builders/docker'
+  args: [ 'push', 'gcr.io/$PROJECT_ID/gcp_training']
+
+#Deploy the image to cloud run
+- id: 'Deploy image'
+  name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: ['run', 'deploy', 'gcp_training', '--image', 'gcr.io/$PROJECT_ID/gcp_training', '--region','europe-west1']
+
+#Change the traffic to cloud run latest version
+- id: 'Chnage traffic to latest'
+  name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: ['run', 'services', 'update-traffic', 'gcp_training', '--to-latest', '--region','europe-west1']
+
+images:
+  - gcr.io/$PROJECT_ID/gcp_training
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
