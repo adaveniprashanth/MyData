@@ -16,26 +16,27 @@ steps:
          echo "***********"
 
 #Build the container image
+#underscores _ are not allowed in Cloud Run service names
 - id: 'build image'
   name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/gcp_training', '-f','gcp_training/Dockerfile','.']
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/gcp-training', '-f','gcp_training/Dockerfile','.']
 
 #Push the image to container registry'
 - id: 'Push the image to gcr'
   name: 'gcr.io/cloud-builders/docker'
-  args: [ 'push', 'gcr.io/$PROJECT_ID/gcp_training']
+  args: [ 'push', 'gcr.io/$PROJECT_ID/gcp-training']
 
 #Deploy the image to cloud run
 - id: 'Deploy image'
   name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
-  args: ['run', 'deploy', 'gcp_training', '--image', 'gcr.io/$PROJECT_ID/gcp_training', '--region','europe-west1']
+  args: ['run', 'deploy', 'gcp-training', '--image', 'gcr.io/$PROJECT_ID/gcp-training', '--region','europe-west1']
 
 #Change the traffic to cloud run latest version
 - id: 'Chnage traffic to latest'
   name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
-  args: ['run', 'services', 'update-traffic', 'gcp_training', '--to-latest', '--region','europe-west1']
+  args: ['run', 'services', 'update-traffic', 'gcp-training', '--to-latest', '--region','europe-west1']
 
 images:
   - gcr.io/$PROJECT_ID/gcp_training
