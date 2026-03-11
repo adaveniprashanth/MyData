@@ -18,7 +18,7 @@ steps:
 #Build the container image
 - id: 'build image'
   name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/gcp_training', '.']
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/gcp_training', '-f','gcp_training/Dockerfile','app']
 
 #Push the image to container registry'
 - id: 'Push the image to gcr'
