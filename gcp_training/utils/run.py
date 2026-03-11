@@ -12,9 +12,9 @@ def run(envelope):
         # move_file(input_bucket,output_bucket,filename)
         # read_file(input_bucket,filename)
 
-        # status=load_file_to_table(filename,stage_bucket,input_bucket)
+        status=load_file_to_table(filename,stage_bucket,input_bucket)
 
-        status=get_secret_value(project,secret_name)
+        # status=get_secret_value(project,secret_name)
     except Exception as e:
         print(e)
 
