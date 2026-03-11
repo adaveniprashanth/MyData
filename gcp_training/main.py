@@ -13,12 +13,14 @@ def main():
               'secret-name':'secret_manager_value'}
     run(envelope)
 
+    return {"message": "flow executed"}, 200
+
 @app.route('/home')
 def home():
     return {'message':'this is the home function'},200
 
 if __name__ == '__main__':
-    server_port=os.environ.get('PORT','8080')
+    server_port=os.environ.get('PORT',8080)
     # PROJECT_SETTINGS= {
     #     'test-bucktet': 'us-test-bucket1'
     # }
