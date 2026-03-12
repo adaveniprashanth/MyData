@@ -8,7 +8,7 @@ WORKDIR /app
 RUN pip install --no-cache-dir --upgrade pip
 
 # copy the requirements file for dependents
-COPY gcp_training/requirements.txt .
+COPY requirements.txt .
 
 # install the requirements from requiremenst file using pip
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
@@ -19,6 +19,10 @@ RUN pip3 install "xlrd==1.1.0" -t "old_xlrd"
 # copy the rest of the working directory content into the container of /app
 COPY . .
 
+# Cloud Run requires port 8080
+ENV PORT=8080
+EXPOSE 8080
+
 # run main.py when container launches
-ENTRYPOINT ["python" "main.py"]
+ENTRYPOINT ["python", "main.py"]
 
