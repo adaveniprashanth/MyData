@@ -2,14 +2,14 @@
 FROM python:3.11
 
 # set the working directory to /app
-WORKDIR /gcp-training
+WORKDIR /app
 
 # upgrade the pip to latest version
 RUN pip install --no-cache-dir --upgrade pip
 
 # copy the requirements file for dependents
 
-COPY gcp_training/requirements.txt .
+COPY .requirements.txt .
 
 # install the requirements from requiremenst file using pip
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
