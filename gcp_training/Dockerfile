@@ -8,7 +8,8 @@ WORKDIR /gcp-training
 RUN pip install --no-cache-dir --upgrade pip
 
 # copy the requirements file for dependents
-COPY gcp_traininig/requirements.txt .
+
+COPY gcp_training/requirements.txt .
 
 # install the requirements from requiremenst file using pip
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
