@@ -21,8 +21,8 @@ RUN pip3 install "xlrd==1.1.0" -t "old_xlrd"
 COPY . .
 
 # Cloud Run requires port 8080
-ENV PORT=8080
-EXPOSE 8080
+#ENV PORT=8080
+#EXPOSE 8080
 
 # run main.py when container launches
 ENTRYPOINT ["python", "gcp_training/main.py"]
