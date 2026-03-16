@@ -39,7 +39,7 @@ steps:
   args: ['run', 'services', 'update-traffic', 'gcp-training', '--to-latest', '--region','europe-west1']
 
 images:
-  - gcr.io/$PROJECT_ID/gcp_training
+  - gcr.io/$PROJECT_ID/gcp-training
 
 options:
   logging: CLOUD_LOGGING_ONLY
