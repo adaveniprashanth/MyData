@@ -27,11 +27,11 @@ steps:
   args: [ 'push', 'gcr.io/$PROJECT_ID/gcp-training']
 
 #Deploy the image to cloud run
-#- id: 'Deploy image'
-#  name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-#  entrypoint: gcloud
-#  args: ['run', 'deploy', 'gcp-training', '--image', 'gcr.io/$PROJECT_ID/gcp-training', '--region','europe-west1']
-#
+- id: 'Deploy image'
+  name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: ['run', 'deploy', 'gcp-training', '--image', 'gcr.io/$PROJECT_ID/gcp-training', '--region','europe-west1']
+
 ##Change the traffic to cloud run latest version
 #- id: 'Chnage traffic to latest'
 #  name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
