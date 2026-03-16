@@ -25,5 +25,5 @@ COPY . .
 #EXPOSE 8080
 
 # run main.py when container launches
-ENTRYPOINT ["python", "gcp_training/main.py"]
+CMD ["python", "gcp_training/main.py"]
 
