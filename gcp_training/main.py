@@ -1,9 +1,9 @@
 import os
 from utils.run import run
-from flask import Flask,request
+# from flask import Flask,request
 
-app=Flask(__name__)
-@app.route('/',methods=['GET','POST'])
+# app = Flask(__name__)
+# @app.route('/',methods=['GET','POST'])
 def main():
     print('flow is started')
     envelope={'project':'develop-488306',
@@ -13,15 +13,17 @@ def main():
               'secret-name':'secret_manager_value'}
     run(envelope)
 
-    return {"message": "flow executed"}, 200
+    print('flow is completed')
+    # return {"message": "flow executed"}, 200
 
-@app.route('/home')
+# @app.route('/home')
 def home():
     return {'message':'this is the home function'},200
 
 if __name__ == '__main__':
-    server_port=int(os.environ.get('PORT',8080))
+    # server_port=int(os.environ.get('PORT',8080))
     # PROJECT_SETTINGS= {
     #     'test-bucktet': 'us-test-bucket1'
     # }
-    app.run(debug=False,port=server_port,host='0.0.0.0')
+    # app.run(debug=False,port=server_port,host='0.0.0.0')
+    main()

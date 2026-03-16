@@ -1,10 +1,16 @@
 import json
 
 from google.cloud import storage,bigquery,secretmanager
+from google.oauth2 import service_account
 from io import BytesIO
 import pandas as pd
 import logging
 
+
+# credentials = service_account.Credentials.from_service_account_file(
+# r"C:\Users\Windows 10\Downloads\service_account_dredentials.json")
+
+# storage_client=storage.Client(credentials=credentials, project="develop-488306")
 storage_client=storage.Client()
 bq_client=bigquery.Client()
 def move_file(input_bucket,output_bucket,blob_name):
@@ -65,6 +71,7 @@ def load_file_to_table(file_name,stage_bucket,input_bucket):
 
         table=bq_client.get_table(table_id)
         logging.info(f"loaded {str(load_job.output_rows)} rows to {table_id}.")
+        print((f"loaded {str(load_job.output_rows)} rows to {table_id}."))
         return "success"
 
     except Exception as e:

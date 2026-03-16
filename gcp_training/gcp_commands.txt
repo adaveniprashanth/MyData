@@ -1,2 +1,6 @@
 --> To avoid credentials issue in python code in google cloud sdk run below commands
 gcloud auth application-default login
+
+
+docker build -t gcp-training .
+docker run -p 8080:8080 -v "C:\Users\Windows 10\Desktop\MyData\gcp_training\service_account_credentials.json:/app/service_account_credentials.json" -e GOOGLE_APPLICATION_CREDENTIALS=/app/service_account_credentials.json gcp-training
