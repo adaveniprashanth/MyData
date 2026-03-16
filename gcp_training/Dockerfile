@@ -25,5 +25,5 @@ ENV PORT=8080
 EXPOSE 8080
 
 # run main.py when container launches
-ENTRYPOINT ["python", "gcp_training/main.py"]
+ENTRYPOINT ["python", "gcp-training/main.py"]
 
