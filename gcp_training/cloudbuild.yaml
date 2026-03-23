@@ -1,53 +1,55 @@
 substitutions:
-  _JOB_NAME: gcp-training
-  _REGION: europe-west1
-
+  _APPLY_CHANGES : 'false'
+  _ENV: 'undefined'
 steps:
-# 1️⃣ Build image
-- id: 'Build image'
-  name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/gcp-training', '-f','gcp_training/Dockerfile','.']
-
-# 2️⃣ Push image
-- id: 'Push image'
-  name: 'gcr.io/cloud-builders/docker'
+- id: 'context'
+  name: 'alpine'
+  entrypoint: 'sh'
   args:
-    - 'push'
-    - 'gcr.io/$PROJECT_ID/${_JOB_NAME}'
+      -  '-c'
+      - |
+         echo "***********"
+         echo "project : $PROJECT_ID"
+         echo "branch  : $BRANCH_NAME"
+         echo "env     : fixed"
+         echo "mode    : true && echo 'LIVE'  || echo 'DRY RUN')"
+         echo "***********"
 
-# 3️⃣ Create OR update job
-- id: 'Deploy Job'
-  name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: bash
-  args:
-    - '-c'
-    - |
-      if gcloud run jobs describe ${_JOB_NAME} --region ${_REGION} >/dev/null 2>&1; then
-        echo "Job exists. Updating..."
-        gcloud run jobs update ${_JOB_NAME} \
-          --image gcr.io/$PROJECT_ID/${_JOB_NAME} \
-          --region ${_REGION}
-      else
-        echo "Job does not exist. Creating..."
-        gcloud run jobs create ${_JOB_NAME} \
-          --image gcr.io/$PROJECT_ID/${_JOB_NAME} \
-          --region ${_REGION}
-      fi
+#Build the container image
+#underscores _ are not allowed in Cloud Run service names
+- id: 'build image'
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/gcp-training:$COMMIT_SHA', '-f','gcp_training/Dockerfile','.']
 
-# 4️⃣ (Optional) Execute job immediately
-- id: 'Run Job'
+#Push the image to container registry'
+- id: 'Push the image to gcr'
+  name: 'gcr.io/cloud-builders/docker'
+  args: [ 'push', 'gcr.io/$PROJECT_ID/gcp-training:$COMMIT_SHA']
+
+##update cloud run JOB
+#- id: 'Update image'
+#  name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#  entrypoint: gcloud
+#  args: ['run', 'jobs','update' , 'gcp-training', '--image', 'gcr.io/$PROJECT_ID/gcp-training', '--region','europe-west1']
+
+
+
+# the below line is used for deploying the changes to cloud run SERVICE
+#Deploy the image to cloud run
+- id: 'Deploy image'
   name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
-  args:
-    - 'run'
-    - 'jobs'
-    - 'execute'
-    - '${_JOB_NAME}'
-    - '--region'
-    - '${_REGION}'
+  args: ['run', 'deploy', 'gcp-training', '--image', 'gcr.io/$PROJECT_ID/gcp-training:$COMMIT_SHA', '--region','europe-west1']
+
+##Change the traffic to cloud run latest version
+#- id: 'Chnage traffic to latest'
+#  name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#  entrypoint: gcloud
+#  args: ['run', 'services', 'update-traffic', 'gcp-training', '--to-latest', '--region','europe-west1']
 
 images:
-  - gcr.io/$PROJECT_ID/${_JOB_NAME}
+  - gcr.io/$PROJECT_ID/gcp-training:$COMMIT_SHA
 
 options:
   logging: CLOUD_LOGGING_ONLY
+

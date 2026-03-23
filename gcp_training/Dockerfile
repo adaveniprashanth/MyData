@@ -1,5 +1,5 @@
 # which python image to use
-FROM python:3.11
+FROM python:3.11-slim
 
 # set the working directory to /app
 WORKDIR /app
@@ -25,5 +25,5 @@ COPY . .
 #EXPOSE 8080
 
 # run main.py when container launches
-CMD ["python", "gcp_training/main.py"]
-
+# CMD ["python", "gcp_training/main.py"]
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 main:app
