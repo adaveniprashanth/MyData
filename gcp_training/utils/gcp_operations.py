@@ -68,6 +68,7 @@ def load_file_to_table(file_name,stage_bucket,input_bucket):
         load_job.result()
 
         source_bucket.delete_blob(csv_file_name)
+        source_bucket.delete_blob(file_name)
 
         table=bq_client.get_table(table_id)
         logging.info(f"loaded {str(load_job.output_rows)} rows to {table_id}.")
