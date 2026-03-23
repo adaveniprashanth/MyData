@@ -6,11 +6,7 @@ steps:
 # 1️⃣ Build image
 - id: 'Build image'
   name: 'gcr.io/cloud-builders/docker'
-  args:
-    - 'build'
-    - '-t'
-    - 'gcr.io/$PROJECT_ID/${_JOB_NAME}'
-    - '.'
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/gcp-training', '-f','gcp_training/Dockerfile','.']
 
 # 2️⃣ Push image
 - id: 'Push image'
