@@ -11,8 +11,8 @@ steps:
          echo "***********"
          echo "project : $PROJECT_ID"
          echo "branch  : $BRANCH_NAME"
-         echo "env     : ${_ENV}"
-         echo "mode    : $([[ ${_APPLY_CHANGES} = 'true' ]] && echo 'LIVE'  || echo 'DRY RUN')"
+         echo "env     : fixed"
+         echo "mode    : true && echo 'LIVE'  || echo 'DRY RUN')"
          echo "***********"
 
 #Build the container image
